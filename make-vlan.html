@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1894839135"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「思科模拟器」构建虚拟局域网（VLAN）</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-02T17:40:34+00:00" data-reactid="13">Jun 2, 2016 5:40 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="前言" data-reactid="16"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->前言<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">思科模拟器是一款强大的模拟网络环境的软件，但是容量却不大，安装器只有70M左右，这篇文章将为你介绍利用思科模拟器构建VLAN网络。</p><!-- react-text: 22 -->
+<!-- /react-text --><!-- react-text: 23 -->
+<!-- /react-text --><h1 id="正文" data-reactid="24"><a href="#%E6%AD%A3%E6%96%87" aria-hidden="true" data-reactid="25"><span class="icon icon-link" data-reactid="26"></span></a><!-- react-text: 27 -->正文<!-- /react-text --></h1><!-- react-text: 28 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FsF1gp7vbtW7SW5-JZIRGB81dKyD?imageslim" alt="ClipboardImage" width="661" height="401" data-reactid="29"/><!-- react-text: 30 -->
+如图，操作鼠标搭建如图简单的网络，用到了交换机（端口1-4）-直通线-普通终端。
+点击终端图标，进入终端配置界面，点击`Desktop`标签，点击`IP Configuration`，如下图，静态设置IP地址。
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmNY-emWrMeUVUUfJXSe9-VYLT5y?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="31"/><!-- react-text: 32 -->
+配置完成后，你还可以进入终端的命令行界面`(Command Prompt)`，进行`ping`命令的测试，如下图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FhjrvRjEl-MdAAEfa0GP_xDVjv9w?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="33"/><!-- react-text: 34 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtXX7clqbOS62BDMMsQLRtnrZ236?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="35"/><!-- react-text: 36 -->
+然后，就是对于交换机进行配置了，建立不同的虚拟局域网。点击交换机图片，进入命令行界面，输入如下指令：
+```
+Switch(config)#vlan 1  #建立Vlan1，默认已经存在
+Switch(config-vlan)#exit
+Switch(config)#vlan 2  #建立Vlan2
+Switch(config-vlan)#exit
+Switch(config)#interface f0/1  #对1端口进行配置 
+Switch(config-if)#switchport access vlan 1  #将1端口加入vlan1，默认已经存在
+Switch(config-if)#interface f0/2
+Switch(config-if)#switchport access vlan 1
+Switch(config-if)#interface f0/3
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#interface f0/4
+Switch(config-if)#switchport access vlan 2
+```
+操作界面如下图所示：
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FilWHzc67CSAsMGe7sVhEaVaOtAD?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="37"/><!-- react-text: 38 -->
+或者你可以利用图形界面进行操作
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fmdpx-owqvC7VGQVMLmD3YnSxFCD?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="39"/><!-- react-text: 40 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FndZ6bHcsFfIw7MbqVfN7eB1YW26?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="41"/><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43"><!-- react-text: 44 -->完成如上步骤后，你就完成了<!-- /react-text --><code data-reactid="45">vlan</code><!-- react-text: 46 -->的构建，下面进行测试。
+进入<!-- /react-text --><code data-reactid="47">ip：192.168.100.11</code><!-- react-text: 48 -->的终端命令行，进行<!-- /react-text --><code data-reactid="49">ping</code><!-- react-text: 50 -->指令测试。
+如下图，同属于vlan1的<!-- /react-text --><code data-reactid="51">192.168.100.12</code><!-- react-text: 52 -->能够ping通，但是valn2中的<!-- /react-text --><code data-reactid="53">192.168.200.12</code><!-- react-text: 54 -->不能够，所以测试正确。
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FpZdc9IqufJCH-s6eAK5Dr9GN4Ln?imageslim" alt="ClipboardImage" width="653" height="576" data-reactid="55"/></p><!-- react-text: 56 -->
+<!-- /react-text --><h1 id="总结" data-reactid="57"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="58"><span class="icon icon-link" data-reactid="59"></span></a><!-- react-text: 60 -->总结<!-- /react-text --></h1><!-- react-text: 61 -->
+<!-- /react-text --><p data-reactid="62">初步见识到了思科模拟器的威力，之后还会带来更多的文章教学。</p><!-- react-text: 63 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="64"></div><div class="paginator" data-reactid="65"><a title="「图像处理」图像的直方图均衡化" class="prev" href="/img-normalize" data-reactid="66">Prev</a><a title="「node网络编程」SMTP客户端程序" class="next" href="/node-smtp" data-reactid="67">Next</a></div></div></main><footer data-reactid="68"><div class="copyright" data-reactid="69"><p data-reactid="70"><!-- react-text: 71 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="72">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

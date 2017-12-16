@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1103575901"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「图像处理」图像的复原</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-03T15:58:25+00:00" data-reactid="13">Jun 3, 2016 3:58 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="介绍" data-reactid="16"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->介绍<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->图像在形成、记录、处理和传输过程中，由于成像系统、记录设备、传输介质和处理方法的问题，导致图像质量下降，这种现象叫图像退化。
+而图像复原就是对退化的图像进行处理，尽可能的复原图像的<!-- /react-text --><strong data-reactid="23">本来面目</strong><!-- react-text: 24 -->。<!-- /react-text --></p><!-- react-text: 25 -->
+<!-- /react-text --><!-- react-text: 26 -->
+<!-- /react-text --><p data-reactid="27"><!-- react-text: 28 -->如图，先对图片进行模糊处理
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkLD1OdGi0WKdv26sK4ubCj3ov6B?imageslim" alt="ClipboardImage" width="530" height="330" data-reactid="29"/><!-- react-text: 30 -->
+然后对图片进行还原
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FqQpRZv_Tzx54uHAREg7O9UPY8r3?imageslim" alt="ClipboardImage" width="530" height="330" data-reactid="31"/></p><!-- react-text: 32 -->
+<!-- /react-text --><h1 id="代码解释" data-reactid="33"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="34"><span class="icon icon-link" data-reactid="35"></span></a><!-- react-text: 36 -->代码解释<!-- /react-text --></h1><!-- react-text: 37 -->
+<!-- /react-text --><pre data-reactid="38"><code class="hljs language-java" data-query="{}" data-lang="java" data-reactid="39"><!-- react-text: 40 -->    <!-- /react-text --><span class="hljs-comment" data-reactid="41">//图像恢复</span><!-- react-text: 42 -->
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="43">public</span><!-- react-text: 44 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="45">int</span><!-- react-text: 46 -->[] imRestore(<!-- /react-text --><span class="hljs-keyword" data-reactid="47">int</span><!-- react-text: 48 -->[] pixels, <!-- /react-text --><span class="hljs-keyword" data-reactid="49">int</span><!-- react-text: 50 --> iw, <!-- /react-text --><span class="hljs-keyword" data-reactid="51">int</span><!-- react-text: 52 --> ih)
+	{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="53">double</span><!-- react-text: 54 -->[] newPixels = <!-- /react-text --><span class="hljs-keyword" data-reactid="55">new</span><!-- react-text: 56 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="57">double</span><!-- react-text: 58 --> [iw*ih];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="59">double</span><!-- react-text: 60 -->[] newKernel = <!-- /react-text --><span class="hljs-keyword" data-reactid="61">new</span><!-- react-text: 62 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="63">double</span><!-- react-text: 64 --> [iw*ih];
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="65">//初始化</span><!-- react-text: 66 -->
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="67">for</span><!-- react-text: 68 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="69">int</span><!-- react-text: 70 --> j = <!-- /react-text --><span class="hljs-number" data-reactid="71">0</span><!-- react-text: 72 -->; j &lt; ih; j++)
+		{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="73">for</span><!-- react-text: 74 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="75">int</span><!-- react-text: 76 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="77">0</span><!-- react-text: 78 -->; i &lt; iw; i++)
+			{
+				newPixels[i+j*iw] = pixels[i+j*iw]&amp;<!-- /react-text --><span class="hljs-number" data-reactid="79">0xff</span><!-- react-text: 80 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="81">if</span><!-- react-text: 82 -->((i&lt;<!-- /react-text --><span class="hljs-number" data-reactid="83">5</span><!-- react-text: 84 -->) &amp;&amp; (j&lt;<!-- /react-text --><span class="hljs-number" data-reactid="85">5</span><!-- react-text: 86 -->))
+					newKernel[i+j*iw] = <!-- /react-text --><span class="hljs-number" data-reactid="87">1.0</span><!-- react-text: 88 -->/<!-- /react-text --><span class="hljs-number" data-reactid="89">25</span><!-- react-text: 90 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="91">else</span><!-- react-text: 92 -->
+					newKernel[i+j*iw] = <!-- /react-text --><span class="hljs-number" data-reactid="93">0</span><!-- react-text: 94 -->;
+			}
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="95">//初始化</span><!-- react-text: 96 -->
+		Complex[] complex   = <!-- /react-text --><span class="hljs-keyword" data-reactid="97">new</span><!-- react-text: 98 --> Complex[iw*ih];
+		Complex[] comKernel = <!-- /react-text --><span class="hljs-keyword" data-reactid="99">new</span><!-- react-text: 100 --> Complex[iw*ih];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="101">for</span><!-- react-text: 102 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="103">int</span><!-- react-text: 104 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="105">0</span><!-- react-text: 106 -->;i &lt; iw*ih; i++)
+		{
+			complex[i]   = <!-- /react-text --><span class="hljs-keyword" data-reactid="107">new</span><!-- react-text: 108 --> Complex(<!-- /react-text --><span class="hljs-number" data-reactid="109">0</span><!-- react-text: 110 -->,<!-- /react-text --><span class="hljs-number" data-reactid="111">0</span><!-- react-text: 112 -->);
+			comKernel[i] = <!-- /react-text --><span class="hljs-keyword" data-reactid="113">new</span><!-- react-text: 114 --> Complex(<!-- /react-text --><span class="hljs-number" data-reactid="115">0</span><!-- react-text: 116 -->,<!-- /react-text --><span class="hljs-number" data-reactid="117">0</span><!-- react-text: 118 -->);
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="119">//对原图像进行FFT (快速傅氏变换)</span><!-- react-text: 120 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="121">new</span><!-- react-text: 122 --> FFT2();
+		fft2.setData2(iw, ih, newPixels);
+		complex = fft2.getFFT2();
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="123">//对卷积核进行FFT</span><!-- react-text: 124 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="125">new</span><!-- react-text: 126 --> FFT2();
+		fft2.setData2(iw, ih, newKernel);
+		comKernel = fft2.getFFT2();
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="127">//逆滤波复原</span><!-- react-text: 128 -->
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="129">for</span><!-- react-text: 130 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="131">int</span><!-- react-text: 132 --> j = <!-- /react-text --><span class="hljs-number" data-reactid="133">0</span><!-- react-text: 134 -->;j &lt; ih; j++)
+		{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="135">for</span><!-- react-text: 136 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="137">int</span><!-- react-text: 138 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="139">0</span><!-- react-text: 140 -->; i &lt; iw; i++)
+			{
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="141">double</span><!-- react-text: 142 --> re = complex[i+j*iw].re;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="143">double</span><!-- react-text: 144 --> im = complex[i+j*iw].im;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="145">double</span><!-- react-text: 146 --> reKernel = comKernel[i+j*iw].re;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="147">double</span><!-- react-text: 148 --> imKernel = comKernel[i+j*iw].im;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="149">double</span><!-- react-text: 150 --> x = reKernel*reKernel+imKernel*imKernel;
+
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="151">if</span><!-- react-text: 152 -->(x &gt; <!-- /react-text --><span class="hljs-number" data-reactid="153">1e-3</span><!-- react-text: 154 -->)
+				{
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="155">double</span><!-- react-text: 156 --> r = (re*reKernel+im*imKernel)/x;
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="157">double</span><!-- react-text: 158 --> m = (im*reKernel-re*imKernel)/x;
+					complex[i+j*iw].re = r;
+					complex[i+j*iw].im = m;
+				}
+			}
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="159">//进行FFT反变换</span><!-- react-text: 160 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="161">new</span><!-- react-text: 162 --> FFT2();
+		fft2.setData2i(iw, ih, complex);
+		pixels = fft2.getPixels2i();
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="163">return</span><!-- react-text: 164 --> pixels;
+	}<!-- /react-text --></code></pre><!-- react-text: 165 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="166"></div><div class="paginator" data-reactid="167"><a title="「项目拾遗」简单图形处理及图形绘制" class="prev" href="/simple-imgprocessing" data-reactid="168">Prev</a><a title="「图像处理」图像的直方图均衡化" class="next" href="/img-normalize" data-reactid="169">Next</a></div></div></main><footer data-reactid="170"><div class="copyright" data-reactid="171"><p data-reactid="172"><!-- react-text: 173 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="174">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

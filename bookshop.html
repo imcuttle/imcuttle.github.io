@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-190478625"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">图书销售系统（书窝）</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-20T18:04:41+00:00" data-reactid="13">Jun 20, 2016 6:04 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="图书销售系统--书窝" data-reactid="16"><a href="#%E5%9B%BE%E4%B9%A6%E9%94%80%E5%94%AE%E7%B3%BB%E7%BB%9F--%E4%B9%A6%E7%AA%9D" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->图书销售系统 —— 书窝<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><a href="http://bookshop.moyuyc.xyz" data-reactid="22"><strong data-reactid="23">书窝线上地址</strong></a><!-- react-text: 24 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/book-shopping" data-reactid="25"><strong data-reactid="26">GitHub地址</strong></a><!-- react-text: 27 -->
+由于时间有限，事务较重，系统实现只好从简。<!-- /react-text --></p><!-- react-text: 28 -->
+<!-- /react-text --><hr data-reactid="29"/><!-- react-text: 30 -->
+<!-- /react-text --><h2 id="需求分析" data-reactid="31"><a href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->需求分析<!-- /react-text --></h2><!-- react-text: 35 -->
+<!-- /react-text --><blockquote data-reactid="36"><!-- react-text: 37 -->
+<!-- /react-text --><p data-reactid="38">需交课程设计报告和软件（源代码）。课程设计报告将存档。报告内容包括：需求分析、算法思想描述、数据流图、E-R图、数据字典、程序结构、收获与体会等。
+功能要求：实现一个基于web的网上图书的销售管理系统，能提供多种条件的查询，还应具有会员管理、意见反馈、销售分析等功能。将留言板、图表分析、文件上传等思想纳入其中。</p><!-- react-text: 39 -->
+<!-- /react-text --></blockquote><!-- react-text: 40 -->
+<!-- /react-text --><!-- react-text: 41 -->
+<!-- /react-text --><h3 id="用户系统" data-reactid="42"><a href="#%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->用户系统<!-- /react-text --></h3><!-- react-text: 46 -->
+<!-- /react-text --><p data-reactid="47"> 需要用户系统，用户是系统的根源，是数据的源头，该系统的用户就是要求中所说的会员，所以需要提供如下功能：</p><!-- react-text: 48 -->
+<!-- /react-text --><ul data-reactid="49"><!-- react-text: 50 -->
+<!-- /react-text --><li data-reactid="51">用户注册</li><!-- react-text: 52 -->
+<!-- /react-text --><li data-reactid="53">用户登录</li><!-- react-text: 54 -->
+<!-- /react-text --><li data-reactid="55">用户信息查看</li><!-- react-text: 56 -->
+<!-- /react-text --><li data-reactid="57">用户既可以是卖家，亦可以是买家</li><!-- react-text: 58 -->
+<!-- /react-text --></ul><!-- react-text: 59 -->
+<!-- /react-text --><h3 id="用户留言信息反馈" data-reactid="60"><a href="#%E7%94%A8%E6%88%B7%E7%95%99%E8%A8%80%E4%BF%A1%E6%81%AF%E5%8F%8D%E9%A6%88" aria-hidden="true" data-reactid="61"><span class="icon icon-link" data-reactid="62"></span></a><!-- react-text: 63 -->用户留言(信息反馈)<!-- /react-text --></h3><!-- react-text: 64 -->
+<!-- /react-text --><p data-reactid="65">为了逐渐完善系统，提供用户与建站者的交流通道，并且该通道不仅限于用户与建站者，用户与用户之间也能够互相交流，提高趣味性。具体功能如下：</p><!-- react-text: 66 -->
+<!-- /react-text --><ul data-reactid="67"><!-- react-text: 68 -->
+<!-- /react-text --><li data-reactid="69">用户留言</li><!-- react-text: 70 -->
+<!-- /react-text --><li data-reactid="71">留言查看</li><!-- react-text: 72 -->
+<!-- /react-text --></ul><!-- react-text: 73 -->
+<!-- /react-text --><h3 id="卖家买家系统" data-reactid="74"><a href="#%E5%8D%96%E5%AE%B6%E4%B9%B0%E5%AE%B6%E7%B3%BB%E7%BB%9F" aria-hidden="true" data-reactid="75"><span class="icon icon-link" data-reactid="76"></span></a><!-- react-text: 77 -->卖家买家系统<!-- /react-text --></h3><!-- react-text: 78 -->
+<!-- /react-text --><p data-reactid="79">买卖离不开卖家买家，该系统亦是如此，需要如下功能列表：</p><!-- react-text: 80 -->
+<!-- /react-text --><ul data-reactid="81"><!-- react-text: 82 -->
+<!-- /react-text --><li data-reactid="83">卖家</li><!-- react-text: 84 -->
+<!-- /react-text --><li data-reactid="85">图书上架</li><!-- react-text: 86 -->
+<!-- /react-text --><li data-reactid="87">图书修改</li><!-- react-text: 88 -->
+<!-- /react-text --><li data-reactid="89">图书查看</li><!-- react-text: 90 -->
+<!-- /react-text --><li data-reactid="91">销售情况图表</li><!-- react-text: 92 -->
+<!-- /react-text --><li data-reactid="93">买家</li><!-- react-text: 94 -->
+<!-- /react-text --><li data-reactid="95">图书查看购买</li><!-- react-text: 96 -->
+<!-- /react-text --><li data-reactid="97">买书记录查看</li><!-- react-text: 98 -->
+<!-- /react-text --><li data-reactid="99">图书评论与删除</li><!-- react-text: 100 -->
+<!-- /react-text --></ul><!-- react-text: 101 -->
+<!-- /react-text --><hr data-reactid="102"/><!-- react-text: 103 -->
+<!-- /react-text --><h2 id="设计文档" data-reactid="104"><a href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3" aria-hidden="true" data-reactid="105"><span class="icon icon-link" data-reactid="106"></span></a><!-- react-text: 107 -->设计文档<!-- /react-text --></h2><!-- react-text: 108 -->
+<!-- /react-text --><p data-reactid="109">该部分将涉及整个系统从无到有的设计思路，自底向上有
+1. 数据库选择和设计
+2. 服务器框架选择和设计
+3. 前端框架选择和设计</p><!-- react-text: 110 -->
+<!-- /react-text --><p data-reactid="111">并且将针对具体细节给出相关表示，如数据字典，ER图，数据流图，算法设计等。</p><!-- react-text: 112 -->
+<!-- /react-text --><h3 id="数据库选择和设计" data-reactid="113"><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="114"><span class="icon icon-link" data-reactid="115"></span></a><!-- react-text: 116 -->数据库选择和设计<!-- /react-text --></h3><!-- react-text: 117 -->
+<!-- /react-text --><h4 id="选择与原因" data-reactid="118"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0" aria-hidden="true" data-reactid="119"><span class="icon icon-link" data-reactid="120"></span></a><!-- react-text: 121 -->选择与原因<!-- /react-text --></h4><!-- react-text: 122 -->
+<!-- /react-text --><p data-reactid="123"><!-- react-text: 124 -->该系统我选择了<!-- /react-text --><code data-reactid="125">MySQL</code><!-- react-text: 126 -->数据库，具体原因如下：
+1. <!-- /react-text --><code data-reactid="127">MySQL</code><!-- react-text: 128 -->十分轻量，相比课堂上讲的<!-- /react-text --><code data-reactid="129">SQL Server</code><!-- react-text: 130 -->数据库，一个安装包2GB，MySQL的500MB简直小巫见大巫（最近看到属于<!-- /react-text --><code data-reactid="131">NoSQL</code><!-- react-text: 132 -->的<!-- /react-text --><code data-reactid="133">MongoDB</code><!-- react-text: 134 -->居然只有100MB）。
+2. 短时间需要完成该系统，同时对于<!-- /react-text --><code data-reactid="135">MySQL</code><!-- react-text: 136 -->十分熟悉，之前做在线订票系统，在线考试系统等都是建立在MySQL上。
+3. 具有<!-- /react-text --><code data-reactid="137">SQLYog</code><!-- react-text: 138 -->这种强大方便的图形操作软件，轻松导入导出数据，轻松连接远程服务器传递数据。<!-- /react-text --></p><!-- react-text: 139 -->
+<!-- /react-text --><p data-reactid="140"><!-- react-text: 141 -->基于以上原因，因此选择了<!-- /react-text --><code data-reactid="142">MySQL</code><!-- react-text: 143 -->。<!-- /react-text --></p><!-- react-text: 144 -->
+<!-- /react-text --><h4 id="数据字典" data-reactid="145"><a href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8" aria-hidden="true" data-reactid="146"><span class="icon icon-link" data-reactid="147"></span></a><!-- react-text: 148 -->数据字典<!-- /react-text --></h4><!-- react-text: 149 -->
+<!-- /react-text --><p data-reactid="150"> 用户</p><!-- react-text: 151 -->
+<!-- /react-text --><table data-reactid="152"><!-- react-text: 153 -->
+<!-- /react-text --><thead data-reactid="154"><!-- react-text: 155 -->
+<!-- /react-text --><tr data-reactid="156"><!-- react-text: 157 -->
+<!-- /react-text --><th data-reactid="158">字段</th><!-- react-text: 159 -->
+<!-- /react-text --><th data-reactid="160">类型</th><!-- react-text: 161 -->
+<!-- /react-text --><th data-reactid="162">备注</th><!-- react-text: 163 -->
+<!-- /react-text --></tr><!-- react-text: 164 -->
+<!-- /react-text --></thead><!-- react-text: 165 -->
+<!-- /react-text --><tbody data-reactid="166"><!-- react-text: 167 -->
+<!-- /react-text --><tr data-reactid="168"><!-- react-text: 169 -->
+<!-- /react-text --><td data-reactid="170">username</td><!-- react-text: 171 -->
+<!-- /react-text --><td data-reactid="172">varchar(12)</td><!-- react-text: 173 -->
+<!-- /react-text --><td data-reactid="174">用户名,唯一, 6-12位</td><!-- react-text: 175 -->
+<!-- /react-text --></tr><!-- react-text: 176 -->
+<!-- /react-text --><tr data-reactid="177"><!-- react-text: 178 -->
+<!-- /react-text --><td data-reactid="179">email</td><!-- react-text: 180 -->
+<!-- /react-text --><td data-reactid="181">varchar(20)</td><!-- react-text: 182 -->
+<!-- /react-text --><td data-reactid="183">电子邮箱,唯一</td><!-- react-text: 184 -->
+<!-- /react-text --></tr><!-- react-text: 185 -->
+<!-- /react-text --><tr data-reactid="186"><!-- react-text: 187 -->
+<!-- /react-text --><td data-reactid="188">password</td><!-- react-text: 189 -->
+<!-- /react-text --><td data-reactid="190">varchar(12)</td><!-- react-text: 191 -->
+<!-- /react-text --><td data-reactid="192">密码,6-12位</td><!-- react-text: 193 -->
+<!-- /react-text --></tr><!-- react-text: 194 -->
+<!-- /react-text --><tr data-reactid="195"><!-- react-text: 196 -->
+<!-- /react-text --><td data-reactid="197">registerDate</td><!-- react-text: 198 -->
+<!-- /react-text --><td data-reactid="199">date</td><!-- react-text: 200 -->
+<!-- /react-text --><td data-reactid="201">注册日期</td><!-- react-text: 202 -->
+<!-- /react-text --></tr><!-- react-text: 203 -->
+<!-- /react-text --></tbody><!-- react-text: 204 -->
+<!-- /react-text --></table><!-- react-text: 205 -->
+<!-- /react-text --><p data-reactid="206"> 留言</p><!-- react-text: 207 -->
+<!-- /react-text --><table data-reactid="208"><!-- react-text: 209 -->
+<!-- /react-text --><thead data-reactid="210"><!-- react-text: 211 -->
+<!-- /react-text --><tr data-reactid="212"><!-- react-text: 213 -->
+<!-- /react-text --><th data-reactid="214">字段</th><!-- react-text: 215 -->
+<!-- /react-text --><th data-reactid="216">类型</th><!-- react-text: 217 -->
+<!-- /react-text --><th data-reactid="218">备注</th><!-- react-text: 219 -->
+<!-- /react-text --></tr><!-- react-text: 220 -->
+<!-- /react-text --></thead><!-- react-text: 221 -->
+<!-- /react-text --><tbody data-reactid="222"><!-- react-text: 223 -->
+<!-- /react-text --><tr data-reactid="224"><!-- react-text: 225 -->
+<!-- /react-text --><td data-reactid="226">username</td><!-- react-text: 227 -->
+<!-- /react-text --><td data-reactid="228">varchar(12)</td><!-- react-text: 229 -->
+<!-- /react-text --><td data-reactid="230">留言者用户名</td><!-- react-text: 231 -->
+<!-- /react-text --></tr><!-- react-text: 232 -->
+<!-- /react-text --><tr data-reactid="233"><!-- react-text: 234 -->
+<!-- /react-text --><td data-reactid="235">content</td><!-- react-text: 236 -->
+<!-- /react-text --><td data-reactid="237">text</td><!-- react-text: 238 -->
+<!-- /react-text --><td data-reactid="239">留言内容</td><!-- react-text: 240 -->
+<!-- /react-text --></tr><!-- react-text: 241 -->
+<!-- /react-text --><tr data-reactid="242"><!-- react-text: 243 -->
+<!-- /react-text --><td data-reactid="244">datetime</td><!-- react-text: 245 -->
+<!-- /react-text --><td data-reactid="246">datetime</td><!-- react-text: 247 -->
+<!-- /react-text --><td data-reactid="248">留言时间</td><!-- react-text: 249 -->
+<!-- /react-text --></tr><!-- react-text: 250 -->
+<!-- /react-text --></tbody><!-- react-text: 251 -->
+<!-- /react-text --></table><!-- react-text: 252 -->
+<!-- /react-text --><p data-reactid="253"> 图书</p><!-- react-text: 254 -->
+<!-- /react-text --><table data-reactid="255"><!-- react-text: 256 -->
+<!-- /react-text --><thead data-reactid="257"><!-- react-text: 258 -->
+<!-- /react-text --><tr data-reactid="259"><!-- react-text: 260 -->
+<!-- /react-text --><th data-reactid="261">字段</th><!-- react-text: 262 -->
+<!-- /react-text --><th data-reactid="263">类型</th><!-- react-text: 264 -->
+<!-- /react-text --><th data-reactid="265">备注</th><!-- react-text: 266 -->
+<!-- /react-text --></tr><!-- react-text: 267 -->
+<!-- /react-text --></thead><!-- react-text: 268 -->
+<!-- /react-text --><tbody data-reactid="269"><!-- react-text: 270 -->
+<!-- /react-text --><tr data-reactid="271"><!-- react-text: 272 -->
+<!-- /react-text --><td data-reactid="273">bookID</td><!-- react-text: 274 -->
+<!-- /react-text --><td data-reactid="275">char(8)</td><!-- react-text: 276 -->
+<!-- /react-text --><td data-reactid="277">图书ID,唯一,如BK123456</td><!-- react-text: 278 -->
+<!-- /react-text --></tr><!-- react-text: 279 -->
+<!-- /react-text --><tr data-reactid="280"><!-- react-text: 281 -->
+<!-- /react-text --><td data-reactid="282">title</td><!-- react-text: 283 -->
+<!-- /react-text --><td data-reactid="284">varchar(25)</td><!-- react-text: 285 -->
+<!-- /react-text --><td data-reactid="286">书名</td><!-- react-text: 287 -->
+<!-- /react-text --></tr><!-- react-text: 288 -->
+<!-- /react-text --><tr data-reactid="289"><!-- react-text: 290 -->
+<!-- /react-text --><td data-reactid="291">author</td><!-- react-text: 292 -->
+<!-- /react-text --><td data-reactid="293">varchar(25)</td><!-- react-text: 294 -->
+<!-- /react-text --><td data-reactid="295">作者</td><!-- react-text: 296 -->
+<!-- /react-text --></tr><!-- react-text: 297 -->
+<!-- /react-text --><tr data-reactid="298"><!-- react-text: 299 -->
+<!-- /react-text --><td data-reactid="300">press</td><!-- react-text: 301 -->
+<!-- /react-text --><td data-reactid="302">varchar(25)</td><!-- react-text: 303 -->
+<!-- /react-text --><td data-reactid="304">出版社</td><!-- react-text: 305 -->
+<!-- /react-text --></tr><!-- react-text: 306 -->
+<!-- /react-text --><tr data-reactid="307"><!-- react-text: 308 -->
+<!-- /react-text --><td data-reactid="309">price</td><!-- react-text: 310 -->
+<!-- /react-text --><td data-reactid="311">decimal(10,1)</td><!-- react-text: 312 -->
+<!-- /react-text --><td data-reactid="313">价格,保留小数点后一位</td><!-- react-text: 314 -->
+<!-- /react-text --></tr><!-- react-text: 315 -->
+<!-- /react-text --><tr data-reactid="316"><!-- react-text: 317 -->
+<!-- /react-text --><td data-reactid="318">quantity</td><!-- react-text: 319 -->
+<!-- /react-text --><td data-reactid="320">int(11)</td><!-- react-text: 321 -->
+<!-- /react-text --><td data-reactid="322">库存量(本)</td><!-- react-text: 323 -->
+<!-- /react-text --></tr><!-- react-text: 324 -->
+<!-- /react-text --><tr data-reactid="325"><!-- react-text: 326 -->
+<!-- /react-text --><td data-reactid="327">image</td><!-- react-text: 328 -->
+<!-- /react-text --><td data-reactid="329">mediumblob</td><!-- react-text: 330 -->
+<!-- /react-text --><td data-reactid="331">封面图片</td><!-- react-text: 332 -->
+<!-- /react-text --></tr><!-- react-text: 333 -->
+<!-- /react-text --><tr data-reactid="334"><!-- react-text: 335 -->
+<!-- /react-text --><td data-reactid="336">seller</td><!-- react-text: 337 -->
+<!-- /react-text --><td data-reactid="338">varchar(12)</td><!-- react-text: 339 -->
+<!-- /react-text --><td data-reactid="340">卖家用户名</td><!-- react-text: 341 -->
+<!-- /react-text --></tr><!-- react-text: 342 -->
+<!-- /react-text --><tr data-reactid="343"><!-- react-text: 344 -->
+<!-- /react-text --><td data-reactid="345">importDate</td><!-- react-text: 346 -->
+<!-- /react-text --><td data-reactid="347">date</td><!-- react-text: 348 -->
+<!-- /react-text --><td data-reactid="349">上架日期</td><!-- react-text: 350 -->
+<!-- /react-text --></tr><!-- react-text: 351 -->
+<!-- /react-text --></tbody><!-- react-text: 352 -->
+<!-- /react-text --></table><!-- react-text: 353 -->
+<!-- /react-text --><p data-reactid="354"> 图书评论</p><!-- react-text: 355 -->
+<!-- /react-text --><table data-reactid="356"><!-- react-text: 357 -->
+<!-- /react-text --><thead data-reactid="358"><!-- react-text: 359 -->
+<!-- /react-text --><tr data-reactid="360"><!-- react-text: 361 -->
+<!-- /react-text --><th data-reactid="362">字段</th><!-- react-text: 363 -->
+<!-- /react-text --><th data-reactid="364">类型</th><!-- react-text: 365 -->
+<!-- /react-text --><th data-reactid="366">备注</th><!-- react-text: 367 -->
+<!-- /react-text --></tr><!-- react-text: 368 -->
+<!-- /react-text --></thead><!-- react-text: 369 -->
+<!-- /react-text --><tbody data-reactid="370"><!-- react-text: 371 -->
+<!-- /react-text --><tr data-reactid="372"><!-- react-text: 373 -->
+<!-- /react-text --><td data-reactid="374">username</td><!-- react-text: 375 -->
+<!-- /react-text --><td data-reactid="376">varchar(12)</td><!-- react-text: 377 -->
+<!-- /react-text --><td data-reactid="378">评论人用户名</td><!-- react-text: 379 -->
+<!-- /react-text --></tr><!-- react-text: 380 -->
+<!-- /react-text --><tr data-reactid="381"><!-- react-text: 382 -->
+<!-- /react-text --><td data-reactid="383">bookID</td><!-- react-text: 384 -->
+<!-- /react-text --><td data-reactid="385">char(8)</td><!-- react-text: 386 -->
+<!-- /react-text --><td data-reactid="387">被评论图书</td><!-- react-text: 388 -->
+<!-- /react-text --></tr><!-- react-text: 389 -->
+<!-- /react-text --><tr data-reactid="390"><!-- react-text: 391 -->
+<!-- /react-text --><td data-reactid="392">datetime</td><!-- react-text: 393 -->
+<!-- /react-text --><td data-reactid="394">datetime</td><!-- react-text: 395 -->
+<!-- /react-text --><td data-reactid="396">评论时间</td><!-- react-text: 397 -->
+<!-- /react-text --></tr><!-- react-text: 398 -->
+<!-- /react-text --><tr data-reactid="399"><!-- react-text: 400 -->
+<!-- /react-text --><td data-reactid="401">content</td><!-- react-text: 402 -->
+<!-- /react-text --><td data-reactid="403">text</td><!-- react-text: 404 -->
+<!-- /react-text --><td data-reactid="405">评论内容</td><!-- react-text: 406 -->
+<!-- /react-text --></tr><!-- react-text: 407 -->
+<!-- /react-text --></tbody><!-- react-text: 408 -->
+<!-- /react-text --></table><!-- react-text: 409 -->
+<!-- /react-text --><p data-reactid="410"><!-- react-text: 411 --> 交易
+<!-- /react-text --><strong data-reactid="412">因为交易完成后，卖家仍然可以对图书进行修改，所以我将买进时图书信息都存放在此表中，表示买进时图书的信息。</strong></p><!-- react-text: 413 -->
+<!-- /react-text --><table data-reactid="414"><!-- react-text: 415 -->
+<!-- /react-text --><thead data-reactid="416"><!-- react-text: 417 -->
+<!-- /react-text --><tr data-reactid="418"><!-- react-text: 419 -->
+<!-- /react-text --><th data-reactid="420">字段</th><!-- react-text: 421 -->
+<!-- /react-text --><th data-reactid="422">类型</th><!-- react-text: 423 -->
+<!-- /react-text --><th data-reactid="424">备注</th><!-- react-text: 425 -->
+<!-- /react-text --></tr><!-- react-text: 426 -->
+<!-- /react-text --></thead><!-- react-text: 427 -->
+<!-- /react-text --><tbody data-reactid="428"><!-- react-text: 429 -->
+<!-- /react-text --><tr data-reactid="430"><!-- react-text: 431 -->
+<!-- /react-text --><td data-reactid="432">tradeID</td><!-- react-text: 433 -->
+<!-- /react-text --><td data-reactid="434">char(10)</td><!-- react-text: 435 -->
+<!-- /react-text --><td data-reactid="436">交易记录ID,唯一,如TD12345678</td><!-- react-text: 437 -->
+<!-- /react-text --></tr><!-- react-text: 438 -->
+<!-- /react-text --><tr data-reactid="439"><!-- react-text: 440 -->
+<!-- /react-text --><td data-reactid="441">tradeDate</td><!-- react-text: 442 -->
+<!-- /react-text --><td data-reactid="443">date</td><!-- react-text: 444 -->
+<!-- /react-text --><td data-reactid="445">交易日期</td><!-- react-text: 446 -->
+<!-- /react-text --></tr><!-- react-text: 447 -->
+<!-- /react-text --><tr data-reactid="448"><!-- react-text: 449 -->
+<!-- /react-text --><td data-reactid="450">buyer</td><!-- react-text: 451 -->
+<!-- /react-text --><td data-reactid="452">varchar(12)</td><!-- react-text: 453 -->
+<!-- /react-text --><td data-reactid="454">买家用户名</td><!-- react-text: 455 -->
+<!-- /react-text --></tr><!-- react-text: 456 -->
+<!-- /react-text --><tr data-reactid="457"><!-- react-text: 458 -->
+<!-- /react-text --><td data-reactid="459">bookID</td><!-- react-text: 460 -->
+<!-- /react-text --><td data-reactid="461">char(8)</td><!-- react-text: 462 -->
+<!-- /react-text --><td data-reactid="463">书本ID</td><!-- react-text: 464 -->
+<!-- /react-text --></tr><!-- react-text: 465 -->
+<!-- /react-text --><tr data-reactid="466"><!-- react-text: 467 -->
+<!-- /react-text --><td data-reactid="468">title</td><!-- react-text: 469 -->
+<!-- /react-text --><td data-reactid="470">varchar(25)</td><!-- react-text: 471 -->
+<!-- /react-text --><td data-reactid="472">书名</td><!-- react-text: 473 -->
+<!-- /react-text --></tr><!-- react-text: 474 -->
+<!-- /react-text --><tr data-reactid="475"><!-- react-text: 476 -->
+<!-- /react-text --><td data-reactid="477">author</td><!-- react-text: 478 -->
+<!-- /react-text --><td data-reactid="479">varchar(25)</td><!-- react-text: 480 -->
+<!-- /react-text --><td data-reactid="481">作者</td><!-- react-text: 482 -->
+<!-- /react-text --></tr><!-- react-text: 483 -->
+<!-- /react-text --><tr data-reactid="484"><!-- react-text: 485 -->
+<!-- /react-text --><td data-reactid="486">press</td><!-- react-text: 487 -->
+<!-- /react-text --><td data-reactid="488">varchar(25)</td><!-- react-text: 489 -->
+<!-- /react-text --><td data-reactid="490">出版社</td><!-- react-text: 491 -->
+<!-- /react-text --></tr><!-- react-text: 492 -->
+<!-- /react-text --><tr data-reactid="493"><!-- react-text: 494 -->
+<!-- /react-text --><td data-reactid="495">price</td><!-- react-text: 496 -->
+<!-- /react-text --><td data-reactid="497">decimal(10,1)</td><!-- react-text: 498 -->
+<!-- /react-text --><td data-reactid="499">买进价格</td><!-- react-text: 500 -->
+<!-- /react-text --></tr><!-- react-text: 501 -->
+<!-- /react-text --><tr data-reactid="502"><!-- react-text: 503 -->
+<!-- /react-text --><td data-reactid="504">quantity</td><!-- react-text: 505 -->
+<!-- /react-text --><td data-reactid="506">int(11)</td><!-- react-text: 507 -->
+<!-- /react-text --><td data-reactid="508">库存</td><!-- react-text: 509 -->
+<!-- /react-text --></tr><!-- react-text: 510 -->
+<!-- /react-text --><tr data-reactid="511"><!-- react-text: 512 -->
+<!-- /react-text --><td data-reactid="513">image</td><!-- react-text: 514 -->
+<!-- /react-text --><td data-reactid="515">mediumblob</td><!-- react-text: 516 -->
+<!-- /react-text --><td data-reactid="517">封面</td><!-- react-text: 518 -->
+<!-- /react-text --></tr><!-- react-text: 519 -->
+<!-- /react-text --><tr data-reactid="520"><!-- react-text: 521 -->
+<!-- /react-text --><td data-reactid="522">seller</td><!-- react-text: 523 -->
+<!-- /react-text --><td data-reactid="524">varchar(12)</td><!-- react-text: 525 -->
+<!-- /react-text --><td data-reactid="526">卖家</td><!-- react-text: 527 -->
+<!-- /react-text --></tr><!-- react-text: 528 -->
+<!-- /react-text --></tbody><!-- react-text: 529 -->
+<!-- /react-text --></table><!-- react-text: 530 -->
+<!-- /react-text --><h4 id="e-r图" data-reactid="531"><a href="#e-r%E5%9B%BE" aria-hidden="true" data-reactid="532"><span class="icon icon-link" data-reactid="533"></span></a><!-- react-text: 534 -->E-R图<!-- /react-text --></h4><!-- react-text: 535 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FoxMZIrETvPN4uTkpBQL31CtwJ0T?imageslim" alt="ClipboardImage" width="1111" height="704" data-reactid="536"/><!-- react-text: 537 -->
+<!-- /react-text --><h3 id="服务器框架选择和设计" data-reactid="538"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="539"><span class="icon icon-link" data-reactid="540"></span></a><!-- react-text: 541 -->服务器框架选择和设计<!-- /react-text --></h3><!-- react-text: 542 -->
+<!-- /react-text --><h4 id="选择与原因-1" data-reactid="543"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0-1" aria-hidden="true" data-reactid="544"><span class="icon icon-link" data-reactid="545"></span></a><!-- react-text: 546 -->选择与原因<!-- /react-text --></h4><!-- react-text: 547 -->
+<!-- /react-text --><p data-reactid="548"><!-- react-text: 549 -->作为<!-- /react-text --><code data-reactid="550">JS</code><!-- react-text: 551 -->动态语言的受益者，我服务器肯定就选择<!-- /react-text --><code data-reactid="552">nodejs</code><!-- react-text: 553 -->了。
+1. 未使用过<!-- /react-text --><code data-reactid="554">nodejs</code><!-- react-text: 555 -->开发一个相对完整的系统，打算就将该系统作为入门了。
+2. <!-- /react-text --><code data-reactid="556">nodejs</code><!-- react-text: 557 -->非常适合IO密集型的应用，采用的是异步事件队列的机制。
+3. <!-- /react-text --><code data-reactid="558">JS</code><!-- react-text: 559 -->语言简洁灵活有趣。<!-- /react-text --></p><!-- react-text: 560 -->
+<!-- /react-text --><h4 id="nodejs与express" data-reactid="561"><a href="#nodejs%E4%B8%8Eexpress" aria-hidden="true" data-reactid="562"><span class="icon icon-link" data-reactid="563"></span></a><code data-reactid="564">nodejs</code><!-- react-text: 565 -->与<!-- /react-text --><code data-reactid="566">express</code></h4><!-- react-text: 567 -->
+<!-- /react-text --><ul data-reactid="568"><!-- react-text: 569 -->
+<!-- /react-text --><li data-reactid="570"><code data-reactid="571">nodejs</code><!-- react-text: 572 -->
+基于ChromeV8引擎，以<!-- /react-text --><code data-reactid="573">JS</code><!-- react-text: 574 -->作为宿主语言的一个虚拟环境，<!-- /react-text --><code data-reactid="575">JS</code><!-- react-text: 576 -->于<!-- /react-text --><code data-reactid="577">NodeJs</code><!-- react-text: 578 -->可以看做是<!-- /react-text --><code data-reactid="579">Java</code><!-- react-text: 580 -->于<!-- /react-text --><code data-reactid="581">JVM</code><!-- react-text: 582 -->，<!-- /react-text --><code data-reactid="583">NodeJs</code><!-- react-text: 584 -->现在正在不断发展中，目标是与<!-- /react-text --><code data-reactid="585">Java</code><!-- react-text: 586 -->一样，能够形成一套十分完备的库，目前<!-- /react-text --><code data-reactid="587">NodeJs</code><!-- react-text: 588 -->的生态环境非常好，第三方模块层出不穷，而且由于<!-- /react-text --><code data-reactid="589">npm</code><!-- react-text: 590 -->，这些包是否方便管理与下载。<!-- /react-text --></li><!-- react-text: 591 -->
+<!-- /react-text --><li data-reactid="592"><code data-reactid="593">express</code><!-- react-text: 594 -->
+介绍完<!-- /react-text --><code data-reactid="595">nodejs</code><!-- react-text: 596 -->，那么<!-- /react-text --><code data-reactid="597">express</code><!-- react-text: 598 -->是什么呢？<!-- /react-text --><code data-reactid="599">express</code><!-- react-text: 600 -->是<!-- /react-text --><code data-reactid="601">nodejs</code><!-- react-text: 602 -->的一个第三方Web框架，开发者可以用该框架非常方便有效的建立<!-- /react-text --><code data-reactid="603">HTTP</code><!-- react-text: 604 -->服务。<!-- /react-text --></li><!-- react-text: 605 -->
+<!-- /react-text --></ul><!-- react-text: 606 -->
+<!-- /react-text --><h4 id="结构设计" data-reactid="607"><a href="#%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="608"><span class="icon icon-link" data-reactid="609"></span></a><!-- react-text: 610 -->结构设计<!-- /react-text --></h4><!-- react-text: 611 -->
+<!-- /react-text --><h5 id="文件结构" data-reactid="612"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="613"><span class="icon icon-link" data-reactid="614"></span></a><!-- react-text: 615 -->文件结构<!-- /react-text --></h5><!-- react-text: 616 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Ftoj335Z5Z0P3M_QKuXcg3qXn0ee?imageslim" alt="ClipboardImage" width="465" height="676" data-reactid="617"/><!-- react-text: 618 -->
+`db/` 所有数据库操作代码
+`public/` 静态资源库，如js,css
+`routes/` 路由操作diam，对应url
+`utils/` 工具包代码
+`views/` Jade模板文件
+`app.js` 系统入口
+`mysql.sql` mysql数据文件，可导入
+<!-- /react-text --><h5 id="部分数据流图" data-reactid="619"><a href="#%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE" aria-hidden="true" data-reactid="620"><span class="icon icon-link" data-reactid="621"></span></a><!-- react-text: 622 -->部分数据流图<!-- /react-text --></h5><!-- react-text: 623 -->
+<!-- /react-text --><ul data-reactid="624"><!-- react-text: 625 -->
+<!-- /react-text --><li data-reactid="626"><!-- react-text: 627 -->用户留言
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fhi1zedL3Ba8-JoHaxvQkan4Lg1Y?imageslim" alt="ClipboardImage" width="818" height="149" data-reactid="628"/></li><!-- react-text: 629 -->
+<!-- /react-text --><li data-reactid="630"><!-- react-text: 631 -->卖家添加图书
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fpl8ZZopdctwR0y-kpy4It_iScNL?imageslim" alt="ClipboardImage" width="628" height="183" data-reactid="632"/></li><!-- react-text: 633 -->
+<!-- /react-text --><li data-reactid="634"><!-- react-text: 635 -->买家购书
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmTVXNcaMdFiI0awxq_zzpS67an7?imageslim" alt="ClipboardImage" width="773" height="158" data-reactid="636"/></li><!-- react-text: 637 -->
+<!-- /react-text --></ul><!-- react-text: 638 -->
+<!-- /react-text --><h5 id="部分算法设计" data-reactid="639"><a href="#%E9%83%A8%E5%88%86%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="640"><span class="icon icon-link" data-reactid="641"></span></a><!-- react-text: 642 -->部分算法设计<!-- /react-text --></h5><!-- react-text: 643 -->
+<!-- /react-text --><p data-reactid="644">首先对于留言评论，防止恶意用户刷留言评论，设置了定时销毁器。
+算法设计如下：</p><!-- react-text: 645 -->
+<!-- /react-text --><pre data-reactid="646"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="647"><span class="hljs-keyword" data-reactid="648">var</span><!-- react-text: 649 --> _timer = {};
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="650">var</span><!-- react-text: 651 --> Timer = {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="652">set</span><!-- react-text: 653 --> : <!-- /react-text --><span class="hljs-function" data-reactid="654"><span class="hljs-keyword" data-reactid="655">function</span><!-- react-text: 656 --> (<!-- /react-text --><span class="hljs-params" data-reactid="657">key,mill</span><!-- react-text: 658 -->) <!-- /react-text --></span><!-- react-text: 659 -->{ <!-- /react-text --><span class="hljs-comment" data-reactid="660">//设置定时器的关键字与销毁时间</span><!-- react-text: 661 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="662">this</span><!-- react-text: 663 -->.remove(key);
+        _timer[key] ={<!-- /react-text --><span class="hljs-attr" data-reactid="664">mill</span><!-- react-text: 665 -->:mill};
+        _timer[key].code = setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="666"><span class="hljs-keyword" data-reactid="667">function</span><!-- react-text: 668 --> (<!-- /react-text --><span class="hljs-params" data-reactid="669"></span><!-- react-text: 670 -->) <!-- /react-text --></span><!-- react-text: 671 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="672">delete</span><!-- react-text: 673 --> _timer[key];
+        },mill);
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="674">isExist</span><!-- react-text: 675 --> : <!-- /react-text --><span class="hljs-function" data-reactid="676"><span class="hljs-keyword" data-reactid="677">function</span><!-- react-text: 678 -->(<!-- /react-text --><span class="hljs-params" data-reactid="679">key</span><!-- react-text: 680 -->)<!-- /react-text --></span><!-- react-text: 681 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="682">return</span><!-- react-text: 683 --> !!_timer[key];
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="684">remove</span><!-- react-text: 685 --> : <!-- /react-text --><span class="hljs-function" data-reactid="686"><span class="hljs-keyword" data-reactid="687">function</span><!-- react-text: 688 -->(<!-- /react-text --><span class="hljs-params" data-reactid="689">key</span><!-- react-text: 690 -->)<!-- /react-text --></span><!-- react-text: 691 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="692">if</span><!-- react-text: 693 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="694">this</span><!-- react-text: 695 -->.isExist(key)){
+            clearTimeout(_timer[key].code);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="696">delete</span><!-- react-text: 697 --> _timer[key];
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="698">return</span><!-- react-text: 699 --> <!-- /react-text --><span class="hljs-literal" data-reactid="700">true</span><!-- react-text: 701 -->;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="702">return</span><!-- react-text: 703 --> <!-- /react-text --><span class="hljs-literal" data-reactid="704">false</span><!-- react-text: 705 -->;
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 706 -->
+<!-- /react-text --><p data-reactid="707">该系统具有销售分析，如某卖家所有销售情况的折线图，x轴表示日期，y轴表示该日售出书籍数目。
+算法设计如下：</p><!-- react-text: 708 -->
+<!-- /react-text --><pre data-reactid="709"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="710"><span class="hljs-comment" data-reactid="711">// all 表示所有卖家销售记录，0-N 时间从现在到以前</span><!-- react-text: 712 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="713"><span class="hljs-keyword" data-reactid="714">function</span><!-- react-text: 715 --> <!-- /react-text --><span class="hljs-title" data-reactid="716">makeLineChart</span><!-- react-text: 717 -->(<!-- /react-text --><span class="hljs-params" data-reactid="718">all</span><!-- react-text: 719 -->) <!-- /react-text --></span><!-- react-text: 720 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="721">if</span><!-- react-text: 722 -->(all==<!-- /react-text --><span class="hljs-literal" data-reactid="723">null</span><!-- react-text: 724 --> || all.length==<!-- /react-text --><span class="hljs-number" data-reactid="725">0</span><!-- react-text: 726 -->)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="727">return</span><!-- react-text: 728 -->;
+    <!-- /react-text --><span class="hljs-comment" data-reactid="729">//返回数据中 keys表示日期数组，data表示对应keys日期的销售量</span><!-- react-text: 730 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="731">return</span><!-- react-text: 732 --> all.reduceRight(<!-- /react-text --><span class="hljs-function" data-reactid="733"><!-- react-text: 734 -->(<!-- /react-text --><span class="hljs-params" data-reactid="735">p,n</span><!-- react-text: 736 -->)=&gt;<!-- /react-text --></span><!-- react-text: 737 -->{ <!-- /react-text --><span class="hljs-comment" data-reactid="738">// 从右向左归并</span><!-- react-text: 739 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="740">var</span><!-- react-text: 741 --> date = n.tradeDate;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="742">if</span><!-- react-text: 743 -->(p.keys[p.keys.length<!-- /react-text --><span class="hljs-number" data-reactid="744">-1</span><!-- react-text: 745 -->]!=date){
+            p.keys.push(date);
+            p.data.push(<!-- /react-text --><span class="hljs-number" data-reactid="746">1</span><!-- react-text: 747 -->);
+        }<!-- /react-text --><span class="hljs-keyword" data-reactid="748">else</span><!-- react-text: 749 -->{
+            p.data[p.data.length<!-- /react-text --><span class="hljs-number" data-reactid="750">-1</span><!-- react-text: 751 -->]++;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="752">return</span><!-- react-text: 753 --> p;         	
+    },{<!-- /react-text --><span class="hljs-attr" data-reactid="754">keys</span><!-- react-text: 755 -->:[],<!-- /react-text --><span class="hljs-attr" data-reactid="756">data</span><!-- react-text: 757 -->:[]});
+}<!-- /react-text --></code></pre><!-- react-text: 758 -->
+<!-- /react-text --><p data-reactid="759">销售分析中还具有周最受欢迎图书饼图，表示一周内各个图书销售情况。
+算法设计如下：</p><!-- react-text: 760 -->
+<!-- /react-text --><pre data-reactid="761"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="762"><span class="hljs-comment" data-reactid="763">// all 表示所有卖家销售记录，0-N 时间从现在到以前</span><!-- react-text: 764 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="765"><span class="hljs-keyword" data-reactid="766">function</span><!-- react-text: 767 --> <!-- /react-text --><span class="hljs-title" data-reactid="768">makePieChart</span><!-- react-text: 769 -->(<!-- /react-text --><span class="hljs-params" data-reactid="770">all</span><!-- react-text: 771 -->) <!-- /react-text --></span><!-- react-text: 772 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="773">if</span><!-- react-text: 774 -->(all==<!-- /react-text --><span class="hljs-literal" data-reactid="775">null</span><!-- react-text: 776 --> || all.length==<!-- /react-text --><span class="hljs-number" data-reactid="777">0</span><!-- react-text: 778 -->)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="779">return</span><!-- react-text: 780 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="781">var</span><!-- react-text: 782 --> pivot = all[all.length<!-- /react-text --><span class="hljs-number" data-reactid="783">-1</span><!-- react-text: 784 -->];  <!-- /react-text --><span class="hljs-comment" data-reactid="785">// 取出最后一个交易记录，也就是最近的</span><!-- react-text: 786 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="787">var</span><!-- react-text: 788 --> end = <!-- /react-text --><span class="hljs-keyword" data-reactid="789">new</span><!-- react-text: 790 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="791">Date</span><!-- react-text: 792 -->(pivot.tradeDate).setHours(<!-- /react-text --><span class="hljs-number" data-reactid="793">24</span><!-- react-text: 794 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="795">// 根据最近时间的时间得到第二天0点时间</span><!-- react-text: 796 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="797">var</span><!-- react-text: 798 --> start = <!-- /react-text --><span class="hljs-keyword" data-reactid="799">new</span><!-- react-text: 800 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="801">Date</span><!-- react-text: 802 -->(end - <!-- /react-text --><span class="hljs-number" data-reactid="803">1000</span><!-- react-text: 804 -->*<!-- /react-text --><span class="hljs-number" data-reactid="805">60</span><!-- react-text: 806 -->*<!-- /react-text --><span class="hljs-number" data-reactid="807">60</span><!-- react-text: 808 -->*<!-- /react-text --><span class="hljs-number" data-reactid="809">24</span><!-- react-text: 810 -->*<!-- /react-text --><span class="hljs-number" data-reactid="811">7</span><!-- react-text: 812 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="813">// 减去7天毫秒数，得到七天前时间</span><!-- react-text: 814 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="815">var</span><!-- react-text: 816 --> data = {<!-- /react-text --><span class="hljs-attr" data-reactid="817">keys</span><!-- react-text: 818 -->:[pivot.title],<!-- /react-text --><span class="hljs-attr" data-reactid="819">data</span><!-- react-text: 820 -->:[<!-- /react-text --><span class="hljs-number" data-reactid="821">1</span><!-- react-text: 822 -->]},titleMap = {};
+    titleMap[pivot.title]=<!-- /react-text --><span class="hljs-number" data-reactid="823">0</span><!-- react-text: 824 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="825">//初始化参数</span><!-- react-text: 826 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="827">for</span><!-- react-text: 828 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="829">var</span><!-- react-text: 830 --> i=all.length<!-- /react-text --><span class="hljs-number" data-reactid="831">-2</span><!-- react-text: 832 -->;i&gt;=<!-- /react-text --><span class="hljs-number" data-reactid="833">0</span><!-- react-text: 834 -->;i--){
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="835">if</span><!-- react-text: 836 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="837">new</span><!-- react-text: 838 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="839">Date</span><!-- react-text: 840 -->(all[i].tradeDate)&lt;start) <!-- /react-text --><span class="hljs-comment" data-reactid="841">// 如果时间再七天之前，跳出循环</span><!-- react-text: 842 -->
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="843">break</span><!-- react-text: 844 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="845">var</span><!-- react-text: 846 --> title = all[i].title;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="847">if</span><!-- react-text: 848 -->(titleMap[title]==<!-- /react-text --><span class="hljs-literal" data-reactid="849">null</span><!-- react-text: 850 -->){
+            titleMap[title] = data.keys.length;
+            data.keys.push(title);
+            data.data.push(<!-- /react-text --><span class="hljs-number" data-reactid="851">1</span><!-- react-text: 852 -->);
+        }<!-- /react-text --><span class="hljs-keyword" data-reactid="853">else</span><!-- react-text: 854 -->
+            data.data[titleMap[title]]++;
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="855">return</span><!-- react-text: 856 --> data;
+}<!-- /react-text --></code></pre><!-- react-text: 857 -->
+<!-- /react-text --><h3 id="前端框架选择和设计" data-reactid="858"><a href="#%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="859"><span class="icon icon-link" data-reactid="860"></span></a><!-- react-text: 861 -->前端框架选择和设计<!-- /react-text --></h3><!-- react-text: 862 -->
+<!-- /react-text --><h4 id="选择与原因-2" data-reactid="863"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0-2" aria-hidden="true" data-reactid="864"><span class="icon icon-link" data-reactid="865"></span></a><!-- react-text: 866 -->选择与原因<!-- /react-text --></h4><!-- react-text: 867 -->
+<!-- /react-text --><p data-reactid="868"><!-- react-text: 869 -->针对于用户之间接触的前端界面，我选择了<!-- /react-text --><code data-reactid="870">Bootstrap3.0 UI</code><!-- react-text: 871 -->，<!-- /react-text --><code data-reactid="872">jQuery</code><!-- react-text: 873 -->，<!-- /react-text --><code data-reactid="874">marked.js</code><!-- react-text: 875 -->，<!-- /react-text --><code data-reactid="876">highlight.js</code><!-- react-text: 877 -->，<!-- /react-text --><code data-reactid="878">pace.js</code><!-- react-text: 879 -->，下面做出相关介绍与说明：<!-- /react-text --></p><!-- react-text: 880 -->
+<!-- /react-text --><ul data-reactid="881"><!-- react-text: 882 -->
+<!-- /react-text --><li data-reactid="883"><code data-reactid="884">BootStrap3.0</code><!-- react-text: 885 -->
+一套完备的UI框架，包括美观的css样式和一些基于jQuery的组件。可以让开发者用最少的时间建立一个美观的界面。<!-- /react-text --></li><!-- react-text: 886 -->
+<!-- /react-text --><li data-reactid="887"><code data-reactid="888">jQuery</code><!-- react-text: 889 -->
+因为<!-- /react-text --><code data-reactid="890">BootStrap</code><!-- react-text: 891 -->组件需要，而且能够方便进行DOM操作，强大的选择器与链式调用。<!-- /react-text --></li><!-- react-text: 892 -->
+<!-- /react-text --><li data-reactid="893"><code data-reactid="894">marked.js</code><!-- react-text: 895 -->
+一个将<!-- /react-text --><code data-reactid="896">markdown</code><!-- react-text: 897 -->文本翻译为HTML的库，api简单。<!-- /react-text --></li><!-- react-text: 898 -->
+<!-- /react-text --><li data-reactid="899"><code data-reactid="900">highlight.js</code><!-- react-text: 901 -->
+与<!-- /react-text --><code data-reactid="902">marked.js</code><!-- react-text: 903 -->配套使用，能够将代码段解析为具有样式类的库。<!-- /react-text --></li><!-- react-text: 904 -->
+<!-- /react-text --><li data-reactid="905"><code data-reactid="906">pace.js</code><!-- react-text: 907 -->
+通过检查浏览器加载的状态，判断文档加载进度，并且提供了一系列的css样式，能够在页面加载的时候显示页面加载进度。<!-- /react-text --></li><!-- react-text: 908 -->
+<!-- /react-text --></ul><!-- react-text: 909 -->
+<!-- /react-text --><h4 id="文件结构-1" data-reactid="910"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84-1" aria-hidden="true" data-reactid="911"><span class="icon icon-link" data-reactid="912"></span></a><!-- react-text: 913 -->文件结构<!-- /react-text --></h4><!-- react-text: 914 -->
+<!-- /react-text --><pre data-reactid="915"><code data-query="{}" data-lang="data-lang" data-reactid="916">public/
+├── javascripts/
+│   ├── addbook.js
+│   ├── Ajaxdelete.js
+│   ├── indexjs.js
+│   ├── msgAnimate.js
+│   ├── msgjs.js
+│   ├── popImage.js
+│   ├── search.js
+│   ├── selljs.js
+│   ├── utils.js
+└── stylesheets/
+    ├── bootstrap/
+    ├── style.less
+    ├── style.css
+    ├── hljs-github-min.css
+    └── markdown.less
+</code></pre><!-- react-text: 917 -->
+<!-- /react-text --><p data-reactid="918"><code data-reactid="919">stylesheets/</code><!-- react-text: 920 -->文件夹放的是样式文件，其中的<!-- /react-text --><code data-reactid="921">style.less</code><!-- react-text: 922 -->是入口，<!-- /react-text --><code data-reactid="923">style.css</code><!-- react-text: 924 -->是利用node模块压缩后真正传送的样式文件<!-- /react-text --></p><!-- react-text: 925 -->
+<!-- /react-text --><h4 id="特殊功能说明" data-reactid="926"><a href="#%E7%89%B9%E6%AE%8A%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="927"><span class="icon icon-link" data-reactid="928"></span></a><!-- react-text: 929 -->特殊功能说明<!-- /react-text --></h4><!-- react-text: 930 -->
+<!-- /react-text --><ol data-reactid="931"><!-- react-text: 932 -->
+<!-- /react-text --><li data-reactid="933"><!-- react-text: 934 -->提示框动态固定显示
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FrTSgOxaYM2B4s9dWmstn0ZDAoHs?imageslim" alt="ClipboardImage" width="500" height="199" data-reactid="935"/><!-- react-text: 936 -->
+方法一：（固定width）<!-- /react-text --></li><!-- react-text: 937 -->
+<!-- /react-text --></ol><!-- react-text: 938 -->
+<!-- /react-text --><pre data-reactid="939"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="940"><span class="hljs-selector-class" data-reactid="941">.messages</span><!-- react-text: 942 -->{
+  <!-- /react-text --><span class="hljs-selector-class" data-reactid="943">.box-shadow</span><!-- react-text: 944 -->(<!-- /react-text --><span class="hljs-number" data-reactid="945">0px</span><!-- react-text: 946 --> <!-- /react-text --><span class="hljs-number" data-reactid="947">0px</span><!-- react-text: 948 --> <!-- /react-text --><span class="hljs-number" data-reactid="949">8px</span><!-- react-text: 950 --> <!-- /react-text --><span class="hljs-number" data-reactid="951">3px</span><!-- react-text: 952 --> <!-- /react-text --><span class="hljs-number" data-reactid="953">#bbb</span><!-- react-text: 954 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="955">z-index</span><!-- react-text: 956 -->: <!-- /react-text --><span class="hljs-number" data-reactid="957">10000</span><!-- react-text: 958 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="959">position</span><!-- react-text: 960 -->: fixed;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="961">width</span><!-- react-text: 962 -->: <!-- /react-text --><span class="hljs-number" data-reactid="963">340px</span><!-- react-text: 964 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="965">height</span><!-- react-text: 966 -->: <!-- /react-text --><span class="hljs-number" data-reactid="967">50px</span><!-- react-text: 968 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="969">left</span><!-- react-text: 970 -->: <!-- /react-text --><span class="hljs-number" data-reactid="971">50%</span><!-- react-text: 972 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="973">top </span><!-- react-text: 974 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="975">50px</span><!-- react-text: 976 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="977">margin-left</span><!-- react-text: 978 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="979">170px</span><!-- react-text: 980 -->;
+
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="981">-webkit-transition</span><!-- react-text: 982 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="983">2s</span><!-- react-text: 984 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="985">-moz-transition</span><!-- react-text: 986 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="987">2s</span><!-- react-text: 988 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="989">-ms-transition</span><!-- react-text: 990 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="991">2s</span><!-- react-text: 992 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="993">-o-transition</span><!-- react-text: 994 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="995">2s</span><!-- react-text: 996 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="997">transition</span><!-- react-text: 998 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="999">2s</span><!-- react-text: 1000 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1001">opacity</span><!-- react-text: 1002 -->:<!-- /react-text --><span class="hljs-number" data-reactid="1003">0</span><!-- react-text: 1004 -->;
+}<!-- /react-text --></code></pre><!-- react-text: 1005 -->
+<!-- /react-text --><pre data-reactid="1006"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="1007"><span class="hljs-built_in" data-reactid="1008">window</span><!-- react-text: 1009 -->.onload = <!-- /react-text --><span class="hljs-function" data-reactid="1010"><span class="hljs-keyword" data-reactid="1011">function</span><!-- react-text: 1012 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1013"></span><!-- react-text: 1014 -->) <!-- /react-text --></span><!-- react-text: 1015 -->{
+    $(<!-- /react-text --><span class="hljs-string" data-reactid="1016">&#x27;.messages&#x27;</span><!-- react-text: 1017 -->)
+        .css({<!-- /react-text --><span class="hljs-string" data-reactid="1018">&#x27;transform&#x27;</span><!-- react-text: 1019 -->:<!-- /react-text --><span class="hljs-string" data-reactid="1020">&#x27;translate(0,120px)&#x27;</span><!-- react-text: 1021 -->,<!-- /react-text --><span class="hljs-attr" data-reactid="1022">opacity</span><!-- react-text: 1023 -->:<!-- /react-text --><span class="hljs-number" data-reactid="1024">1</span><!-- react-text: 1025 -->})
+}<!-- /react-text --></code></pre><!-- react-text: 1026 -->
+<!-- /react-text --><p data-reactid="1027">方法二：width自适应</p><!-- react-text: 1028 -->
+<!-- /react-text --><pre data-reactid="1029"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="1030"><span class="hljs-selector-class" data-reactid="1031">.messages</span><!-- react-text: 1032 -->{
+  <!-- /react-text --><span class="hljs-selector-class" data-reactid="1033">.box-shadow</span><!-- react-text: 1034 -->(<!-- /react-text --><span class="hljs-number" data-reactid="1035">0px</span><!-- react-text: 1036 --> <!-- /react-text --><span class="hljs-number" data-reactid="1037">0px</span><!-- react-text: 1038 --> <!-- /react-text --><span class="hljs-number" data-reactid="1039">8px</span><!-- react-text: 1040 --> <!-- /react-text --><span class="hljs-number" data-reactid="1041">3px</span><!-- react-text: 1042 --> <!-- /react-text --><span class="hljs-number" data-reactid="1043">#bbb</span><!-- react-text: 1044 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1045">z-index</span><!-- react-text: 1046 -->: <!-- /react-text --><span class="hljs-number" data-reactid="1047">10000</span><!-- react-text: 1048 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1049">position</span><!-- react-text: 1050 -->: fixed;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1051">left</span><!-- react-text: 1052 -->: <!-- /react-text --><span class="hljs-number" data-reactid="1053">50%</span><!-- react-text: 1054 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1055">top </span><!-- react-text: 1056 -->: <!-- /react-text --><span class="hljs-number" data-reactid="1057">0px</span><!-- react-text: 1058 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1059">-webkit-transform</span><!-- react-text: 1060 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="1061">50%</span><!-- react-text: 1062 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="1063">50%</span><!-- react-text: 1064 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1065">-moz-transform</span><!-- react-text: 1066 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="1067">50%</span><!-- react-text: 1068 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="1069">50%</span><!-- react-text: 1070 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1071">-ms-transform</span><!-- react-text: 1072 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="1073">50%</span><!-- react-text: 1074 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="1075">50%</span><!-- react-text: 1076 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1077">-o-transform</span><!-- react-text: 1078 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="1079">50%</span><!-- react-text: 1080 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="1081">50%</span><!-- react-text: 1082 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1083">transform</span><!-- react-text: 1084 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="1085">50%</span><!-- react-text: 1086 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="1087">50%</span><!-- react-text: 1088 -->);
+
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1089">-webkit-transition</span><!-- react-text: 1090 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="1091">2s</span><!-- react-text: 1092 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1093">-moz-transition</span><!-- react-text: 1094 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="1095">2s</span><!-- react-text: 1096 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1097">-ms-transition</span><!-- react-text: 1098 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="1099">2s</span><!-- react-text: 1100 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1101">-o-transition</span><!-- react-text: 1102 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="1103">2s</span><!-- react-text: 1104 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1105">transition</span><!-- react-text: 1106 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="1107">2s</span><!-- react-text: 1108 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="1109">opacity</span><!-- react-text: 1110 -->:<!-- /react-text --><span class="hljs-number" data-reactid="1111">0</span><!-- react-text: 1112 -->;
+}<!-- /react-text --></code></pre><!-- react-text: 1113 -->
+<!-- /react-text --><pre data-reactid="1114"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="1115"><span class="hljs-built_in" data-reactid="1116">window</span><!-- react-text: 1117 -->.onload = <!-- /react-text --><span class="hljs-function" data-reactid="1118"><span class="hljs-keyword" data-reactid="1119">function</span><!-- react-text: 1120 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1121"></span><!-- react-text: 1122 -->) <!-- /react-text --></span><!-- react-text: 1123 -->{
+    $(<!-- /react-text --><span class="hljs-string" data-reactid="1124">&#x27;.messages&#x27;</span><!-- react-text: 1125 -->)
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1126">// .css({&#x27;transform&#x27;:&#x27;translate(0,120px)&#x27;,opacity:1})</span><!-- react-text: 1127 -->
+        .css({<!-- /react-text --><span class="hljs-string" data-reactid="1128">&#x27;margin-top&#x27;</span><!-- react-text: 1129 -->:<!-- /react-text --><span class="hljs-string" data-reactid="1130">&#x27;140px&#x27;</span><!-- react-text: 1131 -->,<!-- /react-text --><span class="hljs-attr" data-reactid="1132">opacity</span><!-- react-text: 1133 -->:<!-- /react-text --><span class="hljs-number" data-reactid="1134">1</span><!-- react-text: 1135 -->})
+}<!-- /react-text --></code></pre><!-- react-text: 1136 -->
+<!-- /react-text --><ol start="2" data-reactid="1137"><!-- react-text: 1138 -->
+<!-- /react-text --><li data-reactid="1139"><!-- react-text: 1140 -->跳至评论，评论区高亮
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FrPkTfIt8U2R0Cvr-lpcPfbqfUED?imageslim" alt="ClipboardImage" width="594" height="621" data-reactid="1141"/></li><!-- react-text: 1142 -->
+<!-- /react-text --></ol><!-- react-text: 1143 -->
+<!-- /react-text --><pre data-reactid="1144"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="1145"><span class="hljs-keyword" data-reactid="1146">@keyframes</span><!-- react-text: 1147 --> blinking {
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="1148">0%</span><!-- react-text: 1149 --> {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1150">//opacity: 0;</span><!-- react-text: 1151 -->
+    }
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="1152">30%</span><!-- react-text: 1153 -->{
+        <!-- /react-text --><span class="hljs-attribute" data-reactid="1154">background-color</span><!-- react-text: 1155 -->: <!-- /react-text --><span class="hljs-number" data-reactid="1156">#fcf8e3</span><!-- react-text: 1157 -->;
+    }
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="1158">100%</span><!-- react-text: 1159 --> {
+        <!-- /react-text --><span class="hljs-attribute" data-reactid="1160">background-color</span><!-- react-text: 1161 -->: <!-- /react-text --><span class="hljs-number" data-reactid="1162">#fcf8e3</span><!-- react-text: 1163 -->;
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1164">//opacity: 1;</span><!-- react-text: 1165 -->
+    }
+}
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="1166">.blink</span><!-- react-text: 1167 -->{
+    <!-- /react-text --><span class="hljs-selector-class" data-reactid="1168">.animation</span><!-- react-text: 1169 -->(blinking <!-- /react-text --><span class="hljs-number" data-reactid="1170">2.8s</span><!-- react-text: 1171 -->)
+}<!-- /react-text --></code></pre><!-- react-text: 1172 -->
+<!-- /react-text --><pre data-reactid="1173"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="1174"><!-- react-text: 1175 -->$(<!-- /react-text --><span class="hljs-string" data-reactid="1176">&#x27;[role=link-msg]&#x27;</span><!-- react-text: 1177 -->).click(<!-- /react-text --><span class="hljs-function" data-reactid="1178"><span class="hljs-keyword" data-reactid="1179">function</span><!-- react-text: 1180 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1181">e</span><!-- react-text: 1182 -->) <!-- /react-text --></span><!-- react-text: 1183 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1184">var</span><!-- react-text: 1185 --> x = $(<!-- /react-text --><span class="hljs-keyword" data-reactid="1186">this</span><!-- react-text: 1187 -->.hash).next().children().removeClass(<!-- /react-text --><span class="hljs-string" data-reactid="1188">&#x27;blink&#x27;</span><!-- react-text: 1189 -->)
+        setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="1190"><span class="hljs-keyword" data-reactid="1191">function</span><!-- react-text: 1192 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1193"></span><!-- react-text: 1194 -->) <!-- /react-text --></span><!-- react-text: 1195 -->{
+            x.addClass(<!-- /react-text --><span class="hljs-string" data-reactid="1196">&#x27;blink&#x27;</span><!-- react-text: 1197 -->).children(<!-- /react-text --><span class="hljs-string" data-reactid="1198">&#x27;textarea&#x27;</span><!-- react-text: 1199 -->).focus();
+        },<!-- /react-text --><span class="hljs-number" data-reactid="1200">0</span><!-- react-text: 1201 -->)
+    });<!-- /react-text --></code></pre><!-- react-text: 1202 -->
+<!-- /react-text --><ol start="3" data-reactid="1203"><!-- react-text: 1204 -->
+<!-- /react-text --><li data-reactid="1205">markdown编辑区可粘贴网络图片</li><!-- react-text: 1206 -->
+<!-- /react-text --></ol><!-- react-text: 1207 -->
+<!-- /react-text --><pre data-reactid="1208"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="1209"><!-- react-text: 1210 -->input.onpaste = <!-- /react-text --><span class="hljs-function" data-reactid="1211"><span class="hljs-keyword" data-reactid="1212">function</span><!-- react-text: 1213 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1214">e</span><!-- react-text: 1215 -->) <!-- /react-text --></span><!-- react-text: 1216 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1217">var</span><!-- react-text: 1218 --> clipboardData, pastedData;
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1219">// Get pasted data via clipboard API</span><!-- react-text: 1220 -->
+        clipboardData = e.clipboardData || <!-- /react-text --><span class="hljs-built_in" data-reactid="1221">window</span><!-- react-text: 1222 -->.clipboardData;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1223">var</span><!-- react-text: 1224 --> text = clipboardData.getData(<!-- /react-text --><span class="hljs-string" data-reactid="1225">&#x27;text/plain&#x27;</span><!-- react-text: 1226 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1227">if</span><!-- react-text: 1228 -->(!text){
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1229">var</span><!-- react-text: 1230 --> img = clipboardData.getData(<!-- /react-text --><span class="hljs-string" data-reactid="1231">&#x27;text/html&#x27;</span><!-- react-text: 1232 -->);
+            img.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="1233">/&lt;img.+src=&quot;(.+?)&quot;/g</span><!-- react-text: 1234 -->,(m,c)=&gt;{
+                e.preventDefault();
+                <!-- /react-text --><span class="hljs-comment" data-reactid="1235">// 调用</span><!-- react-text: 1236 -->
+                <!-- /react-text --><span class="hljs-built_in" data-reactid="1237">document</span><!-- react-text: 1238 -->.execCommand(<!-- /react-text --><span class="hljs-string" data-reactid="1239">&#x27;insertText&#x27;</span><!-- react-text: 1240 -->, <!-- /react-text --><span class="hljs-literal" data-reactid="1241">false</span><!-- react-text: 1242 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1243">&quot;![ClipboardImage](&quot;</span><!-- react-text: 1244 -->+c+<!-- /react-text --><span class="hljs-string" data-reactid="1245">&quot;)&quot;</span><!-- react-text: 1246 -->);
+            })
+        }
+    };<!-- /react-text --></code></pre><!-- react-text: 1247 -->
+<!-- /react-text --><ol start="4" data-reactid="1248"><!-- react-text: 1249 -->
+<!-- /react-text --><li data-reactid="1250"><!-- react-text: 1251 -->代码段右上角显示语言
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FsEQEWGTxxkj6McnadZdnfk9NPjP?imageslim" alt="ClipboardImage" width="928" height="734" data-reactid="1252"/></li><!-- react-text: 1253 -->
+<!-- /react-text --></ol><!-- react-text: 1254 -->
+<!-- /react-text --><hr data-reactid="1255"/><!-- react-text: 1256 -->
+<!-- /react-text --><h2 id="系统截图" data-reactid="1257"><a href="#%E7%B3%BB%E7%BB%9F%E6%88%AA%E5%9B%BE" aria-hidden="true" data-reactid="1258"><span class="icon icon-link" data-reactid="1259"></span></a><!-- react-text: 1260 -->系统截图<!-- /react-text --></h2><!-- react-text: 1261 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fm7BX0YWaliIY1WBkmUDTNfh7ZOv?imageslim" alt="ClipboardImage" width="1194" height="792" data-reactid="1262"/><!-- react-text: 1263 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fk-q4DgGxi38zkNuYrsjIUj1tbKr?imageslim" alt="ClipboardImage" width="1185" height="435" data-reactid="1264"/><!-- react-text: 1265 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkQTiUEHfw-ngnXOdoTXebY5doQ7?imageslim" alt="ClipboardImage" width="1170" height="973" data-reactid="1266"/><!-- react-text: 1267 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FlTGXCPrYvVER7aW7X-JoNmJIhmh?imageslim" alt="ClipboardImage" width="1199" height="904" data-reactid="1268"/><!-- react-text: 1269 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FnS9RKLBBoJ5o35D7s5PqiQXOQA9?imageslim" alt="ClipboardImage" width="1168" height="506" data-reactid="1270"/><!-- react-text: 1271 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FuAKYxsc1Z3trMhrmzHb-u6kPldZ?imageslim" alt="ClipboardImage" width="1161" height="730" data-reactid="1272"/><!-- react-text: 1273 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fo0bkjy5iYh0JzWfIbkPLpklxhbR?imageslim" alt="ClipboardImage" width="1240" height="959" data-reactid="1274"/><!-- react-text: 1275 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FgROOlb4_LlW5cLV9dDD4A6_bAIh?imageslim" alt="ClipboardImage" width="1185" height="726" data-reactid="1276"/><!-- react-text: 1277 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fhaqdcpm0qP0-MO6Jk_eglLD0eXR?imageslim" alt="ClipboardImage" width="1173" height="581" data-reactid="1278"/><!-- react-text: 1279 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FifYYeoniR5rxoFXFgH6wEjI5Aw0?imageslim" alt="ClipboardImage" width="1191" height="747" data-reactid="1280"/><!-- react-text: 1281 -->
+<!-- /react-text --><hr data-reactid="1282"/><!-- react-text: 1283 -->
+<!-- /react-text --><h2 id="收获与体会" data-reactid="1284"><a href="#%E6%94%B6%E8%8E%B7%E4%B8%8E%E4%BD%93%E4%BC%9A" aria-hidden="true" data-reactid="1285"><span class="icon icon-link" data-reactid="1286"></span></a><!-- react-text: 1287 -->收获与体会<!-- /react-text --></h2><!-- react-text: 1288 -->
+<!-- /react-text --><ul data-reactid="1289"><!-- react-text: 1290 -->
+<!-- /react-text --><li data-reactid="1291"><!-- react-text: 1292 -->感受到了<!-- /react-text --><code data-reactid="1293">nodejs</code><!-- react-text: 1294 -->与<!-- /react-text --><code data-reactid="1295">express</code><!-- react-text: 1296 -->的魅力<!-- /react-text --></li><!-- react-text: 1297 -->
+<!-- /react-text --><li data-reactid="1298">增强了系统的整体把控架构能力</li><!-- react-text: 1299 -->
+<!-- /react-text --><li data-reactid="1300">掌握了一些常见具体问题的处理方式</li><!-- react-text: 1301 -->
+<!-- /react-text --><li data-reactid="1302">不足在于后端异步结构代码比较冗杂，难于管理</li><!-- react-text: 1303 -->
+<!-- /react-text --></ul><!-- react-text: 1304 -->
+<!-- /react-text --><h2 id="参考资料" data-reactid="1305"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="1306"><span class="icon icon-link" data-reactid="1307"></span></a><!-- react-text: 1308 -->参考资料<!-- /react-text --></h2><!-- react-text: 1309 -->
+<!-- /react-text --><ul data-reactid="1310"><!-- react-text: 1311 -->
+<!-- /react-text --><li data-reactid="1312"><a href="http://www.cnblogs.com/kongxianghai/archive/2015/02/15/4293139.html" data-reactid="1313">nodejs express4.x 文件上传</a></li><!-- react-text: 1314 -->
+<!-- /react-text --><li data-reactid="1315"><a href="http://jade-lang.com/reference/attributes/" data-reactid="1316">Jade 完整教程</a></li><!-- react-text: 1317 -->
+<!-- /react-text --><li data-reactid="1318"><a href="http://www.jiawin.com/pace-js-automatic-page-load-progress-bar" data-reactid="1319">page.js</a></li><!-- react-text: 1320 -->
+<!-- /react-text --><li data-reactid="1321"><a href="http://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser" data-reactid="1322">javascript-get-clipboard-data-on-paste-event-cross-browser</a></li><!-- react-text: 1323 -->
+<!-- /react-text --><li data-reactid="1324"><a href="http://www.haorooms.com/post/jq_js_xxjdt" data-reactid="1325">www.haorooms.com/post/jq_js_xxjdt</a></li><!-- react-text: 1326 -->
+<!-- /react-text --></ul><!-- react-text: 1327 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="1328"></div><div class="paginator" data-reactid="1329"><a title="「滴滴滴，老司机开车了」nodejs爬取煎蛋网妹子图" class="prev" href="/spider-girls-bynode" data-reactid="1330">Prev</a><a title="「项目拾遗」HTTP文件浏览（静态文件+express4.x+md/code文件渲染）" class="next" href="/express4x-file-explorer" data-reactid="1331">Next</a></div></div></main><footer data-reactid="1332"><div class="copyright" data-reactid="1333"><p data-reactid="1334"><!-- react-text: 1335 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="1336">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

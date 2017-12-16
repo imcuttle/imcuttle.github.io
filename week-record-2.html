@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1338445782"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">毕设周记二</h1><div class="post-info" data-reactid="12"><time datetime="2017-04-11T19:30:30+00:00" data-reactid="13">Apr 11, 2017 7:30 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->题目：刷脸签到系统<!-- /react-text --><br data-reactid="18"/><!-- react-text: 19 -->
+姓名：余聪<!-- /react-text --></p><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">最近几周主要完成了web前端页面的开发，与后端接口的开发。</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23"><!-- react-text: 24 -->界面如下：
+1. 学生签到
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" alt="学生签到-1" width="1440" height="810" data-reactid="25"/><!-- react-text: 26 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" alt="学生签到-2" width="1440" height="810" data-reactid="27"/></p><!-- react-text: 28 -->
+<!-- /react-text --><ol start="2" data-reactid="29"><!-- react-text: 30 -->
+<!-- /react-text --><li data-reactid="31"><!-- react-text: 32 -->
+<!-- /react-text --><p data-reactid="33"><!-- react-text: 34 -->人脸录入
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/11/58ecc6f371fe7.jpg" width="1345" height="721" data-reactid="35"/></p><!-- react-text: 36 -->
+<!-- /react-text --></li><!-- react-text: 37 -->
+<!-- /react-text --><li data-reactid="38"><!-- react-text: 39 -->
+<!-- /react-text --><p data-reactid="40"><!-- react-text: 41 -->关于
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486cf622d8.jpg" alt="alt" width="1440" height="810" data-reactid="42"/></p><!-- react-text: 43 -->
+<!-- /react-text --></li><!-- react-text: 44 -->
+<!-- /react-text --><li data-reactid="45"><!-- react-text: 46 -->
+<!-- /react-text --><p data-reactid="47"><!-- react-text: 48 -->管理员入口
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486ef8446d.jpg" alt="alt" width="1440" height="810" data-reactid="49"/></p><!-- react-text: 50 -->
+<!-- /react-text --></li><!-- react-text: 51 -->
+<!-- /react-text --></ol><!-- react-text: 52 -->
+<!-- /react-text --><p data-reactid="53"><!-- react-text: 54 -->前后端架构如下图：
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/11/58ecc1672afba.jpg" width="379" height="219" data-reactid="55"/></p><!-- react-text: 56 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58848833b7414.jpg" alt="系统模块" width="770" height="401" data-reactid="57"/><!-- react-text: 58 -->
+<!-- /react-text --><h2 id="前端" data-reactid="59"><a href="#%E5%89%8D%E7%AB%AF" aria-hidden="true" data-reactid="60"><span class="icon icon-link" data-reactid="61"></span></a><!-- react-text: 62 -->前端<!-- /react-text --></h2><!-- react-text: 63 -->
+<!-- /react-text --><ol data-reactid="64"><!-- react-text: 65 -->
+<!-- /react-text --><li data-reactid="66"><!-- react-text: 67 -->
+<!-- /react-text --><p data-reactid="68"><!-- react-text: 69 -->前端采用SPA（ single page web application，单页web应用 ）架构。<!-- /react-text --><br data-reactid="70"/><!-- react-text: 71 -->
+SPA是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由 JavaScript 来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。<!-- /react-text --></p><!-- react-text: 72 -->
+<!-- /react-text --></li><!-- react-text: 73 -->
+<!-- /react-text --><li data-reactid="74"><!-- react-text: 75 -->
+<!-- /react-text --><p data-reactid="76">使用主流 Webpack 构建，进行前端模块自动化管理。</p><!-- react-text: 77 -->
+<!-- /react-text --></li><!-- react-text: 78 -->
+<!-- /react-text --><li data-reactid="79"><!-- react-text: 80 -->
+<!-- /react-text --><p data-reactid="81"><!-- react-text: 82 -->使用Facebook提出的 React 框架进行 View 开发， 将 HTML DOM 进行上层抽象，提出 Virtual DOM 概念，一套理念，实现了Server render, Web UI, mobile UI 的统一。 Learn Once, Write Anywhere
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" alt="ClipboardImage" width="623" height="396" data-reactid="83"/></p><!-- react-text: 84 -->
+<!-- /react-text --></li><!-- react-text: 85 -->
+<!-- /react-text --><li data-reactid="86"><!-- react-text: 87 -->
+<!-- /react-text --><p data-reactid="88">使用 HTML5 的 getUserMedia 方法，调用计算机音频视频等硬件设备。为了安全问题，Chrome 只能在本地地址上调用该方法</p><!-- react-text: 89 -->
+<!-- /react-text --></li><!-- react-text: 90 -->
+<!-- /react-text --><li data-reactid="91"><!-- react-text: 92 -->
+<!-- /react-text --><p data-reactid="93">WebWorker: 利用 Web Worker 起一个进程代码，主要做的是输入图片数据，输出人脸的位置大小，就是 JavaScript 版的人脸检测，之所以起另一个线程，是因为对于视频的人脸检测，对于实时性要求也比较高，检测也比较耗时，为了效率考虑使用了Web Worker多进程。</p><!-- react-text: 94 -->
+<!-- /react-text --></li><!-- react-text: 95 -->
+<!-- /react-text --><li data-reactid="96"><!-- react-text: 97 -->
+<!-- /react-text --><p data-reactid="98">...</p><!-- react-text: 99 -->
+<!-- /react-text --></li><!-- react-text: 100 -->
+<!-- /react-text --></ol><!-- react-text: 101 -->
+<!-- /react-text --><h2 id="后端" data-reactid="102"><a href="#%E5%90%8E%E7%AB%AF" aria-hidden="true" data-reactid="103"><span class="icon icon-link" data-reactid="104"></span></a><!-- react-text: 105 -->后端<!-- /react-text --></h2><!-- react-text: 106 -->
+<!-- /react-text --><ol data-reactid="107"><!-- react-text: 108 -->
+<!-- /react-text --><li data-reactid="109">采用 nodeJs 作为后端，采用 JavaScript 脚本语言开发。 nodeJs 具有异步事件驱动、非阻塞（non-blocking）IO 特性，采用 Google 的 V8 引擎来执行代码。</li><!-- react-text: 110 -->
+<!-- /react-text --><li data-reactid="111"><!-- react-text: 112 -->isomorphic render（同构渲染）： 指的是前后端使用同一份代码。前端通过 Webpack 实现 CommonJs 的模块规范（Node亦是 CommonJs ）+ React 提出的 JSX ，使得 NodeJs 通过解析请求的 URL，适配 react-router 中的前端路由规则，得到 routing Props，还可以 dispatch(action) 同步或异步（一般是 isomorphic-fetch ），又或是直接读取数据，从而更新 store ，最后 nodeJs 通过 store 中的 state 渲染 JSX ，产生静态的 HTML，从而实现了前后端的同构渲染。<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884dc559b020.jpg" alt="isomorphic render" width="640" height="400" data-reactid="113"/></li><!-- react-text: 114 -->
+<!-- /react-text --><li data-reactid="115">Express（Node.js Web 应用程序框架），很方便的定义 restful api. 十分适合 spa 的架构</li><!-- react-text: 116 -->
+<!-- /react-text --><li data-reactid="117">...</li><!-- react-text: 118 -->
+<!-- /react-text --></ol><!-- react-text: 119 -->
+<!-- /react-text --><h2 id="文件结构" data-reactid="120"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="121"><span class="icon icon-link" data-reactid="122"></span></a><!-- react-text: 123 -->文件结构<!-- /react-text --></h2><!-- react-text: 124 -->
+<!-- /react-text --><pre data-reactid="125"><code data-query="{}" data-lang="data-lang" data-reactid="126">app/ # 前端目录
+├── App.js          # 父组件(Container)
+├── common/         # 一些通用的资源或模块
+├── components/     # 一些封装的组件
+├── index.tpl.html  # html模板
+├── main.js         # 入口文件
+├── pages/          # 所有页面
+├── reducers/       # 数据修改集合
+├── router.js       # 路由定义
+└── workers/        # WebWorker：用于前端页面的人脸检测，多线程
+
+gp-njnu-photos-backend/ # 后端代码目录
+├── cache.json          # 学生帐号和密码验证结果的缓存
+├── cpptest/            # 一些c++ opencv测试的代码
+├── data/               # 一些数据文件：级联分类器/预处理后的人脸/人脸特征数据/...
+├── database/           # 数据库访问代码，主要是人脸录入表
+├── index.js            # 入口
+├── lib/                # 一些 library
+├── opencv/             # node-opencv 
+├── package.json        
+├── pretreat/           # 预处理代码
+├── provider.js         # 开发环境下的入口
+├── readme.md           # 说明
+├── routes/             # express路由定义
+├── server.js           # http服务 入口
+├── ssl/                # https 证书
+└── test/               # 一些测试
+</code></pre><!-- react-text: 127 -->
+<!-- /react-text --><h2 id="部分代码解读" data-reactid="128"><a href="#%E9%83%A8%E5%88%86%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB" aria-hidden="true" data-reactid="129"><span class="icon icon-link" data-reactid="130"></span></a><!-- react-text: 131 -->部分代码解读<!-- /react-text --></h2><!-- react-text: 132 -->
+<!-- /react-text --><h3 id="开发环境（热部署）脚本" data-reactid="133"><a href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88%E7%83%AD%E9%83%A8%E7%BD%B2%EF%BC%89%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="134"><span class="icon icon-link" data-reactid="135"></span></a><!-- react-text: 136 -->开发环境（热部署）脚本<!-- /react-text --></h3><!-- react-text: 137 -->
+<!-- /react-text --><pre data-reactid="138"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="139"><span class="hljs-comment" data-reactid="140">// gp-njnu-photos-backend/provider.js</span><!-- react-text: 141 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="142">// language: javascript</span><!-- react-text: 143 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="144">// env: node</span><!-- react-text: 145 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="146">// usage: (cd gp-njnu-photos-backend &amp;&amp; npm run dev:w)</span><!-- react-text: 147 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="148">var</span><!-- react-text: 149 --> cp = <!-- /react-text --><span class="hljs-built_in" data-reactid="150">require</span><!-- react-text: 151 -->(<!-- /react-text --><span class="hljs-string" data-reactid="152">&#x27;child_process&#x27;</span><!-- react-text: 153 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="154">var</span><!-- react-text: 155 --> p = <!-- /react-text --><span class="hljs-built_in" data-reactid="156">require</span><!-- react-text: 157 -->(<!-- /react-text --><span class="hljs-string" data-reactid="158">&#x27;path&#x27;</span><!-- react-text: 159 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="160">var</span><!-- react-text: 161 --> fs = <!-- /react-text --><span class="hljs-built_in" data-reactid="162">require</span><!-- react-text: 163 -->(<!-- /react-text --><span class="hljs-string" data-reactid="164">&#x27;fs&#x27;</span><!-- react-text: 165 -->)
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="166">const</span><!-- react-text: 167 --> isDir = <!-- /react-text --><span class="hljs-function" data-reactid="168"><!-- react-text: 169 -->(<!-- /react-text --><span class="hljs-params" data-reactid="170">filepath</span><!-- react-text: 171 -->) =&gt;<!-- /react-text --></span><!-- react-text: 172 --> fs.statSync(filepath).isDirectory()
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="173">/* 去除掉 非文件夹，node_modules文件夹，`.`开头的文件夹 */</span><!-- react-text: 174 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="175">const</span><!-- react-text: 176 --> children = fs.readdirSync(__dirname).filter(<!-- /react-text --><span class="hljs-function" data-reactid="177"><span class="hljs-params" data-reactid="178">n</span><!-- react-text: 179 -->=&gt;<!-- /react-text --></span><!-- react-text: 180 -->n!=<!-- /react-text --><span class="hljs-string" data-reactid="181">&#x27;node_modules&#x27;</span><!-- react-text: 182 --> &amp;&amp; !n.startsWith(<!-- /react-text --><span class="hljs-string" data-reactid="183">&#x27;.&#x27;</span><!-- react-text: 184 -->) &amp;&amp; isDir(p.join(__dirname, n)));
+
+[__dirname].concat(children).forEach(<!-- /react-text --><span class="hljs-function" data-reactid="185"><span class="hljs-params" data-reactid="186">dir</span><!-- react-text: 187 --> =&gt;<!-- /react-text --></span><!-- react-text: 188 --> fs.watch(dir, watchHandle))
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="189">/* 监听到文件被修改则触发 */</span><!-- react-text: 190 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="191"><span class="hljs-keyword" data-reactid="192">function</span><!-- react-text: 193 --> <!-- /react-text --><span class="hljs-title" data-reactid="194">watchHandle</span><!-- react-text: 195 --> (<!-- /react-text --><span class="hljs-params" data-reactid="196">type, filename</span><!-- react-text: 197 -->) <!-- /react-text --></span><!-- react-text: 198 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="199">// 无视不是js文件和点开头命名的文件</span><!-- react-text: 200 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="201">if</span><!-- react-text: 202 -->(filename.startsWith(<!-- /react-text --><span class="hljs-string" data-reactid="203">&#x27;.&#x27;</span><!-- react-text: 204 -->) || !filename.endsWith(<!-- /react-text --><span class="hljs-string" data-reactid="205">&quot;.js&quot;</span><!-- react-text: 206 -->)) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="207">return</span><!-- react-text: 208 -->;
+    }
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="209">console</span><!-- react-text: 210 -->.log(type, filename);
+    <!-- /react-text --><span class="hljs-comment" data-reactid="211">// 杀死内存中的服务器进程</span><!-- react-text: 212 -->
+    serverProcess.kill(<!-- /react-text --><span class="hljs-string" data-reactid="213">&#x27;SIGINT&#x27;</span><!-- react-text: 214 -->);
+    serverProcess = runServer();
+}
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="215">var</span><!-- react-text: 216 --> serverProcess = runServer();
+<!-- /react-text --><span class="hljs-comment" data-reactid="217">/* fork index.js 进程 */</span><!-- react-text: 218 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="219"><span class="hljs-keyword" data-reactid="220">function</span><!-- react-text: 221 --> <!-- /react-text --><span class="hljs-title" data-reactid="222">runServer</span><!-- react-text: 223 -->(<!-- /react-text --><span class="hljs-params" data-reactid="224"></span><!-- react-text: 225 -->) <!-- /react-text --></span><!-- react-text: 226 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="227">return</span><!-- react-text: 228 --> cp.fork(<!-- /react-text --><span class="hljs-string" data-reactid="229">&#x27;./index.js&#x27;</span><!-- react-text: 230 -->, process.argv, {<!-- /react-text --><span class="hljs-attr" data-reactid="231">stdio</span><!-- react-text: 232 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="233">0</span><!-- react-text: 234 -->, <!-- /react-text --><span class="hljs-number" data-reactid="235">1</span><!-- react-text: 236 -->, <!-- /react-text --><span class="hljs-number" data-reactid="237">2</span><!-- react-text: 238 -->, <!-- /react-text --><span class="hljs-string" data-reactid="239">&#x27;ipc&#x27;</span><!-- react-text: 240 -->]})
+}<!-- /react-text --></code></pre><!-- react-text: 241 -->
+<!-- /react-text --><h3 id="服务器自动更新代码" data-reactid="242"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="243"><span class="icon icon-link" data-reactid="244"></span></a><!-- react-text: 245 -->服务器自动更新代码<!-- /react-text --></h3><!-- react-text: 246 -->
+<!-- /react-text --><ul data-reactid="247"><!-- react-text: 248 -->
+<!-- /react-text --><li data-reactid="249">服务器端  </li><!-- react-text: 250 -->
+<!-- /react-text --></ul><!-- react-text: 251 -->
+<!-- /react-text --><pre data-reactid="252"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="253"><span class="hljs-comment" data-reactid="254">// gp-njnu-photos-backend/routes/control.js</span><!-- react-text: 255 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="256">/* 访问 /api/ctrl/pull 服务器执行 git pull，从 github 更新代码 */</span><!-- react-text: 257 -->
+ctrl.all(<!-- /react-text --><span class="hljs-string" data-reactid="258">&#x27;/pull&#x27;</span><!-- react-text: 259 -->, (req, res) =&gt; {
+    res.writeHead(<!-- /react-text --><span class="hljs-number" data-reactid="260">200</span><!-- react-text: 261 -->, {
+        <!-- /react-text --><span class="hljs-string" data-reactid="262">&#x27;Content-Type&#x27;</span><!-- react-text: 263 -->: <!-- /react-text --><span class="hljs-string" data-reactid="264">&#x27;text/event-stream&#x27;</span><!-- react-text: 265 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="266">&#x27;Cache-Control&#x27;</span><!-- react-text: 267 -->: <!-- /react-text --><span class="hljs-string" data-reactid="268">&#x27;no-cache&#x27;</span><!-- react-text: 269 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="270">&#x27;Connection&#x27;</span><!-- react-text: 271 -->: <!-- /react-text --><span class="hljs-string" data-reactid="272">&#x27;keep-alive&#x27;</span><!-- react-text: 273 -->
+    });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="274">var</span><!-- react-text: 275 --> ls = <!-- /react-text --><span class="hljs-built_in" data-reactid="276">require</span><!-- react-text: 277 -->(<!-- /react-text --><span class="hljs-string" data-reactid="278">&#x27;child_process&#x27;</span><!-- react-text: 279 -->).spawn(<!-- /react-text --><span class="hljs-string" data-reactid="280">&#x27;git&#x27;</span><!-- react-text: 281 -->, [<!-- /react-text --><span class="hljs-string" data-reactid="282">&#x27;pull&#x27;</span><!-- react-text: 283 -->, <!-- /react-text --><span class="hljs-string" data-reactid="284">&#x27;origin&#x27;</span><!-- react-text: 285 -->, <!-- /react-text --><span class="hljs-string" data-reactid="286">&#x27;master&#x27;</span><!-- react-text: 287 -->])
+    ls.stdout.on(<!-- /react-text --><span class="hljs-string" data-reactid="288">&#x27;data&#x27;</span><!-- react-text: 289 -->, (data) =&gt; {
+        data = data.toString()
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="290">console</span><!-- react-text: 291 -->.log(data)
+        res.write(<!-- /react-text --><span class="hljs-string" data-reactid="292"><!-- react-text: 293 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="294">${data}</span><!-- react-text: 295 -->`<!-- /react-text --></span><!-- react-text: 296 -->);
+    });
+
+    ls.stderr.on(<!-- /react-text --><span class="hljs-string" data-reactid="297">&#x27;data&#x27;</span><!-- react-text: 298 -->, (data) =&gt; {
+        data = data.toString()
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="299">console</span><!-- react-text: 300 -->.log(data)
+        res.write(<!-- /react-text --><span class="hljs-string" data-reactid="301"><!-- react-text: 302 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="303">${data}</span><!-- react-text: 304 -->`<!-- /react-text --></span><!-- react-text: 305 -->);
+    });
+    ls.on(<!-- /react-text --><span class="hljs-string" data-reactid="306">&#x27;close&#x27;</span><!-- react-text: 307 -->, (code) =&gt; {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="308">console</span><!-- react-text: 309 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="310"><!-- react-text: 311 -->`child process exited with code <!-- /react-text --><span class="hljs-subst" data-reactid="312">${code}</span><!-- react-text: 313 -->`<!-- /react-text --></span><!-- react-text: 314 -->)
+        res.end(<!-- /react-text --><span class="hljs-string" data-reactid="315"><!-- react-text: 316 -->`child process exited with code <!-- /react-text --><span class="hljs-subst" data-reactid="317">${code}</span><!-- react-text: 318 -->`<!-- /react-text --></span><!-- react-text: 319 -->);
+    });
+
+})<!-- /react-text --></code></pre><!-- react-text: 320 -->
+<!-- /react-text --><ul data-reactid="321"><!-- react-text: 322 -->
+<!-- /react-text --><li data-reactid="323">本机（开发机）</li><!-- react-text: 324 -->
+<!-- /react-text --></ul><!-- react-text: 325 -->
+<!-- /react-text --><pre data-reactid="326"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="327"><span class="hljs-meta" data-reactid="328">#!/bin/bash</span><!-- react-text: 329 -->
+
+msg=<!-- /react-text --><span class="hljs-string" data-reactid="330">&quot;from bash&quot;</span><!-- react-text: 331 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="332">if</span><!-- react-text: 333 --> [ -n <!-- /react-text --><span class="hljs-string" data-reactid="334">&quot;$1&quot;</span><!-- react-text: 335 --> ]; then
+    msg=$<!-- /react-text --><span class="hljs-number" data-reactid="336">1</span><!-- react-text: 337 -->
+    # 重新 build 前端代码
+    (cd gp-njnu-photos-app &amp;&amp; npm run build)
+fi
+
+git add .
+git commit -m <!-- /react-text --><span class="hljs-string" data-reactid="338">&quot;$msg&quot;</span><!-- react-text: 339 -->
+git push
+
+# 如果push成功（exitcode=<!-- /react-text --><span class="hljs-number" data-reactid="340">0</span><!-- react-text: 341 -->），则访问远端 /api/ctrl/pull，从而服务器也更新了代码
+<!-- /react-text --><span class="hljs-keyword" data-reactid="342">if</span><!-- react-text: 343 --> [ $? = <!-- /react-text --><span class="hljs-number" data-reactid="344">0</span><!-- react-text: 345 --> ]; then
+    curl https:<!-- /react-text --><span class="hljs-comment" data-reactid="346">//face.moyuyc.xyz/api/ctrl/pull</span><!-- react-text: 347 -->
+fi<!-- /react-text --></code></pre><!-- react-text: 348 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="349"></div><div class="paginator" data-reactid="350"><a title="毕设周记三" class="prev" href="/graduation-weekly-record-3" data-reactid="351">Prev</a><a title="和手动刷新说拜拜" class="next" href="/say-goodbye-to-manual-refresh" data-reactid="352">Next</a></div></div></main><footer data-reactid="353"><div class="copyright" data-reactid="354"><p data-reactid="355"><!-- react-text: 356 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="357">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="590183017"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">componentWillReceiveProps Vs componentWillUpdate</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-23T18:05:04+00:00" data-reactid="13">Oct 23, 2016 6:05 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16">最近在写博客主题的时候，遇到一个react的坑，遂总结一番。</p><!-- react-text: 17 -->
+<!-- /react-text --><p data-reactid="18"><code data-reactid="19">componentWillReceiveProps</code><!-- react-text: 20 --> Vs <!-- /react-text --><code data-reactid="21">componentWillUpdate</code></p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">两个方法，根据语义去理解，可以读出这样的信息：</p><!-- react-text: 24 -->
+<!-- /react-text --><p data-reactid="25"><code data-reactid="26">componentWillReceiveProps</code><!-- react-text: 27 -->会在<!-- /react-text --><code data-reactid="28">componentWillUpdate</code><!-- react-text: 29 -->之前调用，而且调用<!-- /react-text --><code data-reactid="30">componentWillUpdate</code><!-- react-text: 31 -->的条件为<!-- /react-text --><code data-reactid="32">shouldComponentUpdate</code><!-- react-text: 33 --> return true<!-- /react-text --></p><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><!-- react-text: 36 -->那么，我便想当然的，在<!-- /react-text --><code data-reactid="37">componentWillUpdate</code><!-- react-text: 38 -->方法中调用了<!-- /react-text --><code data-reactid="39">setState</code><!-- react-text: 40 -->方法，然后便觉得在<!-- /react-text --><code data-reactid="41">render</code><!-- react-text: 42 -->中的<!-- /react-text --><code data-reactid="43">state</code><!-- react-text: 44 -->就是更新后的值了.<!-- /react-text --></p><!-- react-text: 45 -->
+<!-- /react-text --><pre data-reactid="46"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="47"><!-- react-text: 48 -->componentWillUpdate(nextProps) {
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="49">if</span><!-- react-text: 50 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="51">this</span><!-- react-text: 52 -->.props.a !== nextProps.a) {
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="53">this</span><!-- react-text: 54 -->.setState({...});
+	}
+}<!-- /react-text --></code></pre><!-- react-text: 55 -->
+<!-- /react-text --><p data-reactid="56"><!-- react-text: 57 -->然而，事实并非如此，调用<!-- /react-text --><code data-reactid="58">this.setState()</code><!-- react-text: 59 -->后，在<!-- /react-text --><code data-reactid="60">render()</code><!-- react-text: 61 -->中并没有改变<!-- /react-text --><code data-reactid="62">state</code><!-- react-text: 63 -->。<!-- /react-text --></p><!-- react-text: 64 -->
+<!-- /react-text --><p data-reactid="65"><a href="https://facebook.github.io/react/docs/react-component.html" data-reactid="66">官方文档</a><!-- react-text: 67 -->有下面一段话:<!-- /react-text --></p><!-- react-text: 68 -->
+<!-- /react-text --><blockquote data-reactid="69"><!-- react-text: 70 -->
+<!-- /react-text --><p data-reactid="71">componentWillUpdate() is invoked immediately before rendering when new props or state are being received. Use this as an opportunity to perform preparation before an update occurs. This method is not called for the initial render.</p><!-- react-text: 72 -->
+<!-- /react-text --><p data-reactid="73">Note that you cannot call this.setState() here. If you need to update state in response to a prop change, use componentWillReceiveProps() instead.</p><!-- react-text: 74 -->
+<!-- /react-text --></blockquote><!-- react-text: 75 -->
+<!-- /react-text --><p data-reactid="76"><!-- react-text: 77 -->这段话说的很清楚了！<!-- /react-text --><code data-reactid="78">componentWillUpdate</code><!-- react-text: 79 -->会在<!-- /react-text --><code data-reactid="80">render</code><!-- react-text: 81 -->之前时刻调用，在第一次<!-- /react-text --><code data-reactid="82">render</code><!-- react-text: 83 -->的时候不会调用。<!-- /react-text --><br data-reactid="84"/><!-- react-text: 85 -->
+<!-- /react-text --><strong data-reactid="86"><!-- react-text: 87 -->你不能在该方法中调用<!-- /react-text --><code data-reactid="88">this.setState()</code><!-- react-text: 89 -->，请用<!-- /react-text --><code data-reactid="90">componentWillReceiveProps()</code><!-- react-text: 91 -->代替<!-- /react-text --></strong></p><!-- react-text: 92 -->
+<!-- /react-text --><p data-reactid="93">那么为什么会这样呢？</p><!-- react-text: 94 -->
+<!-- /react-text --><p data-reactid="95"><!-- react-text: 96 -->其实，<!-- /react-text --><a href="https://facebook.github.io/react/docs/react-component.html#setstate" data-reactid="97"><code data-reactid="98">this.setState()</code></a><!-- react-text: 99 -->不是同步方法<!-- /react-text --><br data-reactid="100"/><!-- react-text: 101 -->
+<!-- /react-text --><code data-reactid="102">setState(nextState, callback)</code><!-- react-text: 103 -->后面会带有回调函数，如果你将上诉代码做些修改：  <!-- /react-text --></p><!-- react-text: 104 -->
+<!-- /react-text --><pre data-reactid="105"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="106"><!-- react-text: 107 -->componentWillUpdate(nextProps) {
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="108">if</span><!-- react-text: 109 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="110">this</span><!-- react-text: 111 -->.props.a !== nextProps.a) {
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="112">this</span><!-- react-text: 113 -->.setState({...}, <!-- /react-text --><span class="hljs-function" data-reactid="114"><span class="hljs-keyword" data-reactid="115">function</span><!-- react-text: 116 -->(<!-- /react-text --><span class="hljs-params" data-reactid="117"></span><!-- react-text: 118 -->) <!-- /react-text --></span><!-- react-text: 119 -->{
+			alert(<!-- /react-text --><span class="hljs-string" data-reactid="120">&#x27;state Updated&#x27;</span><!-- react-text: 121 -->);
+		});
+	}
+}<!-- /react-text --></code></pre><!-- react-text: 122 -->
+<!-- /react-text --><p data-reactid="123"><!-- react-text: 124 -->你就会发现，在<!-- /react-text --><code data-reactid="125">render()</code><!-- react-text: 126 -->结束后，才会<!-- /react-text --><code data-reactid="127">alert()</code></p><!-- react-text: 128 -->
+<!-- /react-text --><p data-reactid="129"><!-- react-text: 130 -->那么，为什么<!-- /react-text --><code data-reactid="131">react</code><!-- react-text: 132 -->将<!-- /react-text --><code data-reactid="133">this.setState()</code><!-- react-text: 134 -->设计为非同步方法呢？<!-- /react-text --><br data-reactid="135"/><!-- react-text: 136 -->
+<!-- /react-text --><a href="http://stackoverflow.com/questions/36085726/setstate-in-reactjs-is-async-or-sync" data-reactid="137">网上的解释</a><!-- react-text: 138 -->为:<!-- /react-text --></p><!-- react-text: 139 -->
+<!-- /react-text --><blockquote data-reactid="140"><!-- react-text: 141 -->
+<!-- /react-text --><p data-reactid="142">setState() does not immediately mutate this.state but creates a pending state transition. Accessing this.state after calling this method can potentially return the existing value. There is no guarantee of synchronous operation of calls to setState and calls may be batched for performance gains.</p><!-- react-text: 143 -->
+<!-- /react-text --><p data-reactid="144">This is because setState alters the state and causes rerendering. This can be an expensive operation and making it synchronous might leave the browser unresponsive.
+Thus the setState calls are asynchronous as well as batched for better UI experience and performance.</p><!-- react-text: 145 -->
+<!-- /react-text --></blockquote><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147">完.</p><!-- react-text: 148 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="149"></div><div class="paginator" data-reactid="150"><a title="再也不是“单纯”学生" class="prev" href="/never-simple-student" data-reactid="151">Prev</a><a title="LinuxC OSX sendfile()" class="next" href="/linux-c-osx-sendfile" data-reactid="152">Next</a></div></div></main><footer data-reactid="153"><div class="copyright" data-reactid="154"><p data-reactid="155"><!-- react-text: 156 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="157">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1666606331"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">HTML5 富文本编辑！</h1><div class="post-info" data-reactid="12"><time datetime="2017-11-05T21:00:58+00:00" data-reactid="13">Nov 5, 2017 9:00 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="首先看一个实例！" data-reactid="16"><a href="#%E9%A6%96%E5%85%88%E7%9C%8B%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%81" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->首先看一个实例！<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><a href="https://github.com/m-cuttlefish/react-code-editor" data-reactid="22"><code data-reactid="23">react-code-editor</code></a><br data-reactid="24"/><!-- react-text: 25 -->
+如下代码：<!-- /react-text --></p><!-- react-text: 26 -->
+<!-- /react-text --><pre data-reactid="27"><code class="hljs language-css" data-query="{}" data-lang="css" data-reactid="28"><span class="hljs-selector-class" data-reactid="29">.stage</span><!-- react-text: 30 --> {
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="31">border</span><!-- react-text: 32 -->: <!-- /react-text --><span class="hljs-number" data-reactid="33">1px</span><!-- react-text: 34 --> dashed <!-- /react-text --><span class="hljs-number" data-reactid="35">#333</span><!-- react-text: 36 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="37">padding</span><!-- react-text: 38 -->: <!-- /react-text --><span class="hljs-number" data-reactid="39">10px</span><!-- react-text: 40 -->;  
+}<!-- /react-text --></code></pre><!-- react-text: 41 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="42"><pre data-reactid="43"><code spellcheck="true" contenteditable="true" class="code-editor hljs language-jsx" data-reactid="44"></code></pre><div data-id="0" class="transformer-react-render" data-reactid="45"><div class="stage" data-reactid="46"><h4 style="margin:0;" data-reactid="47">CodeEditor</h4><pre data-reactid="48"><code spellcheck="false" contenteditable="true" class="code-editor hljs javascript" data-reactid="49"></code></pre><pre data-reactid="50"><code spellcheck="false" contenteditable="true" class="code-editor hljs javascript" data-reactid="51"></code></pre></div></div></div><!-- react-text: 52 -->
+<!-- /react-text --><h2 id="section--range" data-reactid="53"><a href="#section--range" aria-hidden="true" data-reactid="54"><span class="icon icon-link" data-reactid="55"></span></a><!-- react-text: 56 -->Section / Range<!-- /react-text --></h2><!-- react-text: 57 -->
+<!-- /react-text --><pre data-reactid="58"><code class="hljs language-html" data-query="{}" data-lang="__html" data-reactid="59"><span class="hljs-tag" data-reactid="60"><!-- react-text: 61 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="62">div</span><!-- react-text: 63 --> <!-- /react-text --><span class="hljs-attr" data-reactid="64">class</span><!-- react-text: 65 -->=<!-- /react-text --><span class="hljs-string" data-reactid="66">&quot;stage&quot;</span><!-- react-text: 67 -->&gt;<!-- /react-text --></span><!-- react-text: 68 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="69"><!-- react-text: 70 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="71">pre</span><!-- react-text: 72 --> <!-- /react-text --><span class="hljs-attr" data-reactid="73">id</span><!-- react-text: 74 -->=<!-- /react-text --><span class="hljs-string" data-reactid="75">&quot;dom-editable&quot;</span><!-- react-text: 76 --> <!-- /react-text --><span class="hljs-attr" data-reactid="77">contenteditable</span><!-- react-text: 78 -->=<!-- /react-text --><span class="hljs-string" data-reactid="79">&quot;true&quot;</span><!-- react-text: 80 -->&gt;<!-- /react-text --></span><!-- react-text: 81 -->Input Here.
+Second Line.
+<!-- /react-text --><span class="hljs-tag" data-reactid="82"><!-- react-text: 83 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="84">pre</span><!-- react-text: 85 -->&gt;<!-- /react-text --></span><!-- react-text: 86 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="87"><!-- react-text: 88 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="89">button</span><!-- react-text: 90 --> <!-- /react-text --><span class="hljs-attr" data-reactid="91">id</span><!-- react-text: 92 -->=<!-- /react-text --><span class="hljs-string" data-reactid="93">&quot;btn-1&quot;</span><!-- react-text: 94 -->&gt;<!-- /react-text --></span><!-- react-text: 95 -->Select Second line<!-- /react-text --><span class="hljs-tag" data-reactid="96"><!-- react-text: 97 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="98">button</span><!-- react-text: 99 -->&gt;<!-- /react-text --></span><!-- react-text: 100 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="101"><!-- react-text: 102 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="103">div</span><!-- react-text: 104 -->&gt;<!-- /react-text --></span><!-- react-text: 105 -->
+
+<!-- /react-text --><span class="hljs-tag" data-reactid="106"><!-- react-text: 107 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="108">script</span><!-- react-text: 109 --> <!-- /react-text --><span class="hljs-attr" data-reactid="110">type</span><!-- react-text: 111 -->=<!-- /react-text --><span class="hljs-string" data-reactid="112">&quot;text/javascript&quot;</span><!-- react-text: 113 -->&gt;<!-- /react-text --></span><span class="javascript" data-reactid="114"><!-- react-text: 115 -->
+    <!-- /react-text --><span class="hljs-function" data-reactid="116"><span class="hljs-keyword" data-reactid="117">function</span><!-- react-text: 118 --> <!-- /react-text --><span class="hljs-title" data-reactid="119">selectionHelper</span><!-- react-text: 120 -->(<!-- /react-text --><span class="hljs-params" data-reactid="121">el, pos</span><!-- react-text: 122 -->) <!-- /react-text --></span><!-- react-text: 123 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="124">var</span><!-- react-text: 125 --> indexes = {}
+        <!-- /react-text --><span class="hljs-comment" data-reactid="126">// getSelection</span><!-- react-text: 127 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="128">if</span><!-- react-text: 129 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="130">typeof</span><!-- react-text: 131 --> pos === <!-- /react-text --><span class="hljs-string" data-reactid="132">&#x27;undefined&#x27;</span><!-- react-text: 133 -->) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="134">var</span><!-- react-text: 135 --> selection = <!-- /react-text --><span class="hljs-built_in" data-reactid="136">window</span><!-- react-text: 137 -->.getSelection()
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="138">var</span><!-- react-text: 139 --> range = selection.getRangeAt(<!-- /react-text --><span class="hljs-number" data-reactid="140">0</span><!-- react-text: 141 -->);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="142">var</span><!-- react-text: 143 --> clone = range.cloneRange();
+
+            clone.selectNodeContents(el);
+            clone.setEnd(range.endContainer, range.endOffset);
+            indexes.end = clone.toString().length;
+            clone.setStart(range.startContainer, range.startOffset);
+            indexes.start = indexes.end - clone.toString().length;
+            indexes.atStart = clone.startOffset === <!-- /react-text --><span class="hljs-number" data-reactid="144">0</span><!-- react-text: 145 -->;
+            indexes.commonAncestorContainer = clone.commonAncestorContainer;
+            indexes.endContainer = clone.endContainer;
+            indexes.startContainer = clone.startContainer;
+
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="146">return</span><!-- react-text: 147 --> indexes;
+        }
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="148">var</span><!-- react-text: 149 --> setSelection = pos.end &amp;&amp; pos.end !== pos.start;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="150">var</span><!-- react-text: 151 --> length = <!-- /react-text --><span class="hljs-number" data-reactid="152">0</span><!-- react-text: 153 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="154">var</span><!-- react-text: 155 --> range = <!-- /react-text --><span class="hljs-built_in" data-reactid="156">document</span><!-- react-text: 157 -->.createRange();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="158">var</span><!-- react-text: 159 --> next;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="160">var</span><!-- react-text: 161 --> startindex;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="162">var</span><!-- react-text: 163 --> start = pos.start &gt; el.textContent.length ? el.textContent.length : pos.start;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="164">var</span><!-- react-text: 165 --> end = pos.end &gt; el.textContent.length ? el.textContent.length : pos.end;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="166">var</span><!-- react-text: 167 --> atStart = pos.atStart;
+
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="168">for</span><!-- react-text: 169 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="170">var</span><!-- react-text: 171 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="172">0</span><!-- react-text: 173 -->; i &lt; el.childNodes.length; i++) {
+            next = el.childNodes[i]
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="174">if</span><!-- react-text: 175 --> (next.nodeType === Node.TEXT_NODE) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="176">var</span><!-- react-text: 177 --> olen = length;
+                length += next.textContent.length;
+
+                <!-- /react-text --><span class="hljs-comment" data-reactid="178">// Set start point of selection</span><!-- react-text: 179 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="180">var</span><!-- react-text: 181 --> atLength = atStart ? length &gt; start : length &gt;= start;
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="182">if</span><!-- react-text: 183 --> (!startindex &amp;&amp; atLength) {
+                    startindex = <!-- /react-text --><span class="hljs-literal" data-reactid="184">true</span><!-- react-text: 185 -->;
+                    range.setStart(next, start - olen);
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="186">if</span><!-- react-text: 187 --> (!setSelection) {
+                        range.collapse(<!-- /react-text --><span class="hljs-literal" data-reactid="188">true</span><!-- react-text: 189 -->);
+                        makeSelection(el, range);
+                        <!-- /react-text --><span class="hljs-keyword" data-reactid="190">break</span><!-- react-text: 191 -->;
+                    }
+                }
+
+                <!-- /react-text --><span class="hljs-comment" data-reactid="192">// Set end point of selection</span><!-- react-text: 193 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="194">if</span><!-- react-text: 195 --> (setSelection &amp;&amp; length &gt;= end) {
+                    range.setEnd(next, end - olen);
+                    makeSelection(el, range);
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="196">break</span><!-- react-text: 197 -->;
+                }
+            }
+        }
+
+        <!-- /react-text --><span class="hljs-function" data-reactid="198"><span class="hljs-keyword" data-reactid="199">function</span><!-- react-text: 200 --> <!-- /react-text --><span class="hljs-title" data-reactid="201">makeSelection</span><!-- react-text: 202 -->(<!-- /react-text --><span class="hljs-params" data-reactid="203">el, range</span><!-- react-text: 204 -->) <!-- /react-text --></span><!-- react-text: 205 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="206">var</span><!-- react-text: 207 --> selection = <!-- /react-text --><span class="hljs-built_in" data-reactid="208">window</span><!-- react-text: 209 -->.getSelection();
+            el.focus();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="210">var</span><!-- react-text: 211 --> dom = <!-- /react-text --><span class="hljs-built_in" data-reactid="212">document</span><!-- react-text: 213 -->.getElementById(<!-- /react-text --><span class="hljs-string" data-reactid="214">&#x27;dom-editable&#x27;</span><!-- react-text: 215 -->);
+    dom.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="216">&#x27;keyup&#x27;</span><!-- react-text: 217 -->, <!-- /react-text --><span class="hljs-function" data-reactid="218"><span class="hljs-keyword" data-reactid="219">function</span><!-- react-text: 220 --> (<!-- /react-text --><span class="hljs-params" data-reactid="221">evt</span><!-- react-text: 222 -->) <!-- /react-text --></span><!-- react-text: 223 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="224">console</span><!-- react-text: 225 -->.log(selectionHelper(dom))
+    });
+
+    dom.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="226">&#x27;keydown&#x27;</span><!-- react-text: 227 -->, <!-- /react-text --><span class="hljs-function" data-reactid="228"><span class="hljs-keyword" data-reactid="229">function</span><!-- react-text: 230 --> (<!-- /react-text --><span class="hljs-params" data-reactid="231">evt</span><!-- react-text: 232 -->) <!-- /react-text --></span><!-- react-text: 233 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="234">if</span><!-- react-text: 235 --> (evt.keyCode === <!-- /react-text --><span class="hljs-number" data-reactid="236">13</span><!-- react-text: 237 -->) {
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="238">document</span><!-- react-text: 239 -->.execCommand(<!-- /react-text --><span class="hljs-string" data-reactid="240">&#x27;insertHTML&#x27;</span><!-- react-text: 241 -->, <!-- /react-text --><span class="hljs-literal" data-reactid="242">false</span><!-- react-text: 243 -->, <!-- /react-text --><span class="hljs-string" data-reactid="244">&#x27;\n&#x27;</span><!-- react-text: 245 -->);
+            evt.preventDefault()
+        }
+    });
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="246">document</span><!-- react-text: 247 -->.getElementById(<!-- /react-text --><span class="hljs-string" data-reactid="248">&#x27;btn-1&#x27;</span><!-- react-text: 249 -->).addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="250">&#x27;click&#x27;</span><!-- react-text: 251 -->, <!-- /react-text --><span class="hljs-function" data-reactid="252"><span class="hljs-keyword" data-reactid="253">function</span><!-- react-text: 254 --> (<!-- /react-text --><span class="hljs-params" data-reactid="255">evt</span><!-- react-text: 256 -->) <!-- /react-text --></span><!-- react-text: 257 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="258">var</span><!-- react-text: 259 --> lines = dom.textContent.split(<!-- /react-text --><span class="hljs-string" data-reactid="260">&#x27;\n&#x27;</span><!-- react-text: 261 -->)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="262">if</span><!-- react-text: 263 --> (lines.length &lt; <!-- /react-text --><span class="hljs-number" data-reactid="264">2</span><!-- react-text: 265 -->) <!-- /react-text --><span class="hljs-keyword" data-reactid="266">return</span><!-- react-text: 267 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="268">var</span><!-- react-text: 269 --> start = <!-- /react-text --><span class="hljs-number" data-reactid="270">0</span><!-- react-text: 271 -->, end = <!-- /react-text --><span class="hljs-number" data-reactid="272">0</span><!-- react-text: 273 -->;
+        start += lines[<!-- /react-text --><span class="hljs-number" data-reactid="274">0</span><!-- react-text: 275 -->].length + <!-- /react-text --><span class="hljs-number" data-reactid="276">1</span><!-- react-text: 277 -->
+        end += start + lines[<!-- /react-text --><span class="hljs-number" data-reactid="278">1</span><!-- react-text: 279 -->].length
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="280">console</span><!-- react-text: 281 -->.log(start, end)
+        selectionHelper(dom, {<!-- /react-text --><span class="hljs-attr" data-reactid="282">start</span><!-- react-text: 283 -->: start, <!-- /react-text --><span class="hljs-attr" data-reactid="284">end</span><!-- react-text: 285 -->: end})
+    });
+<!-- /react-text --></span><span class="hljs-tag" data-reactid="286"><!-- react-text: 287 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="288">script</span><!-- react-text: 289 -->&gt;<!-- /react-text --></span></code></pre><!-- react-text: 290 -->
+<!-- /react-text --><transformer-html-loader data-reactid="291"><div class="stage" data-reactid="292"><!-- react-text: 293 -->
+    <!-- /react-text --><pre id="dom-editable" contenteditable="true" data-reactid="294">Input Here.
+Second Line.
+</pre><!-- react-text: 295 -->
+    <!-- /react-text --><button id="btn-1" data-reactid="296">Select Second line</button><!-- react-text: 297 -->
+<!-- /react-text --></div><!-- react-text: 298 -->
+
+<!-- /react-text --><script type="text/javascript" data-reactid="299">
+    function selectionHelper(el, pos) {
+        var indexes = {}
+        // getSelection
+        if (typeof pos === &#x27;undefined&#x27;) {
+            var selection = window.getSelection()
+            var range = selection.getRangeAt(0);
+            var clone = range.cloneRange();
+
+            clone.selectNodeContents(el);
+            clone.setEnd(range.endContainer, range.endOffset);
+            indexes.end = clone.toString().length;
+            clone.setStart(range.startContainer, range.startOffset);
+            indexes.start = indexes.end - clone.toString().length;
+            indexes.atStart = clone.startOffset === 0;
+            indexes.commonAncestorContainer = clone.commonAncestorContainer;
+            indexes.endContainer = clone.endContainer;
+            indexes.startContainer = clone.startContainer;
+
+            return indexes;
+        }
+
+        var setSelection = pos.end &amp;&amp; pos.end !== pos.start;
+        var length = 0;
+        var range = document.createRange();
+        var next;
+        var startindex;
+        var start = pos.start &gt; el.textContent.length ? el.textContent.length : pos.start;
+        var end = pos.end &gt; el.textContent.length ? el.textContent.length : pos.end;
+        var atStart = pos.atStart;
+
+
+        for (var i = 0; i &lt; el.childNodes.length; i++) {
+            next = el.childNodes[i]
+            if (next.nodeType === Node.TEXT_NODE) {
+                var olen = length;
+                length += next.textContent.length;
+
+                // Set start point of selection
+                var atLength = atStart ? length &gt; start : length &gt;= start;
+                if (!startindex &amp;&amp; atLength) {
+                    startindex = true;
+                    range.setStart(next, start - olen);
+                    if (!setSelection) {
+                        range.collapse(true);
+                        makeSelection(el, range);
+                        break;
+                    }
+                }
+
+                // Set end point of selection
+                if (setSelection &amp;&amp; length &gt;= end) {
+                    range.setEnd(next, end - olen);
+                    makeSelection(el, range);
+                    break;
+                }
+            }
+        }
+
+        function makeSelection(el, range) {
+            var selection = window.getSelection();
+            el.focus();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    var dom = document.getElementById(&#x27;dom-editable&#x27;);
+    dom.addEventListener(&#x27;keyup&#x27;, function (evt) {
+        console.log(selectionHelper(dom))
+    });
+
+    dom.addEventListener(&#x27;keydown&#x27;, function (evt) {
+        if (evt.keyCode === 13) {
+            document.execCommand(&#x27;insertHTML&#x27;, false, &#x27;\n&#x27;);
+            evt.preventDefault()
+        }
+    });
+
+    document.getElementById(&#x27;btn-1&#x27;).addEventListener(&#x27;click&#x27;, function (evt) {
+        var lines = dom.textContent.split(&#x27;\n&#x27;)
+        if (lines.length &lt; 2) return
+        var start = 0, end = 0;
+        start += lines[0].length + 1
+        end += start + lines[1].length
+        console.log(start, end)
+        selectionHelper(dom, {start: start, end: end})
+    });
+</script></transformer-html-loader><!-- react-text: 300 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="301"></div><div class="paginator" data-reactid="302"><a title="优雅的文档生成器 —— Picidae" class="prev" href="/graceful-document-maker-picidae" data-reactid="303">Prev</a><a title="Babel插件开发" class="next" href="/dev-babel-plugin" data-reactid="304">Next</a></div></div></main><footer data-reactid="305"><div class="copyright" data-reactid="306"><p data-reactid="307"><!-- react-text: 308 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="309">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

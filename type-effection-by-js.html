@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-902398055"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">js实现打字机效果</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-25T21:29:46+00:00" data-reactid="13">Apr 25, 2016 9:29 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><script data-reactid="16">
+HTMLElement.prototype.findParentByTag = function(tag){
+	var p = this.parentElement;
+	while(p.tagName!=tag) p = p.parentElement;
+	return p;
+}
+HTMLElement.prototype.type = function(op){
+	op = Object.extend({
+		delay:25,
+		dest:this,
+		twinkle:&#x27;|&#x27;
+	},op);
+	var chain = makeChain(this),f=false,html=&#x27;&#x27;;
+	console.log(chain);
+	var dest = op.dest;
+	dest.innerHTML=&#x27;&#x27;;
+	var time = setInterval(function(){
+		var str = chain.shift();
+		while(str.length&gt;1){
+			html+=str;
+			dest.innerHTML=html;
+			str = chain.shift();
+			if(!chain.length){ 
+				clearInterval(time);
+				return;
+			}
+		}
+		html+=str;
+		if(!chain.length){ 
+			dest.innerHTML=html
+			clearInterval(time);
+			return;
+		}
+		dest.innerHTML=html+(f?op.twinkle:&#x27; &#x27;);
+		f=!f;
+	},op.delay);
+	function makeChain(node){
+		var nodes = node.childNodes;
+		var chain = [];
+		for(var i=0;i &lt; nodes.length;i++){
+			var ne = nodes[i];
+			if(ne.nodeType==1){
+				if(ne.tagName==&#x27;SCRIPT&#x27;){
+					chain.push(ne.outerHTML);
+					continue;
+				}
+				var str = ne.cloneNode().outerHTML;
+				var last = str.lastIndexOf(&#x27;&lt;&#x27;);
+				chain.push(str.substring(0,last));
+				chain = chain.concat(arguments.callee(ne));
+				chain.push(str.substring(last));
+			}else if(ne.nodeType==3){
+				var arr = ne.textContent.match(/(\s+|[^\s])/g);
+				if(arr)	chain = chain.concat(arr);
+			}
+		}
+		return chain;
+	}
+}
+Object.extend = function(){
+	if(!arguments || !arguments.length) return {};
+	var rlt = arguments[0];
+	for(var i=0;i&lt;arguments.length;i++){
+		var argu = arguments[i];
+		for(var k in argu)
+			rlt[k] = argu[k];
+	}
+	return rlt;
+}
+function typeHandle(ele){
+	ele.type({
+		delay:100,
+		dest:ele,
+		twinkle:&#x27;_&#x27;
+	});
+}
+</script><!-- react-text: 17 -->
+<!-- /react-text --><p class="text-center" data-reactid="18"><button class="btn" data-reactid="19">Click Me! Magic</button></p><!-- react-text: 20 -->
+<!-- /react-text --><img src="/avatar-right.jpg" data-reactid="21"/><!-- react-text: 22 -->
+<!-- /react-text --><p class="text-center" data-reactid="23"><input placeholder="input!" data-reactid="24"/></p><!-- react-text: 25 -->
+<!-- /react-text --><h1 id="好像挺好玩的哈" data-reactid="26"><a href="#%E5%A5%BD%E5%83%8F%E6%8C%BA%E5%A5%BD%E7%8E%A9%E7%9A%84%E5%93%88" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->好像挺好玩的哈<!-- /react-text --></h1><!-- react-text: 30 -->
+<!-- /react-text --><!-- react-text: 31 -->
+<!-- /react-text --><table data-reactid="32"><!-- react-text: 33 -->
+<!-- /react-text --><thead data-reactid="34"><!-- react-text: 35 -->
+<!-- /react-text --><tr data-reactid="36"><!-- react-text: 37 -->
+<!-- /react-text --><th data-reactid="38">项目</th><!-- react-text: 39 -->
+<!-- /react-text --><th data-reactid="40">价格</th><!-- react-text: 41 -->
+<!-- /react-text --><th data-reactid="42">数量</th><!-- react-text: 43 -->
+<!-- /react-text --></tr><!-- react-text: 44 -->
+<!-- /react-text --></thead><!-- react-text: 45 -->
+<!-- /react-text --><tbody data-reactid="46"><!-- react-text: 47 -->
+<!-- /react-text --><tr data-reactid="48"><!-- react-text: 49 -->
+<!-- /react-text --><td data-reactid="50">计算机</td><!-- react-text: 51 -->
+<!-- /react-text --><td data-reactid="52">\$1600</td><!-- react-text: 53 -->
+<!-- /react-text --><td data-reactid="54">5</td><!-- react-text: 55 -->
+<!-- /react-text --></tr><!-- react-text: 56 -->
+<!-- /react-text --><tr data-reactid="57"><!-- react-text: 58 -->
+<!-- /react-text --><td data-reactid="59">手机</td><!-- react-text: 60 -->
+<!-- /react-text --><td data-reactid="61">\$12</td><!-- react-text: 62 -->
+<!-- /react-text --><td data-reactid="63">12</td><!-- react-text: 64 -->
+<!-- /react-text --></tr><!-- react-text: 65 -->
+<!-- /react-text --><tr data-reactid="66"><!-- react-text: 67 -->
+<!-- /react-text --><td data-reactid="68">管线</td><!-- react-text: 69 -->
+<!-- /react-text --><td data-reactid="70">\$1</td><!-- react-text: 71 -->
+<!-- /react-text --><td data-reactid="72">234</td><!-- react-text: 73 -->
+<!-- /react-text --></tr><!-- react-text: 74 -->
+<!-- /react-text --></tbody><!-- react-text: 75 -->
+<!-- /react-text --></table><!-- react-text: 76 -->
+<!-- /react-text --><h1 id="借鉴了两份代码" data-reactid="77"><a href="#%E5%80%9F%E9%89%B4%E4%BA%86%E4%B8%A4%E4%BB%BD%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="78"><span class="icon icon-link" data-reactid="79"></span></a><!-- react-text: 80 -->借鉴了两份代码<!-- /react-text --></h1><!-- react-text: 81 -->
+<!-- /react-text --><ul data-reactid="82"><!-- react-text: 83 -->
+<!-- /react-text --><li data-reactid="84">jQuery版本</li><!-- react-text: 85 -->
+<!-- /react-text --></ul><!-- react-text: 86 -->
+<!-- /react-text --><pre data-reactid="87"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="88"><!-- react-text: 89 -->(<!-- /react-text --><span class="hljs-function" data-reactid="90"><span class="hljs-keyword" data-reactid="91">function</span><!-- react-text: 92 --> (<!-- /react-text --><span class="hljs-params" data-reactid="93">a</span><!-- react-text: 94 -->) <!-- /react-text --></span><!-- react-text: 95 -->{
+    a.fn.typewriter = <!-- /react-text --><span class="hljs-function" data-reactid="96"><span class="hljs-keyword" data-reactid="97">function</span><!-- react-text: 98 --> (<!-- /react-text --><span class="hljs-params" data-reactid="99"></span><!-- react-text: 100 -->) <!-- /react-text --></span><!-- react-text: 101 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="102">this</span><!-- react-text: 103 -->.each(<!-- /react-text --><span class="hljs-function" data-reactid="104"><span class="hljs-keyword" data-reactid="105">function</span><!-- react-text: 106 --> (<!-- /react-text --><span class="hljs-params" data-reactid="107"></span><!-- react-text: 108 -->) <!-- /react-text --></span><!-- react-text: 109 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="110">var</span><!-- react-text: 111 --> d = a(<!-- /react-text --><span class="hljs-keyword" data-reactid="112">this</span><!-- react-text: 113 -->), c = d.html(), b = <!-- /react-text --><span class="hljs-number" data-reactid="114">0</span><!-- react-text: 115 -->;
+            d.show();
+            d.html(<!-- /react-text --><span class="hljs-string" data-reactid="116">&quot;&quot;</span><!-- react-text: 117 -->);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="118">var</span><!-- react-text: 119 --> e = setInterval(<!-- /react-text --><span class="hljs-function" data-reactid="120"><span class="hljs-keyword" data-reactid="121">function</span><!-- react-text: 122 --> (<!-- /react-text --><span class="hljs-params" data-reactid="123"></span><!-- react-text: 124 -->) <!-- /react-text --></span><!-- react-text: 125 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="126">var</span><!-- react-text: 127 --> f = c.substr(b, <!-- /react-text --><span class="hljs-number" data-reactid="128">1</span><!-- react-text: 129 -->);
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="130">if</span><!-- react-text: 131 --> (f == <!-- /react-text --><span class="hljs-string" data-reactid="132">&quot;&lt;&quot;</span><!-- react-text: 133 -->) {
+                    b = c.indexOf(<!-- /react-text --><span class="hljs-string" data-reactid="134">&quot;&gt;&quot;</span><!-- react-text: 135 -->, b) + <!-- /react-text --><span class="hljs-number" data-reactid="136">1</span><!-- react-text: 137 -->
+                } <!-- /react-text --><span class="hljs-keyword" data-reactid="138">else</span><!-- react-text: 139 --> {
+                    b++
+                }
+                d.html(c.substring(<!-- /react-text --><span class="hljs-number" data-reactid="140">0</span><!-- react-text: 141 -->, b) + (b &amp; <!-- /react-text --><span class="hljs-number" data-reactid="142">1</span><!-- react-text: 143 --> ? <!-- /react-text --><span class="hljs-string" data-reactid="144">&quot;_&quot;</span><!-- react-text: 145 --> : <!-- /react-text --><span class="hljs-string" data-reactid="146">&quot;&quot;</span><!-- react-text: 147 -->));
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="148">if</span><!-- react-text: 149 --> (b &gt;= c.length) {
+                    clearInterval(e)
+                }
+            }, <!-- /react-text --><span class="hljs-number" data-reactid="150">75</span><!-- react-text: 151 -->)
+        });
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="152">return</span><!-- react-text: 153 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="154">this</span><!-- react-text: 155 -->
+    }
+})(jQuery);<!-- /react-text --></code></pre><!-- react-text: 156 -->
+<!-- /react-text --><ul data-reactid="157"><!-- react-text: 158 -->
+<!-- /react-text --><li data-reactid="159">原生JS版本</li><!-- react-text: 160 -->
+<!-- /react-text --></ul><!-- react-text: 161 -->
+<!-- /react-text --><pre data-reactid="162"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="163"><span class="hljs-function" data-reactid="164"><span class="hljs-keyword" data-reactid="165">function</span><!-- react-text: 166 --> <!-- /react-text --><span class="hljs-title" data-reactid="167">Typing</span><!-- react-text: 168 -->(<!-- /react-text --><span class="hljs-params" data-reactid="169">opts</span><!-- react-text: 170 -->) <!-- /react-text --></span><!-- react-text: 171 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="172">this</span><!-- react-text: 173 -->.version = <!-- /react-text --><span class="hljs-string" data-reactid="174">&#x27;1.1&#x27;</span><!-- react-text: 175 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="176">this</span><!-- react-text: 177 -->.source = opts.source;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="178">this</span><!-- react-text: 179 -->.output = opts.output;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="180">this</span><!-- react-text: 181 -->.delay = opts.delay || <!-- /react-text --><span class="hljs-number" data-reactid="182">120</span><!-- react-text: 183 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="184">this</span><!-- react-text: 185 -->.chain = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="186">parent</span><!-- react-text: 187 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="188">null</span><!-- react-text: 189 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="190">dom</span><!-- react-text: 191 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="192">this</span><!-- react-text: 193 -->.output,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="194">val</span><!-- react-text: 195 -->: []
+    }
+}
+
+Typing.fn = Typing.prototype = {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="196">toArray</span><!-- react-text: 197 -->: <!-- /react-text --><span class="hljs-function" data-reactid="198"><span class="hljs-keyword" data-reactid="199">function</span><!-- react-text: 200 -->(<!-- /react-text --><span class="hljs-params" data-reactid="201">eles</span><!-- react-text: 202 -->) <!-- /react-text --></span><!-- react-text: 203 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="204">//Array.prototype.slice;</span><!-- react-text: 205 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="206">var</span><!-- react-text: 207 --> result = [];
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="208">for</span><!-- react-text: 209 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="210">var</span><!-- react-text: 211 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="212">0</span><!-- react-text: 213 -->; i &lt; eles.length; i++) {
+            result.push(eles[i]);
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="214">return</span><!-- react-text: 215 --> result;
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="216">init</span><!-- react-text: 217 -->: <!-- /react-text --><span class="hljs-function" data-reactid="218"><span class="hljs-keyword" data-reactid="219">function</span><!-- react-text: 220 -->(<!-- /react-text --><span class="hljs-params" data-reactid="221"></span><!-- react-text: 222 -->) <!-- /react-text --></span><!-- react-text: 223 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="224">this</span><!-- react-text: 225 -->.chain.val = <!-- /react-text --><span class="hljs-keyword" data-reactid="226">this</span><!-- react-text: 227 -->.convert(<!-- /react-text --><span class="hljs-keyword" data-reactid="228">this</span><!-- react-text: 229 -->.source, <!-- /react-text --><span class="hljs-keyword" data-reactid="230">this</span><!-- react-text: 231 -->.chain.val);
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="232">convert</span><!-- react-text: 233 -->: <!-- /react-text --><span class="hljs-function" data-reactid="234"><span class="hljs-keyword" data-reactid="235">function</span><!-- react-text: 236 -->(<!-- /react-text --><span class="hljs-params" data-reactid="237">dom, arr</span><!-- react-text: 238 -->) <!-- /react-text --></span><!-- react-text: 239 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="240">var</span><!-- react-text: 241 --> that = <!-- /react-text --><span class="hljs-keyword" data-reactid="242">this</span><!-- react-text: 243 -->,
+            children = <!-- /react-text --><span class="hljs-keyword" data-reactid="244">this</span><!-- react-text: 245 -->.toArray(dom.childNodes);
+
+        children.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="246"><span class="hljs-keyword" data-reactid="247">function</span><!-- react-text: 248 -->(<!-- /react-text --><span class="hljs-params" data-reactid="249">node</span><!-- react-text: 250 -->) <!-- /react-text --></span><!-- react-text: 251 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="252">if</span><!-- react-text: 253 --> (node.nodeType === <!-- /react-text --><span class="hljs-number" data-reactid="254">3</span><!-- react-text: 255 -->) {
+                arr = arr.concat(node.nodeValue.split(<!-- /react-text --><span class="hljs-string" data-reactid="256">&#x27;&#x27;</span><!-- react-text: 257 -->));
+            } <!-- /react-text --><span class="hljs-keyword" data-reactid="258">else</span><!-- react-text: 259 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="260">if</span><!-- react-text: 261 --> (node.nodeType === <!-- /react-text --><span class="hljs-number" data-reactid="262">1</span><!-- react-text: 263 -->) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="264">var</span><!-- react-text: 265 --> val = [];
+                val = that.convert(node, val);
+                arr.push({
+                    <!-- /react-text --><span class="hljs-string" data-reactid="266">&#x27;dom&#x27;</span><!-- react-text: 267 -->: node,
+                    <!-- /react-text --><span class="hljs-string" data-reactid="268">&#x27;val&#x27;</span><!-- react-text: 269 -->: val
+                });
+            }
+        });
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="270">return</span><!-- react-text: 271 --> arr;
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="272">print</span><!-- react-text: 273 -->: <!-- /react-text --><span class="hljs-function" data-reactid="274"><span class="hljs-keyword" data-reactid="275">function</span><!-- react-text: 276 -->(<!-- /react-text --><span class="hljs-params" data-reactid="277">dom, val, callback</span><!-- react-text: 278 -->) <!-- /react-text --></span><!-- react-text: 279 -->{
+        setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="280"><span class="hljs-keyword" data-reactid="281">function</span><!-- react-text: 282 -->(<!-- /react-text --><span class="hljs-params" data-reactid="283"></span><!-- react-text: 284 -->) <!-- /react-text --></span><!-- react-text: 285 -->{
+            dom.appendChild(<!-- /react-text --><span class="hljs-built_in" data-reactid="286">document</span><!-- react-text: 287 -->.createTextNode(val));
+            callback();
+        }, <!-- /react-text --><span class="hljs-keyword" data-reactid="288">this</span><!-- react-text: 289 -->.delay);
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="290">play</span><!-- react-text: 291 -->: <!-- /react-text --><span class="hljs-function" data-reactid="292"><span class="hljs-keyword" data-reactid="293">function</span><!-- react-text: 294 -->(<!-- /react-text --><span class="hljs-params" data-reactid="295">ele</span><!-- react-text: 296 -->) <!-- /react-text --></span><!-- react-text: 297 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="298">if</span><!-- react-text: 299 --> (!ele) <!-- /react-text --><span class="hljs-keyword" data-reactid="300">return</span><!-- react-text: 301 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="302">if</span><!-- react-text: 303 --> (!ele.val.length &amp;&amp; ele.parent) <!-- /react-text --><span class="hljs-keyword" data-reactid="304">this</span><!-- react-text: 305 -->.play(ele.parent);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="306">if</span><!-- react-text: 307 --> (!ele.val.length) <!-- /react-text --><span class="hljs-keyword" data-reactid="308">return</span><!-- react-text: 309 -->;
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="310">var</span><!-- react-text: 311 --> curr = ele.val.shift();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="312">var</span><!-- react-text: 313 --> that = <!-- /react-text --><span class="hljs-keyword" data-reactid="314">this</span><!-- react-text: 315 -->;
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="316">if</span><!-- react-text: 317 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="318">typeof</span><!-- react-text: 319 --> curr === <!-- /react-text --><span class="hljs-string" data-reactid="320">&#x27;string&#x27;</span><!-- react-text: 321 -->) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="322">this</span><!-- react-text: 323 -->.print(ele.dom, curr, <!-- /react-text --><span class="hljs-function" data-reactid="324"><span class="hljs-keyword" data-reactid="325">function</span><!-- react-text: 326 -->(<!-- /react-text --><span class="hljs-params" data-reactid="327"></span><!-- react-text: 328 -->) <!-- /react-text --></span><!-- react-text: 329 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="330">if</span><!-- react-text: 331 --> (ele.val.length) {
+                    that.play(ele);
+                } <!-- /react-text --><span class="hljs-keyword" data-reactid="332">else</span><!-- react-text: 333 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="334">if</span><!-- react-text: 335 --> (ele.parent) {
+                    that.play(ele.parent);
+                }
+            });
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="336">else</span><!-- react-text: 337 --> {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="338">var</span><!-- react-text: 339 --> dom = <!-- /react-text --><span class="hljs-built_in" data-reactid="340">document</span><!-- react-text: 341 -->.createElement(curr.dom.nodeName);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="342">var</span><!-- react-text: 343 --> attrs = that.toArray(curr.dom.attributes);
+            attrs.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="344"><span class="hljs-keyword" data-reactid="345">function</span><!-- react-text: 346 -->(<!-- /react-text --><span class="hljs-params" data-reactid="347">attr</span><!-- react-text: 348 -->) <!-- /react-text --></span><!-- react-text: 349 -->{
+                dom.setAttribute(attr.name, attr.value);
+            });
+            ele.dom.appendChild(dom);
+            curr.parent = ele;
+            curr.dom = dom;
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="350">this</span><!-- react-text: 351 -->.play(curr.val.length ? curr : curr.parent);
+        }
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="352">start</span><!-- react-text: 353 -->: <!-- /react-text --><span class="hljs-function" data-reactid="354"><span class="hljs-keyword" data-reactid="355">function</span><!-- react-text: 356 -->(<!-- /react-text --><span class="hljs-params" data-reactid="357"></span><!-- react-text: 358 -->) <!-- /react-text --></span><!-- react-text: 359 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="360">this</span><!-- react-text: 361 -->.init();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="362">this</span><!-- react-text: 363 -->.play(<!-- /react-text --><span class="hljs-keyword" data-reactid="364">this</span><!-- react-text: 365 -->.chain);
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 366 -->
+<!-- /react-text --><h1 id="之我见" data-reactid="367"><a href="#%E4%B9%8B%E6%88%91%E8%A7%81" aria-hidden="true" data-reactid="368"><span class="icon icon-link" data-reactid="369"></span></a><!-- react-text: 370 -->之我见<!-- /react-text --></h1><!-- react-text: 371 -->
+<!-- /react-text --><ul data-reactid="372"><!-- react-text: 373 -->
+<!-- /react-text --><li data-reactid="374"><!-- react-text: 375 -->第一份jQuery版本，只是对<!-- /react-text --><code data-reactid="376">&#x27;&lt;&#x27;</code><!-- react-text: 377 -->,<!-- /react-text --><code data-reactid="378">&#x27;&gt;&#x27;</code><!-- react-text: 379 -->两个特殊的字符串进行了判断处理，如果打印那种代码文本时将会有误。<!-- /react-text --></li><!-- react-text: 380 -->
+<!-- /react-text --><li data-reactid="381">第二份原生JS代码，将元素的孩子结点都进行了处理，这是一种很好的方法，但是，他的数据结构有些复杂化了，有</li><!-- react-text: 382 -->
+<!-- /react-text --></ul><!-- react-text: 383 -->
+<!-- /react-text --><pre data-reactid="384"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="385"><!-- react-text: 386 -->{
+	<!-- /react-text --><span class="hljs-attr" data-reactid="387">parent</span><!-- react-text: 388 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="389">null</span><!-- react-text: 390 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="391">dom</span><!-- react-text: 392 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="393">this</span><!-- react-text: 394 -->.output,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="395">val</span><!-- react-text: 396 -->: []
+}<!-- /react-text --></code></pre><!-- react-text: 397 -->
+<!-- /react-text --><p data-reactid="398">对于那种标签嵌套比较严重和多余的文本结点较多的html处理起来不太美好。</p><!-- react-text: 399 -->
+<!-- /react-text --><h1 id="之我改" data-reactid="400"><a href="#%E4%B9%8B%E6%88%91%E6%94%B9" aria-hidden="true" data-reactid="401"><span class="icon icon-link" data-reactid="402"></span></a><!-- react-text: 403 -->之我改<!-- /react-text --></h1><!-- react-text: 404 -->
+<!-- /react-text --><pre data-reactid="405"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="406"><!-- react-text: 407 -->HTMLElement.prototype.type = <!-- /react-text --><span class="hljs-function" data-reactid="408"><span class="hljs-keyword" data-reactid="409">function</span><!-- react-text: 410 -->(<!-- /react-text --><span class="hljs-params" data-reactid="411">op</span><!-- react-text: 412 -->)<!-- /react-text --></span><!-- react-text: 413 -->{
+	op = <!-- /react-text --><span class="hljs-built_in" data-reactid="414">Object</span><!-- react-text: 415 -->.extend({
+		<!-- /react-text --><span class="hljs-attr" data-reactid="416">delay</span><!-- react-text: 417 -->:<!-- /react-text --><span class="hljs-number" data-reactid="418">25</span><!-- react-text: 419 -->,
+		<!-- /react-text --><span class="hljs-attr" data-reactid="420">dest</span><!-- react-text: 421 -->:<!-- /react-text --><span class="hljs-keyword" data-reactid="422">this</span><!-- react-text: 423 -->,
+		<!-- /react-text --><span class="hljs-attr" data-reactid="424">twinkle</span><!-- react-text: 425 -->:<!-- /react-text --><span class="hljs-string" data-reactid="426">&#x27;|&#x27;</span><!-- react-text: 427 -->
+	},op);
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="428">var</span><!-- react-text: 429 --> chain = makeChain(<!-- /react-text --><span class="hljs-keyword" data-reactid="430">this</span><!-- react-text: 431 -->),f=<!-- /react-text --><span class="hljs-literal" data-reactid="432">false</span><!-- react-text: 433 -->,html=<!-- /react-text --><span class="hljs-string" data-reactid="434">&#x27;&#x27;</span><!-- react-text: 435 -->;
+	<!-- /react-text --><span class="hljs-built_in" data-reactid="436">console</span><!-- react-text: 437 -->.log(chain);
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="438">var</span><!-- react-text: 439 --> dest = op.dest;
+	dest.innerHTML=<!-- /react-text --><span class="hljs-string" data-reactid="440">&#x27;&#x27;</span><!-- react-text: 441 -->;
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="442">var</span><!-- react-text: 443 --> time = setInterval(<!-- /react-text --><span class="hljs-function" data-reactid="444"><span class="hljs-keyword" data-reactid="445">function</span><!-- react-text: 446 -->(<!-- /react-text --><span class="hljs-params" data-reactid="447"></span><!-- react-text: 448 -->)<!-- /react-text --></span><!-- react-text: 449 -->{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="450">var</span><!-- react-text: 451 --> str = chain.shift();
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="452">while</span><!-- react-text: 453 -->(str.length&gt;<!-- /react-text --><span class="hljs-number" data-reactid="454">1</span><!-- react-text: 455 -->){
+			html+=str;
+			dest.innerHTML=html;
+			str = chain.shift();
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="456">if</span><!-- react-text: 457 -->(!chain.length){ 
+				clearInterval(time);
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="458">return</span><!-- react-text: 459 -->;
+			}
+		}
+		html+=str;
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="460">if</span><!-- react-text: 461 -->(!chain.length){ 
+			dest.innerHTML=html
+			clearInterval(time);
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="462">return</span><!-- react-text: 463 -->;
+		}
+		dest.innerHTML=html+(f?op.twinkle:<!-- /react-text --><span class="hljs-string" data-reactid="464">&#x27; &#x27;</span><!-- react-text: 465 -->);
+		f=!f;
+	},op.delay);
+	<!-- /react-text --><span class="hljs-function" data-reactid="466"><span class="hljs-keyword" data-reactid="467">function</span><!-- react-text: 468 --> <!-- /react-text --><span class="hljs-title" data-reactid="469">makeChain</span><!-- react-text: 470 -->(<!-- /react-text --><span class="hljs-params" data-reactid="471">node</span><!-- react-text: 472 -->)<!-- /react-text --></span><!-- react-text: 473 -->{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="474">var</span><!-- react-text: 475 --> nodes = node.childNodes;
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="476">var</span><!-- react-text: 477 --> chain = [];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="478">for</span><!-- react-text: 479 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="480">var</span><!-- react-text: 481 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="482">0</span><!-- react-text: 483 -->;i &lt; nodes.length;i++){
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="484">var</span><!-- react-text: 485 --> ne = nodes[i];
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="486">if</span><!-- react-text: 487 -->(ne.nodeType==<!-- /react-text --><span class="hljs-number" data-reactid="488">1</span><!-- react-text: 489 -->){
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="490">if</span><!-- react-text: 491 -->(ne.tagName==<!-- /react-text --><span class="hljs-string" data-reactid="492">&#x27;SCRIPT&#x27;</span><!-- react-text: 493 -->){
+					chain.push(ne.outerHTML);
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="494">continue</span><!-- react-text: 495 -->;
+				}
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="496">var</span><!-- react-text: 497 --> str = ne.cloneNode().outerHTML;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="498">var</span><!-- react-text: 499 --> last = str.lastIndexOf(<!-- /react-text --><span class="hljs-string" data-reactid="500">&#x27;&lt;&#x27;</span><!-- react-text: 501 -->);
+				chain.push(str.substring(<!-- /react-text --><span class="hljs-number" data-reactid="502">0</span><!-- react-text: 503 -->,last));
+				chain = chain.concat(<!-- /react-text --><span class="hljs-built_in" data-reactid="504">arguments</span><!-- react-text: 505 -->.callee(ne));
+				chain.push(str.substring(last));
+			}<!-- /react-text --><span class="hljs-keyword" data-reactid="506">else</span><!-- react-text: 507 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="508">if</span><!-- react-text: 509 -->(ne.nodeType==<!-- /react-text --><span class="hljs-number" data-reactid="510">3</span><!-- react-text: 511 -->){
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="512">var</span><!-- react-text: 513 --> arr = ne.textContent.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="514">/(\s+|[^\s])/g</span><!-- react-text: 515 -->);
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="516">if</span><!-- react-text: 517 -->(arr)	chain = chain.concat(arr);
+			}
+		}
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="518">return</span><!-- react-text: 519 --> chain;
+	}
+}
+<!-- /react-text --><span class="hljs-built_in" data-reactid="520">Object</span><!-- react-text: 521 -->.extend = <!-- /react-text --><span class="hljs-function" data-reactid="522"><span class="hljs-keyword" data-reactid="523">function</span><!-- react-text: 524 -->(<!-- /react-text --><span class="hljs-params" data-reactid="525"></span><!-- react-text: 526 -->)<!-- /react-text --></span><!-- react-text: 527 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="528">if</span><!-- react-text: 529 -->(!<!-- /react-text --><span class="hljs-built_in" data-reactid="530">arguments</span><!-- react-text: 531 --> || !<!-- /react-text --><span class="hljs-built_in" data-reactid="532">arguments</span><!-- react-text: 533 -->.length) <!-- /react-text --><span class="hljs-keyword" data-reactid="534">return</span><!-- react-text: 535 --> {};
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="536">var</span><!-- react-text: 537 --> rlt = <!-- /react-text --><span class="hljs-built_in" data-reactid="538">arguments</span><!-- react-text: 539 -->[<!-- /react-text --><span class="hljs-number" data-reactid="540">0</span><!-- react-text: 541 -->];
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="542">for</span><!-- react-text: 543 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="544">var</span><!-- react-text: 545 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="546">0</span><!-- react-text: 547 -->;i&lt;<!-- /react-text --><span class="hljs-built_in" data-reactid="548">arguments</span><!-- react-text: 549 -->.length;i++){
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="550">var</span><!-- react-text: 551 --> argu = <!-- /react-text --><span class="hljs-built_in" data-reactid="552">arguments</span><!-- react-text: 553 -->[i];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="554">for</span><!-- react-text: 555 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="556">var</span><!-- react-text: 557 --> k <!-- /react-text --><span class="hljs-keyword" data-reactid="558">in</span><!-- react-text: 559 --> argu)
+			rlt[k] = argu[k];
+	}
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="560">return</span><!-- react-text: 561 --> rlt;
+}<!-- /react-text --></code></pre><!-- react-text: 562 -->
+<!-- /react-text --><p data-reactid="563"><!-- react-text: 564 -->我吸取了前面两者的优点，比如第一份代码的简单直接，第二份代码的子节点遍历与递归的思路，
+进一步的解决了前面两者的缺陷。
+1. 对无实际意义的文本结点（如 <!-- /react-text --><code data-reactid="565">&quot; 12 \n sx &quot;</code><!-- react-text: 566 --> ）进行优化处理，处理为[&#x27;   &#x27;,&#x27;1&#x27;,&#x27;2&#x27;,&#x27; \n &#x27;,&#x27;s&#x27;,&#x27;x&#x27;,&#x27; &#x27;]
+var arr = ne.textContent.match(/(\s+|[^\s.])/g);
+if(arr)	chain = chain.concat(arr);
+2. 对 <!-- /react-text --><code data-reactid="567">script</code><!-- react-text: 568 --> 标签进行优化处理，统一打印文字的节奏
+if(ne.tagName==&#x27;SCRIPT&#x27;){
+chain.push(ne.outerHTML);
+continue;
+}
+3. 避免了打印代码块的错误
+因为代码中分别对 <!-- /react-text --><code data-reactid="569">nodeType == 1</code><!-- react-text: 570 --> 和 <!-- /react-text --><code data-reactid="571">nodeType == 3</code><!-- react-text: 572 --> 进行了不同的处理，
+可以根据 <!-- /react-text --><code data-reactid="573">chain</code><!-- react-text: 574 --> 中元素的长度判断是否为文本节点<!-- /react-text --></p><!-- react-text: 575 -->
+<!-- /react-text --><h1 id="之我版" data-reactid="576"><a href="#%E4%B9%8B%E6%88%91%E7%89%88" aria-hidden="true" data-reactid="577"><span class="icon icon-link" data-reactid="578"></span></a><!-- react-text: 579 -->之我版<!-- /react-text --></h1><!-- react-text: 580 -->
+<!-- /react-text --><p class="text-center" data-reactid="581">[fork it！](https://github.com/moyuyc/typemagic)</p><!-- react-text: 582 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="583"></div><div class="paginator" data-reactid="584"><a title="canvas绘制平面花瓣" class="prev" href="/draw-flower-by-canvas" data-reactid="585">Prev</a><a title="js实现的图片瀑布流" class="next" href="/imgs-fallwater-by-js" data-reactid="586">Next</a></div></div></main><footer data-reactid="587"><div class="copyright" data-reactid="588"><p data-reactid="589"><!-- react-text: 590 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="591">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

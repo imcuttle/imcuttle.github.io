@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1778410196"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">doc-pipe - 管理/同步 树状文档本地/服务器文章 解决方案</h1><div class="post-info" data-reactid="12"><time datetime="2017-08-26T22:03:50+00:00" data-reactid="13">Aug 26, 2017 10:03 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="画个饼" data-reactid="16"><a href="#%E7%94%BB%E4%B8%AA%E9%A5%BC" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->画个饼<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><ol data-reactid="21"><!-- react-text: 22 -->
+<!-- /react-text --><li data-reactid="23">doc-pipe 是一个本地和服务器两端的一个双向通道，可以从本地推送到服务器(push)，也可以拉取服务器树状文档至本地(pull)</li><!-- react-text: 24 -->
+<!-- /react-text --><li data-reactid="25">doc-pipe 可以完成在本地完成对远端文档的同步和管理</li><!-- react-text: 26 -->
+<!-- /react-text --><li data-reactid="27">doc-pipe 自动化生成文章索引</li><!-- react-text: 28 -->
+<!-- /react-text --></ol><!-- react-text: 29 -->
+<!-- /react-text --><h2 id="目前定位" data-reactid="30"><a href="#%E7%9B%AE%E5%89%8D%E5%AE%9A%E4%BD%8D" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->目前定位<!-- /react-text --></h2><!-- react-text: 34 -->
+<!-- /react-text --><ol data-reactid="35"><!-- react-text: 36 -->
+<!-- /react-text --><li data-reactid="37">十分适合个人文章(不可协同编辑)的管理和发布，实现本地到远端的同步。</li><!-- react-text: 38 -->
+<!-- /react-text --><li data-reactid="39">如：个人standup、分享报告、总结...</li><!-- react-text: 40 -->
+<!-- /react-text --></ol><!-- react-text: 41 -->
+<!-- /react-text --><h2 id="困境" data-reactid="42"><a href="#%E5%9B%B0%E5%A2%83" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->困境<!-- /react-text --></h2><!-- react-text: 46 -->
+<!-- /react-text --><ol data-reactid="47"><!-- react-text: 48 -->
+<!-- /react-text --><li data-reactid="49">doc-pipe 使用原生 markdown 的列表、标题来形成树形结构，因此不会完全兼容树状文档的写法。</li><!-- react-text: 50 -->
+<!-- /react-text --><li data-reactid="51"><!-- react-text: 52 -->由于不完全兼容树状文档的分层逻辑，所以<!-- /react-text --><code data-reactid="53">tree &lt;-&gt; md</code><!-- react-text: 54 -->的转化不是互逆的。<!-- /react-text --></li><!-- react-text: 55 -->
+<!-- /react-text --><li data-reactid="56">pull实现逻辑的复杂性</li><!-- react-text: 57 -->
+<!-- /react-text --><li data-reactid="58">由于1的存在，故不适合于多人协同编辑文章的 远端-本地 同步</li><!-- react-text: 59 -->
+<!-- /react-text --></ol><!-- react-text: 60 -->
+<!-- /react-text --><h2 id="安装使用" data-reactid="61"><a href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="62"><span class="icon icon-link" data-reactid="63"></span></a><!-- react-text: 64 -->安装使用<!-- /react-text --></h2><!-- react-text: 65 -->
+<!-- /react-text --><pre data-reactid="66"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="67"><!-- react-text: 68 -->npm install -g doc-md-import
+doc-pipe -h
+docin -h
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="69"># 首先设置远端用户和密码</span><!-- react-text: 70 -->
+docin <!-- /react-text --><span class="hljs-built_in" data-reactid="71">set</span><!-- react-text: 72 -->-username abc
+docin <!-- /react-text --><span class="hljs-built_in" data-reactid="73">set</span><!-- react-text: 74 -->-password
+<!-- /react-text --><span class="hljs-comment" data-reactid="75"># 进入到某文章工作目录</span><!-- react-text: 76 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="77">cd</span><!-- react-text: 78 --> my-doc
+<!-- /react-text --><span class="hljs-comment" data-reactid="79"># 初始化 doc-pipe</span><!-- react-text: 80 -->
+doc-pipe init
+<!-- /react-text --><span class="hljs-comment" data-reactid="81"># 将当前文件夹下所有以`.md` `.markdown`结尾的文件推送到远端</span><!-- react-text: 82 -->
+doc-pipe push
+<!-- /react-text --><span class="hljs-comment" data-reactid="83"># push `a/` 下的 md 文件</span><!-- react-text: 84 -->
+doc-pipe push a/
+<!-- /react-text --><span class="hljs-comment" data-reactid="85"># push `a/a.md` 文件</span><!-- react-text: 86 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="87"># `-f` 表示强制 push</span><!-- react-text: 88 -->
+doc-pipe push a/a.md -f
+<!-- /react-text --><span class="hljs-comment" data-reactid="89"># 根据 push 记录生成索引 (./doc-pipe-toc.md) </span><!-- react-text: 90 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="91"># `--push` 表示自动将 toc push 至远端</span><!-- react-text: 92 -->
+doc-pipe toc --push
+<!-- /react-text --><span class="hljs-comment" data-reactid="93"># 删除所有的 push 记录，同时也会删除远端的数据</span><!-- react-text: 94 -->
+doc-pipe rm
+<!-- /react-text --><span class="hljs-comment" data-reactid="95"># 删除之前提交的 `a/a.md` 记录</span><!-- react-text: 96 -->
+doc-pipe rm a/a.md
+<!-- /react-text --><span class="hljs-comment" data-reactid="97"># 查看当前的提交记录表</span><!-- react-text: 98 -->
+doc-pipe view<!-- /react-text --></code></pre><!-- react-text: 99 -->
+<!-- /react-text --><p data-reactid="100">同时，可以利用下面的语法来对文章标题进行设置</p><!-- react-text: 101 -->
+<!-- /react-text --><pre data-reactid="102"><code data-query="{}" data-lang="data-lang" data-reactid="103">---
+title: 我是标题
+---
+
+## 我是内容
+</code></pre><!-- react-text: 104 -->
+<!-- /react-text --><h2 id="todo" data-reactid="105"><a href="#todo" aria-hidden="true" data-reactid="106"><span class="icon icon-link" data-reactid="107"></span></a><!-- react-text: 108 -->Todo<!-- /react-text --></h2><!-- react-text: 109 -->
+<!-- /react-text --><ol data-reactid="110"><!-- react-text: 111 -->
+<!-- /react-text --><li data-reactid="112">pull 的实现？</li><!-- react-text: 113 -->
+<!-- /react-text --></ol><!-- react-text: 114 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="115"></div><div class="paginator" data-reactid="116"><a title="谈一谈React高阶组件" class="prev" href="/talk-about-react-hoc" data-reactid="117">Prev</a><a title="markdown导入doc核心算法剖析" class="next" href="/the-core-algorithm-of-doc-md-import" data-reactid="118">Next</a></div></div></main><footer data-reactid="119"><div class="copyright" data-reactid="120"><p data-reactid="121"><!-- react-text: 122 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="123">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

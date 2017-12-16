@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1732584596"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「node网络编程」FTP客户端程序</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-30T21:18:44+00:00" data-reactid="13">May 30, 2016 9:18 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="前言" data-reactid="16"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->前言<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->最近，在「计算机网络」的课堂上，老师讲到了应用层相关的协议，<!-- /react-text --><code data-reactid="23">FTP/HTTP/SMTP...</code><!-- react-text: 24 -->理论结合实践才能产生最大的效益，所以我便利用<!-- /react-text --><code data-reactid="25">nodejs</code><!-- react-text: 26 -->中的<!-- /react-text --><code data-reactid="27">net</code><!-- react-text: 28 -->包，进行了相关的网络编程。<!-- /react-text --></p><!-- react-text: 29 -->
+<!-- /react-text --><!-- react-text: 30 -->
+<!-- /react-text --><h1 id="知识介绍" data-reactid="31"><a href="#%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->知识介绍<!-- /react-text --></h1><!-- react-text: 35 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fh2Isz1kNHsZnFHywDXMroNr3GYY?imageslim" alt="ClipboardImage" width="1452" height="500" data-reactid="36"/><!-- react-text: 37 -->
+&gt; 如图,FTP协议使用了2个tcp连接，一个是控制连接（服务器端默认端口为21），一个是数据传输连接（服务器端默认端口为20），客户端也需要对应的使用两个不同的端口进行连接。
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FhmMKeDvkx7dnFvjvVlhpILiVJK5?imageslim" alt="ClipboardImage" width="1133" height="899" data-reactid="38"/><!-- react-text: 39 -->
+&gt; 如图
+&gt; 1. 在服务器21端口有新的连接到来后，服务器发送220码响应
+&gt; 2. 客户端利用该连接，向服务器21端口发送`USER`命令
+&gt; 3. 服务器响应331
+&gt; 4. 客户端发送`PASS`命令
+&gt; 5. 服务器响应230
+&gt; 6. 客户端发送`PORT`命令（客户选择端口号发送，服务器20端口将会与客户端该端口建立tcp连接，这就是数据传输连接）
+&gt; 7. 服务器响应150
+&gt; 8. 客户端发送`TYPE`命令（给服务器端口21，表示更改文件的类型）
+&gt; 9. 服务器响应200
+&gt; 10. 客户端发送`STRU`命令（给服务器端口21，表示更改文件的数据的组织）
+&gt; 11. 服务器响应200
+&gt; 12. 客户端发送`STOR`命令（给服务器端口21，表示发送文件至服务器）
+&gt; 13. 服务器响应250
+&gt; 14. 利用6中建立的数据传输连接传输数据
+&gt; 15. 服务器响应226
+&gt; 16. 客户端发送`QUIT`命令（给服务器端口21，表示断开连接）
+&gt; 17. 服务器响应221
+<!-- /react-text --><p data-reactid="40"><a href="https://www.w3.org/Protocols/rfc959/4_FileTransfer.html" data-reactid="41">更多信息参考</a></p><!-- react-text: 42 -->
+<!-- /react-text --><h1 id="代码" data-reactid="43"><a href="#%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="44"><span class="icon icon-link" data-reactid="45"></span></a><!-- react-text: 46 -->代码<!-- /react-text --></h1><!-- react-text: 47 -->
+<!-- /react-text --><pre data-reactid="48"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="49"><span class="hljs-keyword" data-reactid="50">var</span><!-- react-text: 51 --> net = <!-- /react-text --><span class="hljs-built_in" data-reactid="52">require</span><!-- react-text: 53 -->(<!-- /react-text --><span class="hljs-string" data-reactid="54">&#x27;net&#x27;</span><!-- react-text: 55 -->);
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="56">var</span><!-- react-text: 57 --> socket = net.createConnection(<!-- /react-text --><span class="hljs-number" data-reactid="58">21</span><!-- react-text: 59 -->,<!-- /react-text --><span class="hljs-string" data-reactid="60">&#x27;172.21.59.162&#x27;</span><!-- react-text: 61 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="62">//new net.Stream();</span><!-- react-text: 63 -->
+
+socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="64">&#x27;connection&#x27;</span><!-- react-text: 65 -->,<!-- /react-text --><span class="hljs-function" data-reactid="66"><span class="hljs-keyword" data-reactid="67">function</span><!-- react-text: 68 --> (<!-- /react-text --><span class="hljs-params" data-reactid="69"></span><!-- react-text: 70 -->) <!-- /react-text --></span><!-- react-text: 71 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="72">console</span><!-- react-text: 73 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="74">&#x27;connected&#x27;</span><!-- react-text: 75 -->);
+});
+socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="76">&#x27;end&#x27;</span><!-- react-text: 77 -->,<!-- /react-text --><span class="hljs-function" data-reactid="78"><span class="hljs-keyword" data-reactid="79">function</span><!-- react-text: 80 --> (<!-- /react-text --><span class="hljs-params" data-reactid="81"></span><!-- react-text: 82 -->) <!-- /react-text --></span><!-- react-text: 83 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="84">console</span><!-- react-text: 85 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="86">&#x27;disconnected&#x27;</span><!-- react-text: 87 -->);
+});
+
+process.stdin.pipe(socket).pipe(process.stdout);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="88">&#x27;USER anonymous\r\n&#x27;</span><!-- react-text: 89 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="90">&#x27;PASS guest\r\n&#x27;</span><!-- react-text: 91 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="92">&#x27;PWD\r\n&#x27;</span><!-- react-text: 93 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="94">&#x27;PORT 172,21,59,162,34,184\r\n&#x27;</span><!-- react-text: 95 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="96">//172,21,59,162:客户端IP  34,184:10进制表示端口，即34*256+184=8888</span><!-- react-text: 97 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="98">// socket.write(&#x27;LIST movie\r\n&#x27;);</span><!-- react-text: 99 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="100">//socket.write(&#x27;TYPE I\r\n&#x27;);</span><!-- react-text: 101 -->
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="102">&#x27;RETR bootstrap.zip\r\n&#x27;</span><!-- react-text: 103 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="104">//下载服务器端文件</span><!-- react-text: 105 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="106">// socket.write(&#x27;LIST /FTP\r\n&#x27;);</span><!-- react-text: 107 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="108">const</span><!-- react-text: 109 --> client = net.createServer(<!-- /react-text --><span class="hljs-function" data-reactid="110"><span class="hljs-keyword" data-reactid="111">function</span><!-- react-text: 112 --> (<!-- /react-text --><span class="hljs-params" data-reactid="113">s</span><!-- react-text: 114 -->) <!-- /react-text --></span><!-- react-text: 115 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="116">console</span><!-- react-text: 117 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="118">&#x27;client new connect&#x27;</span><!-- react-text: 119 -->);
+    s.on(<!-- /react-text --><span class="hljs-string" data-reactid="120">&#x27;connect&#x27;</span><!-- react-text: 121 -->,()=&gt;{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="122">console</span><!-- react-text: 123 -->.info(<!-- /react-text --><span class="hljs-string" data-reactid="124">&#x27;client new connect&#x27;</span><!-- react-text: 125 -->);
+    });
+    s.pipe(<!-- /react-text --><span class="hljs-built_in" data-reactid="126">require</span><!-- react-text: 127 -->(<!-- /react-text --><span class="hljs-string" data-reactid="128">&#x27;fs&#x27;</span><!-- react-text: 129 -->).createWriteStream(<!-- /react-text --><span class="hljs-string" data-reactid="130">&#x27;ftpfile.zip&#x27;</span><!-- react-text: 131 -->));<!-- /react-text --><span class="hljs-comment" data-reactid="132">//保存服务器服务器数据</span><!-- react-text: 133 -->
+    s.on(<!-- /react-text --><span class="hljs-string" data-reactid="134">&#x27;error&#x27;</span><!-- react-text: 135 -->,<!-- /react-text --><span class="hljs-built_in" data-reactid="136">console</span><!-- react-text: 137 -->.error)
+}).listen(<!-- /react-text --><span class="hljs-number" data-reactid="138">8888</span><!-- react-text: 139 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="140">//新的客户端端口</span></code></pre><!-- react-text: 141 -->
+<!-- /react-text --><h1 id="总结" data-reactid="142"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="143"><span class="icon icon-link" data-reactid="144"></span></a><!-- react-text: 145 -->总结<!-- /react-text --></h1><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147">学习了node的相关网络编程，理解FTP协议，自己造轮子。</p><!-- react-text: 148 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="149"></div><div class="paginator" data-reactid="150"><a title="「node网络编程」SMTP客户端程序" class="prev" href="/node-smtp" data-reactid="151">Prev</a><a title="node+express+jade实现HTTP文件浏览器" class="next" href="/node-express-jade-http-file-explorer" data-reactid="152">Next</a></div></div></main><footer data-reactid="153"><div class="copyright" data-reactid="154"><p data-reactid="155"><!-- react-text: 156 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="157">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1264277943"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">探究SegumentFault Markdown编辑器</h1><div class="post-info" data-reactid="12"><time datetime="2016-08-13T21:41:57+00:00" data-reactid="13">Aug 13, 2016 9:41 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><a href="https://segmentfault.com/" data-reactid="17">SegumentFault</a><!-- react-text: 18 --> 中的Markdown编辑器用户体验不错，比如<!-- /react-text --></p><!-- react-text: 19 -->
+<!-- /react-text --><ol data-reactid="20"><!-- react-text: 21 -->
+<!-- /react-text --><li data-reactid="22">高亮提示并显示你当前正在编辑的文本</li><!-- react-text: 23 -->
+<!-- /react-text --><li data-reactid="24">支持剪贴板图片直接粘贴上传，插入图片十分方便</li><!-- react-text: 25 -->
+<!-- /react-text --><li data-reactid="26">自动保存</li><!-- react-text: 27 -->
+<!-- /react-text --></ol><!-- react-text: 28 -->
+<!-- /react-text --><p data-reactid="29"><!-- react-text: 30 -->为了探究sf实现的原理，在sf中我提出了下面的问题
+【<!-- /react-text --><a href="https://segmentfault.com/q/1010000006166048" data-reactid="31">segmentfault的实时markdown编辑修改位置定位是怎么做到的，而且效率还不低</a><!-- react-text: 32 -->】<!-- /react-text --></p><!-- react-text: 33 -->
+<!-- /react-text --><p data-reactid="34"><!-- react-text: 35 -->根据采纳答案提供的信息，我搜索到了这段谷歌开源代码 <!-- /react-text --><a href="https://code.google.com/p/google-diff-match-patch/" data-reactid="36">google-diff-match-patch</a></p><!-- react-text: 37 -->
+<!-- /react-text --><p data-reactid="38">根据官方的介绍，我们能用这个称为diff-match-path的开源库，进行diff(差异)/match(配对)/patch(补全)， 但我们只需要diff功能即可</p><!-- react-text: 39 -->
+<!-- /react-text --><p data-reactid="40"><!-- react-text: 41 -->在官方给出的<!-- /react-text --><a href="https://neil.fraser.name/software/diff_match_patch/svn/trunk/demos/demo_diff.html" data-reactid="42">diff demo</a><!-- react-text: 43 -->中, 通过源码可以很清晰的了解diff的使用<!-- /react-text --></p><!-- react-text: 44 -->
+<!-- /react-text --><!-- react-text: 45 --> 
+<!-- /react-text --><p data-reactid="46">大体就是，对比两个字符串，找到两个字符串的不同，包括多余的，相同的，缺失的。</p><!-- react-text: 47 -->
+<!-- /react-text --><p data-reactid="48"><!-- react-text: 49 -->算法思想贪心，参考如下<!-- /react-text --><br data-reactid="50"/><!-- react-text: 51 -->
+<!-- /react-text --><a href="http://simplygenius.net/Article/DiffTutorial1" data-reactid="52">英文原版</a><br data-reactid="53"/><!-- react-text: 54 -->
+<!-- /react-text --><a href="http://yaowhat.com/2014/07/21/entry-version-diff-1.html" data-reactid="55">翻译</a></p><!-- react-text: 56 -->
+<!-- /react-text --><h2 id="我的工作" data-reactid="57"><a href="#%E6%88%91%E7%9A%84%E5%B7%A5%E4%BD%9C" aria-hidden="true" data-reactid="58"><span class="icon icon-link" data-reactid="59"></span></a><!-- react-text: 60 -->我的工作<!-- /react-text --></h2><!-- react-text: 61 -->
+<!-- /react-text --><p data-reactid="62">既然知道了sf的实时编辑高亮是基于diff的，那我也基于这个工具实现个markdown编辑器吧。
+用了如下第三方库
+1. ace.js (一个漂亮的编辑器)
+2. marked.js (一个markdown文本转html库)
+3. highlight.js (将code文本高亮展示)
+4. diff_match_patch.js</p><!-- react-text: 63 -->
+<!-- /react-text --><p data-reactid="64"><!-- react-text: 65 -->效果图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtLU4iWnXe9aqXR2cYkJ-55l167u?imageslim" alt="ClipboardImage" width="1438" height="731" data-reactid="66"/></p><!-- react-text: 67 -->
+<!-- /react-text --><p data-reactid="68">具有如下功能：
+1. markdown编辑，实时预览
+2. 高亮提示并显示你当前正在编辑的文本
+3. 支持剪贴板图片直接粘贴上传，插入图片十分方便
+4. 自动保存</p><!-- react-text: 69 -->
+<!-- /react-text --><p data-reactid="70">编辑器部分快捷键说明
+1. cmd/ctrl + K : 33种编辑器主题供选择
+2. cmd/ctrl + B : 编辑器字体放大
+3. cmd/ctrl + M : 编辑器字体缩小
+4. cmd/ctrl + U : 自动保存功能开关
+5. cmd/ctrl + S : 保存</p><!-- react-text: 71 -->
+<!-- /react-text --><p data-reactid="72"><!-- react-text: 73 -->其他交互说明：
+1. 编辑器左下角提示保存信息，右下角提示字数
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FklqPf-mbderllJaGFfBamL_3lle?imageslim" alt="ClipboardImage" width="1435" height="730" data-reactid="74"/><!-- react-text: 75 -->
+2. 中部可拖动调节大小
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FroCfvrfeAz_b8oPCyiZrxXGHRmd?imageslim" alt="ClipboardImage" width="1440" height="729" data-reactid="76"/><!-- react-text: 77 -->
+3. 预览可直接复制代码
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtRJ93mBtmKC0_LnGaSyuZfABdXN?imageslim" alt="ClipboardImage" width="1438" height="729" data-reactid="78"/></p><!-- react-text: 79 -->
+<!-- /react-text --><h2 id="怎么安装使用？" data-reactid="80"><a href="#%E6%80%8E%E4%B9%88%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%EF%BC%9F" aria-hidden="true" data-reactid="81"><span class="icon icon-link" data-reactid="82"></span></a><!-- react-text: 83 -->怎么安装使用？<!-- /react-text --></h2><!-- react-text: 84 -->
+<!-- /react-text --><p data-reactid="85"><!-- react-text: 86 -->代码地址<!-- /react-text --><br data-reactid="87"/><!-- react-text: 88 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/markdown-editor" data-reactid="89">markdown-editor</a></p><!-- react-text: 90 -->
+<!-- /react-text --><pre data-reactid="91"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="92"><!-- react-text: 93 -->git <!-- /react-text --><span class="hljs-built_in" data-reactid="94">clone</span><!-- react-text: 95 --> https://github.com/moyuyc/markdown-editor.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="96">cd</span><!-- react-text: 97 --> markdown-editor
+npm install
+npm start
+open http://localhost:9999<!-- /react-text --></code></pre><!-- react-text: 98 -->
+<!-- /react-text --><p data-reactid="99">别忘了给个Star！</p><!-- react-text: 100 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="101"></div><div class="paginator" data-reactid="102"><a title="点歌机器人 (来自网易云音乐)" class="prev" href="/request-song-robot" data-reactid="103">Prev</a><a title="为你的博客添加搜索功能吧!" class="next" href="/search-function-for-blog" data-reactid="104">Next</a></div></div></main><footer data-reactid="105"><div class="copyright" data-reactid="106"><p data-reactid="107"><!-- react-text: 108 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="109">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

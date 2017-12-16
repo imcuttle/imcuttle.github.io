@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-2146767659"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">谈谈JavaScript之数组对象深拷贝</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-30T09:46:14+00:00" data-reactid="13">Apr 30, 2016 9:46 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="回忆" data-reactid="16"><a href="#%E5%9B%9E%E5%BF%86" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->回忆<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->上周百度面试问了我关于数组的 <!-- /react-text --><code data-reactid="23">clone</code><!-- react-text: 24 --> 方法的实现，当时没来得及细想，然后口头上说<!-- /react-text --></p><!-- react-text: 25 -->
+<!-- /react-text --><blockquote data-reactid="26"><!-- react-text: 27 -->
+<!-- /react-text --><p data-reactid="28">数组就是一串数据序列，可以遍历然后进行深拷贝即可。</p><!-- react-text: 29 -->
+<!-- /react-text --></blockquote><!-- react-text: 30 -->
+<!-- /react-text --><p data-reactid="31"><!-- react-text: 32 -->关于细节实现的东西都没想，然后面试官那边好像就无语了... 不过好在我提到了 <!-- /react-text --><code data-reactid="33">深拷贝</code><!-- react-text: 34 --> 这个关键字。<!-- /react-text --></p><!-- react-text: 35 -->
+<!-- /react-text --><!-- react-text: 36 -->
+<!-- /react-text --><h1 id="再探clone" data-reactid="37"><a href="#%E5%86%8D%E6%8E%A2clone" aria-hidden="true" data-reactid="38"><span class="icon icon-link" data-reactid="39"></span></a><!-- react-text: 40 -->再探clone<!-- /react-text --></h1><!-- react-text: 41 -->
+<!-- /react-text --><h2 id="浅复制" data-reactid="42"><a href="#%E6%B5%85%E5%A4%8D%E5%88%B6" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->浅复制<!-- /react-text --></h2><!-- react-text: 46 -->
+<!-- /react-text --><p data-reactid="47">先看第一段代码</p><!-- react-text: 48 -->
+<!-- /react-text --><pre data-reactid="49"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="50"><span class="hljs-built_in" data-reactid="51">Array</span><!-- react-text: 52 -->.prototype.clone = <!-- /react-text --><span class="hljs-function" data-reactid="53"><span class="hljs-keyword" data-reactid="54">function</span><!-- react-text: 55 -->(<!-- /react-text --><span class="hljs-params" data-reactid="56"></span><!-- react-text: 57 -->)<!-- /react-text --></span><!-- react-text: 58 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="59">return</span><!-- react-text: 60 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="61">this</span><!-- react-text: 62 -->.slice();
+}<!-- /react-text --></code></pre><!-- react-text: 63 -->
+<!-- /react-text --><p data-reactid="64">乍看一下，好像挺快捷方便的就完成了。实际上，懂得c++/java中浅拷贝/深拷贝的人一看便知道这只是实现了浅复制。
+测试代码如下，</p><!-- react-text: 65 -->
+<!-- /react-text --><pre data-reactid="66"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="67"><span class="hljs-keyword" data-reactid="68">var</span><!-- react-text: 69 --> arr = [<!-- /react-text --><span class="hljs-number" data-reactid="70">1</span><!-- react-text: 71 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="72">new</span><!-- react-text: 73 --> <!-- /react-text --><span class="hljs-function" data-reactid="74"><span class="hljs-keyword" data-reactid="75">function</span><!-- react-text: 76 --> (<!-- /react-text --><span class="hljs-params" data-reactid="77">x</span><!-- react-text: 78 -->)<!-- /react-text --></span><!-- react-text: 79 -->{
+                   <!-- /react-text --><span class="hljs-keyword" data-reactid="80">this</span><!-- react-text: 81 -->.x=x;
+               }(<!-- /react-text --><span class="hljs-number" data-reactid="82">3</span><!-- react-text: 83 -->)];
+<!-- /react-text --><span class="hljs-keyword" data-reactid="84">var</span><!-- react-text: 85 --> clone = arr.clone();
+clone[<!-- /react-text --><span class="hljs-number" data-reactid="86">1</span><!-- react-text: 87 -->].x=<!-- /react-text --><span class="hljs-number" data-reactid="88">1</span><!-- react-text: 89 -->;
+<!-- /react-text --><span class="hljs-built_in" data-reactid="90">console</span><!-- react-text: 91 -->.log(arr[<!-- /react-text --><span class="hljs-number" data-reactid="92">1</span><!-- react-text: 93 -->].x) <!-- /react-text --><span class="hljs-comment" data-reactid="94">// 1</span></code></pre><!-- react-text: 95 -->
+<!-- /react-text --><p data-reactid="96"><!-- react-text: 97 -->可以看到，<!-- /react-text --><code data-reactid="98">clone[1].x</code><!-- react-text: 99 -->改变导致<!-- /react-text --><code data-reactid="100">arr[1].x</code><!-- react-text: 101 -->改变，图示如下
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FqCHIEcVbSalCKIPiUhEDlAcEnR8?imageslim" alt="ClipboardImage" width="507" height="344" data-reactid="102"/></p><!-- react-text: 103 -->
+<!-- /react-text --><h2 id="深复制" data-reactid="104"><a href="#%E6%B7%B1%E5%A4%8D%E5%88%B6" aria-hidden="true" data-reactid="105"><span class="icon icon-link" data-reactid="106"></span></a><!-- react-text: 107 -->深复制<!-- /react-text --></h2><!-- react-text: 108 -->
+<!-- /react-text --><pre data-reactid="109"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="110"><span class="hljs-built_in" data-reactid="111">Object</span><!-- react-text: 112 -->.prototype.clone = <!-- /react-text --><span class="hljs-function" data-reactid="113"><span class="hljs-keyword" data-reactid="114">function</span><!-- react-text: 115 --> (<!-- /react-text --><span class="hljs-params" data-reactid="116"></span><!-- react-text: 117 -->) <!-- /react-text --></span><!-- react-text: 118 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="119">var</span><!-- react-text: 120 --> clone = <!-- /react-text --><span class="hljs-keyword" data-reactid="121">new</span><!-- react-text: 122 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="123">this</span><!-- react-text: 124 -->.constructor(); <!-- /react-text --><span class="hljs-comment" data-reactid="125">//开辟新内存空间，保证clone出来的对象也有一个属性能够指向原对象的原型对象。</span><!-- react-text: 126 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="127">for</span><!-- react-text: 128 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="129">var</span><!-- react-text: 130 --> k <!-- /react-text --><span class="hljs-keyword" data-reactid="131">in</span><!-- react-text: 132 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="133">this</span><!-- react-text: 134 -->){
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="135">if</span><!-- react-text: 136 -->(!<!-- /react-text --><span class="hljs-keyword" data-reactid="137">this</span><!-- react-text: 138 -->.hasOwnProperty(k)) <!-- /react-text --><span class="hljs-keyword" data-reactid="139">continue</span><!-- react-text: 140 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="141">if</span><!-- react-text: 142 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="143">typeof</span><!-- react-text: 144 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="145">this</span><!-- react-text: 146 -->[k] === <!-- /react-text --><span class="hljs-string" data-reactid="147">&#x27;object&#x27;</span><!-- react-text: 148 -->)
+            clone[k] = <!-- /react-text --><span class="hljs-keyword" data-reactid="149">this</span><!-- react-text: 150 -->[k].clone();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="151">else</span><!-- react-text: 152 -->
+            clone[k] = <!-- /react-text --><span class="hljs-keyword" data-reactid="153">this</span><!-- react-text: 154 -->[k];
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="155">return</span><!-- react-text: 156 --> clone;
+};<!-- /react-text --></code></pre><!-- react-text: 157 -->
+<!-- /react-text --><p data-reactid="158"><!-- react-text: 159 -->利用递归来实现Object实例的深复制(重新开辟一份内存空间)，如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkJZyQCbjx-o38csKs5ky9Bhf1hP?imageslim" alt="ClipboardImage" width="624" height="327" data-reactid="160"/><!-- react-text: 161 -->
+因为Array也属于Object，上面的代码也适用于Array<!-- /react-text --></p><!-- react-text: 162 -->
+<!-- /react-text --><p data-reactid="163"><strong data-reactid="164">不足之处：不能对DOM元素结点进行复制</strong></p><!-- react-text: 165 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="166"></div><div class="paginator" data-reactid="167"><a title="「项目拾遗」谈谈websocket" class="prev" href="/talk-about-websocket" data-reactid="168">Prev</a><a title="从定时器到 Web Worker" class="next" href="/from-timer-to-webworker" data-reactid="169">Next</a></div></div></main><footer data-reactid="170"><div class="copyright" data-reactid="171"><p data-reactid="172"><!-- react-text: 173 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="174">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

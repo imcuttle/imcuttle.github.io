@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1649417751"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">LinuxC OSX sendfile()</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-19T21:00:46+00:00" data-reactid="13">Oct 19, 2016 9:00 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->今天，来小结一下纠结我几个小时的linux C。需求是这样的，<!-- /react-text --><em data-reactid="18">用c实现tcp的文件上传与下载</em></p><!-- react-text: 19 -->
+<!-- /react-text --><p data-reactid="20"><!-- react-text: 21 -->一开始，很容易想到的上传思路是，直接在内存中开一块<!-- /react-text --><code data-reactid="22">buffer</code><!-- react-text: 23 -->，得到一个<!-- /react-text --><code data-reactid="24">file description</code><!-- react-text: 25 -->后，进行一读一发。<!-- /react-text --></p><!-- react-text: 26 -->
+<!-- /react-text --><!-- react-text: 27 -->
+<!-- /react-text --><pre data-reactid="28"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="29"><span class="hljs-keyword" data-reactid="30">char</span><!-- react-text: 31 --> buffer[<!-- /react-text --><span class="hljs-number" data-reactid="32">1024</span><!-- react-text: 33 -->];
+<!-- /react-text --><span class="hljs-keyword" data-reactid="34">int</span><!-- react-text: 35 --> fd = open(path, O_RDONLY);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="36">int</span><!-- react-text: 37 --> n = read(fd, buffer, <!-- /react-text --><span class="hljs-number" data-reactid="38">1024</span><!-- react-text: 39 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="40">if</span><!-- react-text: 41 -->(n&lt;<!-- /react-text --><span class="hljs-number" data-reactid="42">0</span><!-- react-text: 43 -->) {
+    perror(<!-- /react-text --><span class="hljs-string" data-reactid="44">&quot;read&quot;</span><!-- react-text: 45 -->);
+}
+buffer[n] = <!-- /react-text --><span class="hljs-number" data-reactid="46">0</span><!-- react-text: 47 -->;
+
+write(socket, buffer, n);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="48">//...</span></code></pre><!-- react-text: 49 -->
+<!-- /react-text --><p data-reactid="50"><strong data-reactid="51"><!-- react-text: 52 -->然而，其实在linux内核中已经实现了一种更为高效的方法，<!-- /react-text --><code data-reactid="53">sendfile</code></strong><br data-reactid="54"/><!-- react-text: 55 -->
+不需要频繁的调用<!-- /react-text --><code data-reactid="56">read/write</code><!-- react-text: 57 -->,也不需要开辟buffer，减少了内核函数的调用，提高性能。<!-- /react-text --></p><!-- react-text: 58 -->
+<!-- /react-text --><h2 id="函数说明" data-reactid="59"><a href="#%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="60"><span class="icon icon-link" data-reactid="61"></span></a><!-- react-text: 62 -->函数说明<!-- /react-text --></h2><!-- react-text: 63 -->
+<!-- /react-text --><ul data-reactid="64"><!-- react-text: 65 -->
+<!-- /react-text --><li data-reactid="66"><!-- react-text: 67 -->
+<!-- /react-text --><p data-reactid="68">定义</p><!-- react-text: 69 -->
+<!-- /react-text --><pre data-reactid="70"><code data-query="{}" data-lang="data-lang" data-reactid="71">  int sendfile(int fd, int s, off_t offset, off_t *len, struct sf_hdtr *hdtr, int flags);
+</code></pre><!-- react-text: 72 -->
+<!-- /react-text --></li><!-- react-text: 73 -->
+<!-- /react-text --><li data-reactid="74"><!-- react-text: 75 -->
+<!-- /react-text --><p data-reactid="76">解释</p><!-- react-text: 77 -->
+<!-- /react-text --></li><!-- react-text: 78 -->
+<!-- /react-text --></ul><!-- react-text: 79 -->
+<!-- /react-text --><table data-reactid="80"><!-- react-text: 81 -->
+<!-- /react-text --><thead data-reactid="82"><!-- react-text: 83 -->
+<!-- /react-text --><tr data-reactid="84"><!-- react-text: 85 -->
+<!-- /react-text --><th data-reactid="86">argument name</th><!-- react-text: 87 -->
+<!-- /react-text --><th data-reactid="88">explantion</th><!-- react-text: 89 -->
+<!-- /react-text --></tr><!-- react-text: 90 -->
+<!-- /react-text --></thead><!-- react-text: 91 -->
+<!-- /react-text --><tbody data-reactid="92"><!-- react-text: 93 -->
+<!-- /react-text --><tr data-reactid="94"><!-- react-text: 95 -->
+<!-- /react-text --><td data-reactid="96">fd</td><!-- react-text: 97 -->
+<!-- /react-text --><td data-reactid="98">需要发送的文件的fd(file description)</td><!-- react-text: 99 -->
+<!-- /react-text --></tr><!-- react-text: 100 -->
+<!-- /react-text --><tr data-reactid="101"><!-- react-text: 102 -->
+<!-- /react-text --><td data-reactid="103">s</td><!-- react-text: 104 -->
+<!-- /react-text --><td data-reactid="105">socket的fd</td><!-- react-text: 106 -->
+<!-- /react-text --></tr><!-- react-text: 107 -->
+<!-- /react-text --><tr data-reactid="108"><!-- react-text: 109 -->
+<!-- /react-text --><td data-reactid="110">offset</td><!-- react-text: 111 -->
+<!-- /react-text --><td data-reactid="112">文件从那开始发,NULL表示为0</td><!-- react-text: 113 -->
+<!-- /react-text --></tr><!-- react-text: 114 -->
+<!-- /react-text --><tr data-reactid="115"><!-- react-text: 116 -->
+<!-- /react-text --><td data-reactid="117">len</td><!-- react-text: 118 -->
+<!-- /react-text --><td data-reactid="119">输出参数，输出一共发送了多少byte,包括后面的hdtr</td><!-- react-text: 120 -->
+<!-- /react-text --></tr><!-- react-text: 121 -->
+<!-- /react-text --><tr data-reactid="122"><!-- react-text: 123 -->
+<!-- /react-text --><td data-reactid="124">hdtr</td><!-- react-text: 125 -->
+<!-- /react-text --><td data-reactid="126">额外发送的头和尾</td><!-- react-text: 127 -->
+<!-- /react-text --></tr><!-- react-text: 128 -->
+<!-- /react-text --><tr data-reactid="129"><!-- react-text: 130 -->
+<!-- /react-text --><td data-reactid="131">flags</td><!-- react-text: 132 -->
+<!-- /react-text --><td data-reactid="133">设置为0即可</td><!-- react-text: 134 -->
+<!-- /react-text --></tr><!-- react-text: 135 -->
+<!-- /react-text --></tbody><!-- react-text: 136 -->
+<!-- /react-text --></table><!-- react-text: 137 -->
+<!-- /react-text --><p data-reactid="138">关于flags, man page原文如下:</p><!-- react-text: 139 -->
+<!-- /react-text --><blockquote data-reactid="140"><!-- react-text: 141 -->
+<!-- /react-text --><p data-reactid="142">The flags parameter is reserved for future expansion and must be set to 0. Any other value will cause sendfile() to return EINVAL.</p><!-- react-text: 143 -->
+<!-- /react-text --></blockquote><!-- react-text: 144 -->
+<!-- /react-text --><p data-reactid="145">意思是，flags是为了后面备用的，现在还没实现，现在传入0即可。</p><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147"><!-- react-text: 148 -->下面着重解释<!-- /react-text --><code data-reactid="149">len</code><!-- react-text: 150 -->与<!-- /react-text --><code data-reactid="151">hdtr</code><!-- react-text: 152 -->参数
+结构体<!-- /react-text --><code data-reactid="153">sf_hdtr</code><!-- react-text: 154 -->, 成员如下<!-- /react-text --></p><!-- react-text: 155 -->
+<!-- /react-text --><pre data-reactid="156"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="157"><span class="hljs-class" data-reactid="158"><span class="hljs-keyword" data-reactid="159">struct</span><!-- react-text: 160 --> <!-- /react-text --><span class="hljs-title" data-reactid="161">sf_hdtr</span><!-- react-text: 162 --> {<!-- /react-text --></span><!-- react-text: 163 -->
+    <!-- /react-text --><span class="hljs-class" data-reactid="164"><span class="hljs-keyword" data-reactid="165">struct</span><!-- react-text: 166 --> <!-- /react-text --><span class="hljs-title" data-reactid="167">iovec</span><!-- react-text: 168 --> *<!-- /react-text --><span class="hljs-title" data-reactid="169">headers</span><!-- react-text: 170 -->;<!-- /react-text --></span><!-- react-text: 171 -->  <!-- /react-text --><span class="hljs-comment" data-reactid="172">/* pointer to header iovecs */</span><!-- react-text: 173 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="174">int</span><!-- react-text: 175 --> hdr_cnt;            <!-- /react-text --><span class="hljs-comment" data-reactid="176">/* number of header iovecs */</span><!-- react-text: 177 -->
+    <!-- /react-text --><span class="hljs-class" data-reactid="178"><span class="hljs-keyword" data-reactid="179">struct</span><!-- react-text: 180 --> <!-- /react-text --><span class="hljs-title" data-reactid="181">iovec</span><!-- react-text: 182 --> *<!-- /react-text --><span class="hljs-title" data-reactid="183">trailers</span><!-- react-text: 184 -->;<!-- /react-text --></span><!-- react-text: 185 --> <!-- /react-text --><span class="hljs-comment" data-reactid="186">/* pointer to trailer iovecs */</span><!-- react-text: 187 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="188">int</span><!-- react-text: 189 --> trl_cnt;            <!-- /react-text --><span class="hljs-comment" data-reactid="190">/* number of trailer iovecs */</span><!-- react-text: 191 -->
+};<!-- /react-text --></code></pre><!-- react-text: 192 -->
+<!-- /react-text --><p data-reactid="193"><!-- react-text: 194 -->而，结构体<!-- /react-text --><code data-reactid="195">iovec</code></p><!-- react-text: 196 -->
+<!-- /react-text --><pre data-reactid="197"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="198"><span class="hljs-class" data-reactid="199"><span class="hljs-keyword" data-reactid="200">struct</span><!-- react-text: 201 --> <!-- /react-text --><span class="hljs-title" data-reactid="202">iovec</span><!-- react-text: 203 --> {<!-- /react-text --></span><!-- react-text: 204 -->
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="205">void</span><!-- react-text: 206 --> *   iov_base;	<!-- /react-text --><span class="hljs-comment" data-reactid="207">/* [XSI] Base address of I/O memory region */</span><!-- react-text: 208 -->
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="209">size_t</span><!-- react-text: 210 -->	 iov_len;	<!-- /react-text --><span class="hljs-comment" data-reactid="211">/* [XSI] Size of region iov_base points to */</span><!-- react-text: 212 -->
+};<!-- /react-text --></code></pre><!-- react-text: 213 -->
+<!-- /react-text --><p data-reactid="214"><!-- react-text: 215 -->可以看到，iovec数据就是表示一段<!-- /react-text --><code data-reactid="216">iov_len</code><!-- react-text: 217 -->长度的数据区，而sf_hdtr则是2个<!-- /react-text --><code data-reactid="218">iov_len</code><!-- react-text: 219 -->数组(指针)。<!-- /react-text --></p><!-- react-text: 220 -->
+<!-- /react-text --><p data-reactid="221"><code data-reactid="222">headers</code><!-- react-text: 223 -->就是发送文件数据前发送的数据段，<!-- /react-text --><code data-reactid="224">trailers</code><!-- react-text: 225 -->则是跟在文件数据EOF之后的。<!-- /react-text --></p><!-- react-text: 226 -->
+<!-- /react-text --><p data-reactid="227"><!-- react-text: 228 -->解释完该方法后，其实上传文件，只需要调用该方法即可，而<!-- /react-text --><code data-reactid="229">headers</code><!-- react-text: 230 -->和<!-- /react-text --><code data-reactid="231">trailers</code><!-- react-text: 232 -->可以用来界定文件数据，ngnix osx版本中，便有使用该方法。<!-- /react-text --></p><!-- react-text: 233 -->
+<!-- /react-text --><p data-reactid="234"><!-- react-text: 235 -->为了简化文件数据划分的逻辑，我未采用，http协议中类似<!-- /react-text --><code data-reactid="236">Content-Length</code><!-- react-text: 237 -->字段来表示文件的大小，从而拼接出完整的文件内容，而是简单的在文件数据头尾加上了自定义的字符串。<!-- /react-text --></p><!-- react-text: 238 -->
+<!-- /react-text --><h2 id="代码" data-reactid="239"><a href="#%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="240"><span class="icon icon-link" data-reactid="241"></span></a><!-- react-text: 242 -->代码<!-- /react-text --></h2><!-- react-text: 243 -->
+<!-- /react-text --><p data-reactid="244"><a href="https://github.com/moyuyc/c_cpp-node_c_cpp_addon/tree/master/cpp_src" data-reactid="245">cpp_src</a></p><!-- react-text: 246 -->
+<!-- /react-text --><ul data-reactid="247"><!-- react-text: 248 -->
+<!-- /react-text --><li data-reactid="249">发送文件</li><!-- react-text: 250 -->
+<!-- /react-text --></ul><!-- react-text: 251 -->
+<!-- /react-text --><pre data-reactid="252"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="253"><span class="hljs-keyword" data-reactid="254">bool</span><!-- react-text: 255 --> _sendFile(<!-- /react-text --><span class="hljs-keyword" data-reactid="256">int</span><!-- react-text: 257 --> out_fd, <!-- /react-text --><span class="hljs-keyword" data-reactid="258">const</span><!-- react-text: 259 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="260">char</span><!-- react-text: 261 -->* file) {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="262">int</span><!-- react-text: 263 --> fd = open(file, O_RDONLY);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="264">char</span><!-- react-text: 265 -->* tmp = <!-- /react-text --><span class="hljs-built_in" data-reactid="266">strrchr</span><!-- react-text: 267 -->(file, <!-- /react-text --><span class="hljs-string" data-reactid="268">&#x27;/&#x27;</span><!-- react-text: 269 -->);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="270">const</span><!-- react-text: 271 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="272">char</span><!-- react-text: 273 -->* filename = tmp!=<!-- /react-text --><span class="hljs-literal" data-reactid="274">NULL</span><!-- react-text: 275 -->? tmp+<!-- /react-text --><span class="hljs-number" data-reactid="276">1</span><!-- react-text: 277 -->: file;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="278">if</span><!-- react-text: 279 -->(fd==<!-- /react-text --><span class="hljs-number" data-reactid="280">-1</span><!-- react-text: 281 -->) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="282">char</span><!-- react-text: 283 --> b[<!-- /react-text --><span class="hljs-number" data-reactid="284">1024</span><!-- react-text: 285 -->];
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="286">sprintf</span><!-- react-text: 287 -->(b, <!-- /react-text --><span class="hljs-string" data-reactid="288">&quot;open failed %s&quot;</span><!-- react-text: 289 -->, file);
+        perror(b);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="290">return</span><!-- react-text: 291 --> <!-- /react-text --><span class="hljs-literal" data-reactid="292">false</span><!-- react-text: 293 -->;
+    }
+    <!-- /react-text --><span class="hljs-class" data-reactid="294"><span class="hljs-keyword" data-reactid="295">struct</span><!-- react-text: 296 --> <!-- /react-text --><span class="hljs-title" data-reactid="297">stat</span><!-- react-text: 298 --> <!-- /react-text --><span class="hljs-title" data-reactid="299">state</span><!-- react-text: 300 -->;<!-- /react-text --></span><!-- react-text: 301 -->
+    fstat(fd, &amp;state);
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="302">printf</span><!-- react-text: 303 -->(<!-- /react-text --><span class="hljs-string" data-reactid="304">&quot;sending File %s ...\n&quot;</span><!-- react-text: 305 -->, file);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="306">off_t</span><!-- react-text: 307 --> offset = <!-- /react-text --><span class="hljs-number" data-reactid="308">0</span><!-- react-text: 309 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="310">off_t</span><!-- react-text: 311 --> len = <!-- /react-text --><span class="hljs-number" data-reactid="312">0</span><!-- react-text: 313 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="314">// 必须初始化0, 不然下次重入时，会被旧值覆盖</span><!-- react-text: 315 -->
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="316">char</span><!-- react-text: 317 --> head[<!-- /react-text --><span class="hljs-number" data-reactid="318">1024</span><!-- react-text: 319 -->], sizehd[<!-- /react-text --><span class="hljs-number" data-reactid="320">1024</span><!-- react-text: 321 -->];
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="322">sprintf</span><!-- react-text: 323 -->(head, <!-- /react-text --><span class="hljs-string" data-reactid="324">&quot;---file: %s\r\n&quot;</span><!-- react-text: 325 -->, filename); <!-- /react-text --><span class="hljs-comment" data-reactid="326">// 拼装头部字符串</span><!-- react-text: 327 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="328">//    sprintf(sizehd, &quot;---size: %lld\r\n\r\n&quot;, state.st_size);</span><!-- react-text: 329 -->
+
+    <!-- /react-text --><span class="hljs-class" data-reactid="330"><span class="hljs-keyword" data-reactid="331">struct</span><!-- react-text: 332 --> <!-- /react-text --><span class="hljs-title" data-reactid="333">sf_hdtr</span><!-- react-text: 334 --> <!-- /react-text --><span class="hljs-title" data-reactid="335">hdtr</span><!-- react-text: 336 --> = <!-- /react-text --><span class="hljs-title" data-reactid="337">NULL</span><!-- react-text: 338 -->;<!-- /react-text --></span><!-- react-text: 339 -->
+    iovec headers = <!-- /react-text --><span class="hljs-literal" data-reactid="340">NULL</span><!-- react-text: 341 -->, trailers = <!-- /react-text --><span class="hljs-literal" data-reactid="342">NULL</span><!-- react-text: 343 -->;
+    headers.iov_base = head;
+    headers.iov_len = <!-- /react-text --><span class="hljs-built_in" data-reactid="344">strlen</span><!-- react-text: 345 -->(head);
+<!-- /react-text --><span class="hljs-comment" data-reactid="346">//    trailers.iov_base = (void *)&quot;file---\r\n&quot;; //todo: don&#x27;t recv sometimes ??</span><!-- react-text: 347 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="348">//    trailers.iov_len = 9;</span><!-- react-text: 349 -->
+    hdtr.headers = &amp;headers;
+    hdtr.hdr_cnt = <!-- /react-text --><span class="hljs-number" data-reactid="350">1</span><!-- react-text: 351 -->;
+    hdtr.trailers = <!-- /react-text --><span class="hljs-literal" data-reactid="352">NULL</span><!-- react-text: 353 -->;
+    hdtr.trl_cnt = <!-- /react-text --><span class="hljs-number" data-reactid="354">0</span><!-- react-text: 355 -->;
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="356">if</span><!-- react-text: 357 -->(<!-- /react-text --><span class="hljs-number" data-reactid="358">0</span><!-- react-text: 359 --> == sendfile(fd, out_fd, offset, &amp;len, &amp;hdtr, <!-- /react-text --><span class="hljs-number" data-reactid="360">0</span><!-- react-text: 361 -->)) {
+        close(fd);
+        write(out_fd, <!-- /react-text --><span class="hljs-string" data-reactid="362">&quot;file---\r\n&quot;</span><!-- react-text: 363 -->, <!-- /react-text --><span class="hljs-number" data-reactid="364">9</span><!-- react-text: 365 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="366">// 未使用trailers，因为有时候上传大文件，trailers会丢失。</span><!-- react-text: 367 -->
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="368">printf</span><!-- react-text: 369 -->(<!-- /react-text --><span class="hljs-string" data-reactid="370">&quot;sendFile %s success, return len: %lld.\n&quot;</span><!-- react-text: 371 -->, file, len);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="372">return</span><!-- react-text: 373 --> <!-- /react-text --><span class="hljs-literal" data-reactid="374">true</span><!-- react-text: 375 -->;
+    } <!-- /react-text --><span class="hljs-keyword" data-reactid="376">else</span><!-- react-text: 377 --> {
+        close(fd);
+        write(out_fd, <!-- /react-text --><span class="hljs-string" data-reactid="378">&quot;file---\r\n&quot;</span><!-- react-text: 379 -->, <!-- /react-text --><span class="hljs-number" data-reactid="380">9</span><!-- react-text: 381 -->);
+        perror(<!-- /react-text --><span class="hljs-string" data-reactid="382">&quot;sendfile&quot;</span><!-- react-text: 383 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="384">return</span><!-- react-text: 385 --> <!-- /react-text --><span class="hljs-literal" data-reactid="386">false</span><!-- react-text: 387 -->;
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 388 -->
+<!-- /react-text --><ul data-reactid="389"><!-- react-text: 390 -->
+<!-- /react-text --><li data-reactid="391">接收文件</li><!-- react-text: 392 -->
+<!-- /react-text --></ul><!-- react-text: 393 -->
+<!-- /react-text --><pre data-reactid="394"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="395"><span class="hljs-keyword" data-reactid="396">bool</span><!-- react-text: 397 --> _receFile(FILE* &amp;pfsile, <!-- /react-text --><span class="hljs-keyword" data-reactid="398">char</span><!-- react-text: 399 -->* buffer, <!-- /react-text --><span class="hljs-keyword" data-reactid="400">ssize_t</span><!-- react-text: 401 --> n, <!-- /react-text --><span class="hljs-keyword" data-reactid="402">bool</span><!-- react-text: 403 -->&amp; receiveing, <!-- /react-text --><span class="hljs-keyword" data-reactid="404">char</span><!-- react-text: 405 -->* rfilename, <!-- /react-text --><span class="hljs-keyword" data-reactid="406">int</span><!-- react-text: 407 --> size) {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="408">bool</span><!-- react-text: 409 --> run = <!-- /react-text --><span class="hljs-literal" data-reactid="410">false</span><!-- react-text: 411 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="412">char</span><!-- react-text: 413 -->* last = <!-- /react-text --><span class="hljs-literal" data-reactid="414">NULL</span><!-- react-text: 415 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="416">if</span><!-- react-text: 417 -->(!receiveing &amp;&amp; isfileHead(buffer)) {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="418">memset</span><!-- react-text: 419 -->(rfilename, <!-- /react-text --><span class="hljs-number" data-reactid="420">0</span><!-- react-text: 421 -->, <!-- /react-text --><span class="hljs-number" data-reactid="422">50</span><!-- react-text: 423 -->);
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="424">strcpy</span><!-- react-text: 425 -->(rfilename, <!-- /react-text --><span class="hljs-string" data-reactid="426">&quot;data/&quot;</span><!-- react-text: 427 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="428">if</span><!-- react-text: 429 --> (stat(rfilename, <!-- /react-text --><span class="hljs-literal" data-reactid="430">NULL</span><!-- react-text: 431 -->) == <!-- /react-text --><span class="hljs-number" data-reactid="432">-1</span><!-- react-text: 433 -->) {
+            mkdir(rfilename, <!-- /react-text --><span class="hljs-number" data-reactid="434">0700</span><!-- react-text: 435 -->);
+        }
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="436">char</span><!-- react-text: 437 --> name[<!-- /react-text --><span class="hljs-number" data-reactid="438">40</span><!-- react-text: 439 -->];
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="440">sscanf</span><!-- react-text: 441 -->(buffer, <!-- /react-text --><span class="hljs-string" data-reactid="442">&quot;---file: %s\r\n&quot;</span><!-- react-text: 443 -->, name);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="444">int</span><!-- react-text: 445 --> othlen = <!-- /react-text --><span class="hljs-number" data-reactid="446">11</span><!-- react-text: 447 -->+<!-- /react-text --><span class="hljs-built_in" data-reactid="448">strlen</span><!-- react-text: 449 -->(name);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="450">int</span><!-- react-text: 451 --> addonlen = n-othlen;
+
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="452">strcat</span><!-- react-text: 453 -->(rfilename, name);
+        pfile = fopen(rfilename, <!-- /react-text --><span class="hljs-string" data-reactid="454">&quot;wb+&quot;</span><!-- react-text: 455 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="456">//!! 以二进制打开文件</span><!-- react-text: 457 -->
+
+        receiveing = <!-- /react-text --><span class="hljs-literal" data-reactid="458">true</span><!-- react-text: 459 -->;
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="460">printf</span><!-- react-text: 461 -->(<!-- /react-text --><span class="hljs-string" data-reactid="462">&quot;Downloading %s ...\nhead addon: %s\n\n&quot;</span><!-- react-text: 463 -->,
+               rfilename, buffer+othlen);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="464">if</span><!-- react-text: 465 -->(addonlen &gt; <!-- /react-text --><span class="hljs-number" data-reactid="466">0</span><!-- react-text: 467 -->) {
+            fwrite(buffer+othlen, addonlen, <!-- /react-text --><span class="hljs-number" data-reactid="468">1</span><!-- react-text: 469 -->, pfile);
+        }
+        run= <!-- /react-text --><span class="hljs-literal" data-reactid="470">true</span><!-- react-text: 471 -->;
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="472">if</span><!-- react-text: 473 -->(receiveing &amp;&amp; (last = fileTail(buffer, n))!=<!-- /react-text --><span class="hljs-literal" data-reactid="474">NULL</span><!-- react-text: 475 -->) {
+        receiveing = <!-- /react-text --><span class="hljs-literal" data-reactid="476">false</span><!-- react-text: 477 -->;
+        fwrite(buffer, last-buffer, <!-- /react-text --><span class="hljs-number" data-reactid="478">1</span><!-- react-text: 479 -->, pfile);
+        fclose(pfile);
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="480">printf</span><!-- react-text: 481 -->(<!-- /react-text --><span class="hljs-string" data-reactid="482">&quot;Downloaded %s. and saved\n&quot;</span><!-- react-text: 483 -->, rfilename);
+        run= <!-- /react-text --><span class="hljs-literal" data-reactid="484">true</span><!-- react-text: 485 -->;
+    } <!-- /react-text --><span class="hljs-keyword" data-reactid="486">else</span><!-- react-text: 487 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="488">if</span><!-- react-text: 489 -->(receiveing &amp;&amp; !run) {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="490">printf</span><!-- react-text: 491 -->(<!-- /react-text --><span class="hljs-string" data-reactid="492">&quot;download chunk, size: %ld\n&quot;</span><!-- react-text: 493 -->, n);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="494">if</span><!-- react-text: 495 -->(n&lt;size) {
+            receiveing = <!-- /react-text --><span class="hljs-literal" data-reactid="496">false</span><!-- react-text: 497 -->;
+            fclose(pfile);
+        }
+        fwrite(buffer, n, <!-- /react-text --><span class="hljs-number" data-reactid="498">1</span><!-- react-text: 499 -->, pfile);
+        run= <!-- /react-text --><span class="hljs-literal" data-reactid="500">true</span><!-- react-text: 501 -->;
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="502">return</span><!-- react-text: 503 --> run;
+}<!-- /react-text --></code></pre><!-- react-text: 504 -->
+<!-- /react-text --><h2 id="最后" data-reactid="505"><a href="#%E6%9C%80%E5%90%8E" aria-hidden="true" data-reactid="506"><span class="icon icon-link" data-reactid="507"></span></a><!-- react-text: 508 -->最后<!-- /react-text --></h2><!-- react-text: 509 -->
+<!-- /react-text --><p data-reactid="510"><!-- react-text: 511 -->其实还是会有bug的，比如<!-- /react-text --><code data-reactid="512">---file: a.png\r\n ... ---file\r\n</code><!-- react-text: 513 -->的数据，接收方buffer设置较小，不能容纳完整的<!-- /react-text --><code data-reactid="514">---file</code><!-- react-text: 515 -->标志，可能就不会被认为是file；或者结尾截断了。而对于上诉情况，应用层只能通过更复杂的代码逻辑来控制了。<!-- /react-text --></p><!-- react-text: 516 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="517"></div><div class="paginator" data-reactid="518"><a title="componentWillReceiveProps Vs componentWillUpdate" class="prev" href="/componentWillReceiveProps-vs-componentWillUpdate" data-reactid="519">Prev</a><a title="Moka (SPA Blog For Everyone)" class="next" href="/Moka-birth" data-reactid="520">Next</a></div></div></main><footer data-reactid="521"><div class="copyright" data-reactid="522"><p data-reactid="523"><!-- react-text: 524 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="525">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

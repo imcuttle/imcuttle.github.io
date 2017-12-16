@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1611483503"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">HTML -&gt; Markdown</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-07T10:42:55+00:00" data-reactid="13">Feb 7, 2017 10:42 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="情景重现" data-reactid="16"><a href="#%E6%83%85%E6%99%AF%E9%87%8D%E7%8E%B0" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->情景重现<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">有时候，我们看到网上比较好的文章，我们油然会想去转载，但是呈现在浏览器上文章的格式为 HTML，我们书写文章的格式又为 Markdown，所以我便想实现 HTML 到 Markdown 的转换。</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23"><strong data-reactid="24">注：对于一些文章排版较为复杂的 HTML 标签（如 table），暂时直接输出 HTML</strong></p><!-- react-text: 25 -->
+<!-- /react-text --><h2 id="使用" data-reactid="26"><a href="#%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->使用<!-- /react-text --></h2><!-- react-text: 30 -->
+<!-- /react-text --><p data-reactid="31">还是从 npm 开始，支持三种方式（URL/file/命令参数）的调用。</p><!-- react-text: 32 -->
+<!-- /react-text --><pre data-reactid="33"><code data-query="{}" data-lang="data-lang" data-reactid="34">npm i -g html-markdown
+html2md -h
+html2md https://www.npmjs.com/package/html-markdown -s &quot;#readme&quot; &gt; html-markdown-readme.md
+html2md path/to/html/file -s &quot;#markdown&quot;
+html2md path/to/html/file
+html2md --eval &quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot;
+html2md - # get string from stdin
+html2md   # get string from stdin, better REPL
+{
+    echo &quot;&lt;h1&gt;HEAD1&lt;/h1&gt;&quot;;
+    echo &quot;&lt;h2&gt;HEAD2&lt;/h2&gt;&quot;;
+} | html2md -
+</code></pre><!-- react-text: 35 -->
+<!-- /react-text --><p data-reactid="36"><!-- react-text: 37 -->URL 只支持 HTTP/HTTPs 协议，<!-- /react-text --><code data-reactid="38">-s --selector</code><!-- react-text: 39 --> 选项表示 HTML 文档中的 DOM 选择器，如 jQuery 选择器。<!-- /react-text --></p><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">以上为命令行的方式，同时还提供第三方包的形式</p><!-- react-text: 42 -->
+<!-- /react-text --><pre data-reactid="43"><code data-query="{}" data-lang="data-lang" data-reactid="44">npm i --save html-markdown
+</code></pre><!-- react-text: 45 -->
+<!-- /react-text --><pre data-reactid="46"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="47"><span class="hljs-keyword" data-reactid="48">var</span><!-- react-text: 49 --> html2md = <!-- /react-text --><span class="hljs-built_in" data-reactid="50">require</span><!-- react-text: 51 -->(<!-- /react-text --><span class="hljs-string" data-reactid="52">&#x27;html-markdown&#x27;</span><!-- react-text: 53 -->);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="54">// can use in browser and node.</span><!-- react-text: 55 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="56">var</span><!-- react-text: 57 --> md1 = html2md.html2mdFromString(<!-- /react-text --><span class="hljs-string" data-reactid="58">&quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot;</span><!-- react-text: 59 -->);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="60">// https or http, not isomorphic</span><!-- react-text: 61 -->
+html2md.html2mdFromURL(<!-- /react-text --><span class="hljs-string" data-reactid="62">&quot;https://www.npmjs.com/package/song-robot&quot;</span><!-- react-text: 63 -->, <!-- /react-text --><span class="hljs-string" data-reactid="64">&quot;#readme&quot;</span><!-- react-text: 65 -->).then(<!-- /react-text --><span class="hljs-built_in" data-reactid="66">console</span><!-- react-text: 67 -->.log).catch(<!-- /react-text --><span class="hljs-built_in" data-reactid="68">console</span><!-- react-text: 69 -->.error);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="70">// not isomorphic</span><!-- react-text: 71 -->
+html2md.html2mdFromPath(<!-- /react-text --><span class="hljs-string" data-reactid="72">&quot;path/to/html/file&quot;</span><!-- react-text: 73 -->, <!-- /react-text --><span class="hljs-string" data-reactid="74">&quot;#markdown&quot;</span><!-- react-text: 75 -->).then(<!-- /react-text --><span class="hljs-built_in" data-reactid="76">console</span><!-- react-text: 77 -->.log).catch(<!-- /react-text --><span class="hljs-built_in" data-reactid="78">console</span><!-- react-text: 79 -->.error);<!-- /react-text --></code></pre><!-- react-text: 80 -->
+<!-- /react-text --><h2 id="实现" data-reactid="81"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="82"><span class="icon icon-link" data-reactid="83"></span></a><!-- react-text: 84 -->实现<!-- /react-text --></h2><!-- react-text: 85 -->
+<!-- /react-text --><p data-reactid="86">一共实现了 2 个版本，分别用 Cheerio、jsDom 实现。</p><!-- react-text: 87 -->
+<!-- /react-text --><p data-reactid="88"><!-- react-text: 89 -->Cheerio 更侧重于 node 端，jsDom 则将 HTML 标准在 node 上实现了，所以在浏览器端不需要导入 jsDom，因为浏览器已经实现了 HTML 标准。故 <!-- /react-text --><strong data-reactid="90">jsDom 版本加上环境的判断，可以在浏览器和服务器端使用同一套代码</strong></p><!-- react-text: 91 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/02/07/589954c09cc12.jpg" alt="alt" width="415" height="95" data-reactid="92"/><!-- react-text: 93 -->
+<!-- /react-text --><p data-reactid="94">具体的转化思路大致是，递归遍历 dom 树。对于单个 node ，判断其 tagName 进行映射。</p><!-- react-text: 95 -->
+<!-- /react-text --><pre data-reactid="96"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="97"><span class="hljs-keyword" data-reactid="98">if</span><!-- react-text: 99 --> (<!-- /react-text --><span class="hljs-regexp" data-reactid="100">/^h([\d]+)$/i</span><!-- react-text: 101 -->.test(tagName)) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="102"><!-- react-text: 103 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="104"><!-- react-text: 105 -->${<!-- /react-text --><span class="hljs-string" data-reactid="106">&#x27;#&#x27;</span><!-- react-text: 107 -->.repeat(+<!-- /react-text --><span class="hljs-built_in" data-reactid="108">RegExp</span><!-- react-text: 109 -->.$<!-- /react-text --><span class="hljs-number" data-reactid="110">1</span><!-- react-text: 111 -->)}<!-- /react-text --></span><!-- react-text: 112 --> <!-- /react-text --><span class="hljs-subst" data-reactid="113">${childrenRender()}</span><!-- react-text: 114 -->`<!-- /react-text --></span><!-- react-text: 115 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="116">else</span><!-- react-text: 117 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="118">if</span><!-- react-text: 119 --> (<!-- /react-text --><span class="hljs-string" data-reactid="120">&#x27;ul&#x27;</span><!-- react-text: 121 --> === tagName || <!-- /react-text --><span class="hljs-string" data-reactid="122">&#x27;ol&#x27;</span><!-- react-text: 123 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="124"><!-- react-text: 125 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="126"><!-- react-text: 127 -->${childrenRender(level+(parentTagName === <!-- /react-text --><span class="hljs-string" data-reactid="128">&#x27;li&#x27;</span><!-- react-text: 129 -->? <!-- /react-text --><span class="hljs-number" data-reactid="130">1</span><!-- react-text: 131 --> : <!-- /react-text --><span class="hljs-number" data-reactid="132">0</span><!-- react-text: 133 -->))}<!-- /react-text --></span><!-- react-text: 134 -->`<!-- /react-text --></span><!-- react-text: 135 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="136">else</span><!-- react-text: 137 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="138">if</span><!-- react-text: 139 --> (<!-- /react-text --><span class="hljs-string" data-reactid="140">&#x27;li&#x27;</span><!-- react-text: 141 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="142"><!-- react-text: 143 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="144"><!-- react-text: 145 -->${<!-- /react-text --><span class="hljs-string" data-reactid="146">&#x27;   &#x27;</span><!-- react-text: 147 -->.repeat(level)}<!-- /react-text --></span><span class="hljs-subst" data-reactid="148"><!-- react-text: 149 -->${parentTagName === <!-- /react-text --><span class="hljs-string" data-reactid="150">&#x27;ul&#x27;</span><!-- react-text: 151 --> ? <!-- /react-text --><span class="hljs-string" data-reactid="152">&#x27;-&#x27;</span><!-- react-text: 153 --> : <!-- /react-text --><span class="hljs-number" data-reactid="154">1</span><!-- react-text: 155 -->+index+<!-- /react-text --><span class="hljs-string" data-reactid="156">&#x27;.&#x27;</span><!-- react-text: 157 -->}<!-- /react-text --></span><!-- react-text: 158 --> <!-- /react-text --><span class="hljs-subst" data-reactid="159">${childrenRender()}</span><!-- react-text: 160 -->`<!-- /react-text --></span><!-- react-text: 161 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="162">else</span><!-- react-text: 163 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="164">if</span><!-- react-text: 165 --> (<!-- /react-text --><span class="hljs-string" data-reactid="166">&#x27;img&#x27;</span><!-- react-text: 167 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="168"><!-- react-text: 169 -->`![<!-- /react-text --><span class="hljs-subst" data-reactid="170"><!-- react-text: 171 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="172">&#x27;alt&#x27;</span><!-- react-text: 173 -->) || <!-- /react-text --><span class="hljs-string" data-reactid="174">&#x27;&#x27;</span><!-- react-text: 175 -->}<!-- /react-text --></span><!-- react-text: 176 -->](<!-- /react-text --><span class="hljs-subst" data-reactid="177"><!-- react-text: 178 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="179">&#x27;src&#x27;</span><!-- react-text: 180 -->)}<!-- /react-text --></span><!-- react-text: 181 -->)`<!-- /react-text --></span><!-- react-text: 182 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="183">else</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="185">if</span><!-- react-text: 186 --> (<!-- /react-text --><span class="hljs-string" data-reactid="187">&#x27;p&#x27;</span><!-- react-text: 188 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="189"><!-- react-text: 190 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="191">${childrenRender()}</span><!-- react-text: 192 -->  `<!-- /react-text --></span><!-- react-text: 193 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="194">else</span><!-- react-text: 195 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="196">if</span><!-- react-text: 197 --> (<!-- /react-text --><span class="hljs-string" data-reactid="198">&#x27;code&#x27;</span><!-- react-text: 199 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="200">&quot;`&quot;</span><!-- react-text: 201 --> + childrenRender() + <!-- /react-text --><span class="hljs-string" data-reactid="202">&quot;`&quot;</span><!-- react-text: 203 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="204">else</span><!-- react-text: 205 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="206">if</span><!-- react-text: 207 --> (<!-- /react-text --><span class="hljs-string" data-reactid="208">&#x27;pre&#x27;</span><!-- react-text: 209 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="210">&quot;\n```\n&quot;</span><!-- react-text: 211 -->+ <!-- /react-text --><span class="hljs-string" data-reactid="212"><!-- react-text: 213 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="214"><!-- react-text: 215 -->${jsdomText(dom).replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="216">/^\r?\n/</span><!-- react-text: 217 -->, <!-- /react-text --><span class="hljs-string" data-reactid="218">&#x27;&#x27;</span><!-- react-text: 219 -->).replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="220">/\r?\n$/</span><!-- react-text: 221 -->, <!-- /react-text --><span class="hljs-string" data-reactid="222">&#x27;&#x27;</span><!-- react-text: 223 -->)}<!-- /react-text --></span><!-- react-text: 224 -->\n`<!-- /react-text --></span><!-- react-text: 225 --> +<!-- /react-text --><span class="hljs-string" data-reactid="226">&quot;```\n&quot;</span><!-- react-text: 227 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="228">else</span><!-- react-text: 229 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="230">if</span><!-- react-text: 231 --> (<!-- /react-text --><span class="hljs-string" data-reactid="232">&#x27;a&#x27;</span><!-- react-text: 233 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="234"><!-- react-text: 235 -->`[<!-- /react-text --><span class="hljs-subst" data-reactid="236">${childrenRender()}</span><!-- react-text: 237 -->](<!-- /react-text --><span class="hljs-subst" data-reactid="238"><!-- react-text: 239 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="240">&#x27;href&#x27;</span><!-- react-text: 241 -->)}<!-- /react-text --></span><!-- react-text: 242 -->)`<!-- /react-text --></span><!-- react-text: 243 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="244">else</span><!-- react-text: 245 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="246">if</span><!-- react-text: 247 --> (<!-- /react-text --><span class="hljs-string" data-reactid="248">&#x27;div&#x27;</span><!-- react-text: 249 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="250"><!-- react-text: 251 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="252">${childrenRender()}</span><!-- react-text: 253 -->`<!-- /react-text --></span><!-- react-text: 254 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="255">else</span><!-- react-text: 256 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="257">if</span><!-- react-text: 258 --> (<!-- /react-text --><span class="hljs-string" data-reactid="259">&#x27;strong&#x27;</span><!-- react-text: 260 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="261"><!-- react-text: 262 -->`**<!-- /react-text --><span class="hljs-subst" data-reactid="263">${childrenRender()}</span><!-- react-text: 264 -->**`<!-- /react-text --></span><!-- react-text: 265 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="266">else</span><!-- react-text: 267 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="268">if</span><!-- react-text: 269 --> (<!-- /react-text --><span class="hljs-string" data-reactid="270">&#x27;em&#x27;</span><!-- react-text: 271 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="272"><!-- react-text: 273 -->`*<!-- /react-text --><span class="hljs-subst" data-reactid="274">${childrenRender()}</span><!-- react-text: 275 -->*`<!-- /react-text --></span><!-- react-text: 276 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="277">else</span><!-- react-text: 278 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="279">if</span><!-- react-text: 280 --> (<!-- /react-text --><span class="hljs-string" data-reactid="281">&#x27;hr&#x27;</span><!-- react-text: 282 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="283">`------`</span><!-- react-text: 284 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="285">else</span><!-- react-text: 286 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="287">if</span><!-- react-text: 288 --> (<!-- /react-text --><span class="hljs-string" data-reactid="289">&#x27;del&#x27;</span><!-- react-text: 290 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="291"><!-- react-text: 292 -->`~~<!-- /react-text --><span class="hljs-subst" data-reactid="293">${childrenRender()}</span><!-- react-text: 294 -->~~`<!-- /react-text --></span><!-- react-text: 295 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="296">else</span><!-- react-text: 297 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="298">if</span><!-- react-text: 299 --> (<!-- /react-text --><span class="hljs-string" data-reactid="300">&#x27;html&#x27;</span><!-- react-text: 301 --> === tagName || <!-- /react-text --><span class="hljs-string" data-reactid="302">&#x27;body&#x27;</span><!-- react-text: 303 --> === tagName) {
+    mapStr = childrenRender()
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="304">else</span><!-- react-text: 305 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="306">if</span><!-- react-text: 307 --> (<!-- /react-text --><span class="hljs-string" data-reactid="308">&#x27;head&#x27;</span><!-- react-text: 309 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="310">&#x27;&#x27;</span><!-- react-text: 311 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="312">else</span><!-- react-text: 313 --> {
+    mapStr = dom.outerHTML;
+}<!-- /react-text --></code></pre><!-- react-text: 314 -->
+<!-- /react-text --><p data-reactid="315">同时还需要注意！对于代码块</p><!-- react-text: 316 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/02/07/58995661014f5.jpg" alt="ClipboardImage" width="472" height="513" data-reactid="317"/><!-- react-text: 318 -->
+<!-- /react-text --><p data-reactid="319"><!-- react-text: 320 -->其换行是被样式控制的，如下图 <!-- /react-text --><code data-reactid="321">&lt;div&gt;</code></p><!-- react-text: 322 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/02/07/589956804fb84.jpg" alt="ClipboardImage" width="381" height="319" data-reactid="323"/><!-- react-text: 324 -->
+<!-- /react-text --><p data-reactid="325"><!-- react-text: 326 -->而且 Dom 中的属性 <!-- /react-text --><code data-reactid="327">innerText</code><!-- react-text: 328 --> 不属于 HTML 标准，是浏览器各自实现的。如下图，<!-- /react-text --><code data-reactid="329">innerText</code><!-- react-text: 330 --> 是带换行的，而 <!-- /react-text --><code data-reactid="331">textContent</code><!-- react-text: 332 --> 则不带（jQuery 中 text() 也是不带的）<!-- /react-text --></p><!-- react-text: 333 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/02/07/589956d5916fe.jpg" alt="ClipboardImage" width="427" height="531" data-reactid="334"/><!-- react-text: 335 -->
+<!-- /react-text --><p data-reactid="336">所以就需要我们自己判断是否需要换行，即自己实现 innerText</p><!-- react-text: 337 -->
+<!-- /react-text --><pre data-reactid="338"><code data-query="{}" data-lang="data-lang" data-reactid="339">var jsdomText = function (dom) {
+    var html = dom.innerHTML;
+    if(!html) {
+        return dom.textContent;
+    }
+    var myhtml = html.replace(/&lt;p.*?&gt;(.*?)&lt;\/p&gt;/gmi, &#x27;$1\n&#x27;)
+        .replace(/&lt;div.*?&gt;(.*?)&lt;\/div&gt;/gmi, &#x27;$1\n&#x27;)
+        .replace(/&lt;br.*?&gt;/gmi, &#x27;\n&#x27;)
+        .replace(/&lt;(?:.)*?&gt;/gm, &#x27;&#x27;) // remove all html tags
+        
+    var he = require(&#x27;he&#x27;); // he for decoding html entities
+    var mytext = he.decode(myhtml);
+    return mytext;
+}
+</code></pre><!-- react-text: 340 -->
+<!-- /react-text --><p data-reactid="341"><!-- react-text: 342 -->欢迎使用，并给我提 <!-- /react-text --><a href="https://github.com/moyuyc/html-markdown/issues" data-reactid="343">Issue</a><!-- react-text: 344 -->，我将会不断进行优化改善。<!-- /react-text --></p><!-- react-text: 345 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="346"></div><div class="paginator" data-reactid="347"><a title="Progressive Web App" class="prev" href="/repost-progressive-web-app" data-reactid="348">Prev</a><a title="（译）进阶Bash Script指南（一）" class="next" href="/advanced-bash-scripting-guide-1" data-reactid="349">Next</a></div></div></main><footer data-reactid="350"><div class="copyright" data-reactid="351"><p data-reactid="352"><!-- react-text: 353 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="354">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

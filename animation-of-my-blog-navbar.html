@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1805654099"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">看我Blog文章导航会动哎！</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-22T20:52:18+00:00" data-reactid="13">Apr 22, 2016 8:52 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><blockquote data-reactid="16"><!-- react-text: 17 -->
+<!-- /react-text --><p data-reactid="18">实现侧边内容的动态跳转，非锚点。
+点击右侧的文章侧边导航栏，实现动态效果跳转。</p><!-- react-text: 19 -->
+<!-- /react-text --></blockquote><!-- react-text: 20 -->
+<!-- /react-text --><h1 id="怎么实现滴？" data-reactid="21"><a href="#%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E6%BB%B4%EF%BC%9F" aria-hidden="true" data-reactid="22"><span class="icon icon-link" data-reactid="23"></span></a><!-- react-text: 24 -->怎么实现滴？<!-- /react-text --></h1><!-- react-text: 25 -->
+<!-- /react-text --><p data-reactid="26"><!-- react-text: 27 --> 找到hexo文件夹中你选择的主题文件夹，在我这是<!-- /react-text --><code data-reactid="28">themes/indigo</code><!-- react-text: 29 -->
+进入<!-- /react-text --><code data-reactid="30">source/js</code><!-- react-text: 31 -->，修改js文件<!-- /react-text --></p><!-- react-text: 32 -->
+ <!-- /react-text --><!-- react-text: 33 -->
+<!-- /react-text --><pre data-reactid="34"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="35"><span class="hljs-comment" data-reactid="36">/*
+ * d-&gt;document;
+ * animate-&gt;requestAnimationFrame
+ */</span><!-- react-text: 37 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="38">var</span><!-- react-text: 39 --> links = d.querySelectorAll(<!-- /react-text --><span class="hljs-string" data-reactid="40">&#x27;.post-toc-link&#x27;</span><!-- react-text: 41 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="42">for</span><!-- react-text: 43 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="44">var</span><!-- react-text: 45 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="46">0</span><!-- react-text: 47 -->;i &lt; links.length;i++){
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="48">var</span><!-- react-text: 49 --> link = links.item(i);
+	link.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="50">&#x27;click&#x27;</span><!-- react-text: 51 -->,<!-- /react-text --><span class="hljs-function" data-reactid="52"><span class="hljs-keyword" data-reactid="53">function</span><!-- react-text: 54 -->(<!-- /react-text --><span class="hljs-params" data-reactid="55">e</span><!-- react-text: 56 -->)<!-- /react-text --></span><!-- react-text: 57 -->{
+		e.preventDefault();
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="58">var</span><!-- react-text: 59 --> id = <!-- /react-text --><span class="hljs-keyword" data-reactid="60">this</span><!-- react-text: 61 -->.hash;
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="62">var</span><!-- react-text: 63 --> tg = d.querySelector(id);
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="64">var</span><!-- react-text: 65 --> max = d.body.scrollHeight - d.body.offsetHeight,tg_parent_top = tg.offsetParent.offsetTop;
+		<!-- /react-text --><span class="hljs-function" data-reactid="66"><span class="hljs-keyword" data-reactid="67">function</span><!-- react-text: 68 --> <!-- /react-text --><span class="hljs-title" data-reactid="69">scrollToLink</span><!-- react-text: 70 -->(<!-- /react-text --><span class="hljs-params" data-reactid="71"></span><!-- react-text: 72 -->)<!-- /react-text --></span><!-- react-text: 73 -->{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="74">var</span><!-- react-text: 75 --> to = tg.offsetTop+tg_parent_top - <!-- /react-text --><span class="hljs-number" data-reactid="76">40</span><!-- react-text: 77 -->,
+				top = d.body.scrollTop;
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="78">if</span><!-- react-text: 79 -->(top &gt; to){
+				top -= <!-- /react-text --><span class="hljs-number" data-reactid="80">130</span><!-- react-text: 81 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="82">if</span><!-- react-text: 83 -->(top &lt; to){
+					d.body.scrollTop = to;
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="84">return</span><!-- react-text: 85 -->;
+				}
+				d.body.scrollTop = top;
+				animate(<!-- /react-text --><span class="hljs-built_in" data-reactid="86">arguments</span><!-- react-text: 87 -->.callee);
+			}
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="88">else</span><!-- react-text: 89 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="90">if</span><!-- react-text: 91 -->(top &lt; to){
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="92">if</span><!-- react-text: 93 -->(top==max){
+					d.body.scrollTop = to;
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="94">return</span><!-- react-text: 95 -->;
+				}
+				top += <!-- /react-text --><span class="hljs-number" data-reactid="96">130</span><!-- react-text: 97 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="98">if</span><!-- react-text: 99 -->(top &gt; to){
+					d.body.scrollTop = to;
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="100">return</span><!-- react-text: 101 -->;
+				}
+				d.body.scrollTop = top;
+				animate(<!-- /react-text --><span class="hljs-built_in" data-reactid="102">arguments</span><!-- react-text: 103 -->.callee);
+			}	
+		}
+		animate(scrollToLink);
+	})
+};<!-- /react-text --></code></pre><!-- react-text: 104 -->
+<!-- /react-text --><p data-reactid="105">经过这个小Demo，我发现一个小知识点</p><!-- react-text: 106 -->
+<!-- /react-text --><blockquote data-reactid="107"><!-- react-text: 108 -->
+<!-- /react-text --><p data-reactid="109"><strong data-reactid="110"><em data-reactid="111">元素的offsetTop对相对于其设置了position属性的祖宗元素（若无则为body）。</em></strong></p><!-- react-text: 112 -->
+<!-- /react-text --></blockquote><!-- react-text: 113 -->
+<!-- /react-text --><p data-reactid="114">不信？！请看下面的测试</p><!-- react-text: 115 -->
+<!-- /react-text --><h1 id="我是第一！" data-reactid="116"><a href="#%E6%88%91%E6%98%AF%E7%AC%AC%E4%B8%80%EF%BC%81" aria-hidden="true" data-reactid="117"><span class="icon icon-link" data-reactid="118"></span></a><!-- react-text: 119 -->我是第一！<!-- /react-text --></h1><!-- react-text: 120 -->
+<!-- /react-text --><div style="position:relative;height:700px;border:2px dotted blue;" data-reactid="121"><!-- react-text: 122 -->
+ <!-- /react-text --><p data-reactid="123"><!-- react-text: 124 -->第一的内容！ `position:relative; height:700px; `
+	<!-- /react-text --><div data-reactid="125"><!-- react-text: 126 -->
+	<!-- /react-text --><script data-reactid="127">function alertAttr(obj,attr){alert(obj[attr]);}</script><!-- react-text: 128 -->
+	<!-- /react-text --><button data-reactid="129">点击看我的offsetTop</button><!-- react-text: 130 -->
+	<!-- /react-text --></div><!-- react-text: 131 -->
+ <!-- /react-text --></p><!-- react-text: 132 -->
+<!-- /react-text --></div><!-- react-text: 133 -->
+<!-- /react-text --><h1 id="我是第二！" data-reactid="134"><a href="#%E6%88%91%E6%98%AF%E7%AC%AC%E4%BA%8C%EF%BC%81" aria-hidden="true" data-reactid="135"><span class="icon icon-link" data-reactid="136"></span></a><!-- react-text: 137 -->我是第二！<!-- /react-text --></h1><!-- react-text: 138 -->
+<!-- /react-text --><div style="height:800px;border:2px dotted red;" data-reactid="139"><!-- react-text: 140 -->
+ <!-- /react-text --><p data-reactid="141">第二的内容！ ` height:800px; `</p><!-- react-text: 142 -->
+ <!-- /react-text --><button data-reactid="143">点击看我的offsetTop</button><!-- react-text: 144 -->
+<!-- /react-text --></div><!-- react-text: 145 -->
+<!-- /react-text --><h1 id="我是第三！" data-reactid="146"><a href="#%E6%88%91%E6%98%AF%E7%AC%AC%E4%B8%89%EF%BC%81" aria-hidden="true" data-reactid="147"><span class="icon icon-link" data-reactid="148"></span></a><!-- react-text: 149 -->我是第三！<!-- /react-text --></h1><!-- react-text: 150 -->
+<!-- /react-text --><div style="height:500px;border:2px dotted green;" data-reactid="151"><!-- react-text: 152 -->
+ <!-- /react-text --><p data-reactid="153">第三的内容！ ` height:500px; `</p><!-- react-text: 154 -->
+<!-- /react-text --></div><!-- react-text: 155 -->
+<!-- /react-text --><br data-reactid="156"/><!-- react-text: 157 -->  
+&gt; 更多的细节还可以看元素的`offsetParent`属性
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="158"></div><div class="paginator" data-reactid="159"><a title="短暂的git捣鼓" class="prev" href="/instant-git-test" data-reactid="160">Prev</a><a title="一次百度前端实习生面试" class="next" href="/baidu-fe-interview-1" data-reactid="161">Next</a></div></div></main><footer data-reactid="162"><div class="copyright" data-reactid="163"><p data-reactid="164"><!-- react-text: 165 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="166">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

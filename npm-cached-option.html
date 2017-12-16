@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1610457978"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">npm命令行小结</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-13T10:39:06+00:00" data-reactid="13">Oct 13, 2016 10:39 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="yarn" data-reactid="16"><a href="#yarn" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->yarn<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">最近停到facebook又出了个yarn, 新的node package manager.
+噱头是安装能够直接找缓存，不需要每次从网上下。</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23"><!-- react-text: 24 -->于是<!-- /react-text --><code data-reactid="25">npm i -g yarn</code><!-- react-text: 26 -->安装后，使用了一番，觉得也就那样，还需要把<!-- /react-text --><code data-reactid="27">yarn.lock</code><!-- react-text: 28 -->放到项目中，<!-- /react-text --></p><!-- react-text: 29 -->
+<!-- /react-text --><p data-reactid="30"><strong data-reactid="31"><!-- react-text: 32 -->其实<!-- /react-text --><code data-reactid="33">npm</code><!-- react-text: 34 -->对于cache也有一些指令处理的。<!-- /react-text --></strong></p><!-- react-text: 35 -->
+<!-- /react-text --><!-- react-text: 36 -->
+<!-- /react-text --><h1 id="npm" data-reactid="37"><a href="#npm" aria-hidden="true" data-reactid="38"><span class="icon icon-link" data-reactid="39"></span></a><!-- react-text: 40 -->npm<!-- /react-text --></h1><!-- react-text: 41 -->
+<!-- /react-text --><pre data-reactid="42"><code data-query="{}" data-lang="data-lang" data-reactid="43">npm cache ls
+</code></pre><!-- react-text: 44 -->
+<!-- /react-text --><p data-reactid="45"><!-- react-text: 46 -->可以查看你本地的cache，之前你的每一次<!-- /react-text --><code data-reactid="47">install</code><!-- react-text: 48 -->都会在本地有cache的，默认是放在<!-- /react-text --><code data-reactid="49">$HOME/.npm</code><!-- react-text: 50 -->中
+npm cache clean
+清除本地cache<!-- /react-text --></p><!-- react-text: 51 -->
+<!-- /react-text --><pre data-reactid="52"><code data-query="{}" data-lang="data-lang" data-reactid="53">npm install react --cache-min 6000
+</code></pre><!-- react-text: 54 -->
+<!-- /react-text --><p data-reactid="55"><!-- react-text: 56 -->上面<!-- /react-text --><code data-reactid="57">--cache-min</code><!-- react-text: 58 -->指的是是否需要从缓存里面取package，时间不超过6000分钟，超过6000分钟也将从网上download，
+还可以<!-- /react-text --><code data-reactid="59">--cache-min=Infinity</code><!-- react-text: 60 -->，分钟数设为无穷，这样可以保证了包下载的速度。<!-- /react-text --></p><!-- react-text: 61 -->
+<!-- /react-text --><pre data-reactid="62"><code data-query="{}" data-lang="data-lang" data-reactid="63">npm install --only=dev
+</code></pre><!-- react-text: 64 -->
+<!-- /react-text --><p data-reactid="65"><!-- react-text: 66 -->将会只安装<!-- /react-text --><code data-reactid="67">package.json</code><!-- react-text: 68 -->中的<!-- /react-text --><code data-reactid="69">devDependencies</code><!-- react-text: 70 -->, 对立的是<!-- /react-text --><code data-reactid="71">--only=production</code></p><!-- react-text: 72 -->
+<!-- /react-text --><h1 id="more" data-reactid="73"><a href="#more" aria-hidden="true" data-reactid="74"><span class="icon icon-link" data-reactid="75"></span></a><!-- react-text: 76 -->more<!-- /react-text --></h1><!-- react-text: 77 -->
+<!-- /react-text --><p data-reactid="78"><a href="http://www.ruanyifeng.com/blog/2016/01/npm-install.html" data-reactid="79"> 阮一峰 npm 模块安装机制简介</a></p><!-- react-text: 80 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="81"></div><div class="paginator" data-reactid="82"><a title="Moka (SPA Blog For Everyone)" class="prev" href="/Moka-birth" data-reactid="83">Prev</a><a title="linux C一周学习" class="next" href="/linuxc-learning-one-week" data-reactid="84">Next</a></div></div></main><footer data-reactid="85"><div class="copyright" data-reactid="86"><p data-reactid="87"><!-- react-text: 88 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="89">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

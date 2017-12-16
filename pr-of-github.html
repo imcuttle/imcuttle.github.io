@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-774162872"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">git捣鼓记之「Pull Request」</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-28T15:48:32+00:00" data-reactid="13">Apr 28, 2016 3:48 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="前言" data-reactid="16"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->前言<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->　　昨天，又捣鼓了一会儿git，因为想把我关于<!-- /react-text --><a href="https://github.com/iissnan/hexo-theme-next" data-reactid="23">NexT</a><!-- react-text: 24 -->主题的修改提交到原作者github上，以方便更多人使用。<!-- /react-text --></p><!-- react-text: 25 -->
+<!-- /react-text --><!-- react-text: 26 -->
+<!-- /react-text --><h1 id="修改之处" data-reactid="27"><a href="#%E4%BF%AE%E6%94%B9%E4%B9%8B%E5%A4%84" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->修改之处<!-- /react-text --></h1><!-- react-text: 31 -->
+<!-- /react-text --><p data-reactid="32"><!-- react-text: 33 -->　　原版的主题中，有三种Schema（Muse/Mist/Pisces），在主题的配置文件<!-- /react-text --><code data-reactid="34">_config.yml</code><!-- react-text: 35 -->中，有sidebar:position属性，但是却反人类的<!-- /react-text --><strong data-reactid="36">仅仅</strong><!-- react-text: 37 -->只支持Pisces
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmcBlZwsZRfTu76I0UBIKmZUTBqB?imageslim" alt="ClipboardImage" width="780" height="181" data-reactid="38"/></p><!-- react-text: 39 -->
+<!-- /react-text --><p data-reactid="40"><!-- react-text: 41 -->　　Pisces设置sidebar:position为left后，效果如下(图片来自原作者博客)：
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FlfSqCEE9xdbhoX8ge8heScTRS1C?imageslim" alt="ClipboardImage" width="1021" height="888" data-reactid="42"/></p><!-- react-text: 43 -->
+<!-- /react-text --><p data-reactid="44">　　于是乎，我便「一言不合，开始动手」，研究起其他两个主题的sidebar源码起来。
+有了原作者代码的参考，照葫芦画瓢，不一会儿也修改好了。
+为了让更多人知道我闲的蛋疼的举动，于是我便打算 Pull Request.</p><!-- react-text: 45 -->
+<!-- /react-text --><h1 id="pull-request！" data-reactid="46"><a href="#pull-request%EF%BC%81" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->Pull Request！<!-- /react-text --></h1><!-- react-text: 50 -->
+<!-- /react-text --><h2 id="fork" data-reactid="51"><a href="#fork" aria-hidden="true" data-reactid="52"><span class="icon icon-link" data-reactid="53"></span></a><!-- react-text: 54 -->Fork<!-- /react-text --></h2><!-- react-text: 55 -->
+<!-- /react-text --><p data-reactid="56"><!-- react-text: 57 -->　　首先，找到你需要修改的项目，Fork It！
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fo7IJxphHt6Kx1pBFlJ90ShA32pX?imageslim" alt="ClipboardImage" width="498" height="141" data-reactid="58"/></p><!-- react-text: 59 -->
+<!-- /react-text --><h2 id="clone" data-reactid="60"><a href="#clone" aria-hidden="true" data-reactid="61"><span class="icon icon-link" data-reactid="62"></span></a><!-- react-text: 63 -->Clone<!-- /react-text --></h2><!-- react-text: 64 -->
+<!-- /react-text --><p data-reactid="65">　　Fork完成之后，找到你Fork的项目。</p><!-- react-text: 66 -->
+<!-- /react-text --><pre data-reactid="67"><code data-query="{}" data-lang="data-lang" data-reactid="68">git clone {ssh or https}
+cd {name} # 进入项目目录
+</code></pre><!-- react-text: 69 -->
+<!-- /react-text --><h2 id="new-branch--fix-bug" data-reactid="70"><a href="#new-branch--fix-bug" aria-hidden="true" data-reactid="71"><span class="icon icon-link" data-reactid="72"></span></a><!-- react-text: 73 -->New Branch &amp; Fix Bug<!-- /react-text --></h2><!-- react-text: 74 -->
+<!-- /react-text --><p data-reactid="75">　　Clone之后，切换分支（branch）</p><!-- react-text: 76 -->
+<!-- /react-text --><pre data-reactid="77"><code data-query="{}" data-lang="data-lang" data-reactid="78">git checkout -b fix-bug
+</code></pre><!-- react-text: 79 -->
+<!-- /react-text --><p data-reactid="80">　　然后在本地尽情地修改吧，修改完成后</p><!-- react-text: 81 -->
+<!-- /react-text --><pre data-reactid="82"><code data-query="{}" data-lang="data-lang" data-reactid="83">git add . &amp;&amp; git commit -m &quot;fix-bug&quot;
+git push origin fix-bug
+</code></pre><!-- react-text: 84 -->
+<!-- /react-text --><h2 id="pull-request" data-reactid="85"><a href="#pull-request" aria-hidden="true" data-reactid="86"><span class="icon icon-link" data-reactid="87"></span></a><!-- react-text: 88 -->Pull Request<!-- /react-text --></h2><!-- react-text: 89 -->
+<!-- /react-text --><p data-reactid="90"><!-- react-text: 91 -->　　提交你的修改至github后，切换branch至fix-bug
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FiW1kAXel6WqirDiUDWlIMiLGIBZ?imageslim" alt="ClipboardImage" width="1048" height="408" data-reactid="92"/><!-- react-text: 93 -->
+点击<!-- /react-text --><strong data-reactid="94">Compare &amp; pull request</strong><!-- react-text: 95 -->按钮，然后写下你修改内容的说明就OK了<!-- /react-text --></p><!-- react-text: 96 -->
+<!-- /react-text --><h2 id="wait-to-be-merged" data-reactid="97"><a href="#wait-to-be-merged" aria-hidden="true" data-reactid="98"><span class="icon icon-link" data-reactid="99"></span></a><!-- react-text: 100 -->Wait To Be Merged<!-- /react-text --></h2><!-- react-text: 101 -->
+<!-- /react-text --><p data-reactid="102"><!-- react-text: 103 -->　　目前还没有同意Merge. = =
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FthPzIG1sKMsA9YPt0fAuESHl73s?imageslim" alt="ClipboardImage" width="1066" height="389" data-reactid="104"/></p><!-- react-text: 105 -->
+<!-- /react-text --><p data-reactid="106"><!-- react-text: 107 -->参考资料
+<!-- /react-text --><a href="http://www.zhihu.com/question/21682976" data-reactid="108">http://www.zhihu.com/question/21682976</a></p><!-- react-text: 109 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="110"></div><div class="paginator" data-reactid="111"><a title="从定时器到 Web Worker" class="prev" href="/from-timer-to-webworker" data-reactid="112">Prev</a><a title="play css3 Animation" class="next" href="/play_css3_Animation" data-reactid="113">Next</a></div></div></main><footer data-reactid="114"><div class="copyright" data-reactid="115"><p data-reactid="116"><!-- react-text: 117 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="118">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

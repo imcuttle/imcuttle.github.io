@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="515618252"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">go-js 介绍</h1><div class="post-info" data-reactid="12"><time datetime="2017-08-17T09:29:58+00:00" data-reactid="13">Aug 17, 2017 9:29 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="是什么" data-reactid="16"><a href="#%E6%98%AF%E4%BB%80%E4%B9%88" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->是什么<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">首先，此gojs非彼gojs(图表库)</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">该工具将 webpack v1 &quot;内嵌&quot;，可以很方便快捷的&quot;搭建&quot;一个commonjs前端执行环境。</p><!-- react-text: 24 -->
+<!-- /react-text --><h2 id="概念" data-reactid="25"><a href="#%E6%A6%82%E5%BF%B5" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->概念<!-- /react-text --></h2><!-- react-text: 29 -->
+<!-- /react-text --><p data-reactid="30"><code data-reactid="31">gojs</code><!-- react-text: 32 --> 认为一个js文件就是一个入口(entry)<!-- /react-text --></p><!-- react-text: 33 -->
+<!-- /react-text --><h2 id="特征" data-reactid="34"><a href="#%E7%89%B9%E5%BE%81" aria-hidden="true" data-reactid="35"><span class="icon icon-link" data-reactid="36"></span></a><!-- react-text: 37 -->特征<!-- /react-text --></h2><!-- react-text: 38 -->
+<!-- /react-text --><ol data-reactid="39"><!-- react-text: 40 -->
+<!-- /react-text --><li data-reactid="41"><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43">程序运行时，自动下载依赖包，包括：</p><!-- react-text: 44 -->
+<!-- /react-text --><ul data-reactid="45"><!-- react-text: 46 -->
+<!-- /react-text --><li data-reactid="47">webpack中的loader</li><!-- react-text: 48 -->
+<!-- /react-text --><li data-reactid="49"><!-- react-text: 50 -->gojs当前工作目录中的<!-- /react-text --><code data-reactid="51">.babelrc</code><!-- react-text: 52 -->配置<!-- /react-text --></li><!-- react-text: 53 -->
+<!-- /react-text --><li data-reactid="54"><!-- react-text: 55 -->js文件中静态<!-- /react-text --><code data-reactid="56">import/require</code><!-- react-text: 57 -->的依赖<!-- /react-text --></li><!-- react-text: 58 -->
+<!-- /react-text --></ul><!-- react-text: 59 -->
+<!-- /react-text --><p data-reactid="60"><!-- react-text: 61 -->来自 <!-- /react-text --><a href="https://github.com/webpack-contrib/npm-install-webpack-plugin" data-reactid="62">npm install webpack plugin</a><!-- react-text: 63 -->  <!-- /react-text --></p><!-- react-text: 64 -->
+<!-- /react-text --></li><!-- react-text: 65 -->
+<!-- /react-text --><li data-reactid="66"><!-- react-text: 67 -->
+<!-- /react-text --><p data-reactid="68">入口动态添加，如：</p><!-- react-text: 69 -->
+<!-- /react-text --><p data-reactid="70">文件目录结构如下：</p><!-- react-text: 71 -->
+<!-- /react-text --><pre data-reactid="72"><code data-query="{}" data-lang="data-lang" data-reactid="73">go-js-test/
+├── a/
+│   ├── a/
+│   ├── jq.html
+│   ├── jq.js
+│   ├── style.css
+│   └── style.less
+├── jq.js
+└── react.js
+</code></pre><!-- react-text: 74 -->
+<!-- /react-text --><ol data-reactid="75"><!-- react-text: 76 -->
+<!-- /react-text --><li data-reactid="77"><!-- react-text: 78 -->在 <!-- /react-text --><code data-reactid="79">go-js-test/</code><!-- react-text: 80 --> 下执行 <!-- /react-text --><code data-reactid="81">gojs .</code></li><!-- react-text: 82 -->
+<!-- /react-text --><li data-reactid="83"><!-- react-text: 84 -->请求 <!-- /react-text --><code data-reactid="85">/jq.js</code></li><!-- react-text: 86 -->
+<!-- /react-text --><li data-reactid="87"><!-- react-text: 88 -->添加 <!-- /react-text --><code data-reactid="89">jq.js</code><!-- react-text: 90 --> 至入口中, webpack building....<!-- /react-text --></li><!-- react-text: 91 -->
+<!-- /react-text --><li data-reactid="92"><!-- react-text: 93 -->请求 <!-- /react-text --><code data-reactid="94">a/jq.js</code></li><!-- react-text: 95 -->
+<!-- /react-text --><li data-reactid="96"><!-- react-text: 97 -->添加 <!-- /react-text --><code data-reactid="98">a/jq.js</code><!-- react-text: 99 --> 至入口中, webpack building....<!-- /react-text --></li><!-- react-text: 100 -->
+<!-- /react-text --></ol><!-- react-text: 101 -->
+<!-- /react-text --></li><!-- react-text: 102 -->
+<!-- /react-text --><li data-reactid="103"><!-- react-text: 104 -->
+<!-- /react-text --><p data-reactid="105">颗粒化 webpack compiler 和 HMR 的处理  </p><!-- react-text: 106 -->
+<!-- /react-text --><p data-reactid="107"><!-- react-text: 108 -->在第二点(入口动态添加)中，对于<!-- /react-text --><code data-reactid="109">jq.js</code><!-- react-text: 110 -->和<!-- /react-text --><code data-reactid="111">a/jq.js</code><!-- react-text: 112 -->两个入口，分别<!-- /react-text --><strong data-reactid="113">各自对应webpack compiler 和 HMR 单元</strong><!-- react-text: 114 -->。
+也就是说，<!-- /react-text --><code data-reactid="115">jq.js</code><!-- react-text: 116 -->和<!-- /react-text --><code data-reactid="117">a/jq.js</code><!-- react-text: 118 -->是两个相互独立的webpack处理单元。
+那么这样给我们带来什么便利呢？<!-- /react-text --></p><!-- react-text: 119 -->
+<!-- /react-text --><ol data-reactid="120"><!-- react-text: 121 -->
+<!-- /react-text --><li data-reactid="122"><!-- react-text: 123 -->如果<!-- /react-text --><code data-reactid="124">jq.js</code><!-- react-text: 125 -->中出错，在<!-- /react-text --><code data-reactid="126">a/jq.js</code><!-- react-text: 127 -->中是不被察觉的。<!-- /react-text --></li><!-- react-text: 128 -->
+<!-- /react-text --><li data-reactid="129"><!-- react-text: 130 -->后面加入的<!-- /react-text --><code data-reactid="131">a/jq.js</code><!-- react-text: 132 -->入口，不影响<!-- /react-text --><code data-reactid="133">jq.js</code><!-- react-text: 134 -->入口，所以之前对<!-- /react-text --><code data-reactid="135">jq.js</code><!-- react-text: 136 -->的webpack bundle cache是依然生效的。（对比与 一股脑将2个入口重新用一个webpack单元处理）<!-- /react-text --></li><!-- react-text: 137 -->
+<!-- /react-text --></ol><!-- react-text: 138 -->
+<!-- /react-text --></li><!-- react-text: 139 -->
+<!-- /react-text --></ol><!-- react-text: 140 -->
+<!-- /react-text --><h2 id="适用于" data-reactid="141"><a href="#%E9%80%82%E7%94%A8%E4%BA%8E" aria-hidden="true" data-reactid="142"><span class="icon icon-link" data-reactid="143"></span></a><!-- react-text: 144 -->适用于<!-- /react-text --></h2><!-- react-text: 145 -->
+<!-- /react-text --><p data-reactid="146"><!-- react-text: 147 -->适用于一些小型项目或者demo的快速搭建开发。
+如，<!-- /react-text --><code data-reactid="148">package.json</code><!-- react-text: 149 -->中<!-- /react-text --></p><!-- react-text: 150 -->
+<!-- /react-text --><pre data-reactid="151"><code data-query="{}" data-lang="data-lang" data-reactid="152">{
+    ...
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;gojs -i demo.js&quot;
+    },
+    ...
+    &quot;devDependencies&quot;: {
+        &quot;go-js&quot;: &quot;^1.2.4&quot;
+    }
+}
+</code></pre><!-- react-text: 153 -->
+<!-- /react-text --><p data-reactid="154">用户只需要执行</p><!-- react-text: 155 -->
+<!-- /react-text --><pre data-reactid="156"><code data-query="{}" data-lang="data-lang" data-reactid="157">npm install &amp;&amp; npm start
+</code></pre><!-- react-text: 158 -->
+<!-- /react-text --><p data-reactid="159">就可以直接看到demo.js了！</p><!-- react-text: 160 -->
+<!-- /react-text --><h2 id="预览" data-reactid="161"><a href="#%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="162"><span class="icon icon-link" data-reactid="163"></span></a><!-- react-text: 164 -->预览<!-- /react-text --></h2><!-- react-text: 165 -->
+<!-- /react-text --><iframe width="500" height="300" src="https://www.youtube.com/embed/VDfcNhSxbQY" frameborder="0" allowfullscreen="" data-reactid="166"></iframe><!-- react-text: 167 -->
+<!-- /react-text --><h2 id="使用" data-reactid="168"><a href="#%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="169"><span class="icon icon-link" data-reactid="170"></span></a><!-- react-text: 171 -->使用<!-- /react-text --></h2><!-- react-text: 172 -->
+<!-- /react-text --><ul data-reactid="173"><!-- react-text: 174 -->
+<!-- /react-text --><li data-reactid="175">cli</li><!-- react-text: 176 -->
+<!-- /react-text --></ul><!-- react-text: 177 -->
+<!-- /react-text --><pre data-reactid="178"><code data-query="{}" data-lang="data-lang" data-reactid="179">npm install -g go-js
+gojs -h  # 查看帮助
+</code></pre><!-- react-text: 180 -->
+<!-- /react-text --><ul data-reactid="181"><!-- react-text: 182 -->
+<!-- /react-text --><li data-reactid="183">package</li><!-- react-text: 184 -->
+<!-- /react-text --></ul><!-- react-text: 185 -->
+<!-- /react-text --><pre data-reactid="186"><code data-query="{}" data-lang="data-lang" data-reactid="187">const GoJS = require(&#x27;go-js&#x27;)
+const gojs = new GoJS({
+    verbose: true,
+    path: &#x27;.&#x27;,
+    type: &#x27;js&#x27;,
+    port: null
+})
+
+gojs.start(function(error, port) {
+    console.log(&#x27;server listening on &#x27;+port)
+    
+    // gojs.stop()
+})
+
+gojs.on(&#x27;error&#x27;, error =&gt; {})
+gojs.on(&#x27;server&#x27;, port =&gt; {})
+gojs.on(&#x27;request&#x27;, (req, res, start) =&gt; {})
+gojs.on(&#x27;addEntry&#x27;, entry =&gt; {})
+gojs.on(&#x27;rmEntry&#x27;, entry =&gt; {})
+gojs.on(&#x27;watch&#x27;, (type, filePath) =&gt; {})
+</code></pre><!-- react-text: 188 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="189"></div><div class="paginator" data-reactid="190"><a title="组件库Demo页发布自动化" class="prev" href="/deploy-demo-page-automatically" data-reactid="191">Prev</a><a title="React组件化 -&gt; 更好的 Demo 解决方案" class="next" href="/resolution-of-react-component-demo-page" data-reactid="192">Next</a></div></div></main><footer data-reactid="193"><div class="copyright" data-reactid="194"><p data-reactid="195"><!-- react-text: 196 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="197">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

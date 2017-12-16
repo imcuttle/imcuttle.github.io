@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1199978713"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「项目拾遗」简单图形处理及图形绘制</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-03T16:11:37+00:00" data-reactid="13">Jun 3, 2016 4:11 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="引言" data-reactid="16"><a href="#%E5%BC%95%E8%A8%80" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->引言<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 --> 这个学期，我学习了图像处理的相关课程，对图像有了初步的认识，并且利用web知识，做了相关实践。<!-- /react-text --><br data-reactid="23"/><!-- react-text: 24 -->
+在线地址：<!-- /react-text --><a href="http://moyuyc.github.io/htm/painter/" data-reactid="25">moyuyc.github.io/htm/painter/</a><br data-reactid="26"/><!-- react-text: 27 -->
+<!-- /react-text --><strong data-reactid="28">姓名：余聪</strong><br data-reactid="29"/><strong data-reactid="30">学号：19130126</strong></p><!-- react-text: 31 -->
+<!-- /react-text --><!-- react-text: 32 -->
+<!-- /react-text --><h1 id="实现技术说明" data-reactid="33"><a href="#%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="34"><span class="icon icon-link" data-reactid="35"></span></a><!-- react-text: 36 -->实现技术说明<!-- /react-text --></h1><!-- react-text: 37 -->
+<!-- /react-text --><p data-reactid="38"><!-- react-text: 39 --> 使用了前端HTML5 canvas API 以及后端Java Web搭建的后台服务。<!-- /react-text --><br data-reactid="40"/><!-- react-text: 41 -->
+也就是说，<!-- /react-text --><strong data-reactid="42">图像处理功能既有使用JavaScript语言实现的，也有利用Java语言实现的，但是都将以网页形式展现</strong><br data-reactid="43"/><!-- react-text: 44 -->
+具体技术说明如下图所示。
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtExOgf-UTKT19vx6mmqWfBdqn_h?imageslim" alt="ClipboardImage" width="1102" height="422" data-reactid="45"/></p><!-- react-text: 46 -->
+<!-- /react-text --><h1 id="使用说明" data-reactid="47"><a href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="48"><span class="icon icon-link" data-reactid="49"></span></a><!-- react-text: 50 -->使用说明<!-- /react-text --></h1><!-- react-text: 51 -->
+<!-- /react-text --><ol data-reactid="52"><!-- react-text: 53 -->
+<!-- /react-text --><li data-reactid="54"><!-- react-text: 55 -->Image Choose
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtJDetUzRzzIBewtLi0y718y0_oH?imageslim" alt="ClipboardImage" width="1185" height="824" data-reactid="56"/></li><!-- react-text: 57 -->
+<!-- /react-text --><li data-reactid="58"><!-- react-text: 59 -->点击白色面板，选择图像起点
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FiHHgSEUm-t3GsBzEz7i5wIaTLwu?imageslim" alt="ClipboardImage" width="1626" height="879" data-reactid="60"/><!-- react-text: 61 -->
+右侧Message出现该图片灰度分布情况<!-- /react-text --></li><!-- react-text: 62 -->
+<!-- /react-text --><li data-reactid="63"><!-- react-text: 64 -->操作面板解释
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fgmb7FlStUCyQzc6RoYRWPYaO8gn?imageslim" alt="ClipboardImage" width="1162" height="236" data-reactid="65"/></li><!-- react-text: 66 -->
+<!-- /react-text --><li data-reactid="67"><!-- react-text: 68 -->注意
+<!-- /react-text --><strong data-reactid="69">对于Server操作，由于需要将图像传输给服务器，所以对于图像大小有要求，请使用下面的图片(较小)进行测试</strong><!-- react-text: 70 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FuZpYAjB3V5XaFc-tKjpG0T2vzZR?imageslim" alt="ClipboardImage" width="256" height="256" data-reactid="71"/></li><!-- react-text: 72 -->
+<!-- /react-text --></ol><!-- react-text: 73 -->
+<!-- /react-text --><h1 id="功能介绍" data-reactid="74"><a href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="75"><span class="icon icon-link" data-reactid="76"></span></a><!-- react-text: 77 -->功能介绍<!-- /react-text --></h1><!-- react-text: 78 -->
+<!-- /react-text --><h2 id="设置图像透明度直接像素点操作" data-reactid="79"><a href="#%E8%AE%BE%E7%BD%AE%E5%9B%BE%E5%83%8F%E9%80%8F%E6%98%8E%E5%BA%A6%E7%9B%B4%E6%8E%A5%E5%83%8F%E7%B4%A0%E7%82%B9%E6%93%8D%E4%BD%9C" aria-hidden="true" data-reactid="80"><span class="icon icon-link" data-reactid="81"></span></a><!-- react-text: 82 -->设置图像透明度(直接像素点操作)<!-- /react-text --></h2><!-- react-text: 83 -->
+<!-- /react-text --><ul data-reactid="84"><!-- react-text: 85 -->
+<!-- /react-text --><li data-reactid="86"><!-- react-text: 87 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FiXgk80RJjYyPQe7ANO4uhAA-mTL?imageslim" alt="ClipboardImage" width="533" height="263" data-reactid="88"/></li><!-- react-text: 89 -->
+<!-- /react-text --><li data-reactid="90"><!-- react-text: 91 -->
+<!-- /react-text --><p data-reactid="92">代码</p><!-- react-text: 93 -->
+<!-- /react-text --><pre data-reactid="94"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="95"><!-- react-text: 96 -->alphaHandle = <!-- /react-text --><span class="hljs-function" data-reactid="97"><span class="hljs-keyword" data-reactid="98">function</span><!-- react-text: 99 --> (<!-- /react-text --><span class="hljs-params" data-reactid="100"></span><!-- react-text: 101 -->) <!-- /react-text --></span><!-- react-text: 102 -->{
+    setImageAlpha = <!-- /react-text --><span class="hljs-function" data-reactid="103"><span class="hljs-keyword" data-reactid="104">function</span><!-- react-text: 105 -->(<!-- /react-text --><span class="hljs-params" data-reactid="106">index,alph</span><!-- react-text: 107 -->)<!-- /react-text --></span><!-- react-text: 108 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="109">if</span><!-- react-text: 110 -->(paint.images &amp;&amp; paint.images.length&gt;index ) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="111">var</span><!-- react-text: 112 --> image = paint.images[index],
+                img = paint.getImageData(image.x,image.y,image.width,image.height);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="113">for</span><!-- react-text: 114 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="115">var</span><!-- react-text: 116 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="117">0</span><!-- react-text: 118 -->;i&lt;img.data.length;i+=<!-- /react-text --><span class="hljs-number" data-reactid="119">4</span><!-- react-text: 120 -->){
+                <!-- /react-text --><span class="hljs-comment" data-reactid="121">// 设置alph</span><!-- react-text: 122 -->
+                img.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="123">3</span><!-- react-text: 124 -->] = alph;
+            }
+            paint.save();
+            paint.putImageData(img,image.x,image.y);
+            paint.restore();
+        }
+    };
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="125">var</span><!-- react-text: 126 --> alph;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="127">while</span><!-- react-text: 128 -->((alph=<!-- /react-text --><span class="hljs-built_in" data-reactid="129">parseInt</span><!-- react-text: 130 -->(prompt(<!-- /react-text --><span class="hljs-string" data-reactid="131">&#x27;please set images alpha. (0~255)&#x27;</span><!-- react-text: 132 -->,<!-- /react-text --><span class="hljs-number" data-reactid="133">120</span><!-- react-text: 134 -->)))&gt;<!-- /react-text --><span class="hljs-number" data-reactid="135">255</span><!-- react-text: 136 --> || alph&lt;<!-- /react-text --><span class="hljs-number" data-reactid="137">0</span><!-- react-text: 138 -->);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="139">for</span><!-- react-text: 140 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="141">var</span><!-- react-text: 142 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="143">0</span><!-- react-text: 144 -->;i&lt;paint.images.length;i++)
+        setImageAlpha(i,alph);
+};<!-- /react-text --></code></pre><!-- react-text: 145 -->
+<!-- /react-text --></li><!-- react-text: 146 -->
+<!-- /react-text --></ul><!-- react-text: 147 -->
+<!-- /react-text --><h2 id="图像灰化直接像素点操作" data-reactid="148"><a href="#%E5%9B%BE%E5%83%8F%E7%81%B0%E5%8C%96%E7%9B%B4%E6%8E%A5%E5%83%8F%E7%B4%A0%E7%82%B9%E6%93%8D%E4%BD%9C" aria-hidden="true" data-reactid="149"><span class="icon icon-link" data-reactid="150"></span></a><!-- react-text: 151 -->图像灰化(直接像素点操作)<!-- /react-text --></h2><!-- react-text: 152 -->
+<!-- /react-text --><ul data-reactid="153"><!-- react-text: 154 -->
+<!-- /react-text --><li data-reactid="155"><!-- react-text: 156 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FvwSNwQGsLpUjptBT1NKs6IMq1Cc?imageslim" alt="ClipboardImage" width="540" height="265" data-reactid="157"/></li><!-- react-text: 158 -->
+<!-- /react-text --><li data-reactid="159"><!-- react-text: 160 -->
+<!-- /react-text --><p data-reactid="161">代码</p><!-- react-text: 162 -->
+<!-- /react-text --><pre data-reactid="163"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="164"><!-- react-text: 165 -->imgGrayHandle = <!-- /react-text --><span class="hljs-function" data-reactid="166"><span class="hljs-keyword" data-reactid="167">function</span><!-- react-text: 168 --> (<!-- /react-text --><span class="hljs-params" data-reactid="169"></span><!-- react-text: 170 -->) <!-- /react-text --></span><!-- react-text: 171 -->{
+    paint.images.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="172"><span class="hljs-keyword" data-reactid="173">function</span><!-- react-text: 174 --> (<!-- /react-text --><span class="hljs-params" data-reactid="175">ele</span><!-- react-text: 176 -->) <!-- /react-text --></span><!-- react-text: 177 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="178">var</span><!-- react-text: 179 --> imgData = paint.getImageData(ele.x,ele.y,ele.width,ele.height);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="180">for</span><!-- react-text: 181 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="182">var</span><!-- react-text: 183 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="184">0</span><!-- react-text: 185 -->;i&lt;imgData.data.length;i+=<!-- /react-text --><span class="hljs-number" data-reactid="186">4</span><!-- react-text: 187 -->) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="188">var</span><!-- react-text: 189 --> r = imgData.data[i],g=imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="190">1</span><!-- react-text: 191 -->],b = imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="192">2</span><!-- react-text: 193 -->];
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="194">var</span><!-- react-text: 195 --> value = (r+g+b)/<!-- /react-text --><span class="hljs-number" data-reactid="196">3</span><!-- react-text: 197 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="198">//rgb平均值-&gt;灰度</span><!-- react-text: 199 -->
+            imgData.data[i]=imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="200">1</span><!-- react-text: 201 -->]=imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="202">2</span><!-- react-text: 203 -->]=value;
+        }
+        paint.putImageData(imgData,ele.x,ele.y);
+    })
+};<!-- /react-text --></code></pre><!-- react-text: 204 -->
+<!-- /react-text --></li><!-- react-text: 205 -->
+<!-- /react-text --></ul><!-- react-text: 206 -->
+<!-- /react-text --><h2 id="高对比度直接像素点操作" data-reactid="207"><a href="#%E9%AB%98%E5%AF%B9%E6%AF%94%E5%BA%A6%E7%9B%B4%E6%8E%A5%E5%83%8F%E7%B4%A0%E7%82%B9%E6%93%8D%E4%BD%9C" aria-hidden="true" data-reactid="208"><span class="icon icon-link" data-reactid="209"></span></a><!-- react-text: 210 -->高对比度(直接像素点操作)<!-- /react-text --></h2><!-- react-text: 211 -->
+<!-- /react-text --><ul data-reactid="212"><!-- react-text: 213 -->
+<!-- /react-text --><li data-reactid="214"><!-- react-text: 215 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fq4fUyU60zSFY3EIEnx_WtlDD2EY?imageslim" alt="ClipboardImage" width="558" height="258" data-reactid="216"/></li><!-- react-text: 217 -->
+<!-- /react-text --><li data-reactid="218"><!-- react-text: 219 -->
+<!-- /react-text --><p data-reactid="220">代码</p><!-- react-text: 221 -->
+<!-- /react-text --><pre data-reactid="222"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="223"><!-- react-text: 224 -->hgHandle = <!-- /react-text --><span class="hljs-function" data-reactid="225"><span class="hljs-keyword" data-reactid="226">function</span><!-- react-text: 227 --> (<!-- /react-text --><span class="hljs-params" data-reactid="228"></span><!-- react-text: 229 -->) <!-- /react-text --></span><!-- react-text: 230 -->{
+    paint.images.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="231"><span class="hljs-keyword" data-reactid="232">function</span><!-- react-text: 233 --> (<!-- /react-text --><span class="hljs-params" data-reactid="234">ele</span><!-- react-text: 235 -->) <!-- /react-text --></span><!-- react-text: 236 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="237">var</span><!-- react-text: 238 --> imgData = paint.getImageData(ele.x,ele.y,ele.width,ele.height);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="239">for</span><!-- react-text: 240 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="241">var</span><!-- react-text: 242 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="243">0</span><!-- react-text: 244 -->;i&lt;imgData.data.length;i+=<!-- /react-text --><span class="hljs-number" data-reactid="245">4</span><!-- react-text: 246 -->) {
+            <!-- /react-text --><span class="hljs-comment" data-reactid="247">// 取背景色的反作为前景色</span><!-- react-text: 248 -->
+            imgData.data[i] = <!-- /react-text --><span class="hljs-number" data-reactid="249">255</span><!-- react-text: 250 -->-imgData.data[i];
+            imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="251">1</span><!-- react-text: 252 -->] = <!-- /react-text --><span class="hljs-number" data-reactid="253">255</span><!-- react-text: 254 -->-imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="255">1</span><!-- react-text: 256 -->];
+            imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="257">2</span><!-- react-text: 258 -->] = <!-- /react-text --><span class="hljs-number" data-reactid="259">255</span><!-- react-text: 260 -->-imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="261">2</span><!-- react-text: 262 -->];
+        }
+        paint.putImageData(imgData,ele.x,ele.y);
+    })
+};<!-- /react-text --></code></pre><!-- react-text: 263 -->
+<!-- /react-text --></li><!-- react-text: 264 -->
+<!-- /react-text --></ul><!-- react-text: 265 -->
+<!-- /react-text --><h2 id="浮雕效果锐化滤波器" data-reactid="266"><a href="#%E6%B5%AE%E9%9B%95%E6%95%88%E6%9E%9C%E9%94%90%E5%8C%96%E6%BB%A4%E6%B3%A2%E5%99%A8" aria-hidden="true" data-reactid="267"><span class="icon icon-link" data-reactid="268"></span></a><!-- react-text: 269 -->浮雕效果(锐化滤波器)<!-- /react-text --></h2><!-- react-text: 270 -->
+<!-- /react-text --><ul data-reactid="271"><!-- react-text: 272 -->
+<!-- /react-text --><li data-reactid="273"><!-- react-text: 274 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkmvcJ6520vsm6HomvGwCWQbUsZf?imageslim" alt="ClipboardImage" width="539" height="261" data-reactid="275"/></li><!-- react-text: 276 -->
+<!-- /react-text --><li data-reactid="277"><!-- react-text: 278 -->
+<!-- /react-text --><p data-reactid="279">代码</p><!-- react-text: 280 -->
+<!-- /react-text --><pre data-reactid="281"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="282"><span class="hljs-function" data-reactid="283"><span class="hljs-keyword" data-reactid="284">function</span><!-- react-text: 285 --> <!-- /react-text --><span class="hljs-title" data-reactid="286">ConvolutionMatrix</span><!-- react-text: 287 -->(<!-- /react-text --><span class="hljs-params" data-reactid="288">input, matrix, divisor, offset</span><!-- react-text: 289 -->) <!-- /react-text --></span><!-- react-text: 290 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="291">// 创建一个输出的 imageData 对象</span><!-- react-text: 292 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="293">var</span><!-- react-text: 294 --> output = <!-- /react-text --><span class="hljs-built_in" data-reactid="295">document</span><!-- react-text: 296 -->.createElement(<!-- /react-text --><span class="hljs-string" data-reactid="297">&quot;canvas&quot;</span><!-- react-text: 298 -->)
+        .getContext(<!-- /react-text --><span class="hljs-string" data-reactid="299">&#x27;2d&#x27;</span><!-- react-text: 300 -->).createImageData(input);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="301">var</span><!-- react-text: 302 --> w = input.width, h = input.height;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="303">var</span><!-- react-text: 304 --> iD = input.data, oD = output.data;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="305">var</span><!-- react-text: 306 --> m = matrix;
+    <!-- /react-text --><span class="hljs-comment" data-reactid="307">// 对除了边缘的点之外的内部点的 RGB 进行操作，透明度在最后都设为 255</span><!-- react-text: 308 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="309">for</span><!-- react-text: 310 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="311">var</span><!-- react-text: 312 --> y = <!-- /react-text --><span class="hljs-number" data-reactid="313">1</span><!-- react-text: 314 -->; y &lt; h - <!-- /react-text --><span class="hljs-number" data-reactid="315">1</span><!-- react-text: 316 -->; y += <!-- /react-text --><span class="hljs-number" data-reactid="317">1</span><!-- react-text: 318 -->) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="319">for</span><!-- react-text: 320 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="321">var</span><!-- react-text: 322 --> x = <!-- /react-text --><span class="hljs-number" data-reactid="323">1</span><!-- react-text: 324 -->; x &lt; w - <!-- /react-text --><span class="hljs-number" data-reactid="325">1</span><!-- react-text: 326 -->; x += <!-- /react-text --><span class="hljs-number" data-reactid="327">1</span><!-- react-text: 328 -->) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="329">for</span><!-- react-text: 330 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="331">var</span><!-- react-text: 332 --> c = <!-- /react-text --><span class="hljs-number" data-reactid="333">0</span><!-- react-text: 334 -->; c &lt; <!-- /react-text --><span class="hljs-number" data-reactid="335">3</span><!-- react-text: 336 -->; c += <!-- /react-text --><span class="hljs-number" data-reactid="337">1</span><!-- react-text: 338 -->) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="339">var</span><!-- react-text: 340 --> i = (y * w + x) * <!-- /react-text --><span class="hljs-number" data-reactid="341">4</span><!-- react-text: 342 --> + c;
+                oD[i] = offset
+                    + (m[<!-- /react-text --><span class="hljs-number" data-reactid="343">0</span><!-- react-text: 344 -->] * iD[i - w * <!-- /react-text --><span class="hljs-number" data-reactid="345">4</span><!-- react-text: 346 --> - <!-- /react-text --><span class="hljs-number" data-reactid="347">4</span><!-- react-text: 348 -->] + m[<!-- /react-text --><span class="hljs-number" data-reactid="349">1</span><!-- react-text: 350 -->] * iD[i - w * <!-- /react-text --><span class="hljs-number" data-reactid="351">4</span><!-- react-text: 352 -->] + m[<!-- /react-text --><span class="hljs-number" data-reactid="353">2</span><!-- react-text: 354 -->] * iD[i - w * <!-- /react-text --><span class="hljs-number" data-reactid="355">4</span><!-- react-text: 356 --> + <!-- /react-text --><span class="hljs-number" data-reactid="357">4</span><!-- react-text: 358 -->]
+                    + m[<!-- /react-text --><span class="hljs-number" data-reactid="359">3</span><!-- react-text: 360 -->] * iD[i - <!-- /react-text --><span class="hljs-number" data-reactid="361">4</span><!-- react-text: 362 -->] + m[<!-- /react-text --><span class="hljs-number" data-reactid="363">4</span><!-- react-text: 364 -->] * iD[i] + m[<!-- /react-text --><span class="hljs-number" data-reactid="365">5</span><!-- react-text: 366 -->] * iD[i + <!-- /react-text --><span class="hljs-number" data-reactid="367">4</span><!-- react-text: 368 -->]
+                    + m[<!-- /react-text --><span class="hljs-number" data-reactid="369">6</span><!-- react-text: 370 -->] * iD[i + w * <!-- /react-text --><span class="hljs-number" data-reactid="371">4</span><!-- react-text: 372 --> - <!-- /react-text --><span class="hljs-number" data-reactid="373">4</span><!-- react-text: 374 -->] + m[<!-- /react-text --><span class="hljs-number" data-reactid="375">7</span><!-- react-text: 376 -->] * iD[i + w * <!-- /react-text --><span class="hljs-number" data-reactid="377">4</span><!-- react-text: 378 -->] + m[<!-- /react-text --><span class="hljs-number" data-reactid="379">8</span><!-- react-text: 380 -->] * iD[i + w * <!-- /react-text --><span class="hljs-number" data-reactid="381">4</span><!-- react-text: 382 --> + <!-- /react-text --><span class="hljs-number" data-reactid="383">4</span><!-- react-text: 384 -->])
+                    / divisor;
+                oD[(y * w + x) * <!-- /react-text --><span class="hljs-number" data-reactid="385">4</span><!-- react-text: 386 --> + <!-- /react-text --><span class="hljs-number" data-reactid="387">3</span><!-- react-text: 388 -->] = <!-- /react-text --><span class="hljs-number" data-reactid="389">255</span><!-- react-text: 390 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="391">// 设置透明度</span><!-- react-text: 392 -->
+            }
+        }
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="393">return</span><!-- react-text: 394 --> output;
+};<!-- /react-text --></code></pre><!-- react-text: 395 -->
+<!-- /react-text --></li><!-- react-text: 396 -->
+<!-- /react-text --></ul><!-- react-text: 397 -->
+<!-- /react-text --><h2 id="图像黑化直接像素点操作" data-reactid="398"><a href="#%E5%9B%BE%E5%83%8F%E9%BB%91%E5%8C%96%E7%9B%B4%E6%8E%A5%E5%83%8F%E7%B4%A0%E7%82%B9%E6%93%8D%E4%BD%9C" aria-hidden="true" data-reactid="399"><span class="icon icon-link" data-reactid="400"></span></a><!-- react-text: 401 -->图像黑化(直接像素点操作)<!-- /react-text --></h2><!-- react-text: 402 -->
+<!-- /react-text --><ul data-reactid="403"><!-- react-text: 404 -->
+<!-- /react-text --><li data-reactid="405"><!-- react-text: 406 -->如图
+<!-- /react-text --><img src="/images/imgpro5.png" alt="imgpro5.png" width="546" height="266" data-reactid="407"/></li><!-- react-text: 408 -->
+<!-- /react-text --><li data-reactid="409"><!-- react-text: 410 -->
+<!-- /react-text --><p data-reactid="411">代码</p><!-- react-text: 412 -->
+<!-- /react-text --><pre data-reactid="413"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="414"><!-- react-text: 415 -->blackHandle = <!-- /react-text --><span class="hljs-function" data-reactid="416"><span class="hljs-keyword" data-reactid="417">function</span><!-- react-text: 418 --> (<!-- /react-text --><span class="hljs-params" data-reactid="419"></span><!-- react-text: 420 -->) <!-- /react-text --></span><!-- react-text: 421 -->{
+    paint.images.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="422"><span class="hljs-keyword" data-reactid="423">function</span><!-- react-text: 424 --> (<!-- /react-text --><span class="hljs-params" data-reactid="425">ele</span><!-- react-text: 426 -->) <!-- /react-text --></span><!-- react-text: 427 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="428">var</span><!-- react-text: 429 --> imgData = paint.getImageData(ele.x,ele.y,ele.width,ele.height);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="430">for</span><!-- react-text: 431 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="432">var</span><!-- react-text: 433 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="434">0</span><!-- react-text: 435 -->;i&lt;imgData.data.length;i+=<!-- /react-text --><span class="hljs-number" data-reactid="436">4</span><!-- react-text: 437 -->) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="438">var</span><!-- react-text: 439 --> r = imgData.data[i],g=imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="440">1</span><!-- react-text: 441 -->],b = imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="442">2</span><!-- react-text: 443 -->];
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="444">var</span><!-- react-text: 445 --> grey = r*<!-- /react-text --><span class="hljs-number" data-reactid="446">0.3</span><!-- react-text: 447 -->+g*<!-- /react-text --><span class="hljs-number" data-reactid="448">0.59</span><!-- react-text: 449 -->+b*<!-- /react-text --><span class="hljs-number" data-reactid="450">0.11</span><!-- react-text: 451 -->;
+            <!-- /react-text --><span class="hljs-comment" data-reactid="452">// 取0或者255,非黑即白</span><!-- react-text: 453 -->
+            imgData.data[i] = imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="454">1</span><!-- react-text: 455 -->] = imgData.data[i+<!-- /react-text --><span class="hljs-number" data-reactid="456">2</span><!-- react-text: 457 -->] = grey&gt;<!-- /react-text --><span class="hljs-number" data-reactid="458">125</span><!-- react-text: 459 --> ? <!-- /react-text --><span class="hljs-number" data-reactid="460">255</span><!-- react-text: 461 --> : <!-- /react-text --><span class="hljs-number" data-reactid="462">0</span><!-- react-text: 463 -->;
+        }
+        paint.putImageData(imgData,ele.x,ele.y);
+    })
+}<!-- /react-text --></code></pre><!-- react-text: 464 -->
+<!-- /react-text --></li><!-- react-text: 465 -->
+<!-- /react-text --></ul><!-- react-text: 466 -->
+<!-- /react-text --><h2 id="模糊效果线性平滑滤波器" data-reactid="467"><a href="#%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C%E7%BA%BF%E6%80%A7%E5%B9%B3%E6%BB%91%E6%BB%A4%E6%B3%A2%E5%99%A8" aria-hidden="true" data-reactid="468"><span class="icon icon-link" data-reactid="469"></span></a><!-- react-text: 470 -->模糊效果(线性平滑滤波器)<!-- /react-text --></h2><!-- react-text: 471 -->
+<!-- /react-text --><ul data-reactid="472"><!-- react-text: 473 -->
+<!-- /react-text --><li data-reactid="474"><!-- react-text: 475 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fo05MIaOVxYft3uLkjZw7rgIgaVp?imageslim" alt="ClipboardImage" width="542" height="252" data-reactid="476"/><img src="http://obu9je6ng.bkt.clouddn.com/FuhpGHFjE7Pzd5qZdrQZyI8YY9NL?imageslim" alt="ClipboardImage" width="546" height="266" data-reactid="477"/></li><!-- react-text: 478 -->
+<!-- /react-text --><li data-reactid="479"><!-- react-text: 480 -->
+<!-- /react-text --><p data-reactid="481">代码</p><!-- react-text: 482 -->
+<!-- /react-text --><pre data-reactid="483"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="484"><!-- react-text: 485 -->blurHandle = <!-- /react-text --><span class="hljs-function" data-reactid="486"><span class="hljs-keyword" data-reactid="487">function</span><!-- react-text: 488 --> (<!-- /react-text --><span class="hljs-params" data-reactid="489"></span><!-- react-text: 490 -->)<!-- /react-text --></span><!-- react-text: 491 -->{
+    paint.images.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="492"><span class="hljs-keyword" data-reactid="493">function</span><!-- react-text: 494 --> (<!-- /react-text --><span class="hljs-params" data-reactid="495">ele</span><!-- react-text: 496 -->) <!-- /react-text --></span><!-- react-text: 497 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="498">var</span><!-- react-text: 499 --> imgData = paint.getImageData(ele.x, ele.y, ele.width, ele.height);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="500">var</span><!-- react-text: 501 --> blurR = <!-- /react-text --><span class="hljs-number" data-reactid="502">3</span><!-- react-text: 503 -->, totalnum = (<!-- /react-text --><span class="hljs-number" data-reactid="504">2</span><!-- react-text: 505 --> * blurR + <!-- /react-text --><span class="hljs-number" data-reactid="506">1</span><!-- react-text: 507 -->) * (<!-- /react-text --><span class="hljs-number" data-reactid="508">2</span><!-- react-text: 509 --> * blurR + <!-- /react-text --><span class="hljs-number" data-reactid="510">1</span><!-- react-text: 511 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="512">for</span><!-- react-text: 513 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="514">var</span><!-- react-text: 515 --> i = blurR; i &lt; ele.height - blurR; i++)
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="516">for</span><!-- react-text: 517 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="518">var</span><!-- react-text: 519 --> j = blurR; j &lt; ele.width - blurR; j++) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="520">var</span><!-- react-text: 521 --> totalr = <!-- /react-text --><span class="hljs-number" data-reactid="522">0</span><!-- react-text: 523 -->, totalg = <!-- /react-text --><span class="hljs-number" data-reactid="524">0</span><!-- react-text: 525 -->, totalb = <!-- /react-text --><span class="hljs-number" data-reactid="526">0</span><!-- react-text: 527 -->;
+                <!-- /react-text --><span class="hljs-comment" data-reactid="528">//2*blurR 模糊的正方形长宽，total 范围内RGB的总和</span><!-- react-text: 529 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="530">for</span><!-- react-text: 531 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="532">var</span><!-- react-text: 533 --> dx = -blurR; dx &lt;= blurR; dx++)
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="534">for</span><!-- react-text: 535 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="536">var</span><!-- react-text: 537 --> dy = -blurR; dy &lt;= blurR; dy++) {
+                        <!-- /react-text --><span class="hljs-keyword" data-reactid="538">var</span><!-- react-text: 539 --> x = i + dx
+                        <!-- /react-text --><span class="hljs-keyword" data-reactid="540">var</span><!-- react-text: 541 --> y = j + dy
+                        <!-- /react-text --><span class="hljs-keyword" data-reactid="542">var</span><!-- react-text: 543 --> p = (x * ele.width + y)*<!-- /react-text --><span class="hljs-number" data-reactid="544">4</span><!-- react-text: 545 -->;
+                        totalr += imgData.data[p + <!-- /react-text --><span class="hljs-number" data-reactid="546">0</span><!-- react-text: 547 -->]
+                        totalg += imgData.data[p + <!-- /react-text --><span class="hljs-number" data-reactid="548">1</span><!-- react-text: 549 -->]
+                        totalb += imgData.data[p + <!-- /react-text --><span class="hljs-number" data-reactid="550">2</span><!-- react-text: 551 -->]
+                    }
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="552">var</span><!-- react-text: 553 --> p = (i*ele.width + j)*<!-- /react-text --><span class="hljs-number" data-reactid="554">4</span><!-- react-text: 555 -->;
+                imgData.data[p+<!-- /react-text --><span class="hljs-number" data-reactid="556">0</span><!-- react-text: 557 -->] = totalr / totalnum;
+                imgData.data[p+<!-- /react-text --><span class="hljs-number" data-reactid="558">1</span><!-- react-text: 559 -->] = totalg / totalnum;
+                imgData.data[p+<!-- /react-text --><span class="hljs-number" data-reactid="560">2</span><!-- react-text: 561 -->] = totalb / totalnum;
+            }
+        paint.putImageData(imgData,ele.x,ele.y);
+    });
+};<!-- /react-text --></code></pre><!-- react-text: 562 -->
+<!-- /react-text --></li><!-- react-text: 563 -->
+<!-- /react-text --></ul><!-- react-text: 564 -->
+<!-- /react-text --><h2 id="马赛克效果平滑滤波器" data-reactid="565"><a href="#%E9%A9%AC%E8%B5%9B%E5%85%8B%E6%95%88%E6%9E%9C%E5%B9%B3%E6%BB%91%E6%BB%A4%E6%B3%A2%E5%99%A8" aria-hidden="true" data-reactid="566"><span class="icon icon-link" data-reactid="567"></span></a><!-- react-text: 568 -->马赛克效果(平滑滤波器)<!-- /react-text --></h2><!-- react-text: 569 -->
+<!-- /react-text --><ul data-reactid="570"><!-- react-text: 571 -->
+<!-- /react-text --><li data-reactid="572"><!-- react-text: 573 -->
+<!-- /react-text --><p data-reactid="574"><!-- react-text: 575 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmhxBd8me8P8_Czqeh3BaPxnudM5?imageslim" alt="ClipboardImage" width="541" height="260" data-reactid="576"/></p><!-- react-text: 577 -->
+<!-- /react-text --></li><!-- react-text: 578 -->
+<!-- /react-text --><li data-reactid="579"><!-- react-text: 580 -->
+<!-- /react-text --><p data-reactid="581">代码</p><!-- react-text: 582 -->
+<!-- /react-text --><pre data-reactid="583"><code data-query="{}" data-lang="data-lang" data-reactid="584">```javascript
+mosaicHandle = function (){
+    paint.images.forEach(function (ele) {
+        var imgData = paint.getImageData(ele.x, ele.y, ele.width, ele.height);
+        var size = 16
+        var totalnum = size*size;
+        for( var i = 0 ; i &lt; ele.height ; i += size )
+            for( var j = 0 ; j &lt; ele.width ; j += size ){
+                var totalr = 0 , totalg = 0 , totalb = 0
+                //以size为大小作为一个像素方格
+                for( var dx = 0 ; dx &lt; size ; dx ++ )
+                    for( var dy = 0 ; dy &lt; size ; dy ++ ){
+                        var x = i + dx;
+                        var y = j + dy;
+                        var p = x*ele.width + y
+                        totalr += imgData.data[p*4+0]
+                        totalg += imgData.data[p*4+1]
+                        totalb += imgData.data[p*4+2]
+                    }
+                var p = i*ele.width+j
+                var resr = totalr / totalnum
+                var resg = totalg / totalnum
+                var resb = totalb / totalnum;
+                //将size大小内的像素点全部设为平均rgb
+                for( var dx = 0 ; dx &lt; size ; dx ++ )
+                    for( var dy = 0 ; dy &lt; size ; dy ++ ){
+                        var x = i + dx
+                        var y = j + dy
+                        var p = x*ele.width + y
+                        imgData.data[p*4+0] = resr
+                        imgData.data[p*4+1] = resg
+                        imgData.data[p*4+2] = resb
+                    }
+            }
+        paint.putImageData(imgData,ele.x,ele.y);
+    })
+}
+```
+</code></pre><!-- react-text: 585 -->
+<!-- /react-text --><h2 id="kmenus算法矢量量化" data-reactid="586"><a href="#kmenus%E7%AE%97%E6%B3%95%E7%9F%A2%E9%87%8F%E9%87%8F%E5%8C%96" aria-hidden="true" data-reactid="587"><span class="icon icon-link" data-reactid="588"></span></a><!-- react-text: 589 -->KMenus算法(矢量量化)<!-- /react-text --></h2><!-- react-text: 590 -->
+<!-- /react-text --></li><!-- react-text: 591 -->
+<!-- /react-text --><li data-reactid="592"><!-- react-text: 593 -->
+<!-- /react-text --><p data-reactid="594">说明：KMenus算法是一个聚类算法，我们可以用该算法思想，找出图像中主要的rgb颜色。（可以将rgb想象为三维空间xyz，找出图像中rgb聚集的地方）然后把属于该聚类中的所有像素点全部赋值为聚类像素值，查看效果</p><!-- react-text: 595 -->
+<!-- /react-text --></li><!-- react-text: 596 -->
+<!-- /react-text --><li data-reactid="597"><!-- react-text: 598 -->
+<!-- /react-text --><p data-reactid="599"><!-- react-text: 600 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FlxYpIXzpNyQE68RFGZuyxwWYfTM?imageslim" alt="ClipboardImage" width="547" height="324" data-reactid="601"/></p><!-- react-text: 602 -->
+<!-- /react-text --></li><!-- react-text: 603 -->
+<!-- /react-text --><li data-reactid="604"><!-- react-text: 605 -->
+<!-- /react-text --><p data-reactid="606">代码</p><!-- react-text: 607 -->
+<!-- /react-text --><pre data-reactid="608"><code data-query="{}" data-lang="data-lang" data-reactid="609">```javascript
+kMeans : function(imgData){
+        var data = imgData.data, w = imgData.width, h = imgData.height;
+        var clusters = (function getRandomClusters(k){
+            var rlt = [];
+            while(k--&gt;0)
+                rlt.push([randomInt(256),randomInt(256),randomInt(256)]);
+            return rlt;
+        })(3);
+        function getRGBDistance(clu,rgb){
+            return parseInt(Math.sqrt(Math.pow(rgb[0]-clu[0],2)+Math.pow(rgb[1]-clu[1],2),Math.pow(rgb[2]-clu[2],2)).toFixed(0));
+        }
+        function getCenterCluster(rgbs){
+            var sumr= 0,sumg= 0,sumb=0;
+            for(var i in rgbs){
+                sumr+=rgbs[i][0];sumg+=rgbs[i][1];sumb+=rgbs[i][2];
+            }
+            return [parseInt((sumr/rgbs.length).toFixed(0)),
+                parseInt((sumg/rgbs.length).toFixed(0)),
+                parseInt((sumb/rgbs.length).toFixed(0))]
+        }
+        var forNewClus = new Array(clusters.length),forNewData = new Array(clusters.length);
+        while(true) {
+            for(var i=0;i&lt;forNewClus.length;i++) {
+                forNewClus[i] = [];
+                forNewData[i] = [];
+            }
+            for (var i = 0; i &lt; data.length; i += 4) {
+                var myCluIndex, minDist = Number.MAX_VALUE, rgb = [data[i], data[i + 1], data[i + 2]];
+                for (var j = 0; j &lt; clusters.length; j++) {
+                    var dist = getRGBDistance(clusters[j], rgb);
+                    if (dist &lt; minDist) {
+                        myCluIndex = j;
+                        minDist = dist;
+                    }
+                }
+                forNewData[myCluIndex].push(i);
+                forNewClus[myCluIndex].push(rgb);
+            }
+            var isUpdate=false;
+            for(var i=0;i&lt;forNewClus.length;i++) {
+                if(forNewClus[i].length==0)
+                    continue;
+                var c = getCenterCluster(forNewClus[i]);
+                if(c[0]!=clusters[i][0]||c[1]!=clusters[i][1]||c[2]!=clusters[i][2]) {
+                    clusters[i] = c;
+                    isUpdate = true;
+                }
+            }
+            if(!isUpdate)
+                break;
+        }
+        for(var i=0;i&lt;forNewData.length;i++) {
+            for(var j=0;j&lt;forNewClus[i].length;j++){
+                var val = forNewData[i][j];
+                data[val] = clusters[i][0];
+                data[val+1] = clusters[i][1];
+                data[val+2] = clusters[i][1];
+            }
+        }
+        console.log(forNewClus,clusters);
+        return {c:clusters,md:imgData};
+    }
+```
+</code></pre><!-- react-text: 610 -->
+<!-- /react-text --><h2 id="直方图均衡化空域点处理" data-reactid="611"><a href="#%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96%E7%A9%BA%E5%9F%9F%E7%82%B9%E5%A4%84%E7%90%86" aria-hidden="true" data-reactid="612"><span class="icon icon-link" data-reactid="613"></span></a><!-- react-text: 614 -->直方图均衡化(空域点处理)<!-- /react-text --></h2><!-- react-text: 615 -->
+<!-- /react-text --></li><!-- react-text: 616 -->
+<!-- /react-text --><li data-reactid="617"><!-- react-text: 618 -->
+<!-- /react-text --><p data-reactid="619">说明：直方图均衡化：我们把一张图片对应的rgb像素点分成3个(对应rgb)256(0-255)等级，并且将等级绘制为直方图，我们把直方图变得分布均匀，这就是直方图均衡化。这样的图片往往具有高对比度。</p><!-- react-text: 620 -->
+<!-- /react-text --></li><!-- react-text: 621 -->
+<!-- /react-text --><li data-reactid="622"><!-- react-text: 623 -->
+<!-- /react-text --><p data-reactid="624"><!-- react-text: 625 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmwuGT6aQQupiOOGufUTs2qO4dsH?imageslim" alt="ClipboardImage" width="537" height="261" data-reactid="626"/></p><!-- react-text: 627 -->
+<!-- /react-text --></li><!-- react-text: 628 -->
+<!-- /react-text --><li data-reactid="629"><!-- react-text: 630 -->
+<!-- /react-text --><p data-reactid="631">代码</p><!-- react-text: 632 -->
+<!-- /react-text --><pre data-reactid="633"><code data-query="{}" data-lang="data-lang" data-reactid="634">```javascript
+//http://blog.csdn.net/jia20003/article/details/8119563
+//http://hello-wangfeng.iteye.com/blog/1717150
+average: function (imgData) {
+    var data = imgData.data, w = imgData.width, h = imgData.height;
+    var histogramR = [],
+        histogramG = [],
+        histogramB = [];
+    for(var i=0; i&lt;data.length; i+=4){
+        histogramR[data[i]] = histogramR[data[i]]+1 || 1;
+        histogramG[data[i+1]] = histogramG[data[i+1]]+1 || 1;
+        histogramB[data[i+2]] = histogramB[data[i+2]]+1 || 1;
+    }
+    //直方图均衡化
+    function getRate(grayHis,total,index) {
+        var s = 0;
+        for(var i=0;i&lt;index;i++){
+            var v = grayHis[i]||0;
+            s+=(v/total);
+        }
+        return Math.floor(s*255);
+    }
+    var total = w*h,
+        newHisR = [],
+        newHisG = [],
+        newHisB = [];
+    for(i=0; i&lt;256; i++){
+        newHisR[i] = getRate(histogramR,total,i);
+        newHisG[i] = getRate(histogramG,total,i);
+        newHisB[i] = getRate(histogramB,total,i);
+    }
+    console.log([histogramR,histogramG,histogramB],[newHisR,newHisG,newHisB]);
+    for(i=0; i&lt;h; i++){
+        for(var j=0; j&lt;w; j++){
+            var v = (i*w+j)&lt;&lt;2;
+            data[v] = newHisR[data[v]];
+            data[v+1]=newHisG[data[v+1]];
+            data[v+1]=newHisB[data[v+2]];
+        }
+    }
+    return imgData;
+}
+```
+</code></pre><!-- react-text: 635 -->
+<!-- /react-text --><h2 id="图像复原" data-reactid="636"><a href="#%E5%9B%BE%E5%83%8F%E5%A4%8D%E5%8E%9F" aria-hidden="true" data-reactid="637"><span class="icon icon-link" data-reactid="638"></span></a><!-- react-text: 639 -->图像复原<!-- /react-text --></h2><!-- react-text: 640 -->
+<!-- /react-text --></li><!-- react-text: 641 -->
+<!-- /react-text --><li data-reactid="642"><!-- react-text: 643 -->
+<!-- /react-text --><p data-reactid="644">说明：图像在形成、记录、处理和传输过程中，由于成像系统、记录设备、传输介质和处理方法的问题，导致图像质量下降，这种现象叫图像退化。而图像复原就是对退化的图像进行处理，尽可能的复原图像的本来面目。</p><!-- react-text: 645 -->
+<!-- /react-text --></li><!-- react-text: 646 -->
+<!-- /react-text --><li data-reactid="647"><!-- react-text: 648 -->
+<!-- /react-text --><p data-reactid="649"><!-- react-text: 650 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkLD1OdGi0WKdv26sK4ubCj3ov6B?imageslim" alt="ClipboardImage" width="530" height="330" data-reactid="651"/><!-- react-text: 652 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FqQpRZv_Tzx54uHAREg7O9UPY8r3?imageslim" alt="ClipboardImage" width="530" height="330" data-reactid="653"/></p><!-- react-text: 654 -->
+<!-- /react-text --></li><!-- react-text: 655 -->
+<!-- /react-text --><li data-reactid="656"><!-- react-text: 657 -->
+<!-- /react-text --><p data-reactid="658">代码</p><!-- react-text: 659 -->
+<!-- /react-text --><pre data-reactid="660"><code data-query="{}" data-lang="data-lang" data-reactid="661">```java
+//图像恢复
+public int[] imRestore(int[] pixels, int iw, int ih)
+{
+    double[] newPixels = new double [iw*ih];
+    double[] newKernel = new double [iw*ih];
+
+    //初始化
+    for(int j = 0; j &lt; ih; j++)
+    {
+        for(int i = 0; i &lt; iw; i++)
+        {
+            newPixels[i+j*iw] = pixels[i+j*iw]&amp;0xff;
+            if((i&lt;5) &amp;&amp; (j&lt;5))
+                newKernel[i+j*iw] = 1.0/25;
+            else
+                newKernel[i+j*iw] = 0;
+        }
+    }
+
+    //初始化
+    Complex[] complex   = new Complex[iw*ih];
+    Complex[] comKernel = new Complex[iw*ih];
+    for(int i = 0;i &lt; iw*ih; i++)
+    {
+        complex[i]   = new Complex(0,0);
+        comKernel[i] = new Complex(0,0);
+    }
+
+    //对原图像进行FFT (快速傅氏变换)
+    fft2 = new FFT2();
+    fft2.setData2(iw, ih, newPixels);
+    complex = fft2.getFFT2();
+
+    //对卷积核进行FFT
+    fft2 = new FFT2();
+    fft2.setData2(iw, ih, newKernel);
+    comKernel = fft2.getFFT2();
+
+    //逆滤波复原
+    for(int j = 0;j &lt; ih; j++)
+    {
+        for(int i = 0; i &lt; iw; i++)
+        {
+            double re = complex[i+j*iw].re;
+            double im = complex[i+j*iw].im;
+            double reKernel = comKernel[i+j*iw].re;
+            double imKernel = comKernel[i+j*iw].im;
+            double x = reKernel*reKernel+imKernel*imKernel;
+
+            if(x &gt; 1e-3)
+            {
+                double r = (re*reKernel+im*imKernel)/x;
+                double m = (im*reKernel-re*imKernel)/x;
+                complex[i+j*iw].re = r;
+                complex[i+j*iw].im = m;
+            }
+        }
+    }
+
+    //进行FFT反变换
+    fft2 = new FFT2();
+    fft2.setData2i(iw, ih, complex);
+    pixels = fft2.getPixels2i();
+    return pixels;
+}
+```
+</code></pre><!-- react-text: 662 -->
+<!-- /react-text --><h2 id="边界检测自定义方法" data-reactid="663"><a href="#%E8%BE%B9%E7%95%8C%E6%A3%80%E6%B5%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="664"><span class="icon icon-link" data-reactid="665"></span></a><!-- react-text: 666 -->边界检测(自定义方法)<!-- /react-text --></h2><!-- react-text: 667 -->
+<!-- /react-text --></li><!-- react-text: 668 -->
+<!-- /react-text --><li data-reactid="669"><!-- react-text: 670 -->
+<!-- /react-text --><p data-reactid="671">说明：人们看一个物体是，首先感受的就是它的边缘，灰度或结构等信息的突变处称为边缘。边缘是一个区域的结束，也是另一个区域的开始，利用这种特征可以分割图像。
+物体边缘上的这种变化可以用微分算子检测出来，通常用一阶或二阶导数来检测边缘。</p><!-- react-text: 672 -->
+<!-- /react-text --></li><!-- react-text: 673 -->
+<!-- /react-text --><li data-reactid="674"><!-- react-text: 675 -->
+<!-- /react-text --><p data-reactid="676"><!-- react-text: 677 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FtX_UjvlyHv3o98RvaXwh7gsihqP?imageslim" alt="ClipboardImage" width="545" height="261" data-reactid="678"/></p><!-- react-text: 679 -->
+<!-- /react-text --></li><!-- react-text: 680 -->
+<!-- /react-text --><li data-reactid="681"><!-- react-text: 682 -->
+<!-- /react-text --><p data-reactid="683">代码</p><!-- react-text: 684 -->
+<!-- /react-text --><pre data-reactid="685"><code data-query="{}" data-lang="data-lang" data-reactid="686">```java
+//边界提取
+public byte[] Bound(byte bw[], int iw, int ih)
+{
+    int p, r;
+    byte[] tem = new byte[iw*ih];
+    for(int j = 0;j &lt; ih; j++)
+        for(int i = 0; i &lt; iw; i++)
+            tem[i+j*iw] = bw[i+j*iw];
+    for(int j = 1; j &lt; ih - 1; j++)
+    {
+        for (int i = 1; i &lt; iw - 1; i++)
+        {
+            p = bw[i+j*iw];
+            if(p == 0)//如果当前象素是白色, 进入下一个循环
+                continue;
+            else
+            {
+                // 检查周边的8-连通域
+                r = 1;
+                LB:
+                for(int k =-1;k&lt;2;k++)
+                {
+                    for(int l=-1;l&lt;2;l++)
+                    {
+                        if(bw[i+k+(j+l)*iw] == 0)
+                        {
+                            r = 0;
+                            break LB;//跳出2重循环
+                        }
+                    }
+                }
+                //如果都是黑点,判定为内部点,改变颜色
+                if(r == 1)
+                    tem[i+j*iw] = 0;
+            }
+        }
+    }
+    return tem;
+}
+```
+</code></pre><!-- react-text: 687 -->
+<!-- /react-text --><h2 id="素描效果roberts边界检测" data-reactid="688"><a href="#%E7%B4%A0%E6%8F%8F%E6%95%88%E6%9E%9Croberts%E8%BE%B9%E7%95%8C%E6%A3%80%E6%B5%8B" aria-hidden="true" data-reactid="689"><span class="icon icon-link" data-reactid="690"></span></a><!-- react-text: 691 -->素描效果(roberts边界检测)<!-- /react-text --></h2><!-- react-text: 692 -->
+<!-- /react-text --></li><!-- react-text: 693 -->
+<!-- /react-text --><li data-reactid="694"><!-- react-text: 695 -->
+<!-- /react-text --><p data-reactid="696">说明：上面说到边缘可以用微分算子检测，roberts算子就是基于一阶导数的边缘检测算子的一种。</p><!-- react-text: 697 -->
+<!-- /react-text --></li><!-- react-text: 698 -->
+<!-- /react-text --><li data-reactid="699"><!-- react-text: 700 -->
+<!-- /react-text --><p data-reactid="701"><!-- react-text: 702 -->如图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fk7ZRWXH81MM58St-T3chZiCay6-?imageslim" alt="ClipboardImage" width="542" height="261" data-reactid="703"/></p><!-- react-text: 704 -->
+<!-- /react-text --></li><!-- react-text: 705 -->
+<!-- /react-text --><li data-reactid="706"><!-- react-text: 707 -->
+<!-- /react-text --><p data-reactid="708">代码</p><!-- react-text: 709 -->
+<!-- /react-text --><pre data-reactid="710"><code class="hljs language-java" data-query="{}" data-lang="java" data-reactid="711"><span class="hljs-comment" data-reactid="712">//Roberts算法</span><!-- react-text: 713 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="714">public</span><!-- react-text: 715 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="716">int</span><!-- react-text: 717 -->[] robert(<!-- /react-text --><span class="hljs-keyword" data-reactid="718">int</span><!-- react-text: 719 -->[] px, <!-- /react-text --><span class="hljs-keyword" data-reactid="720">int</span><!-- react-text: 721 --> iw, <!-- /react-text --><span class="hljs-keyword" data-reactid="722">int</span><!-- react-text: 723 --> ih, <!-- /react-text --><span class="hljs-keyword" data-reactid="724">int</span><!-- react-text: 725 --> thresh, <!-- /react-text --><span class="hljs-keyword" data-reactid="726">boolean</span><!-- react-text: 727 --> flag)
+{
+    ColorModel cm = ColorModel.getRGBdefault();
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="728">int</span><!-- react-text: 729 --> r, r0, r1, r2, r3, g, g0, g1, g2, g3, b, b0, b1, b2, b3;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="730">for</span><!-- react-text: 731 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="732">int</span><!-- react-text: 733 --> j = <!-- /react-text --><span class="hljs-number" data-reactid="734">1</span><!-- react-text: 735 -->; j &lt; ih-<!-- /react-text --><span class="hljs-number" data-reactid="736">1</span><!-- react-text: 737 -->; j++)
+    {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="738">for</span><!-- react-text: 739 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="740">int</span><!-- react-text: 741 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="742">1</span><!-- react-text: 743 -->; i &lt; iw-<!-- /react-text --><span class="hljs-number" data-reactid="744">1</span><!-- react-text: 745 -->; i++)
+        {
+            r0 = cm.getRed(px[i+j*iw]);
+            r1 = cm.getRed(px[i+(j+<!-- /react-text --><span class="hljs-number" data-reactid="746">1</span><!-- react-text: 747 -->)*iw]);
+            r2 = cm.getRed(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="748">1</span><!-- react-text: 749 -->+j*iw]);
+            r3 = cm.getRed(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="750">1</span><!-- react-text: 751 -->+(j+<!-- /react-text --><span class="hljs-number" data-reactid="752">1</span><!-- react-text: 753 -->)*iw]);
+            <!-- /react-text --><span class="hljs-comment" data-reactid="754">/*--------------------------------------------*
+             * -------------------------
+             * |r0:(i,j)  |r1:(i, j+1) |
+             * |-----------------------| 交叉
+             * |r2:(i+1,j)|r3:(i+1,j+1)|
+             * -------------------------
+             *--------------------------------------------*/</span><!-- react-text: 755 -->
+            r = (<!-- /react-text --><span class="hljs-keyword" data-reactid="756">int</span><!-- react-text: 757 -->)Math.sqrt((r0-r3)*(r0-r3)+(r1-r2)*(r1-r2));
+
+            g0 = cm.getGreen(px[i+j*iw]);
+            g1 = cm.getGreen(px[i+(j+<!-- /react-text --><span class="hljs-number" data-reactid="758">1</span><!-- react-text: 759 -->)*iw]);
+            g2 = cm.getGreen(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="760">1</span><!-- react-text: 761 -->+j*iw]);
+            g3 = cm.getGreen(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="762">1</span><!-- react-text: 763 -->+(j+<!-- /react-text --><span class="hljs-number" data-reactid="764">1</span><!-- react-text: 765 -->)*iw]);
+            g = (<!-- /react-text --><span class="hljs-keyword" data-reactid="766">int</span><!-- react-text: 767 -->)Math.sqrt((g0-g3)*(g0-g3)+(g1-g2)*(g1-g2));
+
+            b0 = cm.getBlue(px[i+j*iw]);
+            b1 = cm.getBlue(px[i+(j+<!-- /react-text --><span class="hljs-number" data-reactid="768">1</span><!-- react-text: 769 -->)*iw]);
+            b2 = cm.getBlue(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="770">1</span><!-- react-text: 771 -->+j*iw]);
+            b3 = cm.getBlue(px[i+<!-- /react-text --><span class="hljs-number" data-reactid="772">1</span><!-- react-text: 773 -->+(j+<!-- /react-text --><span class="hljs-number" data-reactid="774">1</span><!-- react-text: 775 -->)*iw]);
+            b = (<!-- /react-text --><span class="hljs-keyword" data-reactid="776">int</span><!-- react-text: 777 -->)Math.sqrt((b0-b3)*(b0-b3)+(b1-b2)*(b1-b2));
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="778">if</span><!-- react-text: 779 -->(flag)
+            {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="780">if</span><!-- react-text: 781 -->(r &gt; thresh) r = <!-- /react-text --><span class="hljs-number" data-reactid="782">0</span><!-- react-text: 783 -->;<!-- /react-text --><span class="hljs-comment" data-reactid="784">//黑色，边缘点</span><!-- react-text: 785 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="786">else</span><!-- react-text: 787 --> r = <!-- /react-text --><span class="hljs-number" data-reactid="788">255</span><!-- react-text: 789 -->;
+                px[i+j*iw] = (<!-- /react-text --><span class="hljs-number" data-reactid="790">255</span><!-- react-text: 791 -->&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="792">24</span><!-- react-text: 793 -->)|(r&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="794">16</span><!-- react-text: 795 -->)|(r&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="796">8</span><!-- react-text: 797 -->)|r;
+            }
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="798">else</span><!-- react-text: 799 -->
+                px[i+j*iw] = (<!-- /react-text --><span class="hljs-number" data-reactid="800">255</span><!-- react-text: 801 -->&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="802">24</span><!-- react-text: 803 -->)|(r&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="804">16</span><!-- react-text: 805 -->)|(g&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="806">8</span><!-- react-text: 807 -->)|b;
+        }
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="808">return</span><!-- react-text: 809 --> px;
+}<!-- /react-text --></code></pre><!-- react-text: 810 -->
+<!-- /react-text --></li><!-- react-text: 811 -->
+<!-- /react-text --></ul><!-- react-text: 812 -->
+<!-- /react-text --><h2 id="其他" data-reactid="813"><a href="#%E5%85%B6%E4%BB%96" aria-hidden="true" data-reactid="814"><span class="icon icon-link" data-reactid="815"></span></a><!-- react-text: 816 -->其他<!-- /react-text --></h2><!-- react-text: 817 -->
+<!-- /react-text --><ol data-reactid="818"><!-- react-text: 819 -->
+<!-- /react-text --><li data-reactid="820"><!-- react-text: 821 -->
+<!-- /react-text --><p data-reactid="822">清空画板</p><!-- react-text: 823 -->
+<!-- /react-text --></li><!-- react-text: 824 -->
+<!-- /react-text --><li data-reactid="825"><!-- react-text: 826 -->
+<!-- /react-text --><p data-reactid="827">选择图片下载</p><!-- react-text: 828 -->
+<!-- /react-text --></li><!-- react-text: 829 -->
+<!-- /react-text --><li data-reactid="830"><!-- react-text: 831 -->
+<!-- /react-text --><p data-reactid="832">画板图片下载</p><!-- react-text: 833 -->
+<!-- /react-text --></li><!-- react-text: 834 -->
+<!-- /react-text --><li data-reactid="835"><!-- react-text: 836 -->
+<!-- /react-text --><p data-reactid="837">添加文字</p><!-- react-text: 838 -->
+<!-- /react-text --></li><!-- react-text: 839 -->
+<!-- /react-text --><li data-reactid="840"><!-- react-text: 841 -->
+<!-- /react-text --><p data-reactid="842">图形绘制，图形拖拽，图形填充</p><!-- react-text: 843 -->
+<!-- /react-text --></li><!-- react-text: 844 -->
+<!-- /react-text --></ol><!-- react-text: 845 -->
+<!-- /react-text --><h1 id="参考资料" data-reactid="846"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="847"><span class="icon icon-link" data-reactid="848"></span></a><!-- react-text: 849 -->参考资料<!-- /react-text --></h1><!-- react-text: 850 -->
+<!-- /react-text --><ul data-reactid="851"><!-- react-text: 852 -->
+<!-- /react-text --><li data-reactid="853">数字图像处理——Java编程与实验 （孙燮华著）</li><!-- react-text: 854 -->
+<!-- /react-text --></ul><!-- react-text: 855 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="856"></div><div class="paginator" data-reactid="857"><a title="「思科模拟器」建立DNS+HTTP服务" class="prev" href="/make-dns-http" data-reactid="858">Prev</a><a title="「图像处理」图像的复原" class="next" href="/img-recover" data-reactid="859">Next</a></div></div></main><footer data-reactid="860"><div class="copyright" data-reactid="861"><p data-reactid="862"><!-- react-text: 863 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="864">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

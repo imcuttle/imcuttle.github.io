@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1863355722"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><section class="container" data-reactid="9"><div class="search-bar" data-reactid="10"><input value="" placeholder="Search..." data-reactid="11"/></div><ul class="home post-list" data-reactid="12"><li class="post-list-item" data-reactid="13"><article class="post-block" data-reactid="14"><h2 class="post-title" data-reactid="15"><a title="「转」为什么V8 JavaScript引擎这么快" class="post-title-link" href="/why-v8-so-fast" data-reactid="16">「转」为什么V8 JavaScript引擎这么快</a></h2><time class="post-info" datetime="2016-05-02T10:13:38+00:00" data-reactid="17">May 2, 2016</time><div class="post-content" data-reactid="18">
+
+# 说明
+为什么转载？
+&gt; 这篇文章内容比较丰富，涉及的知识点也比较广泛，有编译原理，数据结构，汇编...
+需要对计算机整体有个比较好的认识与把控，才能理解深刻。
+
+遂转该文章，以便后续的学习与理解。
+&lt;!--more--&gt;
+
+# 前言
+　　Google研发的V8 JavaScript引擎性能优异。我们请熟悉内部程序实现的作者依源代码来看看V8是如何加速的。
+　　
+　　作者：Community</div><a class="read-more" href="/why-v8-so-fast" data-reactid="19">...more</a></article></li><li class="post-list-item" data-reactid="20"><article class="post-block" data-reactid="21"><h2 class="post-title" data-reactid="22"><a title="「ECMAScript6」Promise介绍与nodejs实践运用(q.js)" class="post-title-link" href="/about-promise-and-qjs" data-reactid="23">「ECMAScript6」Promise介绍与nodejs实践运用(q.js)</a></h2><time class="post-info" datetime="2016-05-01T09:56:42+00:00" data-reactid="24">May 1, 2016</time><div class="post-content" data-reactid="25">
+
+# 介绍
+看了网上许多介绍 `Promise` 的文章，终于知道 `Promise` 是什么，干什么的了。
+首先需要指出的是，**promise是es6提出的新标准之一**，那么提出这个标准是用来做什么的呢？
+&lt;!--more--&gt;
+写过js代码的童鞋一定知道，异步回调函数是js的一大特点，那么异步回调函数带来的问题是什么呢？会造成函数嵌套过多，不宜于后期代码的维护，许多的`({})`也容易把</div><a class="read-more" href="/about-promise-and-qjs" data-reactid="26">...more</a></article></li><li class="post-list-item" data-reactid="27"><article class="post-block" data-reactid="28"><h2 class="post-title" data-reactid="29"><a title="「项目拾遗」谈谈websocket" class="post-title-link" href="/talk-about-websocket" data-reactid="30">「项目拾遗」谈谈websocket</a></h2><time class="post-info" datetime="2016-04-30T10:40:26+00:00" data-reactid="31">Apr 30, 2016</time><div class="post-content" data-reactid="32">
+
+# 前言
+在2015年寒假期间，我完成了考友无忧项目的考友互动板块模块，主要是基于websocket实现的公共聊天室/一对一好友聊天/实时消息推送，基于websql实现的历史聊天纪录存取。
+*项目地址 [http://moyuyc.xyz/autoexam/](http://moyuyc.xyz/autoexam/)* 测试用户 moyumoyu，密码 moyumoyu
+&lt;!--more--&gt;</div><a class="read-more" href="/talk-about-websocket" data-reactid="33">...more</a></article></li><li class="post-list-item" data-reactid="34"><article class="post-block" data-reactid="35"><h2 class="post-title" data-reactid="36"><a title="谈谈JavaScript之数组对象深拷贝" class="post-title-link" href="/talk-about-javascript-object-and-array-deepclone" data-reactid="37">谈谈JavaScript之数组对象深拷贝</a></h2><time class="post-info" datetime="2016-04-30T09:46:14+00:00" data-reactid="38">Apr 30, 2016</time><div class="post-content" data-reactid="39">
+
+# 回忆
+上周百度面试问了我关于数组的 `clone` 方法的实现，当时没来得及细想，然后口头上说
+&gt; 数组就是一串数据序列，可以遍历然后进行深拷贝即可。
+
+关于细节实现的东西都没想，然后面试官那边好像就无语了... 不过好在我提到了 `深拷贝` 这个关键字。
+&lt;!--more--&gt;
+
+# 再探clone
+## 浅复制
+先看第一段代码
+```javascript
+Array.prototype</div><a class="read-more" href="/talk-about-javascript-object-and-array-deepclone" data-reactid="40">...more</a></article></li><li class="post-list-item" data-reactid="41"><article class="post-block" data-reactid="42"><h2 class="post-title" data-reactid="43"><a title="从定时器到 Web Worker" class="post-title-link" href="/from-timer-to-webworker" data-reactid="44">从定时器到 Web Worker</a></h2><time class="post-info" datetime="2016-04-29T07:10:02+00:00" data-reactid="45">Apr 29, 2016</time><div class="post-content" data-reactid="46">
+
+# 前言
+首先，JavaScript是单线程执行的，也就是同一时间只有你的一份js代码在运行（不论你cpu几核，os是以线程为基本单位分配任务调度的，为了利用多核cpu的优势，HTML5提出Web Worker标准，本文会讲到），
+那么JavaScript中的`setInterval`和`setTimeout` api是什么工作原理呢？
+&lt;!--more--&gt;
+
+# JavaScript事件循</div><a class="read-more" href="/from-timer-to-webworker" data-reactid="47">...more</a></article></li><li class="post-list-item" data-reactid="48"><article class="post-block" data-reactid="49"><h2 class="post-title" data-reactid="50"><a title="git捣鼓记之「Pull Request」" class="post-title-link" href="/pr-of-github" data-reactid="51">git捣鼓记之「Pull Request」</a></h2><time class="post-info" datetime="2016-04-28T15:48:32+00:00" data-reactid="52">Apr 28, 2016</time><div class="post-content" data-reactid="53">
+
+# 前言
+　　昨天，又捣鼓了一会儿git，因为想把我关于[NexT](https://github.com/iissnan/hexo-theme-next)主题的修改提交到原作者github上，以方便更多人使用。
+&lt;!--more--&gt;
+# 修改之处
+　　原版的主题中，有三种Schema（Muse/Mist/Pisces），在主题的配置文件`_config.yml`中，有sidebar:pos</div><a class="read-more" href="/pr-of-github" data-reactid="54">...more</a></article></li><li class="post-list-item" data-reactid="55"><article class="post-block" data-reactid="56"><h2 class="post-title" data-reactid="57"><a title="play css3 Animation" class="post-title-link" href="/play_css3_Animation" data-reactid="58">play css3 Animation</a></h2><time class="post-info" datetime="2016-04-27T08:57:20+00:00" data-reactid="59">Apr 27, 2016</time><div class="post-content" data-reactid="60">
+
+&lt;iframe src=&#x27;/htm/css31.html&#x27; style=&#x27;width:100%;height:260px;&#x27;&gt;&lt;/iframe&gt;
+将鼠标移动至黑色方格上，或者点击黑色方格。
+
+&lt;!--more--&gt;
+
+# 关于CSS3动画
+## transform? translation?
+### 转换（transform）
+　　顾名思义，就是一些转换动作，如放大缩小( `scale` )，</div><a class="read-more" href="/play_css3_Animation" data-reactid="61">...more</a></article></li><li class="post-list-item" data-reactid="62"><article class="post-block" data-reactid="63"><h2 class="post-title" data-reactid="64"><a title="「转」也许，这才是大学真正的意义" class="post-title-link" href="/the-mena-of-university" data-reactid="65">「转」也许，这才是大学真正的意义</a></h2><time class="post-info" datetime="2016-04-26T18:41:37+00:00" data-reactid="66">Apr 26, 2016</time><div class="post-content" data-reactid="67">
+
+听过太多道理依然过不好这一生，上了这么多年大学依然不知道为什么要如此为难自己。
+
+可是突然一瞬间一觉醒来，我似乎想明白了大学真正的意义：所谓的大学，不过是让你清楚的明白，离开父母离开朋友离开一切庇护你的港湾和结实的依靠，只身一人在外地的你，在这个小型社会的你，在这个鱼龙混杂之地的你，在这个无人懂无人在乎的环境的你，是否依然能坚强的拥抱自己，为自己铸造一片属于自己的清幽之地，是否有勇气面对这一切</div><a class="read-more" href="/the-mena-of-university" data-reactid="68">...more</a></article></li><li class="post-list-item" data-reactid="69"><article class="post-block" data-reactid="70"><h2 class="post-title" data-reactid="71"><a title="canvas绘制平面花瓣" class="post-title-link" href="/draw-flower-by-canvas" data-reactid="72">canvas绘制平面花瓣</a></h2><time class="post-info" datetime="2016-04-26T14:21:03+00:00" data-reactid="73">Apr 26, 2016</time><div class="post-content" data-reactid="74">
+
+&lt;iframe src=&#x27;/htm/canvas1.html&#x27; style=&#x27;width:100%; height:500px;&#x27;&gt;&lt;/iframe&gt;
+&gt; 双击鼠标左键添加动态花瓣，(多了动态效果不好)
+
+完整Demo地址
+[Demo](/htm/canvas1.html)
+
+&lt;!--more--&gt;
+## 关于 `canvas`
+[参考资料](http://www.w3school.com.c</div><a class="read-more" href="/draw-flower-by-canvas" data-reactid="75">...more</a></article></li><li class="post-list-item" data-reactid="76"><article class="post-block" data-reactid="77"><h2 class="post-title" data-reactid="78"><a title="js实现打字机效果" class="post-title-link" href="/type-effection-by-js" data-reactid="79">js实现打字机效果</a></h2><time class="post-info" datetime="2016-04-25T21:29:46+00:00" data-reactid="80">Apr 25, 2016</time><div class="post-content" data-reactid="81">
+
+
+&lt;script&gt;
+HTMLElement.prototype.findParentByTag = function(tag){
+	var p = this.parentElement;
+	while(p.tagName!=tag) p = p.parentElement;
+	return p;
+}
+HTMLElement.prototype.type = function(op){
+	op </div><a class="read-more" href="/type-effection-by-js" data-reactid="82">...more</a></article></li></ul><div class="paginator" data-reactid="83"><a class="prev" href="/posts/7" data-reactid="84">Prev</a><a class="next" href="/posts/9" data-reactid="85">Next</a></div></section></main><footer data-reactid="86"><div class="copyright" data-reactid="87"><p data-reactid="88"><!-- react-text: 89 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="90">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

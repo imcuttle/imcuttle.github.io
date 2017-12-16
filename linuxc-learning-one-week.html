@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="42295947"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">linux C一周学习</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-12T12:57:36+00:00" data-reactid="13">Oct 12, 2016 12:57 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><!-- react-text: 16 -->
+<!-- /react-text --><p data-reactid="17"><!-- react-text: 18 -->还记得大一懵懂的时候，第一门专业课便是C语言了，当时都没接触过编程，而且用的是win32，老师也讲的就是一些<!-- /react-text --><code data-reactid="19">if while</code><!-- react-text: 20 -->语法知识，指针数组等等。<!-- /react-text --></p><!-- react-text: 21 -->
+<!-- /react-text --><p data-reactid="22">没有涉及到linux系统调用函数，不过也理所当然，因为当时根本对操作系统，汇编，计算机系统等一概不懂，讲了也只是换来更多的懵逼脸。</p><!-- react-text: 23 -->
+<!-- /react-text --><p data-reactid="24">那三年后的我，为什么又重新学习C呢？  </p><!-- react-text: 25 -->
+<!-- /react-text --><!-- react-text: 26 -->
+<!-- /react-text --><p data-reactid="27"><!-- react-text: 28 -->因为大四还有一门tcp/ip网络编程，老师和书本是基于<!-- /react-text --><code data-reactid="29">unix socket</code><!-- react-text: 30 -->和<!-- /react-text --><code data-reactid="31">winsocket</code><!-- react-text: 32 -->的。其实在大三网络课里面，老师就有要求完成一个tcp和udp的聊天程序，当时用的是<!-- /react-text --><code data-reactid="33">nodejs</code><!-- react-text: 34 -->的<!-- /react-text --><code data-reactid="35">net package</code><!-- react-text: 36 -->. 使用node完成的可就简单了，net包为你实现了请求的队列和一套异步编程api。<!-- /react-text --></p><!-- react-text: 37 -->
+<!-- /react-text --><p data-reactid="38"><strong data-reactid="39">但在c中，socket只是一个位于tcp/udp之上的一层，多请求的处理，你可以采用多进程/多线程，也可以采用单进程轮询处理（往往搭配非阻塞IO）；IO操作你也可以使用阻塞和非阻塞，随你喜欢。</strong></p><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">但这些名词，只有在你理解了计算机系统后才能运用自如。</p><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43"><!-- react-text: 44 -->而且C也可以与node结合起来，参看<!-- /react-text --><a href="https://github.com/nodejs/node-addon-examples/" data-reactid="45">node addon</a><!-- react-text: 46 -->，所以之后遇到计算量大和趋向底层的活，完全可以交给c实现。<!-- /react-text --></p><!-- react-text: 47 -->
+<!-- /react-text --><p data-reactid="48">于是乎，我便开始了学习linux c之旅。</p><!-- react-text: 49 -->
+<!-- /react-text --><h2 id="疑难总结" data-reactid="50"><a href="#%E7%96%91%E9%9A%BE%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="51"><span class="icon icon-link" data-reactid="52"></span></a><!-- react-text: 53 -->疑难总结<!-- /react-text --></h2><!-- react-text: 54 -->
+<!-- /react-text --><ol data-reactid="55"><!-- react-text: 56 -->
+<!-- /react-text --><li data-reactid="57"><code data-reactid="58">char* a = &quot;123&quot;;</code><!-- react-text: 59 -->与 <!-- /react-text --><code data-reactid="60">char b[] = &quot;123&quot;;</code><br data-reactid="61"/><!-- react-text: 62 -->
+在执行<!-- /react-text --><code data-reactid="63">char* a = &quot;123&quot;;</code><!-- react-text: 64 -->时，编译器会把<!-- /react-text --><code data-reactid="65">&quot;123&quot;</code><!-- react-text: 66 -->当成字符串常量，而a指向的正式<!-- /react-text --><code data-reactid="67">&#x27;a&#x27;</code><!-- react-text: 68 -->的地址，而字符串的结束标志为<!-- /react-text --><code data-reactid="69">&#x27;\0&#x27;</code><!-- react-text: 70 -->. 这就是为什么不能<!-- /react-text --><code data-reactid="71">strcat(a, b)</code><!-- react-text: 72 -->, 因为a指向的是常量字符串。<!-- /react-text --><br data-reactid="73"/><!-- react-text: 74 -->
+那么下面这段程序执行时什么结果呢？<!-- /react-text --></li><!-- react-text: 75 -->
+<!-- /react-text --></ol><!-- react-text: 76 -->
+<!-- /react-text --><pre data-reactid="77"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="78"><span class="hljs-keyword" data-reactid="79">char</span><!-- react-text: 80 -->* x = <!-- /react-text --><span class="hljs-string" data-reactid="81">&quot;123&quot;</span><!-- react-text: 82 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="83">char</span><!-- react-text: 84 --> y[] = <!-- /react-text --><span class="hljs-string" data-reactid="85">&quot;123&quot;</span><!-- react-text: 86 -->;
+<!-- /react-text --><span class="hljs-built_in" data-reactid="87">printf</span><!-- react-text: 88 -->(<!-- /react-text --><span class="hljs-string" data-reactid="89">&quot;%s %s %d %d %d\n&quot;</span><!-- react-text: 90 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="91">strcat</span><!-- react-text: 92 -->(y, x), y, <!-- /react-text --><span class="hljs-keyword" data-reactid="93">sizeof</span><!-- react-text: 94 -->(y), <!-- /react-text --><span class="hljs-built_in" data-reactid="95">strlen</span><!-- react-text: 96 -->(y), <!-- /react-text --><span class="hljs-keyword" data-reactid="97">sizeof</span><!-- react-text: 98 -->(x));
+<!-- /react-text --><span class="hljs-comment" data-reactid="99">// 123123 123123 4 6 8</span></code></pre><!-- react-text: 100 -->
+<!-- /react-text --><ol start="2" data-reactid="101"><!-- react-text: 102 -->
+<!-- /react-text --><li data-reactid="103"><code data-reactid="104">char** s;</code><!-- react-text: 105 --> 二级指针<!-- /react-text --></li><!-- react-text: 106 -->
+<!-- /react-text --></ol><!-- react-text: 107 -->
+<!-- /react-text --><pre data-reactid="108"><code class="hljs language-c" data-query="{}" data-lang="c" data-reactid="109"><span class="hljs-keyword" data-reactid="110">char</span><!-- react-text: 111 -->  **s;  
+*s = <!-- /react-text --><span class="hljs-string" data-reactid="112">&quot;hello world&quot;</span><!-- react-text: 113 -->; <!-- /react-text --></code></pre><!-- react-text: 114 -->
+<!-- /react-text --><p data-reactid="115"><!-- react-text: 116 -->上面这段程序是有错的，因为没有给s分配空间,也就是s指向（值）为空（不可读写），
+<!-- /react-text --><code data-reactid="117">malloc</code><!-- react-text: 118 -->之后，s指向一个可以读写的内存块。<!-- /react-text --></p><!-- react-text: 119 -->
+<!-- /react-text --><p data-reactid="120"><!-- react-text: 121 -->更多参看 <!-- /react-text --><a href="http://blog.csdn.net/daiyutage/article/details/8604720" data-reactid="122">http://blog.csdn.net/daiyutage/article/details/8604720</a></p><!-- react-text: 123 -->
+<!-- /react-text --><h2 id="知识总结" data-reactid="124"><a href="#%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="125"><span class="icon icon-link" data-reactid="126"></span></a><!-- react-text: 127 -->知识总结<!-- /react-text --></h2><!-- react-text: 128 -->
+<!-- /react-text --><ol data-reactid="129"><!-- react-text: 130 -->
+<!-- /react-text --><li data-reactid="131"><!-- react-text: 132 -->
+<!-- /react-text --><p data-reactid="133">网络编程  </p><!-- react-text: 134 -->
+<!-- /react-text --><ol data-reactid="135"><!-- react-text: 136 -->
+<!-- /react-text --><li data-reactid="137">如何知道服务器或者客户端断开了连接？（read() == 0）</li><!-- react-text: 138 -->
+<!-- /react-text --><li data-reactid="139">处理多请求的俩种服务器实现（fork/select）</li><!-- react-text: 140 -->
+<!-- /react-text --><li data-reactid="141"><!-- react-text: 142 -->
+<!-- /react-text --><p data-reactid="143">一些&quot;奇怪&quot;现象的解释</p><!-- react-text: 144 -->
+<!-- /react-text --><ol data-reactid="145"><!-- react-text: 146 -->
+<!-- /react-text --><li data-reactid="147">主动关闭连接的一方要处于TIME_WAIT状态，等待两个MSL（maximum segment lifetime）的时间后才能回到CLOSED状态 </li><!-- react-text: 148 -->
+<!-- /react-text --><li data-reactid="149">网络服务器通常用fork来同时服务多个客户端，父进程专门负责监听端口，每次accept一个新的客户端连接就fork出一个子进程专门服务这个客户端。但是子进程退出时会产生僵尸进程，父进程要注意处理SIGCHLD信号和调用wait清理僵尸进程。</li><!-- react-text: 150 -->
+<!-- /react-text --><li data-reactid="151">server对每个请求只处理一次，应答后就关闭连接，client不能继续使用这个连接发送数据。但是client下次循环时又调用write发数据给server，write调用只负责把数据交给TCP发送缓冲区就可以成功返回了，所以不会出错，而server收到数据后应答一个RST段，client收到RST段后无法立刻通知应用层，只把这个状态保存在TCP协议层。client下次循环又调用write发数据给server，由于TCP协议层已经处于RST状态了，因此不会将数据发出，而是发一个SIGPIPE信号给应用层，SIGPIPE信号的缺省处理动作是终止程序</li><!-- react-text: 152 -->
+<!-- /react-text --></ol><!-- react-text: 153 -->
+<!-- /react-text --></li><!-- react-text: 154 -->
+<!-- /react-text --></ol><!-- react-text: 155 -->
+<!-- /react-text --></li><!-- react-text: 156 -->
+<!-- /react-text --><li data-reactid="157"><!-- react-text: 158 -->
+<!-- /react-text --><p data-reactid="159">进程</p><!-- react-text: 160 -->
+<!-- /react-text --><ol data-reactid="161"><!-- react-text: 162 -->
+<!-- /react-text --><li data-reactid="163">shell的工作方式，fork -&gt; exec</li><!-- react-text: 164 -->
+<!-- /react-text --><li data-reactid="165">fork与exec</li><!-- react-text: 166 -->
+<!-- /react-text --><li data-reactid="167">shell的实现，改变current work path, 实现pipe与输入输出重定向</li><!-- react-text: 168 -->
+<!-- /react-text --><li data-reactid="169">...</li><!-- react-text: 170 -->
+<!-- /react-text --></ol><!-- react-text: 171 -->
+<!-- /react-text --></li><!-- react-text: 172 -->
+<!-- /react-text --><li data-reactid="173"><!-- react-text: 174 -->
+<!-- /react-text --><p data-reactid="175">文件系统</p><!-- react-text: 176 -->
+<!-- /react-text --><ol data-reactid="177"><!-- react-text: 178 -->
+<!-- /react-text --><li data-reactid="179">erverything is file</li><!-- react-text: 180 -->
+<!-- /react-text --><li data-reactid="181">dup与dup2运用, 重定向</li><!-- react-text: 182 -->
+<!-- /react-text --><li data-reactid="183">link/ln  stat/lstat</li><!-- react-text: 184 -->
+<!-- /react-text --><li data-reactid="185">...</li><!-- react-text: 186 -->
+<!-- /react-text --></ol><!-- react-text: 187 -->
+<!-- /react-text --></li><!-- react-text: 188 -->
+<!-- /react-text --><li data-reactid="189">库函数与系统函数</li><!-- react-text: 190 -->
+<!-- /react-text --></ol><!-- react-text: 191 -->
+<!-- /react-text --><h2 id="编码实践" data-reactid="192"><a href="#%E7%BC%96%E7%A0%81%E5%AE%9E%E8%B7%B5" aria-hidden="true" data-reactid="193"><span class="icon icon-link" data-reactid="194"></span></a><!-- react-text: 195 -->编码实践<!-- /react-text --></h2><!-- react-text: 196 -->
+<!-- /react-text --><p data-reactid="197"><!-- react-text: 198 -->学的虽然挺多的，但是需要做的东西出来才能掌握。
+1. c实现shell (掌握linux内核函数，进程管道通信，文件描述符等概念)<!-- /react-text --><br data-reactid="199"/><!-- react-text: 200 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/c_cpp-node_c_cpp_addon/blob/master/cpp_src/shell.h" data-reactid="201">source file</a></p><!-- react-text: 202 -->
+<!-- /react-text --><ol start="2" data-reactid="203"><!-- react-text: 204 -->
+<!-- /react-text --><li data-reactid="205"><!-- react-text: 206 -->
+<!-- /react-text --><p data-reactid="207"><!-- react-text: 208 -->tcp双向通信 (select()/fork()两种方式)<!-- /react-text --><br data-reactid="209"/><!-- react-text: 210 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/c_cpp-node_c_cpp_addon/blob/master/cpp_src/server.h" data-reactid="211">source file Server</a><br data-reactid="212"/><!-- react-text: 213 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/c_cpp-node_c_cpp_addon/blob/master/cpp_src/client.h" data-reactid="214">source file Client</a></p><!-- react-text: 215 -->
+<!-- /react-text --></li><!-- react-text: 216 -->
+<!-- /react-text --><li data-reactid="217"><!-- react-text: 218 -->
+<!-- /react-text --><p data-reactid="219"><!-- react-text: 220 -->node addon(node调用c/c++)<!-- /react-text --><br data-reactid="221"/><!-- react-text: 222 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/c_cpp-node_c_cpp_addon/tree/master/node_src" data-reactid="223">source file</a></p><!-- react-text: 224 -->
+<!-- /react-text --></li><!-- react-text: 225 -->
+<!-- /react-text --></ol><!-- react-text: 226 -->
+<!-- /react-text --><h2 id="闲话" data-reactid="227"><a href="#%E9%97%B2%E8%AF%9D" aria-hidden="true" data-reactid="228"><span class="icon icon-link" data-reactid="229"></span></a><!-- react-text: 230 -->闲话<!-- /react-text --></h2><!-- react-text: 231 -->
+<!-- /react-text --><p data-reactid="232">上面简单总结了一下知识和成果，我觉得学习linux c是十分必要的，可以将整个计算机系统理论串联起来，而且后续有必要的话，完全可以重零开始，自己造轮子。</p><!-- react-text: 233 -->
+<!-- /react-text --><p data-reactid="234"><!-- react-text: 235 -->然后推荐两个项目，都是用linux c写的
+1. <!-- /react-text --><a href="https://github.com/EZLippi/Tinyhttpd" data-reactid="236">TinyHttpd</a><br data-reactid="237"/><!-- react-text: 238 -->
+500+行代码实现一个小型web服务器，助于理解web 服务器本质，而不再是只会使用现成的web服务器。代码不多，便于学习。<!-- /react-text --></p><!-- react-text: 239 -->
+<!-- /react-text --><ol start="2" data-reactid="240"><!-- react-text: 241 -->
+<!-- /react-text --><li data-reactid="242"><a href="https://github.com/posva/catimg" data-reactid="243">catimg</a><br data-reactid="244"/><!-- react-text: 245 -->
+将图片print在shell中，便于学习unix字符转义，shell窗口控制，图像处理<!-- /react-text --></li><!-- react-text: 246 -->
+<!-- /react-text --></ol><!-- react-text: 247 -->
+<!-- /react-text --><p data-reactid="248"><!-- react-text: 249 -->最后力荐一本电子书<!-- /react-text --><a href="http://akaedu.github.io/book/" data-reactid="250">【Linux C编程一站式学习】</a><!-- react-text: 251 -->，学习linux C就靠它！<!-- /react-text --></p><!-- react-text: 252 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="253"></div><div class="paginator" data-reactid="254"><a title="npm命令行小结" class="prev" href="/npm-cached-option" data-reactid="255">Prev</a><a title="分片上传与断点续传解决方案" class="next" href="/slice-and-breakpoint-up-down" data-reactid="256">Next</a></div></div></main><footer data-reactid="257"><div class="copyright" data-reactid="258"><p data-reactid="259"><!-- react-text: 260 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="261">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

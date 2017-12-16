@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1931631480"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Moka Desktop编程记录</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-29T11:36:51+00:00" data-reactid="13">Oct 29, 2016 11:36 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->上一篇文件简单介绍了下<!-- /react-text --><code data-reactid="18">Moka Desktop</code><!-- react-text: 19 -->, 那么对于我这位<!-- /react-text --><code data-reactid="20">Web前端开发工程师</code><!-- react-text: 21 -->是怎么能够开发一个<!-- /react-text --><code data-reactid="22">Pc App</code><!-- react-text: 23 -->的呢？<!-- /react-text --><br data-reactid="24"/><!-- react-text: 25 -->
+这就不得不说到 <!-- /react-text --><a href="http://electron.atom.io/" data-reactid="26"><code data-reactid="27">electron</code></a><!-- react-text: 28 -->.
+<!-- /react-text --><img src="https://avatars3.githubusercontent.com/u/13409222?v=3&amp;s=400" alt="electron" width="400" height="400" data-reactid="29"/></p><!-- react-text: 30 -->
+<!-- /react-text --><p data-reactid="31"><code data-reactid="32">Electron</code><!-- react-text: 33 --> 将<!-- /react-text --><code data-reactid="34">chrome</code><!-- react-text: 35 -->内核与<!-- /react-text --><code data-reactid="36">nodejs</code><!-- react-text: 37 -->融合在一起，分为<!-- /react-text --><code data-reactid="38">Main Process</code><!-- react-text: 39 --> 和 <!-- /react-text --><code data-reactid="40">Renderer Process</code><!-- react-text: 41 -->, <!-- /react-text --><code data-reactid="42">Main Process</code><!-- react-text: 43 -->主要负责app通用的全局设置，如窗口大小等等，<!-- /react-text --><code data-reactid="44">Renderer Process</code><!-- react-text: 45 -->则主要在<!-- /react-text --><code data-reactid="46">Chrome</code><!-- react-text: 47 -->中，在两个<!-- /react-text --><code data-reactid="48">Process</code><!-- react-text: 49 -->中可以使用所有的<!-- /react-text --><code data-reactid="50">node packages</code></p><!-- react-text: 51 -->
+<!-- /react-text --><h2 id="所用第三方" data-reactid="52"><a href="#%E6%89%80%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9" aria-hidden="true" data-reactid="53"><span class="icon icon-link" data-reactid="54"></span></a><!-- react-text: 55 -->所用第三方<!-- /react-text --></h2><!-- react-text: 56 -->
+<!-- /react-text --><ol data-reactid="57"><!-- react-text: 58 -->
+<!-- /react-text --><li data-reactid="59">react</li><!-- react-text: 60 -->
+<!-- /react-text --><li data-reactid="61"><!-- react-text: 62 -->babel: 由于react使用的是<!-- /react-text --><code data-reactid="63">es6</code><!-- react-text: 64 -->语法，所以需要<!-- /react-text --><code data-reactid="65">babel</code><!-- react-text: 66 -->翻译<!-- /react-text --></li><!-- react-text: 67 -->
+<!-- /react-text --><li data-reactid="68">ace.js: 编辑器</li><!-- react-text: 69 -->
+<!-- /react-text --><li data-reactid="70">marked.js</li><!-- react-text: 71 -->
+<!-- /react-text --><li data-reactid="72">moka-cli</li><!-- react-text: 73 -->
+<!-- /react-text --><li data-reactid="74"><!-- react-text: 75 -->未使用webpack，因为在react中会包含文件系统操作，webpack只是充当打包的角色，<!-- /react-text --><code data-reactid="76">fs</code><!-- react-text: 77 -->是不能打包成功的<!-- /react-text --></li><!-- react-text: 78 -->
+<!-- /react-text --></ol><!-- react-text: 79 -->
+<!-- /react-text --><h2 id="坑点" data-reactid="80"><a href="#%E5%9D%91%E7%82%B9" aria-hidden="true" data-reactid="81"><span class="icon icon-link" data-reactid="82"></span></a><!-- react-text: 83 -->坑点<!-- /react-text --></h2><!-- react-text: 84 -->
+<!-- /react-text --><ol data-reactid="85"><!-- react-text: 86 -->
+<!-- /react-text --><li data-reactid="87"><!-- react-text: 88 -->
+<!-- /react-text --><p data-reactid="89"><code data-reactid="90">iframe</code><!-- react-text: 91 -->与<!-- /react-text --><code data-reactid="92">webview</code><br data-reactid="93"/><!-- react-text: 94 -->
+由于编辑器是我之前用原生js完成的，所以便想用<!-- /react-text --><code data-reactid="95">iframe</code><!-- react-text: 96 -->直接引入。
+但如果直接使用<!-- /react-text --><code data-reactid="97">iframe</code><!-- react-text: 98 -->，<!-- /react-text --><code data-reactid="99">electron</code><!-- react-text: 100 -->可不认，在<!-- /react-text --><code data-reactid="101">iframe</code><!-- react-text: 102 -->不能使用<!-- /react-text --><code data-reactid="103">node api</code><!-- react-text: 104 -->与<!-- /react-text --><code data-reactid="105">electron api</code><!-- react-text: 106 -->，但是可以在父窗口利用<!-- /react-text --><code data-reactid="107">contentWindow</code><!-- react-text: 108 -->传入引用，然后在<!-- /react-text --><code data-reactid="109">iframe</code><!-- react-text: 110 -->中就可以用api了。
+其实在官方文档中，是可以直接用<!-- /react-text --><code data-reactid="111">webview</code><!-- react-text: 112 -->标签解决上诉问题<!-- /react-text --></p><!-- react-text: 113 -->
+<!-- /react-text --></li><!-- react-text: 114 -->
+<!-- /react-text --><li data-reactid="115"><!-- react-text: 116 -->
+<!-- /react-text --><p data-reactid="117"><!-- react-text: 118 -->mac中使用<!-- /react-text --><code data-reactid="119">spawn</code><!-- react-text: 120 -->与<!-- /react-text --><code data-reactid="121">fork</code><!-- react-text: 122 -->运行<!-- /react-text --><code data-reactid="123">moka-cli</code><!-- react-text: 124 -->
+在官方api <!-- /react-text --><a href="https://nodejs.org/api/child_process.html" data-reactid="125"><code data-reactid="126">child_process</code></a><!-- react-text: 127 -->中<!-- /react-text --><br data-reactid="128"/><!-- react-text: 129 -->
+<!-- /react-text --><code data-reactid="130">child_process.spawn(command[, args][, options])</code><!-- react-text: 131 --> 传入参数是<!-- /react-text --><code data-reactid="132">command</code><!-- react-text: 133 -->，也就是shell中的指令
+需要依赖于<!-- /react-text --><code data-reactid="134">PATH</code><!-- react-text: 135 -->中的<!-- /react-text --><code data-reactid="136">moka</code><!-- react-text: 137 -->
+<!-- /react-text --><code data-reactid="138">child_process.fork(modulePath[, args][, options])</code><!-- react-text: 139 -->传入参数是<!-- /react-text --><code data-reactid="140">modulePath</code><!-- react-text: 141 -->，也就是<!-- /react-text --><code data-reactid="142">javascript</code><!-- react-text: 143 -->文件路径<!-- /react-text --><br data-reactid="144"/><!-- react-text: 145 -->
+<!-- /react-text --><strong data-reactid="146"><!-- react-text: 147 -->注意： <!-- /react-text --><code data-reactid="148">modulePath</code><!-- react-text: 149 -->不需要<!-- /react-text --><code data-reactid="150">exports</code><!-- react-text: 151 -->，因为fork只是找到文件，开个进程跑一遍该文件<!-- /react-text --></strong><!-- react-text: 152 -->
+所以我在<!-- /react-text --><code data-reactid="153">npm i --save moka-cli</code><!-- react-text: 154 -->后, 直接在文件中写下面代码即可<!-- /react-text --></p><!-- react-text: 155 -->
+<!-- /react-text --></li><!-- react-text: 156 -->
+<!-- /react-text --></ol><!-- react-text: 157 -->
+<!-- /react-text --><pre data-reactid="158"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="159"><span class="hljs-keyword" data-reactid="160">var</span><!-- react-text: 161 --> moka = <!-- /react-text --><span class="hljs-built_in" data-reactid="162">require</span><!-- react-text: 163 -->(<!-- /react-text --><span class="hljs-string" data-reactid="164">&#x27;moka-cli/bin&#x27;</span><!-- react-text: 165 -->) <!-- /react-text --><span class="hljs-comment" data-reactid="166">// bin/index.js中放的便是命令行入口</span></code></pre><!-- react-text: 167 -->
+<!-- /react-text --><p data-reactid="168"><!-- react-text: 169 -->同时需要传入<!-- /react-text --><code data-reactid="170">options</code></p><!-- react-text: 171 -->
+<!-- /react-text --><pre data-reactid="172"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="173"><!-- react-text: 174 -->{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="175">cwd</span><!-- react-text: 176 -->: cwd, <!-- /react-text --><span class="hljs-comment" data-reactid="177">// 设置的工作目录(current work directory)</span><!-- react-text: 178 -->
+    stdio: [
+      <!-- /react-text --><span class="hljs-number" data-reactid="179">0</span><!-- react-text: 180 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="181">// (stdin) Use parents stdin for child</span><!-- react-text: 182 -->
+      <!-- /react-text --><span class="hljs-string" data-reactid="183">&#x27;pipe&#x27;</span><!-- react-text: 184 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="185">// (stdout) Pipe child&#x27;s stdout to parent</span><!-- react-text: 186 -->
+      <!-- /react-text --><span class="hljs-string" data-reactid="187">&#x27;pipe&#x27;</span><!-- react-text: 188 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="189">// (stderr) Pipe child&#x27;s stderr to parent</span><!-- react-text: 190 -->
+      <!-- /react-text --><span class="hljs-string" data-reactid="191">&#x27;ipc&#x27;</span><!-- react-text: 192 --> <!-- /react-text --><span class="hljs-comment" data-reactid="193">// fork 需要`ipc`进行进程通信</span><!-- react-text: 194 -->
+    ]
+}<!-- /react-text --></code></pre><!-- react-text: 195 -->
+<!-- /react-text --><p data-reactid="196"><!-- react-text: 197 -->传入以上<!-- /react-text --><code data-reactid="198">options</code><!-- react-text: 199 -->后才能在<!-- /react-text --><code data-reactid="200">fork</code><!-- react-text: 201 -->返回的<!-- /react-text --><code data-reactid="202">ChildProcess</code><!-- react-text: 203 -->对象中使用<!-- /react-text --><code data-reactid="204">stdout/stderr</code><br data-reactid="205"/><!-- react-text: 206 -->
+关于具体的进程通信与管道与信号机制，请看<!-- /react-text --><a href="http://akaedu.github.io/book/" data-reactid="207">Linux C 一站式教程</a><!-- react-text: 208 -->中的相关章节。 <!-- /react-text --></p><!-- react-text: 209 -->
+<!-- /react-text --><ol start="3" data-reactid="210"><!-- react-text: 211 -->
+<!-- /react-text --><li data-reactid="212"><!-- react-text: 213 -->打包过程<!-- /react-text --><br data-reactid="214"/><!-- react-text: 215 -->
+可以使用<!-- /react-text --><a href="https://github.com/electron-userland/electron-packager" data-reactid="216"><code data-reactid="217">electron-packager</code></a><!-- react-text: 218 -->或者<!-- /react-text --><a href="https://www.npmjs.com/package/electron-builder" data-reactid="219"><code data-reactid="220">electron-builder</code></a><!-- react-text: 221 -->进行打包
+安装<!-- /react-text --><code data-reactid="222">electron</code><!-- react-text: 223 -->时，可以设置<!-- /react-text --><code data-reactid="224">export ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/</code><!-- react-text: 225 -->
+使用国内代理加快下载速度。
+我在使用<!-- /react-text --><code data-reactid="226">packager</code><!-- react-text: 227 -->时，只能打包成<!-- /react-text --><code data-reactid="228">unpacked</code><!-- react-text: 229 -->，<!-- /react-text --><code data-reactid="230">builder</code><!-- react-text: 231 -->可以打包成<!-- /react-text --><code data-reactid="232">packed</code><!-- react-text: 233 -->,也就是安装器，但是<!-- /react-text --><code data-reactid="234">builder</code><!-- react-text: 235 -->产生的安装器的图标不对。所以最后还是使用的<!-- /react-text --><code data-reactid="236">packager</code></li><!-- react-text: 237 -->
+<!-- /react-text --></ol><!-- react-text: 238 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="239"></div><div class="paginator" data-reactid="240"><a title="The Easy Way to set up your own Blog" class="prev" href="/Set-Up-Yourself-Blog" data-reactid="241">Prev</a><a title="Hello Moka Desktop" class="next" href="/hello-moka-desktop" data-reactid="242">Next</a></div></div></main><footer data-reactid="243"><div class="copyright" data-reactid="244"><p data-reactid="245"><!-- react-text: 246 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="247">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

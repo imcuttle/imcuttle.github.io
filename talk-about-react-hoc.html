@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1911090022"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">谈一谈React高阶组件</h1><div class="post-info" data-reactid="12"><time datetime="2017-09-03T20:51:47+00:00" data-reactid="13">Sep 3, 2017 8:51 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="定义" data-reactid="16"><a href="#%E5%AE%9A%E4%B9%89" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->定义<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">高阶组件（Higher Order Components, HOC）: 通过它，将一个组件包装成另一个组件</p><!-- react-text: 22 -->
+<!-- /react-text --><pre data-reactid="23"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="24"><span class="hljs-keyword" data-reactid="25">const</span><!-- react-text: 26 --> EnhancedComponent = higherOrderComponent(WrappedComponent);<!-- /react-text --></code></pre><!-- react-text: 27 -->
+<!-- /react-text --><h2 id="两种hoc方式" data-reactid="28"><a href="#%E4%B8%A4%E7%A7%8Dhoc%E6%96%B9%E5%BC%8F" aria-hidden="true" data-reactid="29"><span class="icon icon-link" data-reactid="30"></span></a><!-- react-text: 31 -->两种HOC方式<!-- /react-text --></h2><!-- react-text: 32 -->
+<!-- /react-text --><h3 id="wrap方法" data-reactid="33"><a href="#wrap%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="34"><span class="icon icon-link" data-reactid="35"></span></a><!-- react-text: 36 -->wrap方法<!-- /react-text --></h3><!-- react-text: 37 -->
+<!-- /react-text --><p data-reactid="38"><!-- react-text: 39 -->如下：将 Pagination 进行一层 wrap，为了与 rd 接口对接上，同时去掉自动计算&quot;多余&quot;的 <!-- /react-text --><code data-reactid="40">totalPage</code></p><!-- react-text: 41 -->
+<!-- /react-text --><pre data-reactid="42"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="43"><span class="hljs-function" data-reactid="44"><span class="hljs-keyword" data-reactid="45">function</span><!-- react-text: 46 --> <!-- /react-text --><span class="hljs-title" data-reactid="47">myPagination</span><!-- react-text: 48 -->(<!-- /react-text --><span class="hljs-params" data-reactid="49">Pagination</span><!-- react-text: 50 -->) <!-- /react-text --></span><!-- react-text: 51 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="52">return</span><!-- react-text: 53 --> <!-- /react-text --><span class="hljs-class" data-reactid="54"><span class="hljs-keyword" data-reactid="55">class</span><!-- react-text: 56 --> <!-- /react-text --><span class="hljs-title" data-reactid="57">MyPagination</span><!-- react-text: 58 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="59">extends</span><!-- react-text: 60 --> <!-- /react-text --><span class="hljs-title" data-reactid="61">React</span><!-- react-text: 62 -->.<!-- /react-text --><span class="hljs-title" data-reactid="63">Component</span><!-- react-text: 64 --> <!-- /react-text --></span><!-- react-text: 65 -->{
+
+        render() {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="66">const</span><!-- react-text: 67 --> {pageNum, pageSize, total, children, ...rest} = <!-- /react-text --><span class="hljs-keyword" data-reactid="68">this</span><!-- react-text: 69 -->.props
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="70">return</span><!-- react-text: 71 --> (
+                <!-- /react-text --><span class="xml" data-reactid="72"><span class="hljs-tag" data-reactid="73"><!-- react-text: 74 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="75">Pagination</span><!-- react-text: 76 -->
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="77">currentPage</span><!-- react-text: 78 -->=<!-- /react-text --><span class="hljs-string" data-reactid="79">{parseInt(pageNum,</span><!-- react-text: 80 --> <!-- /react-text --><span class="hljs-attr" data-reactid="81">10</span><!-- react-text: 82 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="83">currentLine</span><!-- react-text: 84 -->=<!-- /react-text --><span class="hljs-string" data-reactid="85">{parseInt(pageSize,</span><!-- react-text: 86 --> <!-- /react-text --><span class="hljs-attr" data-reactid="87">10</span><!-- react-text: 88 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="89">totalNumber</span><!-- react-text: 90 -->=<!-- /react-text --><span class="hljs-string" data-reactid="91">{parseInt(total,</span><!-- react-text: 92 --> <!-- /react-text --><span class="hljs-attr" data-reactid="93">10</span><!-- react-text: 94 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="95">totalPage</span><!-- react-text: 96 -->=<!-- /react-text --><span class="hljs-string" data-reactid="97">{Math.ceil(parseInt(total,</span><!-- react-text: 98 --> <!-- /react-text --><span class="hljs-attr" data-reactid="99">10</span><!-- react-text: 100 -->) / <!-- /react-text --><span class="hljs-attr" data-reactid="101">parseInt</span><!-- react-text: 102 -->(<!-- /react-text --><span class="hljs-attr" data-reactid="103">pageSize</span><!-- react-text: 104 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="105">10</span><!-- react-text: 106 -->))}
+                    {<!-- /react-text --><span class="hljs-attr" data-reactid="107">...rest</span><!-- react-text: 108 -->}
+                &gt;<!-- /react-text --></span><!-- react-text: 109 -->
+                    {children}
+                <!-- /react-text --><span class="hljs-tag" data-reactid="110"><!-- react-text: 111 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="112">Pagination</span><!-- react-text: 113 -->&gt;<!-- /react-text --></span></span><!-- react-text: 114 -->
+            )
+        }
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 115 -->
+<!-- /react-text --><h3 id="倒转继承方法" data-reactid="116"><a href="#%E5%80%92%E8%BD%AC%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="117"><span class="icon icon-link" data-reactid="118"></span></a><!-- react-text: 119 -->倒转继承方法<!-- /react-text --></h3><!-- react-text: 120 -->
+<!-- /react-text --><p data-reactid="121">如下，可以用于包装 style/useable 的 api，而且对外无影响（除了静态方法）</p><!-- react-text: 122 -->
+<!-- /react-text --><pre data-reactid="123"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="124"><span class="hljs-function" data-reactid="125"><span class="hljs-keyword" data-reactid="126">function</span><!-- react-text: 127 --> <!-- /react-text --><span class="hljs-title" data-reactid="128">styleUseable</span><!-- react-text: 129 -->(<!-- /react-text --><span class="hljs-params" data-reactid="130">WrappedComponent</span><!-- react-text: 131 -->) <!-- /react-text --></span><!-- react-text: 132 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="133">return</span><!-- react-text: 134 --> <!-- /react-text --><span class="hljs-class" data-reactid="135"><span class="hljs-keyword" data-reactid="136">class</span><!-- react-text: 137 --> <!-- /react-text --><span class="hljs-title" data-reactid="138">Enhancer</span><!-- react-text: 139 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="140">extends</span><!-- react-text: 141 --> <!-- /react-text --><span class="hljs-title" data-reactid="142">componentClass</span><!-- react-text: 143 --> <!-- /react-text --></span><!-- react-text: 144 -->{
+        componentWillMount(...args) {
+            styleInstance.use &amp;&amp; styleInstance.use();
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="145">if</span><!-- react-text: 146 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="147">super</span><!-- react-text: 148 -->.componentWillMount) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="149">super</span><!-- react-text: 150 -->.componentWillMount.apply(<!-- /react-text --><span class="hljs-keyword" data-reactid="151">this</span><!-- react-text: 152 -->, args)
+            }
+        }
+
+        componentWillUnmount(...args) {
+            styleInstance.unuse &amp;&amp; styleInstance.unuse();
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="153">if</span><!-- react-text: 154 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="155">super</span><!-- react-text: 156 -->.componentWillUnmount) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="157">super</span><!-- react-text: 158 -->.componentWillUnmount.apply(<!-- /react-text --><span class="hljs-keyword" data-reactid="159">this</span><!-- react-text: 160 -->, args)
+            }
+        }
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 161 -->
+<!-- /react-text --><h2 id="实践" data-reactid="162"><a href="#%E5%AE%9E%E8%B7%B5" aria-hidden="true" data-reactid="163"><span class="icon icon-link" data-reactid="164"></span></a><!-- react-text: 165 -->实践<!-- /react-text --></h2><!-- react-text: 166 -->
+<!-- /react-text --><p data-reactid="167"><a href="https://m-cuttlefish.github.io/react-mhoc/page" data-reactid="168">React-Editable: 可视化编辑 React 数据</a></p><!-- react-text: 169 -->
+<!-- /react-text --><video src="http://obu9je6ng.bkt.clouddn.com/editable-preview.mp4" controls="" width="500" height="300" data-reactid="170"><!-- react-text: 171 -->
+<!-- /react-text --><p data-reactid="172">可以方便 “编辑” React 组件（包括 Props、State、甚至一些其他自定义数据）
+其中对于 Props 数据的“可编辑”实现，是基于 wrap 方法的，其他数据则都是通过倒转继承的方法实现。
+并且视图进行同步更新</p><!-- react-text: 173 -->
+<!-- /react-text --><h2 id="hoc带来的问题" data-reactid="174"><a href="#hoc%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98" aria-hidden="true" data-reactid="175"><span class="icon icon-link" data-reactid="176"></span></a><!-- react-text: 177 -->HOC带来的问题<!-- /react-text --></h2><!-- react-text: 178 -->
+<!-- /react-text --><ul data-reactid="179"><!-- react-text: 180 -->
+<!-- /react-text --><li data-reactid="181"><!-- react-text: 182 -->
+<!-- /react-text --><p data-reactid="183"><!-- react-text: 184 -->static方法需要手动copy
+该问题2种方法都存在
+<!-- /react-text --><a href="https://github.com/mridgway/hoist-non-react-statics" data-reactid="185">解决方法: hoist-non-react-statics</a></p><!-- react-text: 186 -->
+<!-- /react-text --></li><!-- react-text: 187 -->
+<!-- /react-text --><li data-reactid="188"><!-- react-text: 189 -->
+<!-- /react-text --><p data-reactid="190">refs不会传递
+该问题只存在于wrap方法</p><!-- react-text: 191 -->
+<!-- /react-text --></li><!-- react-text: 192 -->
+<!-- /react-text --></ul><!-- react-text: 193 -->
+<!-- /react-text --><h2 id="对比两种方法" data-reactid="194"><a href="#%E5%AF%B9%E6%AF%94%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="195"><span class="icon icon-link" data-reactid="196"></span></a><!-- react-text: 197 -->对比两种方法<!-- /react-text --></h2><!-- react-text: 198 -->
+<!-- /react-text --><ol data-reactid="199"><!-- react-text: 200 -->
+<!-- /react-text --><li data-reactid="201">wrap 方法可以用于修改 WrappedComponent 的 props</li><!-- react-text: 202 -->
+<!-- /react-text --><li data-reactid="203">倒转继承方法可以嵌入自定义方法至WrappedComponent的方法中（包括生命周期）</li><!-- react-text: 204 -->
+<!-- /react-text --><li data-reactid="205">因为 refs 的问题存在，倒转继承方法可以更加容易“不被察觉地”工作</li><!-- react-text: 206 -->
+<!-- /react-text --><li data-reactid="207">倒转继承方法不能修改 WrappedComponent 的 props，因为 this.props 是 readonly</li><!-- react-text: 208 -->
+<!-- /react-text --></ol><!-- react-text: 209 -->
+<!-- /react-text --></video></article></div><div class="gitment-container" data-reactid="210"></div><div class="paginator" data-reactid="211"><a title="基于Mobx实现 数据 - Url 同步" class="prev" href="/mobx-url-sync-decorator" data-reactid="212">Prev</a><a title="doc-pipe - 管理/同步 树状文档本地/服务器文章 解决方案" class="next" href="/doc-pipe-boom" data-reactid="213">Next</a></div></div></main><footer data-reactid="214"><div class="copyright" data-reactid="215"><p data-reactid="216"><!-- react-text: 217 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="218">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

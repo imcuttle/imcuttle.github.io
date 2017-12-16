@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="133848018"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">毕业论文初稿</h1><div class="post-info" data-reactid="12"><time datetime="2017-05-01T00:31:12+00:00" data-reactid="13">May 1, 2017 12:31 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="绪论" data-reactid="16"><a href="#%E7%BB%AA%E8%AE%BA" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->绪论<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><h2 id="研究背景和意义" data-reactid="21"><a href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E6%84%8F%E4%B9%89" aria-hidden="true" data-reactid="22"><span class="icon icon-link" data-reactid="23"></span></a><!-- react-text: 24 -->研究背景和意义<!-- /react-text --></h2><!-- react-text: 25 -->
+<!-- /react-text --><p data-reactid="26">相信有不少人有过丢失邀请函、替换或借用身份牌参会的经历。可对于部分高端会议或国家级会展活动来说，确认参会人员的身份十分关键，传统的签到模式无疑给了盗用身份参会者钻空子的机会。但是随着人脸识别技术水平的不断提升，其应用领域越来越广，效率也越来越高。使得人脸识别能够很有效的解决签到问题。</p><!-- react-text: 27 -->
+<!-- /react-text --><h2 id="国内外研究现状" data-reactid="28"><a href="#%E5%9B%BD%E5%86%85%E5%A4%96%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6" aria-hidden="true" data-reactid="29"><span class="icon icon-link" data-reactid="30"></span></a><!-- react-text: 31 -->国内外研究现状<!-- /react-text --></h2><!-- react-text: 32 -->
+<!-- /react-text --><p data-reactid="33">国内目前主要是三种力量，一个是清华大学的苏光大教授，他是中国的人脸识别之父。第二个是中科院的自动化所的李教授，他早年在微软的亚洲研究院当中获得了非常高的成就，后来到了中科院的自动化所，专攻人脸识别。第三支就是香港中文大学的汤晓鸥教授的团队，每年会进行学术界的比赛，他是高记录的保持者。
+国外著名的研究机构有美国MIT的Media lab,AI lab,CMU的Human-Computer Interface Institute，Microsoft Research,英国的Department of Engineering in University of Cambridge等。
+当前人脸识别技术所存在的主要问题
+1. 人脸图像的获取过程中的不确定性（如光的方向，以及光的强度等）。
+2. 人脸模式的多样性（如胡须，眼镜，发型等）。
+3. 人脸塑性变形的不确定性（如表情等）。
+4. 所涉及的领域知识的综合性</p><!-- react-text: 34 -->
+<!-- /react-text --><h2 id="本课题研究内容" data-reactid="35"><a href="#%E6%9C%AC%E8%AF%BE%E9%A2%98%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9" aria-hidden="true" data-reactid="36"><span class="icon icon-link" data-reactid="37"></span></a><!-- react-text: 38 -->本课题研究内容<!-- /react-text --></h2><!-- react-text: 39 -->
+<!-- /react-text --><p data-reactid="40">人脸识别问题可以定义成 : 输入 (查询) 场景中 的静止图像或者视频 ,使用人脸数据库识别或验证 场景中的一个人或者多个人[12] . 基于静止图像的人 脸识别通常是指输入 (查询) 一幅静止的图像 ,使用 人脸数据库进行识别或验证图像中的人脸. 而基于 视频的人脸识别是指输入 (查询) 一段视频 ,使用人 脸数据库进行识别或验证视频中的人脸. 如不考虑 视频的时间连续信息 ,问题也可以变成采用多幅图 像(时间上不一定连续) 作为输入(查询) 进行识别或 验证.
+对静止图像中人脸的定位可参见文献[2] , 对视频中人脸的定位和分割可参见文献[13]</p><!-- react-text: 41 -->
+<!-- /react-text --><h2 id="本文内容组织结构" data-reactid="42"><a href="#%E6%9C%AC%E6%96%87%E5%86%85%E5%AE%B9%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->本文内容组织结构<!-- /react-text --></h2><!-- react-text: 46 -->
+<!-- /react-text --><p data-reactid="47">本文主要讲述刷脸签到系统的设计与实现，全文共分为五章。</p><!-- react-text: 48 -->
+<!-- /react-text --><ol data-reactid="49"><!-- react-text: 50 -->
+<!-- /react-text --><li data-reactid="51">第一章 绪论，介绍了研究背景、国内外研究现状和本文研究内容。</li><!-- react-text: 52 -->
+<!-- /react-text --><li data-reactid="53">第二章 涉及技术，介绍了该系统所涉及的所有领域的技术介绍。</li><!-- react-text: 54 -->
+<!-- /react-text --><li data-reactid="55">第三章 设计与实现，解释了该系统的设计结构与部分主要算法的流程。</li><!-- react-text: 56 -->
+<!-- /react-text --><li data-reactid="57">第四章 总结与感谢，总结了本文的主要工作内容和个人感悟，以及一些感谢语。</li><!-- react-text: 58 -->
+<!-- /react-text --></ol><!-- react-text: 59 -->
+<!-- /react-text --><h1 id="涉及技术介绍" data-reactid="60"><a href="#%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="61"><span class="icon icon-link" data-reactid="62"></span></a><!-- react-text: 63 -->涉及技术介绍<!-- /react-text --></h1><!-- react-text: 64 -->
+<!-- /react-text --><h2 id="系统技术栈" data-reactid="65"><a href="#%E7%B3%BB%E7%BB%9F%E6%8A%80%E6%9C%AF%E6%A0%88" aria-hidden="true" data-reactid="66"><span class="icon icon-link" data-reactid="67"></span></a><!-- react-text: 68 -->系统技术栈<!-- /react-text --></h2><!-- react-text: 69 -->
+<!-- /react-text --><p data-reactid="70"><img src="https://ooo.0o0.ooo/2017/01/21/58826eb274d3a.jpg" data-reactid="71"/></p><!-- react-text: 72 -->
+<!-- /react-text --><h2 id="前端涉及技术" data-reactid="73"><a href="#%E5%89%8D%E7%AB%AF%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="74"><span class="icon icon-link" data-reactid="75"></span></a><!-- react-text: 76 -->前端涉及技术<!-- /react-text --></h2><!-- react-text: 77 -->
+<!-- /react-text --><ol data-reactid="78"><!-- react-text: 79 -->
+<!-- /react-text --><li data-reactid="80"><!-- react-text: 81 -->单页Web应用（single page web application，SPA），就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由 JavaScript 来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884d672c4710.jpg" data-reactid="82"/></li><!-- react-text: 83 -->
+<!-- /react-text --><li data-reactid="84"><!-- react-text: 85 -->使用主流 <!-- /react-text --><a href="https://webpack.github.io/" data-reactid="86">Webpack</a><!-- react-text: 87 --> 构建，进行前端模块自动化管理。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884d5ba0680b.jpg" data-reactid="88"/></li><!-- react-text: 89 -->
+<!-- /react-text --><li data-reactid="90"><!-- react-text: 91 -->使用Facebook提出的 <!-- /react-text --><a href="https://facebook.github.io/react/" data-reactid="92">React</a><!-- react-text: 93 --> 进行作为 View， 将 HTML DOM 进行上层抽象，提出 Virtual DOM 概念，一套理念，实现了Server render, Web UI, mobile UI 的统一。  Learn Once, Write Anywhere
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" data-reactid="94"/></li><!-- react-text: 95 -->
+<!-- /react-text --><li data-reactid="96"><a href="https://github.com/reactjs/redux" data-reactid="97">Redux</a><!-- react-text: 98 -->，随着 JavaScript 单页应用开发日趋复杂，JavaScript 需要管理比任何时候都要多的 state (状态)，state 在什么时候，由于什么原因，如何变化已然不受控制。 当系统变得错综复杂的时候，想重现问题或者添加新功能就会变得举步维艰, Redux则是为了解决该痛点而产生。<!-- /react-text --></li><!-- react-text: 99 -->
+<!-- /react-text --><li data-reactid="100"><a href="https://github.com/ReactTraining/react-router" data-reactid="101">React Router</a><!-- react-text: 102 --> 是一个基于 React 之上的强大路由库，它可以让你向应用中快速地添加视图和数据流，既保证了单页应用的畅快，同时保持页面与 URL 间的同步。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d88d62dd5.jpg" data-reactid="103"/></li><!-- react-text: 104 -->
+<!-- /react-text --><li data-reactid="105"><!-- react-text: 106 -->*<!-- /react-text --><a href="https://babeljs.io/" data-reactid="107">Babel</a><!-- react-text: 108 --> =&gt; 使用 JavaScript 实现的编译器，正如官网所说的那样 Use next generation JavaScript, today.
+，可以利用 Babel 书写最新的 JavasScript 语法标准，如 ECMAScript 6 ，搭配 Webpack 使用更佳。<!-- /react-text --></li><!-- react-text: 109 -->
+<!-- /react-text --><li data-reactid="110"><!-- react-text: 111 -->*<!-- /react-text --><a href="http://es6-features.org/" data-reactid="112">ECMAScript6</a><!-- react-text: 113 --> =&gt; 2015 年提出的JavaScript标准，目标是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现。ES 6 具有一系列简明的语法糖，更佳的书写体验。但为了保证浏览器, Node 环境兼容性，往往配合 Babel 书写。<!-- /react-text --></li><!-- react-text: 114 -->
+<!-- /react-text --><li data-reactid="115">*less =&gt; 一种 CSS 预处理语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。</li><!-- react-text: 116 -->
+<!-- /react-text --><li data-reactid="117">使用 HTML5 的 getUserMedia 方法，调用计算机音频视频等硬件设备。为了安全问题，Chrome 只能在本地地址上调用该方法，外网地址则只能在通过证书检测的 HTTPS 服务中调用。</li><!-- react-text: 118 -->
+<!-- /react-text --></ol><!-- react-text: 119 -->
+<!-- /react-text --><h2 id="后端涉及技术" data-reactid="120"><a href="#%E5%90%8E%E7%AB%AF%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="121"><span class="icon icon-link" data-reactid="122"></span></a><!-- react-text: 123 -->后端涉及技术<!-- /react-text --></h2><!-- react-text: 124 -->
+<!-- /react-text --><ol data-reactid="125"><!-- react-text: 126 -->
+<!-- /react-text --><li data-reactid="127"><!-- react-text: 128 -->采用 <!-- /react-text --><a href="https://nodejs.org/" data-reactid="129">nodeJs</a><!-- react-text: 130 --> 作为后端，采用 JavaScript 脚本语言开发。 nodeJs 具有异步事件驱动、非阻塞（non-blocking）IO 特性，采用 Google 的 V8 引擎来执行代码。<!-- /react-text --></li><!-- react-text: 131 -->
+<!-- /react-text --><li data-reactid="132">Node.js以单线程运行，使用非阻塞I/O调用，这样既可以支持数以万计的并发连接，又不会因多线程本身的特点而带来麻烦。众多请求只使用单线程的设计意味着可以用于创建高并发应用程序。Node.js应用程序的设计目标是任何需要操作I/O的函数都使用回调函数。
+这种设计的缺点是，如果不使用cluster、StrongLoop Process Manager或pm2等模块，Node.js就难以处理多核或多线程等情况。</li><!-- react-text: 133 -->
+<!-- /react-text --><li data-reactid="134"><!-- react-text: 135 -->isomorphic render（同构渲染）=&gt; 指的是前后端使用同一份代码。前端通过 Webpack 实现 CommonJs 的模块规范（Node亦是 CommonJs ）+ React 提出的 JSX ，使得 NodeJs 通过解析请求的 URL，适配 react-router 中的前端路由规则，得到 routing Props，还可以 dispatch(action) 同步或异步（一般是 isomorphic-fetch ），又或是直接读取数据，从而更新 store ，最后 nodeJs 通过 store 中的 state 渲染 JSX ，产生静态的 HTML，从而实现了前后端的同构渲染。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884dc559b020.jpg" data-reactid="136"/><!-- react-text: 137 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/29/588d9b8393522.jpg" data-reactid="138"/></li><!-- react-text: 139 -->
+<!-- /react-text --><li data-reactid="140"><a href="https://nodejs.org/api/addons.html" data-reactid="141">nodeJs C++ Addons</a><!-- react-text: 142 -->，nodeJs 就是使用C++语言实现的，图像处理最强大的库 opencv 便是用 C++ 实现的，这就不得不需要 nodeJs 与 C++ 之前通信，通过 nodeJs 调用 opencv 的方法，<!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="143">node-opencv</a><!-- react-text: 144 --> 便是利用 <!-- /react-text --><a href="https://github.com/nodejs/nan" data-reactid="145">nan</a><!-- react-text: 146 --> （解决平台间兼容性问题，将异步事件驱动封装）与 <!-- /react-text --><a href="https://github.com/v8/v8" data-reactid="147">v8</a><!-- react-text: 148 --> （javascript 对应的数据类型与 C++映射） ，通过 <!-- /react-text --><a href="https://github.com/nodejs/node-gyp" data-reactid="149">node-gyp</a><!-- react-text: 150 --> 工具，将 C++ 打包成 一个动态链接库 *.node，通过 require 即可调用。<!-- /react-text --></li><!-- react-text: 151 -->
+<!-- /react-text --><li data-reactid="152"><a href="https://github.com/mysqljs/mysql" data-reactid="153">node-mysql</a><!-- react-text: 154 --> ，由于 NodeJs 具有 non-blocking IO 与异步事件驱动的特性，所以很适合于 IO 密集型高并发业务，而访问数据库正是常用的 IO 操作。<!-- /react-text --></li><!-- react-text: 155 -->
+<!-- /react-text --><li data-reactid="156">NPM（全称Node Package Manager，即node包管理器），是Node预设的，通过国内 taobao 镜像可以加快下载速度。</li><!-- react-text: 157 -->
+<!-- /react-text --><li data-reactid="158"><a href="http://expressjs.com/zh-cn/" data-reactid="159">Express</a><!-- react-text: 160 -->（Node.js Web 应用程序框架），很方便的定义 restful api.<!-- /react-text --></li><!-- react-text: 161 -->
+<!-- /react-text --><li data-reactid="162"><!-- react-text: 163 -->Spider，网络爬虫，通过转发客户端的 HTTP 或 HTTPs 请求，得到远程服务器的响应数据，然后再一次转发至客户端中，也就是代理的意思
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/21/5882d1cb76d12.jpg" data-reactid="164"/><!-- react-text: 165 -->
+关于<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="166">南师大的一些 API</a><!-- react-text: 167 --> ，已经有前人用 Python 写过了，爬取教务系统数据，然后我只需要爬取对应的网站即可。<!-- /react-text --></li><!-- react-text: 168 -->
+<!-- /react-text --><li data-reactid="169">nginx，使用 C++ 实现的 Web 服务器，通过简单的配置就可以反向代理至正确的端口和应用层协议。</li><!-- react-text: 170 -->
+<!-- /react-text --><li data-reactid="171">由于浏览器安全性的考虑，对于外网地址使用摄像头需要在安全的HTTPs协议下，因此需要付费或免费地得到认可的证书，通过 nginx 配置，反向代理至 Node 进程即可。</li><!-- react-text: 172 -->
+<!-- /react-text --></ol><!-- react-text: 173 -->
+<!-- /react-text --><h2 id="其他涉及技术" data-reactid="174"><a href="#%E5%85%B6%E4%BB%96%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="175"><span class="icon icon-link" data-reactid="176"></span></a><!-- react-text: 177 -->其他涉及技术<!-- /react-text --></h2><!-- react-text: 178 -->
+<!-- /react-text --><ol data-reactid="179"><!-- react-text: 180 -->
+<!-- /react-text --><li data-reactid="181">git 是用于 Linux 内核开发的版本控制工具。与 CVS、Subversion 一类的集中式版本控制工具不同，它采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。 git 的速度很快，这对于诸如 Linux 内核这样的大项目来说自然很重要。git 最为出色的是它的合并追踪（merge tracing）能力。</li><!-- react-text: 182 -->
+<!-- /react-text --><li data-reactid="183">GitHub 是一个通过 Git 进行版本控制的软件源代码托管服务，是全球最大的代码存放网站和开源社区。</li><!-- react-text: 184 -->
+<!-- /react-text --><li data-reactid="185">特征脸（Eigenface）是指用于机器视觉领域中的人脸识别问题的一组特征向量。这些特征向量是从高维矢量空间的人脸图像的协方差矩阵计算而来。一组特征脸 可以通过在一大组描述不同人脸的图像上进行主成分分析（PCA）获得。任意一张人脸图像都可以被认为是这些标准脸的组合。另外，由于人脸是通过一系列向量（每个特征脸一个比例值）而不是数字图像进行保存，可以节省很多存储空间。</li><!-- react-text: 186 -->
+<!-- /react-text --><li data-reactid="187">主成分分析（Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。</li><!-- react-text: 188 -->
+<!-- /react-text --><li data-reactid="189">OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV用C++语言编写，它的主要接口也是C++语言。</li><!-- react-text: 190 -->
+<!-- /react-text --></ol><!-- react-text: 191 -->
+<!-- /react-text --><h1 id="系统设计与实现" data-reactid="192"><a href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="193"><span class="icon icon-link" data-reactid="194"></span></a><!-- react-text: 195 -->系统设计与实现<!-- /react-text --></h1><!-- react-text: 196 -->
+<!-- /react-text --><h2 id="系统模块" data-reactid="197"><a href="#%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97" aria-hidden="true" data-reactid="198"><span class="icon icon-link" data-reactid="199"></span></a><!-- react-text: 200 -->系统模块<!-- /react-text --></h2><!-- react-text: 201 -->
+<!-- /react-text --><p data-reactid="202"><img src="https://ooo.0o0.ooo/2017/01/22/58848833b7414.jpg" data-reactid="203"/></p><!-- react-text: 204 -->
+<!-- /react-text --><h2 id="文件结构" data-reactid="205"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="206"><span class="icon icon-link" data-reactid="207"></span></a><!-- react-text: 208 -->文件结构<!-- /react-text --></h2><!-- react-text: 209 -->
+<!-- /react-text --><p data-reactid="210">顶层文件结构如下</p><!-- react-text: 211 -->
+<!-- /react-text --><pre data-reactid="212"><code data-query="{}" data-lang="data-lang" data-reactid="213">Graduation-Project/
+├── desktop/
+├── gp-image-download/
+├── gp-njnu-photos-app/
+└── gp-njnu-photos-backend/
+</code></pre><!-- react-text: 214 -->
+<!-- /react-text --><p data-reactid="215"><code data-reactid="216">desktop/</code><!-- react-text: 217 --> 中放的是将站点打包成 PC Desktop 的 Logo，<!-- /react-text --><code data-reactid="218">logo.icns</code><!-- react-text: 219 --> 用在 osx 系统中，<!-- /react-text --><code data-reactid="220">logo.png</code><!-- react-text: 221 --> 则用于 linux 与 windows 系统中，打包成的 PC Desktop 默认也是放在该文件夹下。<!-- /react-text --></p><!-- react-text: 222 -->
+<!-- /react-text --><pre data-reactid="223"><code data-query="{}" data-lang="data-lang" data-reactid="224">desktop/
+└── logos/
+    ├── logo.icns
+    ├── logo.ico
+    └── logo.png 
+</code></pre><!-- react-text: 225 -->
+<!-- /react-text --><p data-reactid="226"><code data-reactid="227">gp-image-download/</code><!-- react-text: 228 --> 文件夹里面放的是将教务系统的学生图片下载至该文件夹中，其中的 <!-- /react-text --><code data-reactid="229">data/</code><!-- react-text: 230 --> 文件夹放的是各年入学的学生的学号（部分学号不正确），数据是 <!-- /react-text --><code data-reactid="231">get-all-id.js</code><!-- react-text: 232 --> 脚本得到，具体工作细节在后面会说到。保证获取到各年的学生学号集后，通过 <!-- /react-text --><code data-reactid="233">download.sh</code><!-- react-text: 234 --> Bash 脚本即可进行下载；下载的图片放在 <!-- /react-text --><code data-reactid="235">images/</code><!-- react-text: 236 --> 中。<!-- /react-text --></p><!-- react-text: 237 -->
+<!-- /react-text --><pre data-reactid="238"><code data-query="{}" data-lang="data-lang" data-reactid="239">gp-image-download/
+├── data/
+│   └── ...
+├── download.sh
+├── get-all-id.js
+├── images/
+│   └── ...
+└── lib/
+    └── get-all-id.js
+</code></pre><!-- react-text: 240 -->
+<!-- /react-text --><p data-reactid="241"><code data-reactid="242">gp-njnu-photos-app/</code><!-- react-text: 243 --> 放的是前端代码，<!-- /react-text --><code data-reactid="244">app/</code><!-- react-text: 245 --> 是开发用的源码，<!-- /react-text --><code data-reactid="246">build/</code><!-- react-text: 247 --> 是用 Webpack 打包的压缩后的发布资源，包括 <!-- /react-text --><code data-reactid="248">css/js/html/image...</code></p><!-- react-text: 249 -->
+<!-- /react-text --><pre data-reactid="250"><code data-query="{}" data-lang="data-lang" data-reactid="251">gp-njnu-photos-app/
+├── app/
+│   └── ...
+├── build/
+│   └── ...
+├── index.js
+├── package.json
+├── webpack-assets.json
+└── webpack.config.js
+</code></pre><!-- react-text: 252 -->
+<!-- /react-text --><p data-reactid="253"><code data-reactid="254">gp-njnu-photos-backend/</code><!-- react-text: 255 --> 放的是后端的全部代码。  <!-- /react-text --></p><!-- react-text: 256 -->
+<!-- /react-text --><pre data-reactid="257"><code data-query="{}" data-lang="data-lang" data-reactid="258">gp-njnu-photos-backend/
+├── cpptest/
+│   └── ...
+├── test/
+│   └── ...
+├── data/
+│   └── ...
+├── database/
+│   └── ...
+├── lib/
+│   └── ...
+├── opencv/
+│   └── ...
+├── pretreat/
+│   └── ...
+├── routes/
+│   └── ...
+├── ssl/
+│   └── ...
+├── index.js
+├── package.json
+├── provider.js
+└── server.js
+</code></pre><!-- react-text: 259 -->
+<!-- /react-text --><ul data-reactid="260"><!-- react-text: 261 -->
+<!-- /react-text --><li data-reactid="262"><code data-reactid="263">cpptest/</code><!-- react-text: 264 --> c++ opencv 的一些测试  <!-- /react-text --></li><!-- react-text: 265 -->
+<!-- /react-text --><li data-reactid="266"><code data-reactid="267">test/</code><!-- react-text: 268 --> nodejs 调用 opencv 接口的例子  <!-- /react-text --></li><!-- react-text: 269 -->
+<!-- /react-text --><li data-reactid="270"><code data-reactid="271">data/</code><!-- react-text: 272 --> 放些人脸 xml 模板数据，服务器运行时生成的缓存数据，预处理后的学生照片，上一次保存的训练数据。  <!-- /react-text --></li><!-- react-text: 273 -->
+<!-- /react-text --><li data-reactid="274"><code data-reactid="275">database/</code><!-- react-text: 276 --> 访问 mysql 的 JS 接口<!-- /react-text --></li><!-- react-text: 277 -->
+<!-- /react-text --><li data-reactid="278"><code data-reactid="279">lib/</code><!-- react-text: 280 --> 一些通用的 JS 方法，比如爬虫接口，图片上传接口...  <!-- /react-text --></li><!-- react-text: 281 -->
+<!-- /react-text --><li data-reactid="282"><code data-reactid="283">opencv/</code><!-- react-text: 284 --> 搭建 nodejs 与 C++ 桥梁的源码与产生的链接库<!-- /react-text --></li><!-- react-text: 285 -->
+<!-- /react-text --><li data-reactid="286"><code data-reactid="287">pretreat</code><!-- react-text: 288 --> 一些预处理接口，如人脸检测，图片灰化处理，样本数据的训练...<!-- /react-text --></li><!-- react-text: 289 -->
+<!-- /react-text --><li data-reactid="290"><code data-reactid="291">routes</code><!-- react-text: 292 --> express 的路由控制文件<!-- /react-text --></li><!-- react-text: 293 -->
+<!-- /react-text --><li data-reactid="294"><code data-reactid="295">ssl</code><!-- react-text: 296 --> HTTPs 证书与密钥<!-- /react-text --></li><!-- react-text: 297 -->
+<!-- /react-text --><li data-reactid="298"><code data-reactid="299">server.js</code><!-- react-text: 300 --> HTTP 服务入口<!-- /react-text --></li><!-- react-text: 301 -->
+<!-- /react-text --><li data-reactid="302"><code data-reactid="303">index.js</code><!-- react-text: 304 --> 在调用 <!-- /react-text --><code data-reactid="305">server.js</code><!-- react-text: 306 --> 之前，获取前端数据，使得后端能够处理静态资源（image/css/...），为前后端公用一套代码提供解决方案。（一般在线上环境使用）<!-- /react-text --></li><!-- react-text: 307 -->
+<!-- /react-text --><li data-reactid="308"><code data-reactid="309">provider.js</code><!-- react-text: 310 --> 创建子进程 <!-- /react-text --><code data-reactid="311">server.js</code><!-- react-text: 312 -->，同时监听后端开发目录代码的改动，一旦改动便杀死上一个子进程，并且再次创建子进程 <!-- /react-text --><code data-reactid="313">server.js</code><!-- react-text: 314 -->，可以实现后端代码的<!-- /react-text --><strong data-reactid="315"><em data-reactid="316">热更新</em></strong><!-- react-text: 317 -->。（一般在开发环境使用）<!-- /react-text --></li><!-- react-text: 318 -->
+<!-- /react-text --></ul><!-- react-text: 319 -->
+<!-- /react-text --><h2 id="实现" data-reactid="320"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="321"><span class="icon icon-link" data-reactid="322"></span></a><!-- react-text: 323 -->实现<!-- /react-text --></h2><!-- react-text: 324 -->
+<!-- /react-text --><h3 id="学生照片下载" data-reactid="325"><a href="#%E5%AD%A6%E7%94%9F%E7%85%A7%E7%89%87%E4%B8%8B%E8%BD%BD" aria-hidden="true" data-reactid="326"><span class="icon icon-link" data-reactid="327"></span></a><!-- react-text: 328 -->学生照片下载<!-- /react-text --></h3><!-- react-text: 329 -->
+<!-- /react-text --><p data-reactid="330"><!-- react-text: 331 -->下载证件照就需要图片的 URL，在<!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/03/%E5%88%A9%E7%94%A8Python%E7%88%AC%E5%8F%96%E5%AD%A6%E6%A0%A1%E7%BD%91%E7%AB%99%E4%B8%8A%E7%9A%84%E8%AF%81%E4%BB%B6%E7%85%A7%EF%BC%88%E5%9B%9B%EF%BC%89/" data-reactid="332">利用Python爬取学校网站上的证件照</a><!-- react-text: 333 -->一文中，说到了教务处的学生证 URL 规则是 <!-- /react-text --><code data-reactid="334">http://${hostname}/jwgl/photos/rx${year}/${studentno}.jpg</code><!-- react-text: 335 --> ，<!-- /react-text --><code data-reactid="336">hostname</code><!-- react-text: 337 -->就是教务系统的主机地址，<!-- /react-text --><code data-reactid="338">year</code><!-- react-text: 339 -->就是入年份，<!-- /react-text --><code data-reactid="340">studentno</code><!-- react-text: 341 -->是学生学号，比如某学生学号是<!-- /react-text --><code data-reactid="342">19140429</code><!-- react-text: 343 -->，其中学号的3-4位表示入学年份，表示学生是 2014 年入学，那么他的学生证 URL 就是 <!-- /react-text --><code data-reactid="344">http://223.2.10.123/jwgl/photos/rx2014/19140429</code><!-- react-text: 345 -->；  <!-- /react-text --></p><!-- react-text: 346 -->
+<!-- /react-text --><p data-reactid="347"><!-- react-text: 348 -->知道了学生照的 URL 规则后，那么怎么得到各个学年入学的学生学号集合呢？
+如果用穷举法，学号一共有 8 位，每位有 0-9 10 种可能，那么得到每一年的学生照片就需要 LOOP 10^8 次，这种级别的时间复杂度是不可接受的。于是通过查阅，搜索找到了
+<!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/13/%E5%88%A9%E7%94%A8Python%E8%BF%87%E6%BB%A4%E6%9C%89%E7%94%A8%E6%A0%A1%E5%9B%AD%E7%BD%91%E8%B4%A6%E5%8F%B7/" data-reactid="349">获取南师大学号</a><!-- react-text: 350 -->，里面提到了获取学号的接口<!-- /react-text --><code data-reactid="351">http://urp.njnu.edu.cn/authorizeUsers.portal?limit=100&amp;term=191301</code><!-- react-text: 352 -->，<!-- /react-text --><code data-reactid="353">term</code><!-- react-text: 354 --> 表示搜索关键字，可以是 <!-- /react-text --><code data-reactid="355">1913/191301/...</code><!-- react-text: 356 --> 将会返回学号中含有其字符串的数据，limit则是数据数最大限制，通过这个接口便可以得到学号集合<!-- /react-text --></p><!-- react-text: 357 -->
+<!-- /react-text --><p data-reactid="358"><!-- react-text: 359 -->最后便是学生照片下载的代码书写了。
+采用的是 Bash Script 书写，具有较强的易用性，不需要复杂的平台、环境依赖。第一版是使用 <!-- /react-text --><code data-reactid="360">wget</code><!-- react-text: 361 --> 指令进行下载，但是该指令在 <!-- /react-text --><code data-reactid="362">windows/osx</code><!-- react-text: 363 --> 需要额外安装，所以最后改成了 <!-- /react-text --><code data-reactid="364">curl</code><!-- react-text: 365 -->。<!-- /react-text --></p><!-- react-text: 366 -->
+<!-- /react-text --><p data-reactid="367"><img src="https://ooo.0o0.ooo/2017/01/22/5884923dd9155.jpg" data-reactid="368"/><!-- react-text: 369 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884926960c79.jpg" data-reactid="370"/></p><!-- react-text: 371 -->
+<!-- /react-text --><h3 id="人脸识别理论学习" data-reactid="372"><a href="#%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0" aria-hidden="true" data-reactid="373"><span class="icon icon-link" data-reactid="374"></span></a><!-- react-text: 375 -->人脸识别理论学习<!-- /react-text --></h3><!-- react-text: 376 -->
+<!-- /react-text --><p data-reactid="377"><!-- react-text: 378 -->人脸识别实际包括构建人脸识别系统的一系列相关技术，包括人脸图像采集、人脸定位、人脸识别预处理、身份确认以及身份查找等。上一步已经完成了人脸的采集；  人脸定位也就是人脸的检测，在一张图片中，找出人脸的位置。通过一些特征提取的方法，如<!-- /react-text --><a href="http://www.voidcn.com/blog/jscese/article/p-6250381.html" data-reactid="379">HOG特征，LBP特征，Haar特征</a><!-- react-text: 380 -->，<!-- /react-text --><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html" data-reactid="381">训练</a><!-- react-text: 382 -->得到级联分类器，分类器对图像的任意位置和任意尺寸的部分(通常是正方形或长方形)进行分类，判定是或不是人脸。opencv源码中提供了一些<!-- /react-text --><a href="https://github.com/opencv/opencv/tree/master/data" data-reactid="383">常用的分类器</a><!-- react-text: 384 -->（XML）。人脸识别预处理也就是对图像进行灰化，人脸检测，得到统一大小的人脸图片；然后便是识别了，对样本训练<!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%81%E8%84%B8#.E7.94.9F.E6.88.90.E7.89.B9.E5.BE.81.E8.84.B8" data-reactid="385">生成特征脸</a><!-- react-text: 386 -->后，对于输入的人脸进行预处理后，得到其<!-- /react-text --><a href="http://blog.csdn.net/smartempire/article/details/21406005" data-reactid="387">特征脸权重向量</a><!-- react-text: 388 -->，计算向量距离，找到最小距离的样本人脸。<!-- /react-text --></p><!-- react-text: 389 -->
+<!-- /react-text --><p data-reactid="390">可以看到特征脸的生成是需要整个样本数据的，所以如果用户修改了样本数据，需要对全部样本重新训练，得到一组全新的特征脸。</p><!-- react-text: 391 -->
+<!-- /react-text --><h3 id="opencv-环境安装" data-reactid="392"><a href="#opencv-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85" aria-hidden="true" data-reactid="393"><span class="icon icon-link" data-reactid="394"></span></a><!-- react-text: 395 -->opencv 环境安装<!-- /react-text --></h3><!-- react-text: 396 -->
+<!-- /react-text --><p data-reactid="397">由于开发平台是 OSX ，而 OSX 有 Homebrew 神器</p><!-- react-text: 398 -->
+<!-- /react-text --><pre data-reactid="399"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="400"><span class="hljs-comment" data-reactid="401"># 安装 Homebrew</span><!-- react-text: 402 -->
+/usr/bin/ruby -e <!-- /react-text --><span class="hljs-string" data-reactid="403"><!-- react-text: 404 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="405">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><!-- react-text: 406 -->&quot;<!-- /react-text --></span><!-- react-text: 407 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="408"># 设置 Homebrew镜像代理，国内下载加速</span><!-- react-text: 409 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="410">cd</span><!-- react-text: 411 --> <!-- /react-text --><span class="hljs-string" data-reactid="412"><!-- react-text: 413 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="414">$(brew --repo)</span><!-- react-text: 415 -->&quot;<!-- /react-text --></span><!-- react-text: 416 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="417">set</span><!-- react-text: 418 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="419">cd</span><!-- react-text: 420 --> <!-- /react-text --><span class="hljs-string" data-reactid="421"><!-- react-text: 422 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="423">$(brew --repo)</span><!-- react-text: 424 -->/Library/Taps/homebrew/homebrew-core&quot;<!-- /react-text --></span><!-- react-text: 425 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="426">set</span><!-- react-text: 427 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+brew update
+<!-- /react-text --><span class="hljs-built_in" data-reactid="428">echo</span><!-- react-text: 429 --> <!-- /react-text --><span class="hljs-string" data-reactid="430">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27;</span><!-- react-text: 431 --> &gt;&gt; ~/.bash_profile
+<!-- /react-text --><span class="hljs-built_in" data-reactid="432">source</span><!-- react-text: 433 --> ~/.bash_profile
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="434"># 安装 opencv</span><!-- react-text: 435 -->
+brew tap homebrew/science
+brew install opencv<!-- /react-text --></code></pre><!-- react-text: 436 -->
+<!-- /react-text --><h3 id="node-cc扩展" data-reactid="437"><a href="#node-cc%E6%89%A9%E5%B1%95" aria-hidden="true" data-reactid="438"><span class="icon icon-link" data-reactid="439"></span></a><!-- react-text: 440 -->node C/C++扩展<!-- /react-text --></h3><!-- react-text: 441 -->
+<!-- /react-text --><p data-reactid="442"><!-- react-text: 443 -->node C/C++扩展是在 node 环境调用 C 系列接口的方法。
+<!-- /react-text --><img src="http://xb.hubwiz.com/api/book/57bbdc1a109ee9d927c25ab0/images/00010.gif" data-reactid="444"/><!-- react-text: 445 -->
+已经有人用该方法写过 <!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="446"><code data-reactid="447">node-opencv</code></a><!-- react-text: 448 -->，并在此基础上我还加上了 <!-- /react-text --><code data-reactid="449">CircleLBP</code><!-- react-text: 450 --> <!-- /react-text --><code data-reactid="451">RectLBP</code><!-- react-text: 452 --> <!-- /react-text --><code data-reactid="453">ToThreeChannels</code><!-- react-text: 454 --> <!-- /react-text --><code data-reactid="455">PCA</code><!-- react-text: 456 --> 算法，<!-- /react-text --><code data-reactid="457">ToThreeChannels</code><!-- react-text: 458 --> 是将 单通道（灰）或者 RGBA 通道变成 RGB 通道。下图给出的是通用的 <!-- /react-text --><code data-reactid="459">ConvertChannels</code><!-- react-text: 460 --> 的算法流程图，主要可以转化图像的通道数，输入参数 <!-- /react-text --><code data-reactid="461">n: int 通道数</code><!-- react-text: 462 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/05/01/590711b78ace8.jpg" data-reactid="463"/></p><!-- react-text: 464 -->
+<!-- /react-text --><center data-reactid="465">`ConvertChannels` 算法流程图</center><!-- react-text: 466 -->
+<!-- /react-text --><h3 id="图片预处理（人脸检测）" data-reactid="467"><a href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%EF%BC%89" aria-hidden="true" data-reactid="468"><span class="icon icon-link" data-reactid="469"></span></a><!-- react-text: 470 -->图片预处理（人脸检测...）<!-- /react-text --></h3><!-- react-text: 471 -->
+<!-- /react-text --><p data-reactid="472"><img src="https://ooo.0o0.ooo/2017/05/01/590714291ca07.jpg" data-reactid="473"/></p><!-- react-text: 474 -->
+<!-- /react-text --><center data-reactid="475">图片预处理</center><!-- react-text: 476 -->
+<!-- /react-text --><p data-reactid="477"><!-- react-text: 478 -->经过多次尝试后，对于学生证件照，最终比较得出，采用 LBP 级联分类器，窗口放大 1.95 倍左右效果较好。（测试数据在 <!-- /react-text --><code data-reactid="479">backend/data/summary.json</code><!-- react-text: 480 -->）<!-- /react-text --></p><!-- react-text: 481 -->
+<!-- /react-text --><p data-reactid="482"><img src="https://ooo.0o0.ooo/2017/01/22/5884929797559.jpg" data-reactid="483"/><!-- react-text: 484 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588492ae5471e.jpg" data-reactid="485"/></p><!-- react-text: 486 -->
+<!-- /react-text --><h3 id="识别算法测试与确定" data-reactid="487"><a href="#%E8%AF%86%E5%88%AB%E7%AE%97%E6%B3%95%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%A1%AE%E5%AE%9A" aria-hidden="true" data-reactid="488"><span class="icon icon-link" data-reactid="489"></span></a><!-- react-text: 490 -->识别算法测试与确定<!-- /react-text --></h3><!-- react-text: 491 -->
+<!-- /react-text --><p data-reactid="492"><!-- react-text: 493 -->比较 opencv 中三种人脸识别算法，Eigen、Fisher、LBPH。数据在<!-- /react-text --><code data-reactid="494">backend/cpptest/</code><!-- react-text: 495 --> 中<!-- /react-text --></p><!-- react-text: 496 -->
+<!-- /react-text --><table data-reactid="497"><caption data-reactid="498"><em data-reactid="499">opencv 人脸识别算法比较</em></caption><tbody data-reactid="500"><tr data-reactid="501"><th rowspan="2" style="text-align:center;" data-reactid="502">算法/时间(ms)</th><th colspan="2" data-reactid="503">实验1</th><th colspan="2" data-reactid="504">实验2</th><th colspan="2" data-reactid="505">实验3</th></tr><tr data-reactid="506"><td data-reactid="507">训练</td><td data-reactid="508">预测</td><td data-reactid="509">训练</td><td data-reactid="510">预测</td><td data-reactid="511">训练</td><td data-reactid="512">预测</td></tr><tr data-reactid="513"><th data-reactid="514">Eigen</th><td data-reactid="515">0.030648</td><td data-reactid="516">0.010711</td><td data-reactid="517">0.025524</td><td data-reactid="518">0.011132</td><td data-reactid="519">0.029332</td><td data-reactid="520">0.007791</td></tr><tr data-reactid="521"><th data-reactid="522">Fisher</th><td data-reactid="523">0.040043</td><td data-reactid="524">0.0089</td><td data-reactid="525">0.039244</td><td data-reactid="526">0.007145</td><td data-reactid="527">0.033777</td><td data-reactid="528">0.008276</td></tr><tr data-reactid="529"><th data-reactid="530">LBPH</th><td data-reactid="531">0.035812</td><td data-reactid="532">0.071586</td><td data-reactid="533">0.034822</td><td data-reactid="534">0.075267</td><td data-reactid="535">0.03204</td><td data-reactid="536">0.067166</td><!-- react-text: 537 -->
+<!-- /react-text --></tr></tbody></table><!-- react-text: 538 -->
+<!-- /react-text --><p data-reactid="539"><!-- react-text: 540 -->综合比较可以得出，效率 Eigen &gt; Fisher &gt; LBPH<!-- /react-text --><br data-reactid="541"/><!-- react-text: 542 -->
+所以采用Eigen（特征脸）算法<!-- /react-text --></p><!-- react-text: 543 -->
+<!-- /react-text --><h3 id="学生信息接口（爬虫）" data-reactid="544"><a href="#%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%EF%BC%88%E7%88%AC%E8%99%AB%EF%BC%89" aria-hidden="true" data-reactid="545"><span class="icon icon-link" data-reactid="546"></span></a><!-- react-text: 547 -->学生信息接口（爬虫）<!-- /react-text --></h3><!-- react-text: 548 -->
+<!-- /react-text --><p data-reactid="549"><!-- react-text: 550 -->该系统还需要获取到学生的个人信息，比如通过学号和密码验证是否正确等等。在同一届的同学中，已经有一位同学研究教务系统比较透彻了，而且做了一个<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="551">查南师</a><!-- react-text: 552 -->网站，并且该网站不需要输入验证码进行身份验证，所以我只需要爬取该网站的接口即可。<!-- /react-text --></p><!-- react-text: 553 -->
+<!-- /react-text --><h3 id="前端" data-reactid="554"><a href="#%E5%89%8D%E7%AB%AF" aria-hidden="true" data-reactid="555"><span class="icon icon-link" data-reactid="556"></span></a><!-- react-text: 557 -->前端<!-- /react-text --></h3><!-- react-text: 558 -->
+<!-- /react-text --><p data-reactid="559"><!-- react-text: 560 -->该系统使用的是前后端分离的架构，页面的渲染交给客户端 <!-- /react-text --><code data-reactid="561">JavaScript</code><!-- react-text: 562 --> 来实现，后端只需要提供纯数据接口即可，让后端的工作更加纯粹。  <!-- /react-text --></p><!-- react-text: 563 -->
+<!-- /react-text --><p data-reactid="564"><!-- react-text: 565 -->对于页面路由的控制，使用的是 HTML5 的 <!-- /react-text --><a href="https://developer.mozilla.org/en-US/docs/Web/API/History" data-reactid="566">History API</a><!-- react-text: 567 --> ，交给 JavaScript 来控制，所以只要不进行页面的强制刷新（Ctrl/cmd + R），所有路径的跳转都是不会从服务器获取 HTML CSS 进行渲染，这就是单页 Web 应用的核心，这样一来，用户体验就更佳，服务器负载也更小，但对于浏览器要求更高了。<!-- /react-text --></p><!-- react-text: 568 -->
+<!-- /react-text --><p data-reactid="569"><!-- react-text: 570 -->结合 React Web Component 和 <!-- /react-text --><a href="https://github.com/css-modules/css-modules" data-reactid="571">CSS Module</a><!-- react-text: 572 --> 思想，将前端页面细分为若干个组件，在上层 Page 中进行数据的传输，组件的组合，在 Page 上层还有一层 App，把一些全局通用的组件放这。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58845e6781176.jpg" data-reactid="573"/></p><!-- react-text: 574 -->
+<!-- /react-text --><p data-reactid="575"><!-- react-text: 576 -->而且所有的数据控制都在 <!-- /react-text --><code data-reactid="577">reducer</code><!-- react-text: 578 --> 中，层次清晰，代码复用性高。<!-- /react-text --></p><!-- react-text: 579 -->
+<!-- /react-text --><p data-reactid="580"><img src="https://ooo.0o0.ooo/2017/01/22/58845a7e4a302.jpg" data-reactid="581"/></p><!-- react-text: 582 -->
+<!-- /react-text --><pre data-reactid="583"><code data-query="{}" data-lang="data-lang" data-reactid="584">app/
+├── common/
+│   ├── css/
+│   │   └── ...
+│   ├── storage.js
+│   └── utils.js
+├── components/
+│   ├── Button/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── FaceRec/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── Header/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── .../
+│   └── Toast/
+│       ├── index.js
+│       └── style.less
+├── pages/
+│   ├── AboutPage.js
+│   ├── AdminLoginPage.js
+│   ├── AdminPage.js
+│   ├── AudioImportPage.js
+│   ├── FaceImportPage.js
+│   └── StuSignPage.js
+├── reducers/
+│   ├── about.js
+│   ├── actions.js
+│   ├── active.js
+│   ├── admin.js
+│   ├── appReducers.js
+│   ├── audioImport.js
+│   ├── base.js
+│   ├── faceImport.js
+│   └── upFace.js
+├── workers/
+│   └── face.worker.js
+├── App.js
+├── index.tpl.html
+├── main.js
+└── router.js
+</code></pre><!-- react-text: 585 -->
+<!-- /react-text --><p data-reactid="586"><!-- react-text: 587 -->其中 <!-- /react-text --><code data-reactid="588">workers/face.worker.js</code><!-- react-text: 589 --> 文件是利用 Web Worker 起的另一个进程代码，主要做的是输入图片数据，输出人脸的位置大小，就是 JavaScript 版的人脸检测，之所以起另一个线程，是因为对于视频的人脸检测，对于实时性要求也比较高，检测也比较耗时，为了效率考虑使用了 Web Worker。 <!-- /react-text --></p><!-- react-text: 590 -->
+<!-- /react-text --><p data-reactid="591"><img src="https://ooo.0o0.ooo/2017/01/23/5884dfc84c74c.jpg" data-reactid="592"/></p><!-- react-text: 593 -->
+<!-- /react-text --><h3 id="后端" data-reactid="594"><a href="#%E5%90%8E%E7%AB%AF" aria-hidden="true" data-reactid="595"><span class="icon icon-link" data-reactid="596"></span></a><!-- react-text: 597 -->后端<!-- /react-text --></h3><!-- react-text: 598 -->
+<!-- /react-text --><p data-reactid="599">由于视图的渲染都交给浏览器了，所以后端主要就是对于数据的逻辑处理了，比如样本录入，学生信息查询（爬虫），人脸识别（调用 opencv ），同时使用 mysql 数据库，存储样本录入的信息，表结构如下：</p><!-- react-text: 600 -->
+<!-- /react-text --><pre data-reactid="601"><code data-query="{}" data-lang="data-lang" data-reactid="602">Table gp.`face_import`
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| stuid    | varchar(20)  | NO   |     | NULL    |       |
+| time     | datetime     | NO   |     | NULL    |       |
+| hash     | varchar(20)  | NO   | PRI | NULL    |       |
+| face_url | varchar(100) | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+</code></pre><!-- react-text: 603 -->
+<!-- /react-text --><p data-reactid="604"><code data-reactid="605">hash</code><!-- react-text: 606 --> 是每次上传样本的唯一 key 值，同时为了方便系统的部署迁移，没有将上传的样本数据存储在服务器中，而是存在 <!-- /react-text --><a href="https://sm.ms" data-reactid="607">sm.ms</a><!-- react-text: 608 --> 免费图床中，得到一个 <!-- /react-text --><code data-reactid="609">face_url</code><!-- react-text: 610 --> 字段，每次启动服务器之前都得进行样本的训练或者训练数据的读取；而且每次上传样本或者删除样本后，服务器都需要重新训练保存样本，重新生成一套特征脸。   <!-- /react-text --></p><!-- react-text: 611 -->
+<!-- /react-text --><p data-reactid="612"><!-- react-text: 613 -->并且在开启服务器的环境和纯粹的数据处理的环境对于数据库的处理是不一样的，在服务器环境，需要开启数据库连接池，每次都从中去取出连接进行数据操作；而纯粹的读取数据库，得到<!-- /react-text --><code data-reactid="614">face_url</code><!-- react-text: 615 -->进行人脸的预处理或训练，则只需要每次单独的 开启连接 =&gt; 读取数据 =&gt; 关闭连接 即可，否则程序会一直运行下去，因为数据库连接池没关闭。<!-- /react-text --></p><!-- react-text: 616 -->
+<!-- /react-text --><p data-reactid="617"><!-- react-text: 618 -->同时，所有的前端数据接口都是 <!-- /react-text --><code data-reactid="619">/api/*</code><!-- react-text: 620 --> 规则，同时对于管理员的用户名和密码会进行 md5 不可逆编码然后再传输，防止被他人捕捉到。<!-- /react-text --></p><!-- react-text: 621 -->
+<!-- /react-text --><h3 id="同构渲染" data-reactid="622"><a href="#%E5%90%8C%E6%9E%84%E6%B8%B2%E6%9F%93" aria-hidden="true" data-reactid="623"><span class="icon icon-link" data-reactid="624"></span></a><!-- react-text: 625 -->同构渲染<!-- /react-text --></h3><!-- react-text: 626 -->
+<!-- /react-text --><p data-reactid="627">上文说到所有的页面渲染都是交给 JavaScript 控制，服务器返回的 HTML 结构如下所示：</p><!-- react-text: 628 -->
+<!-- /react-text --><pre data-reactid="629"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="630"><span class="hljs-meta" data-reactid="631">&lt;!DOCTYPE html&gt;</span><!-- react-text: 632 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="633"><!-- react-text: 634 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="635">html</span><!-- react-text: 636 -->&gt;<!-- /react-text --></span><!-- react-text: 637 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="638"><!-- react-text: 639 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="640">head</span><!-- react-text: 641 -->&gt;<!-- /react-text --></span><!-- react-text: 642 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="643"><!-- react-text: 644 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="645">meta</span><!-- react-text: 646 --> <!-- /react-text --><span class="hljs-attr" data-reactid="647">charset</span><!-- react-text: 648 -->=<!-- /react-text --><span class="hljs-string" data-reactid="649">&quot;utf-8&quot;</span><!-- react-text: 650 -->&gt;<!-- /react-text --></span><!-- react-text: 651 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="652"><!-- react-text: 653 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="654">meta</span><!-- react-text: 655 --> <!-- /react-text --><span class="hljs-attr" data-reactid="656">http-equiv</span><!-- react-text: 657 -->=<!-- /react-text --><span class="hljs-string" data-reactid="658">&quot;X-UA-Compatible&quot;</span><!-- react-text: 659 --> <!-- /react-text --><span class="hljs-attr" data-reactid="660">content</span><!-- react-text: 661 -->=<!-- /react-text --><span class="hljs-string" data-reactid="662">&quot;IE=edge,chrome=1&quot;</span><!-- react-text: 663 -->&gt;<!-- /react-text --></span><!-- react-text: 664 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="665"><!-- react-text: 666 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="667">meta</span><!-- react-text: 668 --> <!-- /react-text --><span class="hljs-attr" data-reactid="669">name</span><!-- react-text: 670 -->=<!-- /react-text --><span class="hljs-string" data-reactid="671">&quot;viewport&quot;</span><!-- react-text: 672 --> <!-- /react-text --><span class="hljs-attr" data-reactid="673">content</span><!-- react-text: 674 -->=<!-- /react-text --><span class="hljs-string" data-reactid="675">&quot;width=device-width, initial-scale=1&quot;</span><!-- react-text: 676 -->&gt;<!-- /react-text --></span><!-- react-text: 677 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="678"><!-- react-text: 679 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="680">title</span><!-- react-text: 681 -->&gt;<!-- /react-text --></span><!-- react-text: 682 -->南师大学生签到系统<!-- /react-text --><span class="hljs-tag" data-reactid="683"><!-- react-text: 684 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="685">title</span><!-- react-text: 686 -->&gt;<!-- /react-text --></span><!-- react-text: 687 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="688"><!-- react-text: 689 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="690">link</span><!-- react-text: 691 --> <!-- /react-text --><span class="hljs-attr" data-reactid="692">rel</span><!-- react-text: 693 -->=<!-- /react-text --><span class="hljs-string" data-reactid="694">&quot;stylesheet&quot;</span><!-- react-text: 695 --> <!-- /react-text --><span class="hljs-attr" data-reactid="696">type</span><!-- react-text: 697 -->=<!-- /react-text --><span class="hljs-string" data-reactid="698">&quot;text/css&quot;</span><!-- react-text: 699 --> <!-- /react-text --><span class="hljs-attr" data-reactid="700">href</span><!-- react-text: 701 -->=<!-- /react-text --><span class="hljs-string" data-reactid="702">&quot;/pace.min.css&quot;</span><!-- react-text: 703 -->&gt;<!-- /react-text --></span><!-- react-text: 704 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="705"><!-- react-text: 706 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="707">script</span><!-- react-text: 708 --> <!-- /react-text --><span class="hljs-attr" data-reactid="709">type</span><!-- react-text: 710 -->=<!-- /react-text --><span class="hljs-string" data-reactid="711">&quot;text/javascript&quot;</span><!-- react-text: 712 --> <!-- /react-text --><span class="hljs-attr" data-reactid="713">src</span><!-- react-text: 714 -->=<!-- /react-text --><span class="hljs-string" data-reactid="715">&quot;/pace.min.js&quot;</span><!-- react-text: 716 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="717"></span><span class="hljs-tag" data-reactid="718"><!-- react-text: 719 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="720">script</span><!-- react-text: 721 -->&gt;<!-- /react-text --></span><!-- react-text: 722 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="723"><!-- react-text: 724 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="725">link</span><!-- react-text: 726 --> <!-- /react-text --><span class="hljs-attr" data-reactid="727">href</span><!-- react-text: 728 -->=<!-- /react-text --><span class="hljs-string" data-reactid="729">&quot;/style.min.css?v=b5afb06f45be775a70081c1e320e6c40&quot;</span><!-- react-text: 730 --> <!-- /react-text --><span class="hljs-attr" data-reactid="731">rel</span><!-- react-text: 732 -->=<!-- /react-text --><span class="hljs-string" data-reactid="733">&quot;stylesheet&quot;</span><!-- react-text: 734 -->&gt;<!-- /react-text --></span><!-- react-text: 735 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="736"><!-- react-text: 737 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="738">head</span><!-- react-text: 739 -->&gt;<!-- /react-text --></span><!-- react-text: 740 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="741"><!-- react-text: 742 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="743">body</span><!-- react-text: 744 -->&gt;<!-- /react-text --></span><!-- react-text: 745 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="746"><!-- react-text: 747 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="748">div</span><!-- react-text: 749 --> <!-- /react-text --><span class="hljs-attr" data-reactid="750">id</span><!-- react-text: 751 -->=<!-- /react-text --><span class="hljs-string" data-reactid="752">&quot;app&quot;</span><!-- react-text: 753 -->&gt;<!-- /react-text --></span><span class="hljs-comment" data-reactid="754">&lt;!--HTML--&gt;</span><span class="hljs-tag" data-reactid="755"><!-- react-text: 756 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="757">div</span><!-- react-text: 758 -->&gt;<!-- /react-text --></span><!-- react-text: 759 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="760"><!-- react-text: 761 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="762">script</span><!-- react-text: 763 --> <!-- /react-text --><span class="hljs-attr" data-reactid="764">type</span><!-- react-text: 765 -->=<!-- /react-text --><span class="hljs-string" data-reactid="766">&quot;text/javascript&quot;</span><!-- react-text: 767 --> <!-- /react-text --><span class="hljs-attr" data-reactid="768">src</span><!-- react-text: 769 -->=<!-- /react-text --><span class="hljs-string" data-reactid="770">&quot;/libs.min.js?v=8d589c56bcac1e2c17a7&quot;</span><!-- react-text: 771 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="772"></span><span class="hljs-tag" data-reactid="773"><!-- react-text: 774 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="775">script</span><!-- react-text: 776 -->&gt;<!-- /react-text --></span><!-- react-text: 777 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="778"><!-- react-text: 779 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="780">script</span><!-- react-text: 781 --> <!-- /react-text --><span class="hljs-attr" data-reactid="782">type</span><!-- react-text: 783 -->=<!-- /react-text --><span class="hljs-string" data-reactid="784">&quot;text/javascript&quot;</span><!-- react-text: 785 --> <!-- /react-text --><span class="hljs-attr" data-reactid="786">src</span><!-- react-text: 787 -->=<!-- /react-text --><span class="hljs-string" data-reactid="788">&quot;/app.main.min.js?v=448dfe9c907942d09623&quot;</span><!-- react-text: 789 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="790"></span><span class="hljs-tag" data-reactid="791"><!-- react-text: 792 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="793">script</span><!-- react-text: 794 -->&gt;<!-- /react-text --></span><!-- react-text: 795 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="796"><!-- react-text: 797 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="798">body</span><!-- react-text: 799 -->&gt;<!-- /react-text --></span><!-- react-text: 800 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="801"><!-- react-text: 802 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="803">html</span><!-- react-text: 804 -->&gt;<!-- /react-text --></span></code></pre><!-- react-text: 805 -->
+<!-- /react-text --><p data-reactid="806"><!-- react-text: 807 -->其中任何数据都是没有的，只有 “第二时间” 通过 <!-- /react-text --><code data-reactid="808">app.min.js</code><!-- react-text: 809 --> 执行 JavaScript 进行渲染，所以对于用户短暂的 “第一时间” 感觉是不好的，什么都没有，也就是没有 “首屏渲染”，优化首屏渲染，就需要通过服务器返回带内容的 HTML。  <!-- /react-text --></p><!-- react-text: 810 -->
+<!-- /react-text --><p data-reactid="811"><!-- react-text: 812 -->由于前端使用的是 <!-- /react-text --><code data-reactid="813">react</code><!-- react-text: 814 -->，将 HTML 抽象成为 <!-- /react-text --><code data-reactid="815">JSX</code><!-- react-text: 816 -->，将 DOM 操作 转化成状态的变化，重新渲染的思想，所以使得<!-- /react-text --><strong data-reactid="817"><!-- react-text: 818 -->服务器端也能够解析<!-- /react-text --><code data-reactid="819">react</code></strong><!-- react-text: 820 -->，<!-- /react-text --><code data-reactid="821">redux</code><!-- react-text: 822 --> 又将状态的更新操作抽离出来，使得服务器端可以更方便的控制状态从而进行渲染（当然，只有 nodejs 作为后端渲染层才可以做到），同时由于前端使用 Babel 编译前端代码，所以可以用新型语法糖，为了服务器端也能够识别，所以也需要 babel-register<!-- /react-text --></p><!-- react-text: 823 -->
+<!-- /react-text --><p data-reactid="824"><img src="https://ooo.0o0.ooo/2017/05/01/59071b3713600.jpg" data-reactid="825"/></p><!-- react-text: 826 -->
+<!-- /react-text --><p data-reactid="827"><!-- react-text: 828 -->同时让浏览器得到初始状态，<!-- /react-text --><code data-reactid="829">window.__INITIAL_STATE__=${JSON.stringify(initialState)}</code><!-- react-text: 830 -->，把初始状态<!-- /react-text --><code data-reactid="831">window.__INITIAL_STATE__</code><!-- react-text: 832 -->
+传给客户端
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/05/01/59071db0073c0.jpg" data-reactid="833"/></p><!-- react-text: 834 -->
+<!-- /react-text --><p data-reactid="835">以上，便可以实现同构渲染，既保证了 SPA 的用户体验，首屏渲染，而且解决了SEO（搜索引擎优化）的问题。</p><!-- react-text: 836 -->
+<!-- /react-text --><h3 id="部署" data-reactid="837"><a href="#%E9%83%A8%E7%BD%B2" aria-hidden="true" data-reactid="838"><span class="icon icon-link" data-reactid="839"></span></a><!-- react-text: 840 -->部署<!-- /react-text --></h3><!-- react-text: 841 -->
+<!-- /react-text --><p data-reactid="842"><!-- react-text: 843 -->开发的差不多后，找朋友要了个 ubuntu 的服务器，首先麻烦的就是环境的迁移了，由于源码都部署在 GitHub 上，所以直接 <!-- /react-text --><code data-reactid="844">git clone</code><!-- react-text: 845 --> 就可以得到了（原始证照和预处理后的证照、训练的 yaml 数据都没提交至 GitHub，所以代码库还是挺小的）。<!-- /react-text --></p><!-- react-text: 846 -->
+<!-- /react-text --><p data-reactid="847">然后 Ubuntu 上安装 opencv，Ubuntu 上可没有 Homebrew 神奇，所以只能下载源码包，自己进行编译连接，生成动态链接库</p><!-- react-text: 848 -->
+<!-- /react-text --><p data-reactid="849">安装好 node + npm + nvm，node 版本 ≥7.0，以及 mysql，导入 gp.sql</p><!-- react-text: 850 -->
+<!-- /react-text --><p data-reactid="851"><!-- react-text: 852 -->再在服务器执行 <!-- /react-text --><code data-reactid="853">npm install</code><!-- react-text: 854 -->（安装项目依赖包，各个目录下都有自己独立的依赖包，前端目录则不必安装，因为只需要其产生的代码） =&gt; 下载脚本 =&gt; 预处理脚本 =&gt; 训练样本脚本 =&gt; 启动服务器<!-- /react-text --></p><!-- react-text: 855 -->
+<!-- /react-text --><h3 id="nginx--https" data-reactid="856"><a href="#nginx--https" aria-hidden="true" data-reactid="857"><span class="icon icon-link" data-reactid="858"></span></a><!-- react-text: 859 -->nginx + https<!-- /react-text --></h3><!-- react-text: 860 -->
+<!-- /react-text --><p data-reactid="861">但是服务器启动后，外网还是不能直接访问，需要通过 nginx 反向代理，同时解析域名至服务器 IP，为了浏览器安全可以打开摄像头，还需要开启 HTTPs 协议，我使用的是腾讯云免费的一年证书，然后 nginx 配置后即可。</p><!-- react-text: 862 -->
+<!-- /react-text --><h3 id="seo" data-reactid="863"><a href="#seo" aria-hidden="true" data-reactid="864"><span class="icon icon-link" data-reactid="865"></span></a><!-- react-text: 866 -->SEO<!-- /react-text --></h3><!-- react-text: 867 -->
+<!-- /react-text --><p data-reactid="868"><!-- react-text: 869 -->前文已经介绍到，虽然该 Web 站点是 SPA，但是由于同构渲染的技术，单独通过 URL 也是可以直接获取到带内容的数据的，所以网络爬虫可以很方便的爬取该站点，为 SEO 做下基础。
+为了增强站点的曝光率，就需要做 SEO 了，添加 <!-- /react-text --><code data-reactid="870">robots.txt</code><!-- react-text: 871 -->，站点地图，同时在前端页面加入不可见的 <!-- /react-text --><code data-reactid="872">a</code><!-- react-text: 873 --> 标签，利于网页爬虫爬取其他链接<!-- /react-text --></p><!-- react-text: 874 -->
+<!-- /react-text --><p data-reactid="875"><img src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" data-reactid="876"/></p><!-- react-text: 877 -->
+<!-- /react-text --><h3 id="pc-desktop" data-reactid="878"><a href="#pc-desktop" aria-hidden="true" data-reactid="879"><span class="icon icon-link" data-reactid="880"></span></a><!-- react-text: 881 -->PC Desktop<!-- /react-text --></h3><!-- react-text: 882 -->
+<!-- /react-text --><p data-reactid="883"><!-- react-text: 884 -->为了方便师生使用，还使用 <!-- /react-text --><code data-reactid="885">nativefier</code><!-- react-text: 886 --> 将站点打包成 PC Desktop，其实就是将站点 URL 和 Chrome 内核组合成一个 Application。<!-- /react-text --><br data-reactid="887"/><!-- react-text: 888 -->
+<!-- /react-text --><code data-reactid="889">nativefier</code><!-- react-text: 890 --> 是基于 <!-- /react-text --><a href="https://electron.atom.io/" data-reactid="891">Electron</a><!-- react-text: 892 --> 的， Electron 将 Chrome 内核和 nodejs 融合在一起，所以你可以使用前端技术（HTML/CSS/JavaScript）和 nodejs api 及其第三方 node 包，利用 chrome 和 nodejs 的跨平台性，基于 Electron 的 App 也是可以跨平台的（Mac, Windows, Linux）。<!-- /react-text --></p><!-- react-text: 893 -->
+<!-- /react-text --><p data-reactid="894">当你启动了一个 Electron 应用，就有一个主进程（main process ）被创建了。这条进程将负责创建出应用的 GUI（也就是应用的窗口），并处理用户与这个 GUI 之间的交互。</p><!-- react-text: 895 -->
+<!-- /react-text --><p data-reactid="896"><!-- react-text: 897 -->但直接启动 main.js 是无法显示应用窗口的，在 main.js 中通过调用BrowserWindow模块才能将使用应用窗口。然后每个浏览器窗口将执行它们各自的渲染器进程（ renderer process ）。渲染器进程将会处理一个真正的 web 页面（HTML + CSS + JavaScript），将页面渲染到窗口中。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/05/02/5907f2708dfaa.jpg" data-reactid="898"/></p><!-- react-text: 899 -->
+<!-- /react-text --><h2 id="主要代码流程示意" data-reactid="900"><a href="#%E4%B8%BB%E8%A6%81%E4%BB%A3%E7%A0%81%E6%B5%81%E7%A8%8B%E7%A4%BA%E6%84%8F" aria-hidden="true" data-reactid="901"><span class="icon icon-link" data-reactid="902"></span></a><!-- react-text: 903 -->主要代码流程示意<!-- /react-text --></h2><!-- react-text: 904 -->
+<!-- /react-text --><p data-reactid="905">下面对某些代码进行剖析</p><!-- react-text: 906 -->
+<!-- /react-text --><h3 id="获取id集合" data-reactid="907"><a href="#%E8%8E%B7%E5%8F%96id%E9%9B%86%E5%90%88" aria-hidden="true" data-reactid="908"><span class="icon icon-link" data-reactid="909"></span></a><!-- react-text: 910 -->获取ID集合<!-- /react-text --></h3><!-- react-text: 911 -->
+<!-- /react-text --><p data-reactid="912"><!-- react-text: 913 -->文件：<!-- /react-text --><code data-reactid="914">gp-image-download/lib/get-all-id.js</code><br data-reactid="915"/><!-- react-text: 916 -->
+语言：JavaScript<!-- /react-text --><br data-reactid="917"/><!-- react-text: 918 -->
+环境：Nodejs<!-- /react-text --><br data-reactid="919"/><!-- react-text: 920 -->
+使用：<!-- /react-text --><code data-reactid="921">(cd gp-image-download &amp;&amp; node get-all-id.js)</code></p><!-- react-text: 922 -->
+<!-- /react-text --><p data-reactid="923"><!-- react-text: 924 -->主要通过手动登录，获取到未过期的已登录 Cookie，然后携带 Cookie，访问 <!-- /react-text --><code data-reactid="925">http://urp.njnu.edu.cn/authorizeUsers.portal</code><!-- react-text: 926 --> ...<!-- /react-text --></p><!-- react-text: 927 -->
+<!-- /react-text --><p data-reactid="928"><img src="https://ooo.0o0.ooo/2017/05/02/59081c90eff02.jpg" data-reactid="929"/></p><!-- react-text: 930 -->
+<!-- /react-text --><center data-reactid="931">获取ID集合</center><!-- react-text: 932 -->
+<!-- /react-text --><h3 id="下载图片脚本" data-reactid="933"><a href="#%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="934"><span class="icon icon-link" data-reactid="935"></span></a><!-- react-text: 936 -->下载图片脚本<!-- /react-text --></h3><!-- react-text: 937 -->
+<!-- /react-text --><p data-reactid="938"><!-- react-text: 939 -->文件：<!-- /react-text --><code data-reactid="940">gp-image-download/download.sh</code><br data-reactid="941"/><!-- react-text: 942 -->
+语言：bash script<!-- /react-text --><br data-reactid="943"/><!-- react-text: 944 -->
+环境：bash<!-- /react-text --><br data-reactid="945"/><!-- react-text: 946 -->
+使用：<!-- /react-text --><code data-reactid="947">(cd gp-image-download &amp;&amp; ./download.sh 2013)</code></p><!-- react-text: 948 -->
+<!-- /react-text --><p data-reactid="949"><img src="https://ooo.0o0.ooo/2017/05/02/5908217a7e6f3.jpg" data-reactid="950"/></p><!-- react-text: 951 -->
+<!-- /react-text --><center data-reactid="952">下载图片脚本</center><!-- react-text: 953 -->
+<!-- /react-text --><h3 id="npm-命令" data-reactid="954"><a href="#npm-%E5%91%BD%E4%BB%A4" aria-hidden="true" data-reactid="955"><span class="icon icon-link" data-reactid="956"></span></a><!-- react-text: 957 -->npm 命令<!-- /react-text --></h3><!-- react-text: 958 -->
+<!-- /react-text --><p data-reactid="959"><!-- react-text: 960 -->文件：<!-- /react-text --><code data-reactid="961">gp-njnu-photos-backend/package.json</code><br data-reactid="962"/><!-- react-text: 963 -->
+使用：<!-- /react-text --><code data-reactid="964">(cd gp-njnu-photos-backend &amp;&amp; npm run $scriptName)</code></p><!-- react-text: 965 -->
+<!-- /react-text --><pre data-reactid="966"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="967"><span class="hljs-meta" data-reactid="968"># 图片预处理</span><!-- react-text: 969 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="970"># detect face, then gray, save</span><!-- react-text: 971 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="972"># eg.  $ npm run grayface 2013 191301</span><!-- react-text: 973 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="974">#      $ npm run grayface 2013</span><!-- react-text: 975 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="976">#      $ npm run grayface</span><!-- react-text: 977 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="978"># npm run grayface year classno</span><!-- react-text: 979 -->
+
+
+<!-- /react-text --><span class="hljs-meta" data-reactid="980"># 样本训练并写入文件。</span><!-- react-text: 981 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="982"># after read grayface images, then train and save it</span><!-- react-text: 983 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="984"># eg.  $ node pretreat/train_save.js -f --args 2013</span><!-- react-text: 985 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="986">#      $ node pretreat/train_save.js -f --args 2013 191301</span><!-- react-text: 987 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="988"># -f：重新训练，不论是否已存在训练数据</span><!-- react-text: 989 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="990"># --args year classno 训练哪一年哪一班级的图片</span><!-- react-text: 991 -->
+
+<!-- /react-text --><span class="hljs-string" data-reactid="992">&quot;grayface&quot;</span><!-- react-text: 993 -->: <!-- /react-text --><span class="hljs-string" data-reactid="994">&quot;node pretreat/gray_face.js&quot;</span><!-- react-text: 995 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="996">&quot;train:force&quot;</span><!-- react-text: 997 -->: <!-- /react-text --><span class="hljs-string" data-reactid="998">&quot;node pretreat/train_save.js -f&quot;</span><!-- react-text: 999 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1000">&quot;train:smart&quot;</span><!-- react-text: 1001 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1002">&quot;node pretreat/train_save.js&quot;</span><!-- react-text: 1003 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1004">&quot;dev:w&quot;</span><!-- react-text: 1005 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1006">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node .&quot;</span><!-- react-text: 1007 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1008">&quot;dev&quot;</span><!-- react-text: 1009 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1010">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node index.js&quot;</span><!-- react-text: 1011 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1012">&quot;start&quot;</span><!-- react-text: 1013 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1014">&quot;cross-env NODE_STATUS=run, NODE_ENV=prod node index.js&quot;</span><!-- react-text: 1015 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1016">&quot;retrain&quot;</span><!-- react-text: 1017 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1018">&quot;npm run grayface &amp;&amp; npm run train:force&quot;</span><!-- react-text: 1019 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1020">&quot;retrain:dev&quot;</span><!-- react-text: 1021 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1022">&quot;npm run grayface 2013 191301 &amp;&amp; node pretreat/train_save.js -f --args 2013 191301&quot;</span><!-- react-text: 1023 -->,<!-- /react-text --></code></pre><!-- react-text: 1024 -->
+<!-- /react-text --><h3 id="开发环境（热部署）脚本" data-reactid="1025"><a href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88%E7%83%AD%E9%83%A8%E7%BD%B2%EF%BC%89%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1026"><span class="icon icon-link" data-reactid="1027"></span></a><!-- react-text: 1028 -->开发环境（热部署）脚本<!-- /react-text --></h3><!-- react-text: 1029 -->
+<!-- /react-text --><p data-reactid="1030"><!-- react-text: 1031 -->文件：<!-- /react-text --><code data-reactid="1032">gp-njnu-photos-backend/provider.js</code><br data-reactid="1033"/><!-- react-text: 1034 -->
+语言：JavaScript<!-- /react-text --><br data-reactid="1035"/><!-- react-text: 1036 -->
+环境：Nodejs<!-- /react-text --><br data-reactid="1037"/><!-- react-text: 1038 -->
+使用：<!-- /react-text --><code data-reactid="1039">(cd gp-njnu-photos-backend &amp;&amp; npm run dev:w)</code></p><!-- react-text: 1040 -->
+<!-- /react-text --><p data-reactid="1041"><img src="https://ooo.0o0.ooo/2017/05/02/5908260f608da.jpg" data-reactid="1042"/></p><!-- react-text: 1043 -->
+<!-- /react-text --><center data-reactid="1044">开发环境（热部署）脚本</center><!-- react-text: 1045 -->
+<!-- /react-text --><h3 id="服务器自动更新代码" data-reactid="1046"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="1047"><span class="icon icon-link" data-reactid="1048"></span></a><!-- react-text: 1049 -->服务器自动更新代码<!-- /react-text --></h3><!-- react-text: 1050 -->
+<!-- /react-text --><ul data-reactid="1051"><!-- react-text: 1052 -->
+<!-- /react-text --><li data-reactid="1053">服务器端</li><!-- react-text: 1054 -->
+<!-- /react-text --></ul><!-- react-text: 1055 -->
+<!-- /react-text --><p data-reactid="1056"><!-- react-text: 1057 -->文件：<!-- /react-text --><code data-reactid="1058">gp-njnu-photos-backend/routes/control.js</code><br data-reactid="1059"/><!-- react-text: 1060 -->
+语言：JavaScript<!-- /react-text --><br data-reactid="1061"/><!-- react-text: 1062 -->
+环境：Nodejs  <!-- /react-text --></p><!-- react-text: 1063 -->
+<!-- /react-text --><p data-reactid="1064"><img src="https://ooo.0o0.ooo/2017/05/06/590db98b40739.png" data-reactid="1065"/></p><!-- react-text: 1066 -->
+<!-- /react-text --><center data-reactid="1067">服务器自动更新代码 - 服务器端</center><!-- react-text: 1068 -->
+<!-- /react-text --><ul data-reactid="1069"><!-- react-text: 1070 -->
+<!-- /react-text --><li data-reactid="1071">本机（开发机）</li><!-- react-text: 1072 -->
+<!-- /react-text --></ul><!-- react-text: 1073 -->
+<!-- /react-text --><p data-reactid="1074"><!-- react-text: 1075 -->文件：<!-- /react-text --><code data-reactid="1076">push.sh</code><br data-reactid="1077"/><!-- react-text: 1078 -->
+语言：Bash Script<!-- /react-text --><br data-reactid="1079"/><!-- react-text: 1080 -->
+环境：Bash  <!-- /react-text --></p><!-- react-text: 1081 -->
+<!-- /react-text --><p data-reactid="1082"><img src="https://ooo.0o0.ooo/2017/05/06/590db9d3cf913.png" alt="23ABCCAC-EFD2-413A-A4DE-1603368BBB77.png" data-reactid="1083"/></p><!-- react-text: 1084 -->
+<!-- /react-text --><center data-reactid="1085">服务器自动更新代码 - 本机（开发机）</center><!-- react-text: 1086 -->
+<!-- /react-text --><h3 id="desktop打包脚本" data-reactid="1087"><a href="#desktop%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1088"><span class="icon icon-link" data-reactid="1089"></span></a><!-- react-text: 1090 -->Desktop打包脚本<!-- /react-text --></h3><!-- react-text: 1091 -->
+<!-- /react-text --><p data-reactid="1092"><!-- react-text: 1093 -->文件：<!-- /react-text --><code data-reactid="1094">package.json</code><br data-reactid="1095"/><!-- react-text: 1096 -->
+语言：Bash Script<!-- /react-text --><br data-reactid="1097"/><!-- react-text: 1098 -->
+环境：Bash<!-- /react-text --><br data-reactid="1099"/><!-- react-text: 1100 -->
+使用：<!-- /react-text --><code data-reactid="1101">npm run script-name</code></p><!-- react-text: 1102 -->
+<!-- /react-text --><pre data-reactid="1103"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="1104"><span class="hljs-comment" data-reactid="1105">&quot;app:mac64&quot;</span><!-- react-text: 1106 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1107">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a x64 -p mac --insecure -n 古南师大刷脸签到 https://face.moyuyc.xyz/ -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1108 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1109">&quot;app:mac32&quot;</span><!-- react-text: 1110 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1111">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a ia32 -p mac --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1112 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1113">&quot; -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1114 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1115">&quot;app:mac&quot;</span><!-- react-text: 1116 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1117">&quot;npm run app:mac32 &amp; npm run app:mac64&quot;</span><!-- react-text: 1118 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1119">&quot;app:win&quot;</span><!-- react-text: 1120 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1121">&quot;npm run app:win32 &amp; npm run app:win64&quot;</span><!-- react-text: 1122 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1123">&quot;app:win32&quot;</span><!-- react-text: 1124 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1125">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a x64 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1126 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1127">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1128 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1129">&quot;app:win64&quot;</span><!-- react-text: 1130 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1131">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a ia32 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1132 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1133">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1134 -->,<!-- /react-text --></code></pre><!-- react-text: 1135 -->
+<!-- /react-text --><h3 id="一键搭建环境脚本" data-reactid="1136"><a href="#%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1137"><span class="icon icon-link" data-reactid="1138"></span></a><!-- react-text: 1139 -->一键搭建环境脚本<!-- /react-text --></h3><!-- react-text: 1140 -->
+<!-- /react-text --><p data-reactid="1141"><!-- react-text: 1142 -->文件：<!-- /react-text --><code data-reactid="1143">start.sh</code><br data-reactid="1144"/><!-- react-text: 1145 -->
+语言：Bash Script<!-- /react-text --><br data-reactid="1146"/><!-- react-text: 1147 -->
+环境：Bash<!-- /react-text --><br data-reactid="1148"/><!-- react-text: 1149 -->
+使用：<!-- /react-text --><code data-reactid="1150">./start.sh</code></p><!-- react-text: 1151 -->
+<!-- /react-text --><p data-reactid="1152"><img src="https://ooo.0o0.ooo/2017/05/01/59072a26af35d.jpg" data-reactid="1153"/></p><!-- react-text: 1154 -->
+<!-- /react-text --><center data-reactid="1155">一键搭建环境脚本</center><!-- react-text: 1156 -->
+<!-- /react-text --><h3 id="特征脸人脸识别" data-reactid="1157"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB" aria-hidden="true" data-reactid="1158"><span class="icon icon-link" data-reactid="1159"></span></a><!-- react-text: 1160 -->特征脸人脸识别<!-- /react-text --></h3><!-- react-text: 1161 -->
+<!-- /react-text --><p data-reactid="1162">人脸识别的任务本质就是：区别开一些输入信号（图像数据），将其划分进一些分类（人脸）中。
+输入信号高度噪声（例如噪声是由不同引起的： 照明条件，姿势等），但输入图像不是完全随机的 尽管它们有差异，但是在任何输入信号中都存在模式。这样 在所有信号中可以观察到的模式可能是在面部识别领域。 任何面孔以及亲属中存在某些物体（眼睛，鼻子，嘴巴） 这些物体之间的距离。这些特征被称为特征脸 面部识别领域（或主要组成部分）。它们可以通过名为PCA（主成分分析法）的数学方法从原始图像数据中提取出来。 通过 PCA 可以能够将训练集的每个原图转化为相关的特征脸。PCA 一个重要的特征是能够组合特征脸来重构训练集中的原图。
+记住特征脸不仅仅是面部的特征。所以说如果将每个特征脸按照正确的比例相加，原始脸部图像可以从特征脸重构出来。每个特征脸代表脸部都某些特征，其可能存在或不存在于原图中。如果特征以较高程度表现在原图中，则该特征对应的特征脸应该在特征脸集合相加的总和中，占用更大的比例。相反，特定的特征在原始图像中不存在（或几乎不存在），然后相应的特征脸应该贡献一个较小的（或根本不是）部分的总和。
+因此，为了从特征脸重构原始图像，需要得到一系列特征脸的权重，也就是说，重构的原图图像等于所有特征面的总和，每个特征脸都有明确的权重。这个权重表示了指定特征（特征脸）在原图中所占的程度。</p><!-- react-text: 1163 -->
+<!-- /react-text --><p data-reactid="1164">如果使用从原始图像提取的所有特征脸，可以重构来自特征脸的原始图像。但也可以只使用一部分特征脸，重建的图像是原始图像的近似值。然而，这样可以确保由于省略某些特征脸而造成的损失最小化，选择最重要的特征（特征脸）。</p><!-- react-text: 1165 -->
+<!-- /react-text --><p data-reactid="1166">由于计算资源的匮乏，特征脸的部分选择（降维）是必要的。那这与人脸识别有什么关系呢？不仅可能从给定的一组权重的特征脸得到面部，但也可以用相反的方式，从特征脸和原人脸面部得到一组权重。使用这个权重可以确定两件重要的事情：</p><!-- react-text: 1167 -->
+<!-- /react-text --><p data-reactid="1168">确定所讨论的图像是否是一张脸。
+输入图像的权重与人脸图像（我们知道是人脸）的权重相差太大，则该输入不是人脸。
+相似的脸（图像）具有相似的特征（特征脸）权重。 可以从所有可用的图像中提取权重，通过权重可以进行分组到集群。也就是说，具有相似权重的所有图像可能是类似的面孔。</p><!-- react-text: 1169 -->
+<!-- /react-text --><h4 id="算法概述" data-reactid="1170"><a href="#%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0" aria-hidden="true" data-reactid="1171"><span class="icon icon-link" data-reactid="1172"></span></a><!-- react-text: 1173 -->算法概述<!-- /react-text --></h4><!-- react-text: 1174 -->
+<!-- /react-text --><ol data-reactid="1175"><!-- react-text: 1176 -->
+<!-- /react-text --><li data-reactid="1177">首先，将训练集的原始图像转换为一组特征脸 E。</li><!-- react-text: 1178 -->
+<!-- /react-text --><li data-reactid="1179">然后，计算每个图像在 E 上的一组权重，保存在 W。</li><!-- react-text: 1180 -->
+<!-- /react-text --></ol><!-- react-text: 1181 -->
+<!-- /react-text --><p data-reactid="1182">观察未知图像 X，计算取特征权重，存储在向量 Wx 中。之后，将Wx与知道他们是面孔（训练的权重W）的其他权重进行比较。一种方法是将每个权重向量视为空间中的一个点计算来自WX的权重向量与权重之间的平均距离D.未知图像的矢量WX（附录A中描述的欧几里德距离）。如果该平均距离超过某个阈值θ，那么未知图像WX的权重向量也与权重“分开”的脸。在这种情况下，未知X被认为不是脸。否则（如果X实际上是一个脸），它的权重向量WX被存储以备以后分类。最优经验性地确定阈值θ。</p><!-- react-text: 1183 -->
+<!-- /react-text --><h4 id="特征向量和特征值" data-reactid="1184"><a href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E5%92%8C%E7%89%B9%E5%BE%81%E5%80%BC" aria-hidden="true" data-reactid="1185"><span class="icon icon-link" data-reactid="1186"></span></a><!-- react-text: 1187 -->特征向量和特征值<!-- /react-text --></h4><!-- react-text: 1188 -->
+<!-- /react-text --><p data-reactid="1189">矩阵的特征向量是一个向量，其与矩阵相乘，则结果总为该向量的整数倍。这个整数值是相应的特征向量的特征值。这种关系可以用公式 M × u = λ × u 来描述，其中u是矩阵M的特征向量，λ是相应的特征值。 特征向量具有以下属性：</p><!-- react-text: 1190 -->
+<!-- /react-text --><ul data-reactid="1191"><!-- react-text: 1192 -->
+<!-- /react-text --><li data-reactid="1193">它们只能用于方阵</li><!-- react-text: 1194 -->
+<!-- /react-text --><li data-reactid="1195">n×n矩阵中有n个特征向量（和相应的特征值）</li><!-- react-text: 1196 -->
+<!-- /react-text --><li data-reactid="1197">所有特征向量都是垂直的，即彼此成直角</li><!-- react-text: 1198 -->
+<!-- /react-text --></ul><!-- react-text: 1199 -->
+<!-- /react-text --><h4 id="特征脸的计算（pca-方法）" data-reactid="1200"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E7%9A%84%E8%AE%A1%E7%AE%97%EF%BC%88pca-%E6%96%B9%E6%B3%95%EF%BC%89" aria-hidden="true" data-reactid="1201"><span class="icon icon-link" data-reactid="1202"></span></a><!-- react-text: 1203 -->特征脸的计算（PCA 方法）<!-- /react-text --></h4><!-- react-text: 1204 -->
+<!-- /react-text --><p data-reactid="1205">在本节中，使用PCA确定特征脸的原始方案将会 被呈现。 在本文范围内描述的算法是一个变体。在PCA中可以找到一个详细的（以及更理论的）PCA的描述（Pissarenko，2002，第70-72页）。</p><!-- react-text: 1206 -->
+<!-- /react-text --><ol data-reactid="1207"><!-- react-text: 1208 -->
+<!-- /react-text --><li data-reactid="1209"><!-- react-text: 1210 -->
+<!-- /react-text --><p data-reactid="1211">准备数据
+在这个步骤中，应准备有人脸组成的训练集（Γi）</p><!-- react-text: 1212 -->
+<!-- /react-text --></li><!-- react-text: 1213 -->
+<!-- /react-text --><li data-reactid="1214"><!-- react-text: 1215 -->
+<!-- /react-text --><p data-reactid="1216"><!-- react-text: 1217 -->减去平均值
+应当计算出来平均矩阵Ψ，然后从Γi中减去， 并将结果存储在变量Φi中
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/590575d5edf57.jpg" data-reactid="1218"/></p><!-- react-text: 1219 -->
+<!-- /react-text --></li><!-- react-text: 1220 -->
+<!-- /react-text --><li data-reactid="1221"><!-- react-text: 1222 -->
+<!-- /react-text --><p data-reactid="1223"><!-- react-text: 1224 -->计算协方差矩阵
+计算协方差矩阵 C，依据如下
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/5905763b70744.jpg" data-reactid="1225"/></p><!-- react-text: 1226 -->
+<!-- /react-text --></li><!-- react-text: 1227 -->
+<!-- /react-text --><li data-reactid="1228"><!-- react-text: 1229 -->
+<!-- /react-text --><p data-reactid="1230">计算协方差的特征向量和特征值矩阵
+在这个步骤中，特征向量（特征脸）ui和对应的特征值λi应该计算。特征向量（特征面）必须被归一化才能使它们成为单位向量，即长度为1。描述确定的特征向量和特征值求法在此省略，因为它属于标准的数学程式。</p><!-- react-text: 1231 -->
+<!-- /react-text --></li><!-- react-text: 1232 -->
+<!-- /react-text --><li data-reactid="1233"><!-- react-text: 1234 -->
+<!-- /react-text --><p data-reactid="1235">选择主要组件
+从M个特征向量（特征脸）ui中，只应选择具有最高特征值的M0。特征值越高，特定特征向量描述的面的特征越多。可以省略具有低特征值的特征面，因为它们只解释了面部特征的一小部分。在确定M0特征脸ui之后，算法“训练”阶段结束。</p><!-- react-text: 1236 -->
+<!-- /react-text --></li><!-- react-text: 1237 -->
+<!-- /react-text --></ol><!-- react-text: 1238 -->
+<!-- /react-text --><h4 id="改进原始算法" data-reactid="1239"><a href="#%E6%94%B9%E8%BF%9B%E5%8E%9F%E5%A7%8B%E7%AE%97%E6%B3%95" aria-hidden="true" data-reactid="1240"><span class="icon icon-link" data-reactid="1241"></span></a><!-- react-text: 1242 -->改进原始算法<!-- /react-text --></h4><!-- react-text: 1243 -->
+<!-- /react-text --><p data-reactid="1244"><!-- react-text: 1245 -->第5节描述的算法存在问题。协方差矩阵 在步骤3中（参见等式3）具有N 2×N 2的维数，因此将具有N 2 特征面和特征值。 对于256×256图像，这意味着必须计算65,536×65,536个矩阵，并计算65,536个特征面。在计算上，这并不是非常有效，因为大多数这些特征面对我们的任务没有用。所以，第三和第四步被Turk和Pentland（1991a）提出的方案所取代：
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/590579e61c7b3.jpg" data-reactid="1246"/><!-- react-text: 1247 -->
+其中L是M×M矩阵，v是L的M个特征向量，u是特征面。 注意 使用公式C = AAT计算协方差矩阵C。只有为了解释A，才给出原始（低效）公式。这种方法的优点是必须只评估M数而不是N2。通常，仅作为主要成分（特征面）的M N2将是相关的。要执行的计算量从训练集（N）的数量减少到训练集（M）中的图像数量。<!-- /react-text --><br data-reactid="1248"/><!-- react-text: 1249 -->
+在步骤5中，相关联的特征值允许根据它们的有用性对特征面进行排序。 通常，我们将仅使用M个特征面的一个子集，具有最大特征值的M0特征面。<!-- /react-text --></p><!-- react-text: 1250 -->
+<!-- /react-text --><h4 id="人脸分类" data-reactid="1251"><a href="#%E4%BA%BA%E8%84%B8%E5%88%86%E7%B1%BB" aria-hidden="true" data-reactid="1252"><span class="icon icon-link" data-reactid="1253"></span></a><!-- react-text: 1254 -->人脸分类<!-- /react-text --></h4><!-- react-text: 1255 -->
+<!-- /react-text --><p data-reactid="1256"><!-- react-text: 1257 -->新的人脸（未知）分类至已知人脸中需要2个步骤。
+首先，得到新人脸的特征脸，得到权重向量 ΩT(new)
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/59057d1dbbfeb.jpg" data-reactid="1258"/><!-- react-text: 1259 -->
+两个权重向量的欧几里得距离 d(Ωi, Ωj) 提供了一种衡量图像 i、j 的相似度的方法。如果ΩT(new)与其他人脸平均超过阈值θ，则认为其非人脸，或者构造一个新的脸的“簇”，使得类似的面部被分配给一个群集。<!-- /react-text --></p><!-- react-text: 1260 -->
+<!-- /react-text --><h5 id="欧几里得距离" data-reactid="1261"><a href="#%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E8%B7%9D%E7%A6%BB" aria-hidden="true" data-reactid="1262"><span class="icon icon-link" data-reactid="1263"></span></a><!-- react-text: 1264 -->欧几里得距离<!-- /react-text --></h5><!-- react-text: 1265 -->
+<!-- /react-text --><p data-reactid="1266"><!-- react-text: 1267 -->x 为被特征向量描述的任意实例。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/59057f7c67c5a.jpg" data-reactid="1268"/><!-- react-text: 1269 -->
+其中ar(x) 表示实例 x 中的第 r 个属性值，那么两个实例xi,xj的欧几里得距离定义为：
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/30/59057ff879e7e.jpg" data-reactid="1270"/></p><!-- react-text: 1271 -->
+<!-- /react-text --><h2 id="系统预览" data-reactid="1272"><a href="#%E7%B3%BB%E7%BB%9F%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="1273"><span class="icon icon-link" data-reactid="1274"></span></a><!-- react-text: 1275 -->系统预览<!-- /react-text --></h2><!-- react-text: 1276 -->
+<!-- /react-text --><p data-reactid="1277"><!-- react-text: 1278 -->线上地址：<!-- /react-text --><a href="https://face.moyuyc.xyz/" data-reactid="1279">https://face.moyuyc.xyz/</a><!-- react-text: 1280 -->  <!-- /react-text --></p><!-- react-text: 1281 -->
+<!-- /react-text --><ul data-reactid="1282"><!-- react-text: 1283 -->
+<!-- /react-text --><li data-reactid="1284"><!-- react-text: 1285 -->学生签到
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" data-reactid="1286"/><!-- react-text: 1287 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" data-reactid="1288"/></li><!-- react-text: 1289 -->
+<!-- /react-text --><li data-reactid="1290"><!-- react-text: 1291 -->人脸录入
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884867e8c4f1.jpg" data-reactid="1292"/></li><!-- react-text: 1293 -->
+<!-- /react-text --><li data-reactid="1294"><!-- react-text: 1295 -->关于
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486cf622d8.jpg" data-reactid="1296"/></li><!-- react-text: 1297 -->
+<!-- /react-text --><li data-reactid="1298"><!-- react-text: 1299 -->管理员登录
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486ef8446d.jpg" data-reactid="1300"/></li><!-- react-text: 1301 -->
+<!-- /react-text --><li data-reactid="1302"><!-- react-text: 1303 -->管理员界面
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884873f1e625.jpg" data-reactid="1304"/></li><!-- react-text: 1305 -->
+<!-- /react-text --></ul><!-- react-text: 1306 -->
+<!-- /react-text --><h1 id="总结与感谢" data-reactid="1307"><a href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E8%B0%A2" aria-hidden="true" data-reactid="1308"><span class="icon icon-link" data-reactid="1309"></span></a><!-- react-text: 1310 -->总结与感谢<!-- /react-text --></h1><!-- react-text: 1311 -->
+<!-- /react-text --><h2 id="总结" data-reactid="1312"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="1313"><span class="icon icon-link" data-reactid="1314"></span></a><!-- react-text: 1315 -->总结<!-- /react-text --></h2><!-- react-text: 1316 -->
+<!-- /react-text --><p data-reactid="1317">经过几个月的毕业设计，对我各方面的影响都很大，对此我体会颇多。虽然这次设计成品还存在着很多问题，但我从中学到了不少知识。在开发过程中遇到的问题不计其数，其中最令人感到头痛的是一些不容易注意到的小错误，例如在编写 Node 与 C 系列addon 代码片段时，需要对 C 系列语言有比较功底才能从容实现，但自己本人 c 系列语言功底并不扎实，所以编写程序得到的效果一直不能达到预想的效果，后来通过参考 node-opencv 代码才渐渐进行开发；开发一个大的系统的时候，不管是个人还是团队，必须作好需求分析，建立好数据库，如果需求分析不成功，那到后面是很难做下去的，本系统的开发就遇到这样的情况，以至做了很多无用功，经常全部从新部署。一个好的需求分析报告将给系统带来很大的惊喜，它会很大程度上减少程序员的负担。  系统完成在后，发现做事情不但要独立自主的完成任务，也要通过周围的朋友或是网络资料库等获取信息，只有大量的使用周围方便的活资源，而不只依赖与书本上的例子，才能得到更大的进步，做起事情来才有事半功倍的效果。  本次毕业设计是针对我们大学四年来所学知识而进行的一次全面性的检验，它涵盖的知识面广，涉及到多个领域，需要我们具有较高的综合知识水平及较强的解决问题的能力。同时也是对我们工作能力，团队合作精神的一次考验。通过这次设计，一方面让我更进一步的熟悉和掌握了JavaScript、C++语言以及更深入的了解了opencv 的使用和一整套建站部署过程。另一方面在动手能力上有了很大的提高，以前学的知识只是“知识”，而现在是将“知识”转化成自身的本领，全面提高了自身解决具体问题的能力。</p><!-- react-text: 1318 -->
+<!-- /react-text --><h2 id="感谢" data-reactid="1319"><a href="#%E6%84%9F%E8%B0%A2" aria-hidden="true" data-reactid="1320"><span class="icon icon-link" data-reactid="1321"></span></a><!-- react-text: 1322 -->感谢<!-- /react-text --></h2><!-- react-text: 1323 -->
+<!-- /react-text --><p data-reactid="1324">本论文是在杨老师悉心指导下完成的。从论文的选题，文献的查找到程序的设计，杨老师都给予了亲切的指导。在此深深感谢杨老师给予学生学业上的教导和生活上的关怀，老师严谨的治学态度和一丝不苟的工作作风给我极大的影响，不仅使我在静心完成论文的研究工作，而且也将勉励我今后刻苦学习和积极工作。同时本人对未知新理论的兴趣和积极探索，也很多来自于和导师交谈受到的启发。感谢我的父母和同学，他们的鼓励和支持是我踏实求学勤奋钻研的动力。大学四年时间是我人生的一个重要的阶段，在此期间，我所取得的每一滴进步无不得益于师长的教诲、朋友的帮助。为此，我要诚挚地向他们表达深深的谢意。</p><!-- react-text: 1325 -->
+<!-- /react-text --><h1 id="参考文献" data-reactid="1326"><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" aria-hidden="true" data-reactid="1327"><span class="icon icon-link" data-reactid="1328"></span></a><!-- react-text: 1329 -->参考文献<!-- /react-text --></h1><!-- react-text: 1330 -->
+<!-- /react-text --><p data-reactid="1331"><!-- react-text: 1332 -->[ 1 ] Chellappa R , Wilson C , Sirohey S. Human and machine rec2 ognition of faces: A survey. Proceedings of t he IEEE , 1995 , 83 (5) : 705-740<!-- /react-text --><br data-reactid="1333"/><!-- react-text: 1334 -->
+[ 2 ] Zhao W , Chellappa R , Rosenfeld A , Phillips P J. Face rec2 ognition : A literature survey. ACM Computation Survey , 2003 , 35 (4) : 399-458<!-- /react-text --><br data-reactid="1335"/><!-- react-text: 1336 -->
+[ 3 ] Li S Z , J ain A K. Handbook of Face Recognition. New York : Springer , 2005<!-- /react-text --><br data-reactid="1337"/><!-- react-text: 1338 -->
+[ 4 ] Zhou S , Chellappa R. Beyond a single still image : Face rec2 ognition from multiple still images and videos/ / Zhao W et al eds. Face Processing : Advanced Modeling and Met hods. New York : Academic Press , 2005: 1768-1828<!-- /react-text --><br data-reactid="1339"/><!-- react-text: 1340 -->
+[ 5 ] Shakhnarovich G , Fisher J W , Darrell T. Face recognition from long2term observations/ / Proceedings of t he European Conference on Computer Vision. Bari , 2002 : 851-868<!-- /react-text --><br data-reactid="1341"/><!-- react-text: 1342 -->
+[ 6 ] Liu X M , Chen T , Thornton S M. Eigenspace updating for non2stationary process and its application to face recognition. Pattern Recognition , 2003 , 36 (9) : 1945-1959<!-- /react-text --><br data-reactid="1343"/><!-- react-text: 1344 -->
+[ 7 ] Liu X M , Chen T. Video2based face recognition using adap2 tive hidden Markov models/ / Proceedings of t he IEEE Inter2 national Conference on Computer Vision and Pattern Recog2 nition. Madison , 2003 : 340-345<!-- /react-text --><br data-reactid="1345"/><!-- react-text: 1346 -->
+[ 8 ] Lee K C , Ho J , Yang M H , Kriegman D. Video2based face recognition using probabilistic appearance manifolds/ / Pro2 ceedings of t he International IEEE Conference on Computer Vision and Pattern Recognition. Madison , 2003 : 313-320<!-- /react-text --><br data-reactid="1347"/><!-- react-text: 1348 -->
+[ 9 ] Lee K C , Ho J , Yang M H , Kriegman D. Visual tracking and recognition using probabilistic appearance manifolds. Computer Vision and Image Understanding , 2005 , 99 ( 3) : 80-123<!-- /react-text --><br data-reactid="1349"/><!-- react-text: 1350 -->
+[ 10 ] Zhou S , Krueger V , Chellappa R. Probabilistic recognition of human faces from video. Computer Vision and Image Un2 derstanding , 2003 , 91 (1) : 2142245 [ 11 ] Zhou S , Chellappa R , Moghaddam B. Visual tracking and recognition using appearance2adaptive models in particle fil2 ters. IEEE Transactions on Image Processing , 2004 , 13：348-356<!-- /react-text --><br data-reactid="1351"/><!-- react-text: 1352 -->
+[ 11 ] Aggarwal G , Chowdhury A K R , Chellappa R. A system identification approach for video2based face recognition/ / Pro2 ceedings of t he IEEE International Conference on Pattern Recognition. Cambridge , 2004 : 232-249<!-- /react-text --><br data-reactid="1353"/><!-- react-text: 1354 -->
+[ 12 ] Arandjelovi’c O , Cipolla R. Face recognition from face motion manifolds using robust kernel resistor2average distance/ / Pro2 ceedings of t he IEEE Conference on Compute Vision and Pat2 ter Recognition workshop. Washington D. C , 2004 : 88-93<!-- /react-text --><br data-reactid="1355"/><!-- react-text: 1356 -->
+[ 13 ] Arandjelovi’c O , Shakhnarovich G , Fisher G , Cipolla R , Darrell T. Face recognition wit h image sets using manifold density divergence/ / Proceedings of t he IEEE Conference on Computer Vision and Pattern Recognition. San Diego , 2005 : 581-588<!-- /react-text --><br data-reactid="1357"/><!-- react-text: 1358 -->
+[ 14 ] Arandjelovi’c O , Cipolla R. A pose2wise linear illumination manifold model for face recognition using video. Computer Vision and Image Understanding , 2009 , 113 (1) : 113-125<!-- /react-text --><br data-reactid="1359"/><!-- react-text: 1360 -->
+[ 15 ] Yamaguchi O , Fukui K , Maeda K. Face recognition using temporal image sequence/ / Proceedings of t he IEEE Interna2 tional Conference on Automatic Face and Gesture Recogni2 tion. Nara , 1998 : 318-323
+[ 16 ] Fukui K , Yamaguchi O. Face recognition using multi2view2 point patterns for robot vision/ / Proceedings of t he Interna2 tional Symposium of Robotics Research. Siena , Italy , 2003 : 192-220<!-- /react-text --><br data-reactid="1361"/><!-- react-text: 1362 -->
+[ 17 ] Nishiyama M , Yamaguchi O , Fukui K. Face Recognition wit h t he multiple constrained mutual subspace met hod/ / Pro2 ceedings of t he 5t h International Conference on Audio2 and Video2Based Biometric Person Aut hentication. New York , 2005 : 71-80<!-- /react-text --><br data-reactid="1363"/><!-- react-text: 1364 -->
+[ 18 ] Li J W , Wang Y H , Tan T N. Video2based face recognition using a metric of average Euclidean distance/ / Proceedings of t he 5t h Chinese Conference on Biometric Recognition. Guan2 gzhou , China , 2004 : 224-232<!-- /react-text --><br data-reactid="1365"/><!-- react-text: 1366 -->
+[ 19 ] Li J W , Wang Y H , Tan T N. Video2based face recognition using eart h mover’s distance/ / Proceedings of t he Interna2 tional Conference on Audio2 and Video2based person Aut hen2 tication. New York , 2005 : 229-239<!-- /react-text --></p><!-- react-text: 1367 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="1368"></div><div class="paginator" data-reactid="1369"><a title="毕设周记4" class="prev" href="/毕设周记4" data-reactid="1370">Prev</a><a title="基于特征脸的人脸识别" class="next" href="/gp-tranaltion" data-reactid="1371">Next</a></div></div></main><footer data-reactid="1372"><div class="copyright" data-reactid="1373"><p data-reactid="1374"><!-- react-text: 1375 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="1376">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

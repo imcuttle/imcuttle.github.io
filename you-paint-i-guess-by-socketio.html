@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="283162641"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">基于socket.io实现的简易你画我猜</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-22T15:19:01+00:00" data-reactid="13">May 22, 2016 3:19 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="前言" data-reactid="16"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->前言<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->一直都想好好的学习运用<!-- /react-text --><code data-reactid="23">node</code><!-- react-text: 24 -->，一直都不知道要做什么东西，最近Java Web老师要求做个前端的应用，既然是前端应用，那肯定得是单页应用了，
+而且node很适用于高并发的实时应用，所以便选择<!-- /react-text --><code data-reactid="25">node</code><!-- react-text: 26 -->以及基于<!-- /react-text --><code data-reactid="27">node</code><!-- react-text: 28 -->的<!-- /react-text --><code data-reactid="29">socket.io</code></p><!-- react-text: 30 -->
+<!-- /react-text --><!-- react-text: 31 -->
+<!-- /react-text --><h1 id="演示地址" data-reactid="32"><a href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80" aria-hidden="true" data-reactid="33"><span class="icon icon-link" data-reactid="34"></span></a><!-- react-text: 35 -->演示地址<!-- /react-text --></h1><!-- react-text: 36 -->
+<!-- /react-text --><ul data-reactid="37"><!-- react-text: 38 -->
+<!-- /react-text --><li data-reactid="39"><!-- react-text: 40 -->实时画板+聊天室
+<!-- /react-text --><a href="http://paint.moyuyc.xyz/" data-reactid="41">Demo</a><!-- react-text: 42 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/paint_online" data-reactid="43">GitHub</a><!-- react-text: 44 -->  <!-- /react-text --></li><!-- react-text: 45 -->
+<!-- /react-text --><li data-reactid="46"><!-- react-text: 47 -->你画我猜+聊天室
+<!-- /react-text --><a href="http://paintgame.moyuyc.xyz/" data-reactid="48">Demo</a><!-- react-text: 49 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/paint_game" data-reactid="50">GitHub</a></li><!-- react-text: 51 -->
+<!-- /react-text --></ul><!-- react-text: 52 -->
+<!-- /react-text --><h1 id="解释" data-reactid="53"><a href="#%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="54"><span class="icon icon-link" data-reactid="55"></span></a><!-- react-text: 56 -->解释<!-- /react-text --></h1><!-- react-text: 57 -->
+<!-- /react-text --><h2 id="关于socketio" data-reactid="58"><a href="#%E5%85%B3%E4%BA%8Esocketio" aria-hidden="true" data-reactid="59"><span class="icon icon-link" data-reactid="60"></span></a><!-- react-text: 61 -->关于<!-- /react-text --><code data-reactid="62">Socket.IO</code></h2><!-- react-text: 63 -->
+<!-- /react-text --><blockquote data-reactid="64"><!-- react-text: 65 -->
+<!-- /react-text --><p data-reactid="66"><code data-reactid="67">Socket.IO</code><!-- react-text: 68 --> 是基于node实现的套接字前端后端数据交互的库，通过它的封装，使用者可以很方便的开发，而且支持<!-- /react-text --><code data-reactid="69">websocket</code><!-- react-text: 70 -->/<!-- /react-text --><code data-reactid="71">ajax 长轮询</code><!-- react-text: 72 -->等方法，兼容低版本浏览器。<!-- /react-text --></p><!-- react-text: 73 -->
+<!-- /react-text --></blockquote><!-- react-text: 74 -->
+<!-- /react-text --><p data-reactid="75"><!-- react-text: 76 -->基本使用如下：
+<!-- /react-text --><em data-reactid="77">服务器端</em></p><!-- react-text: 78 -->
+<!-- /react-text --><pre data-reactid="79"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="80"><span class="hljs-keyword" data-reactid="81">var</span><!-- react-text: 82 --> httpd = <!-- /react-text --><span class="hljs-built_in" data-reactid="83">require</span><!-- react-text: 84 -->(<!-- /react-text --><span class="hljs-string" data-reactid="85">&#x27;http&#x27;</span><!-- react-text: 86 -->).createServer(handler);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="87">var</span><!-- react-text: 88 --> io = <!-- /react-text --><span class="hljs-built_in" data-reactid="89">require</span><!-- react-text: 90 -->(<!-- /react-text --><span class="hljs-string" data-reactid="91">&#x27;socket.io&#x27;</span><!-- react-text: 92 -->).listen(httpd);
+<!-- /react-text --><span class="hljs-function" data-reactid="93"><span class="hljs-keyword" data-reactid="94">function</span><!-- react-text: 95 --> <!-- /react-text --><span class="hljs-title" data-reactid="96">handler</span><!-- react-text: 97 -->(<!-- /react-text --><span class="hljs-params" data-reactid="98">req,res</span><!-- react-text: 99 -->) <!-- /react-text --></span><!-- react-text: 100 -->{
+    
+}
+io.sockets.on(<!-- /react-text --><span class="hljs-string" data-reactid="101">&#x27;connection&#x27;</span><!-- react-text: 102 -->,<!-- /react-text --><span class="hljs-function" data-reactid="103"><span class="hljs-keyword" data-reactid="104">function</span><!-- react-text: 105 -->(<!-- /react-text --><span class="hljs-params" data-reactid="106">socket</span><!-- react-text: 107 -->)<!-- /react-text --></span><!-- react-text: 108 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="109">//新的客户端连接</span><!-- react-text: 110 -->
+    socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="111">&#x27;login&#x27;</span><!-- react-text: 112 -->,(name,age)=&gt;{
+        socket.emit(<!-- /react-text --><span class="hljs-string" data-reactid="113">&#x27;message&#x27;</span><!-- react-text: 114 -->,name+<!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;,&#x27;</span><!-- react-text: 116 -->+age);<!-- /react-text --><span class="hljs-comment" data-reactid="117">//触发客户端message事件</span><!-- react-text: 118 -->
+    })
+});<!-- /react-text --></code></pre><!-- react-text: 119 -->
+<!-- /react-text --><p data-reactid="120"><em data-reactid="121">客户端</em><!-- react-text: 122 -->
+引入<!-- /react-text --><code data-reactid="123">js</code><!-- react-text: 124 -->文件<!-- /react-text --></p><!-- react-text: 125 -->
+<!-- /react-text --><pre data-reactid="126"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="127"><span class="hljs-tag" data-reactid="128"><!-- react-text: 129 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="130">script</span><!-- react-text: 131 --> <!-- /react-text --><span class="hljs-attr" data-reactid="132">src</span><!-- react-text: 133 -->=<!-- /react-text --><span class="hljs-string" data-reactid="134">&quot;socket.io/socket.io.js&#x27;&gt;&lt;/script&gt;</span></span></code></pre><!-- react-text: 135 -->
+<!-- /react-text --><p data-reactid="136">进行交互</p><!-- react-text: 137 -->
+<!-- /react-text --><pre data-reactid="138"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="139"><span class="hljs-keyword" data-reactid="140">var</span><!-- react-text: 141 --> socket = io.connect();      <!-- /react-text --><span class="hljs-comment" data-reactid="142">//触发服务器端connection事件</span><!-- react-text: 143 -->
+socket.emit(<!-- /react-text --><span class="hljs-string" data-reactid="144">&#x27;login&#x27;</span><!-- react-text: 145 -->,<!-- /react-text --><span class="hljs-string" data-reactid="146">&#x27;moyu&#x27;</span><!-- react-text: 147 -->,<!-- /react-text --><span class="hljs-number" data-reactid="148">20</span><!-- react-text: 149 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="150">//触发服务器端login事件</span><!-- react-text: 151 -->
+socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="152">&#x27;message&#x27;</span><!-- react-text: 153 -->,<!-- /react-text --><span class="hljs-function" data-reactid="154"><span class="hljs-keyword" data-reactid="155">function</span><!-- react-text: 156 -->(<!-- /react-text --><span class="hljs-params" data-reactid="157">msg</span><!-- react-text: 158 -->)<!-- /react-text --></span><!-- react-text: 159 -->{
+    alert(msg);
+})<!-- /react-text --></code></pre><!-- react-text: 160 -->
+<!-- /react-text --><h2 id="关于排行榜" data-reactid="161"><a href="#%E5%85%B3%E4%BA%8E%E6%8E%92%E8%A1%8C%E6%A6%9C" aria-hidden="true" data-reactid="162"><span class="icon icon-link" data-reactid="163"></span></a><!-- react-text: 164 -->关于排行榜<!-- /react-text --></h2><!-- react-text: 165 -->
+<!-- /react-text --><p data-reactid="166">利用了js的匿名立即执行函数进行模块化包装</p><!-- react-text: 167 -->
+<!-- /react-text --><pre data-reactid="168"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="169"><span class="hljs-keyword" data-reactid="170">var</span><!-- react-text: 171 --> tops = (<!-- /react-text --><span class="hljs-function" data-reactid="172"><span class="hljs-keyword" data-reactid="173">function</span><!-- react-text: 174 --> (<!-- /react-text --><span class="hljs-params" data-reactid="175"></span><!-- react-text: 176 -->) <!-- /react-text --></span><!-- react-text: 177 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="178">/*
+     * _tops : 存放所有id,按照回答正确数倒序排列
+     * idmap : 一个hash map结构，key为id，value为名字与回答正确数
+     * n : 前n个，在toJSON调用
+     */</span><!-- react-text: 179 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="180">var</span><!-- react-text: 181 --> _tops = [],idmap={},n=<!-- /react-text --><span class="hljs-number" data-reactid="182">10</span><!-- react-text: 183 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="184">return</span><!-- react-text: 185 --> {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="186">set</span><!-- react-text: 187 --> : <!-- /react-text --><span class="hljs-function" data-reactid="188"><span class="hljs-keyword" data-reactid="189">function</span><!-- react-text: 190 --> (<!-- /react-text --><span class="hljs-params" data-reactid="191">id,name,v</span><!-- react-text: 192 -->) <!-- /react-text --></span><!-- react-text: 193 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="194">if</span><!-- react-text: 195 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="196">this</span><!-- react-text: 197 -->.isExists(id))<!-- /react-text --><span class="hljs-comment" data-reactid="198">//如果id已经存在则删除，防止出现重复id</span><!-- react-text: 199 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="200">this</span><!-- react-text: 201 -->.remove(id);
+            <!-- /react-text --><span class="hljs-comment" data-reactid="202">// 找到按照v从大到小所对应的位置</span><!-- react-text: 203 -->
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="204">var</span><!-- react-text: 205 --> i = _tops.findIndex(<!-- /react-text --><span class="hljs-function" data-reactid="206"><span class="hljs-params" data-reactid="207">x</span><!-- react-text: 208 -->=&gt;<!-- /react-text --></span><!-- react-text: 209 -->{<!-- /react-text --><span class="hljs-keyword" data-reactid="210">return</span><!-- react-text: 211 --> idmap[x].v&lt;v;});
+            i= i===<!-- /react-text --><span class="hljs-number" data-reactid="212">-1</span><!-- react-text: 213 --> ? _tops.length : i;
+            <!-- /react-text --><span class="hljs-comment" data-reactid="214">// id在i+1位置插入至_tops</span><!-- react-text: 215 -->
+            _tops.splice(i,<!-- /react-text --><span class="hljs-number" data-reactid="216">0</span><!-- react-text: 217 -->,id);
+            idmap[id] = {<!-- /react-text --><span class="hljs-attr" data-reactid="218">name</span><!-- react-text: 219 -->:name,<!-- /react-text --><span class="hljs-attr" data-reactid="220">v</span><!-- react-text: 221 -->:v};
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="222">isExists</span><!-- react-text: 223 --> : <!-- /react-text --><span class="hljs-function" data-reactid="224"><span class="hljs-keyword" data-reactid="225">function</span><!-- react-text: 226 --> (<!-- /react-text --><span class="hljs-params" data-reactid="227">id</span><!-- react-text: 228 -->) <!-- /react-text --></span><!-- react-text: 229 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="230">return</span><!-- react-text: 231 --> idmap[id]!=<!-- /react-text --><span class="hljs-literal" data-reactid="232">null</span><!-- react-text: 233 -->;
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="234">remove</span><!-- react-text: 235 --> : <!-- /react-text --><span class="hljs-function" data-reactid="236"><span class="hljs-keyword" data-reactid="237">function</span><!-- react-text: 238 --> (<!-- /react-text --><span class="hljs-params" data-reactid="239">id</span><!-- react-text: 240 -->) <!-- /react-text --></span><!-- react-text: 241 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="242">var</span><!-- react-text: 243 --> i = _tops.indexOf(id);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="244">if</span><!-- react-text: 245 -->(i!==<!-- /react-text --><span class="hljs-number" data-reactid="246">-1</span><!-- react-text: 247 -->) {
+                _tops.splice(i, <!-- /react-text --><span class="hljs-number" data-reactid="248">1</span><!-- react-text: 249 -->);
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="250">delete</span><!-- react-text: 251 --> idmap[id];
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="252">return</span><!-- react-text: 253 --> <!-- /react-text --><span class="hljs-literal" data-reactid="254">true</span><!-- react-text: 255 -->;
+            }
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="256">return</span><!-- react-text: 257 --> <!-- /react-text --><span class="hljs-literal" data-reactid="258">false</span><!-- react-text: 259 -->;
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="260">get</span><!-- react-text: 261 -->:<!-- /react-text --><span class="hljs-function" data-reactid="262"><span class="hljs-keyword" data-reactid="263">function</span><!-- react-text: 264 --> (<!-- /react-text --><span class="hljs-params" data-reactid="265">id</span><!-- react-text: 266 -->) <!-- /react-text --></span><!-- react-text: 267 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="268">return</span><!-- react-text: 269 --> idmap[id];
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="270">toJSON</span><!-- react-text: 271 -->:<!-- /react-text --><span class="hljs-function" data-reactid="272"><span class="hljs-keyword" data-reactid="273">function</span><!-- react-text: 274 --> (<!-- /react-text --><span class="hljs-params" data-reactid="275"></span><!-- react-text: 276 -->) <!-- /react-text --></span><!-- react-text: 277 -->{
+            <!-- /react-text --><span class="hljs-comment" data-reactid="278">// JSON.stringify方法会隐式调用该方法        </span><!-- react-text: 279 -->
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="280">var</span><!-- react-text: 281 --> arr = [];
+            _tops.every(<!-- /react-text --><span class="hljs-function" data-reactid="282"><!-- react-text: 283 -->(<!-- /react-text --><span class="hljs-params" data-reactid="284">x,i</span><!-- react-text: 285 -->)=&gt;<!-- /react-text --></span><!-- react-text: 286 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="287">if</span><!-- react-text: 288 -->(i&gt;=n) <!-- /react-text --><span class="hljs-keyword" data-reactid="289">return</span><!-- react-text: 290 --> <!-- /react-text --><span class="hljs-literal" data-reactid="291">false</span><!-- react-text: 292 -->;
+                arr.push({<!-- /react-text --><span class="hljs-attr" data-reactid="293">id</span><!-- react-text: 294 -->:x,<!-- /react-text --><span class="hljs-attr" data-reactid="295">v</span><!-- react-text: 296 -->:idmap[x].v,<!-- /react-text --><span class="hljs-attr" data-reactid="297">name</span><!-- react-text: 298 -->:idmap[x].name});
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="299">return</span><!-- react-text: 300 --> <!-- /react-text --><span class="hljs-literal" data-reactid="301">true</span><!-- react-text: 302 -->;
+            });
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="303">return</span><!-- react-text: 304 --> arr;
+        }
+    }
+}());<!-- /react-text --></code></pre><!-- react-text: 305 -->
+<!-- /react-text --><h2 id="关于bootstrap栅格" data-reactid="306"><a href="#%E5%85%B3%E4%BA%8Ebootstrap%E6%A0%85%E6%A0%BC" aria-hidden="true" data-reactid="307"><span class="icon icon-link" data-reactid="308"></span></a><!-- react-text: 309 -->关于<!-- /react-text --><code data-reactid="310">Bootstrap</code><!-- react-text: 311 -->栅格<!-- /react-text --></h2><!-- react-text: 312 -->
+<!-- /react-text --><pre data-reactid="313"><code class="hljs language-css" data-query="{}" data-lang="css" data-reactid="314"><span class="hljs-selector-class" data-reactid="315">.container</span><!-- react-text: 316 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="317">margin-right</span><!-- react-text: 318 -->: auto;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="319">margin-left</span><!-- react-text: 320 -->: auto;
+    //防止最外层的.row元素左右扩展15px
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="321">padding-left</span><!-- react-text: 322 -->: <!-- /react-text --><span class="hljs-number" data-reactid="323">15px</span><!-- react-text: 324 -->;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="325">padding-right</span><!-- react-text: 326 -->: <!-- /react-text --><span class="hljs-number" data-reactid="327">15px</span><!-- react-text: 328 -->;
+}
+
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="329">.col-3</span><!-- react-text: 330 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="331">width</span><!-- react-text: 332 -->: <!-- /react-text --><span class="hljs-number" data-reactid="333">30%</span><!-- react-text: 334 -->;
+}
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="335">.col-4</span><!-- react-text: 336 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="337">width</span><!-- react-text: 338 -->: <!-- /react-text --><span class="hljs-number" data-reactid="339">40%</span><!-- react-text: 340 -->;
+}
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="341">.col-9</span><!-- react-text: 342 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="343">width</span><!-- react-text: 344 -->: <!-- /react-text --><span class="hljs-number" data-reactid="345">90%</span><!-- react-text: 346 -->;
+}
+
+/.../
+
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="347">.row</span><!-- react-text: 348 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="349">/* 向外左右延伸15px */</span><!-- react-text: 350 -->
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="351">margin-right</span><!-- react-text: 352 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="353">15px</span><!-- react-text: 354 -->;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="355">margin-left</span><!-- react-text: 356 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="357">15px</span><!-- react-text: 358 -->;
+}
+<!-- /react-text --><span class="hljs-comment" data-reactid="359">/* 防止子元素为float,父元素的高度为0 */</span><!-- react-text: 360 -->
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="361">.row</span><span class="hljs-selector-pseudo" data-reactid="362">:before</span><!-- react-text: 363 -->,
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="364">.row</span><span class="hljs-selector-pseudo" data-reactid="365">:after</span><!-- react-text: 366 --> {
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="367">content</span><!-- react-text: 368 -->: <!-- /react-text --><span class="hljs-string" data-reactid="369">&quot; &quot;</span><!-- react-text: 370 -->;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="371">display</span><!-- react-text: 372 -->: table;
+}
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="373">.row</span><span class="hljs-selector-pseudo" data-reactid="374">:after</span><!-- react-text: 375 --> {
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="376">clear</span><!-- react-text: 377 -->: both;
+}
+
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="378">.col-1</span><!-- react-text: 379 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="380">.col-2</span><!-- react-text: 381 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="382">.col-3</span><!-- react-text: 383 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="384">.col-4</span><!-- react-text: 385 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="386">.col-5</span><!-- react-text: 387 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="388">.col-6</span><!-- react-text: 389 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="390">.col-7</span><!-- react-text: 391 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="392">.col-8</span><!-- react-text: 393 -->, <!-- /react-text --><span class="hljs-selector-class" data-reactid="394">.col-9</span><!-- react-text: 395 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="396">padding-left</span><!-- react-text: 397 -->: <!-- /react-text --><span class="hljs-number" data-reactid="398">15px</span><!-- react-text: 399 -->;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="400">padding-right</span><!-- react-text: 401 -->: <!-- /react-text --><span class="hljs-number" data-reactid="402">15px</span><!-- react-text: 403 -->;
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="404">float</span><!-- react-text: 405 -->:left;
+}<!-- /react-text --></code></pre><!-- react-text: 406 -->
+<!-- /react-text --><p data-reactid="407">HTML结构</p><!-- react-text: 408 -->
+<!-- /react-text --><pre data-reactid="409"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="410"><span class="hljs-tag" data-reactid="411"><!-- react-text: 412 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="413">main</span><!-- react-text: 414 --> <!-- /react-text --><span class="hljs-attr" data-reactid="415">class</span><!-- react-text: 416 -->=<!-- /react-text --><span class="hljs-string" data-reactid="417">&#x27;container&#x27;</span><!-- react-text: 418 -->&gt;<!-- /react-text --></span><!-- react-text: 419 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="420"><!-- react-text: 421 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="422">div</span><!-- react-text: 423 --> <!-- /react-text --><span class="hljs-attr" data-reactid="424">class</span><!-- react-text: 425 -->=<!-- /react-text --><span class="hljs-string" data-reactid="426">&#x27;row&#x27;</span><!-- react-text: 427 -->&gt;<!-- /react-text --></span><!-- react-text: 428 -->
+        <!-- /react-text --><span class="hljs-tag" data-reactid="429"><!-- react-text: 430 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="431">div</span><!-- react-text: 432 --> <!-- /react-text --><span class="hljs-attr" data-reactid="433">class</span><!-- react-text: 434 -->=<!-- /react-text --><span class="hljs-string" data-reactid="435">&#x27;col-8&#x27;</span><!-- react-text: 436 -->&gt;<!-- /react-text --></span><!-- react-text: 437 -->
+            <!-- /react-text --><span class="hljs-tag" data-reactid="438"><!-- react-text: 439 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="440">div</span><!-- react-text: 441 --> <!-- /react-text --><span class="hljs-attr" data-reactid="442">class</span><!-- react-text: 443 -->=<!-- /react-text --><span class="hljs-string" data-reactid="444">&#x27;row&#x27;</span><!-- react-text: 445 -->&gt;<!-- /react-text --></span><!-- react-text: 446 -->
+                <!-- /react-text --><span class="hljs-tag" data-reactid="447"><!-- react-text: 448 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="449">div</span><!-- react-text: 450 --> <!-- /react-text --><span class="hljs-attr" data-reactid="451">class</span><!-- react-text: 452 -->=<!-- /react-text --><span class="hljs-string" data-reactid="453">&#x27;col-6&#x27;</span><!-- react-text: 454 -->&gt;<!-- /react-text --></span><!-- react-text: 455 -->
+                    <!-- /react-text --><span class="hljs-tag" data-reactid="456"><!-- react-text: 457 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="458">p</span><!-- react-text: 459 -->&gt;<!-- /react-text --></span><!-- react-text: 460 -->col-6<!-- /react-text --><span class="hljs-tag" data-reactid="461"><!-- react-text: 462 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="463">p</span><!-- react-text: 464 -->&gt;<!-- /react-text --></span><!-- react-text: 465 -->
+                <!-- /react-text --><span class="hljs-tag" data-reactid="466"><!-- react-text: 467 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="468">div</span><!-- react-text: 469 -->&gt;<!-- /react-text --></span><!-- react-text: 470 -->
+                <!-- /react-text --><span class="hljs-tag" data-reactid="471"><!-- react-text: 472 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="473">div</span><!-- react-text: 474 --> <!-- /react-text --><span class="hljs-attr" data-reactid="475">class</span><!-- react-text: 476 -->=<!-- /react-text --><span class="hljs-string" data-reactid="477">&#x27;col-4&#x27;</span><!-- react-text: 478 -->&gt;<!-- /react-text --></span><!-- react-text: 479 -->
+                    <!-- /react-text --><span class="hljs-tag" data-reactid="480"><!-- react-text: 481 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="482">div</span><!-- react-text: 483 -->&gt;<!-- /react-text --></span><!-- react-text: 484 -->col-4<!-- /react-text --><span class="hljs-tag" data-reactid="485"><!-- react-text: 486 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="487">div</span><!-- react-text: 488 -->&gt;<!-- /react-text --></span><!-- react-text: 489 -->
+                <!-- /react-text --><span class="hljs-tag" data-reactid="490"><!-- react-text: 491 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="492">div</span><!-- react-text: 493 -->&gt;<!-- /react-text --></span><!-- react-text: 494 -->
+            <!-- /react-text --><span class="hljs-tag" data-reactid="495"><!-- react-text: 496 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="497">div</span><!-- react-text: 498 -->&gt;<!-- /react-text --></span><!-- react-text: 499 -->
+        <!-- /react-text --><span class="hljs-tag" data-reactid="500"><!-- react-text: 501 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="502">div</span><!-- react-text: 503 -->&gt;<!-- /react-text --></span><!-- react-text: 504 -->
+        <!-- /react-text --><span class="hljs-tag" data-reactid="505"><!-- react-text: 506 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="507">div</span><!-- react-text: 508 --> <!-- /react-text --><span class="hljs-attr" data-reactid="509">class</span><!-- react-text: 510 -->=<!-- /react-text --><span class="hljs-string" data-reactid="511">&#x27;col-2&#x27;</span><!-- react-text: 512 -->&gt;<!-- /react-text --></span><!-- react-text: 513 -->
+            <!-- /react-text --><span class="hljs-tag" data-reactid="514"><!-- react-text: 515 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="516">div</span><!-- react-text: 517 -->&gt;<!-- /react-text --></span><!-- react-text: 518 -->col-2<!-- /react-text --><span class="hljs-tag" data-reactid="519"><!-- react-text: 520 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="521">div</span><!-- react-text: 522 -->&gt;<!-- /react-text --></span><!-- react-text: 523 -->
+        <!-- /react-text --><span class="hljs-tag" data-reactid="524"><!-- react-text: 525 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="526">div</span><!-- react-text: 527 -->&gt;<!-- /react-text --></span><!-- react-text: 528 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="529"><!-- react-text: 530 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="531">div</span><!-- react-text: 532 -->&gt;<!-- /react-text --></span><!-- react-text: 533 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="534"><!-- react-text: 535 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="536">main</span><!-- react-text: 537 -->&gt;<!-- /react-text --></span></code></pre><!-- react-text: 538 -->
+<!-- /react-text --><h2 id="关于一栏（多栏）宽度固定，一栏自适应" data-reactid="539"><a href="#%E5%85%B3%E4%BA%8E%E4%B8%80%E6%A0%8F%EF%BC%88%E5%A4%9A%E6%A0%8F%EF%BC%89%E5%AE%BD%E5%BA%A6%E5%9B%BA%E5%AE%9A%EF%BC%8C%E4%B8%80%E6%A0%8F%E8%87%AA%E9%80%82%E5%BA%94" aria-hidden="true" data-reactid="540"><span class="icon icon-link" data-reactid="541"></span></a><!-- react-text: 542 -->关于一栏（多栏）宽度固定，一栏自适应<!-- /react-text --></h2><!-- react-text: 543 -->
+<!-- /react-text --><ul data-reactid="544"><!-- react-text: 545 -->
+<!-- /react-text --><li data-reactid="546"><a href="/htm/%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80.html" data-reactid="547">圣杯布局</a></li><!-- react-text: 548 -->
+<!-- /react-text --><li data-reactid="549"><a href="/htm/%E5%8F%8C%E9%A3%9E%E7%BF%BC.html" data-reactid="550">双飞翼</a></li><!-- react-text: 551 -->
+<!-- /react-text --></ul><!-- react-text: 552 -->
+<!-- /react-text --><h1 id="感受" data-reactid="553"><a href="#%E6%84%9F%E5%8F%97" aria-hidden="true" data-reactid="554"><span class="icon icon-link" data-reactid="555"></span></a><!-- react-text: 556 -->感受<!-- /react-text --></h1><!-- react-text: 557 -->
+<!-- /react-text --><p data-reactid="558"><!-- react-text: 559 -->...做单页应用真的需要挺大的心脏，而且需要较好的整体的架构，好在<!-- /react-text --><code data-reactid="560">socket.io</code><!-- react-text: 561 -->对websocket封装的不错，变成了面向消息的方式，代码结构相对更加清晰了些。
+...不敢想象用Java做这种实时单页应用后端会有多么的「拗口」
+最后推荐一个实时的更加优秀的游戏，<!-- /react-text --><a href="http://slither.io/" data-reactid="562">slithe</a></p><!-- react-text: 563 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="564"></div><div class="paginator" data-reactid="565"><a title="解决外网访问nodejs服务器（nginx反向代理）" class="prev" href="/nginx-reverse-proxy" data-reactid="566">Prev</a><a title="「项目拾遗」几个计算机图形学的前端程序" class="next" href="/some-fegl-programs" data-reactid="567">Next</a></div></div></main><footer data-reactid="568"><div class="copyright" data-reactid="569"><p data-reactid="570"><!-- react-text: 571 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="572">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

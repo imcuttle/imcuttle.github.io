@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-540541458"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">妈妈再也不用担心RD部署环境，影响FE开发了</h1><div class="post-info" data-reactid="12"><time datetime="2017-09-15T17:16:10+00:00" data-reactid="13">Sep 15, 2017 5:16 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="头痛" data-reactid="16"><a href="#%E5%A4%B4%E7%97%9B" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->头痛<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">erp这边rd用的编译型语言Java，每次发版代码都需要重新编译一下，然后才能生效。
+但就是这个编译重新载入的时间，经常会影响我们FE开发！
+破坏我们创作代码的热情！</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">于是为了解决该问题，基于birdV3的standup应运而生</p><!-- react-text: 24 -->
+<!-- /react-text --><h2 id="原理" data-reactid="25"><a href="#%E5%8E%9F%E7%90%86" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->原理<!-- /react-text --></h2><!-- react-text: 29 -->
+<!-- /react-text --><p data-reactid="30">首先了解一下BirdV3的基本原理</p><!-- react-text: 31 -->
+<!-- /react-text --><pre data-reactid="32"><code data-query="{}" data-lang="data-lang" data-reactid="33">Client(Browser)  --------&gt;    Bird    ---------&gt;   Remote Server 
+              1. client request     2. bird request
+              4. bird response      3. remote response
+                 &lt;--------            &lt;---------
+</code></pre><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><!-- react-text: 36 -->nodejs实现转发的代码 <!-- /react-text --><a href="https://github.com/imcuttle/simple-hot-reload-server/blob/master/src/helpers/forward-request.js" data-reactid="37">forward-request.js</a></p><!-- react-text: 38 -->
+<!-- /react-text --><p data-reactid="39">如上面的简单示意，通过Bird可以实现跨域的请求转发
+然后我们需要在 3 -&gt; 4 之间，加上一个拦截器(interceptor)的东西</p><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">通过拦截器，可以解决上面让我们头疼的问题，思路如下
+1. 如果这个请求（url）对应的响应是我们需要cache的，进入2，否则不进行拦截
+2. 如果对于remote response，我们认为它是服务器错误，则进入3，否则进入4
+3. 如果在cache中找到该请求（url）对应缓存的响应，则进行拦截！并且bird response响应缓存中的数据。否则不进行拦截
+4. 将remote response写入缓存中</p><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43"><!-- react-text: 44 -->这样当服务器出错时候，默认认为是 <!-- /react-text --><code data-reactid="45">statusCode &gt;= 400</code><!-- react-text: 46 -->，会把最新成功的数据给返回，这样本地就感受不到远端的崩溃了<!-- /react-text --></p><!-- react-text: 47 -->
+<!-- /react-text --><h2 id="使用" data-reactid="48"><a href="#%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="49"><span class="icon icon-link" data-reactid="50"></span></a><!-- react-text: 51 -->使用<!-- /react-text --></h2><!-- react-text: 52 -->
+<!-- /react-text --><p data-reactid="53">配置bird远程服务器配置</p><!-- react-text: 54 -->
+<!-- /react-text --><pre data-reactid="55"><code data-query="{}" data-lang="data-lang" data-reactid="56">module.exports = {
+    server: &#x27;http://sit-offer-web.dev.weiyun.baidu.com&#x27;,
+    plugin: &#x27;uuap2&#x27;,
+
+    useUser: &#x27;tangrui&#x27;,
+
+    users: {
+        tangrui: &#x27;tangrui7700&#x27;,
+    },
+
+    intercept: {
+        name: &#x27;standup&#x27;,
+        option: {
+            matcher: function (url) {
+                return url !== &#x27;/favicon.ico&#x27;;
+            },
+            checkIsBroken: function (res) {
+                return parseInt(res.statusCode, 10) &gt;= 400;
+            },
+            // 是否在程序结束时保存缓存
+            saveLastCache: true
+        }
+    },
+
+    reloginSeq: 35
+}
+</code></pre><!-- react-text: 57 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="58"></div><div class="paginator" data-reactid="59"><a title="Babel插件开发" class="prev" href="/dev-babel-plugin" data-reactid="60">Prev</a><a title="基于Mobx实现 数据 - Url 同步" class="next" href="/mobx-url-sync-decorator" data-reactid="61">Next</a></div></div></main><footer data-reactid="62"><div class="copyright" data-reactid="63"><p data-reactid="64"><!-- react-text: 65 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="66">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

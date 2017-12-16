@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-826304583"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">从零开始写Babel插件</h1><div class="post-info" data-reactid="12"><time datetime="2017-11-30T09:42:58+00:00" data-reactid="13">Nov 30, 2017 9:42 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16">在现代Web前端开发中，离不开JavaScript es6/7，而 ES6/7 中最常用的语法翻译当属 Babel 了。</p><!-- react-text: 17 -->
+<!-- /react-text --><p data-reactid="18">这篇文章将带读者从零开始开发一个自定义的Babel插件。</p><!-- react-text: 19 -->
+<!-- /react-text --><h2 id="babel是什么" data-reactid="20"><a href="#babel%E6%98%AF%E4%BB%80%E4%B9%88" aria-hidden="true" data-reactid="21"><span class="icon icon-link" data-reactid="22"></span></a><!-- react-text: 23 -->Babel是什么<!-- /react-text --></h2><!-- react-text: 24 -->
+<!-- /react-text --><p data-reactid="25"><!-- react-text: 26 -->Babel 使用 babylon 解析 JavaScript 代码，得到抽象语法树（Abstract Syntax Tree，后文简称 AST）。<!-- /react-text --><br data-reactid="27"/><!-- react-text: 28 -->
+同时也可以使用<!-- /react-text --><code data-reactid="29">babel-generator</code><!-- react-text: 30 -->，输入一个合法的 AST，还原成 JavaScript 代码<!-- /react-text --></p><!-- react-text: 31 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkKXk5xwPpo_reQHW3U3Y_yGF991?imageslim" width="434" height="98" data-reactid="32"/><!-- react-text: 33 -->
+<!-- /react-text --><p data-reactid="34">代码如下： </p><!-- react-text: 35 -->
+<!-- /react-text --><pre data-reactid="36"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="37"><!-- react-text: 38 -->cosnt babel = <!-- /react-text --><span class="hljs-built_in" data-reactid="39">require</span><!-- react-text: 40 -->(<!-- /react-text --><span class="hljs-string" data-reactid="41">&#x27;babel-core&#x27;</span><!-- react-text: 42 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="43">const</span><!-- react-text: 44 --> code = <!-- /react-text --><span class="hljs-string" data-reactid="45">`
+import e from &#x27;./where&#x27;
+const [ a, b, c ] = [ 1, 2, 3 ]
+`</span><!-- react-text: 46 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="47">const</span><!-- react-text: 48 --> { ast } = babel.transform(code, { <!-- /react-text --><span class="hljs-attr" data-reactid="49">ast</span><!-- react-text: 50 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="51">true</span><!-- react-text: 52 --> })
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="53">const</span><!-- react-text: 54 --> generate = <!-- /react-text --><span class="hljs-built_in" data-reactid="55">require</span><!-- react-text: 56 -->(<!-- /react-text --><span class="hljs-string" data-reactid="57">&#x27;babel-generator&#x27;</span><!-- react-text: 58 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="59">const</span><!-- react-text: 60 --> { <!-- /react-text --><span class="hljs-attr" data-reactid="61">code</span><!-- react-text: 62 -->: codeFromBabel } = generate(ast)<!-- /react-text --></code></pre><!-- react-text: 63 -->
+<!-- /react-text --><h3 id="ast" data-reactid="64"><a href="#ast" aria-hidden="true" data-reactid="65"><span class="icon icon-link" data-reactid="66"></span></a><!-- react-text: 67 -->AST<!-- /react-text --></h3><!-- react-text: 68 -->
+<!-- /react-text --><p data-reactid="69"><!-- react-text: 70 -->ast 在这是指将 JavaScript 代码进行解析得到的抽象语法树（数据结构）。<!-- /react-text --><br data-reactid="71"/><!-- react-text: 72 -->
+如代码<!-- /react-text --></p><!-- react-text: 73 -->
+<!-- /react-text --><pre data-reactid="74"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="75"><span class="hljs-keyword" data-reactid="76">const</span><!-- react-text: 77 --> key = <!-- /react-text --><span class="hljs-string" data-reactid="78">&#x27;value&#x27;</span></code></pre><!-- react-text: 79 -->
+<!-- /react-text --><p data-reactid="80"><!-- react-text: 81 -->解析产生的 AST 如下图所示
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Foe8OrdCEPOhQX4-VHbqkOtDruF9?imageslim" width="426" height="488" data-reactid="82"/></p><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84"><!-- react-text: 85 -->建议使用 <!-- /react-text --><a href="http://astexplorer.net/#/Z1exs6BWMq" data-reactid="86">AST Explorer</a><!-- react-text: 87 --> 在线预览 AST<!-- /react-text --></p><!-- react-text: 88 -->
+<!-- /react-text --><h2 id="plugin-和-preset" data-reactid="89"><a href="#plugin-%E5%92%8C-preset" aria-hidden="true" data-reactid="90"><span class="icon icon-link" data-reactid="91"></span></a><!-- react-text: 92 -->Plugin 和 Preset<!-- /react-text --></h2><!-- react-text: 93 -->
+<!-- /react-text --><p data-reactid="94">我们在使用 Babel 的时候，通常需要配置一些预设（presets）和插件（plugins）。
+如  </p><!-- react-text: 95 -->
+<!-- /react-text --><pre data-reactid="96"><code class="hljs language-json" data-query="{}" data-lang="json" data-reactid="97"><!-- react-text: 98 -->{
+  <!-- /react-text --><span class="hljs-attr" data-reactid="99">&quot;presets&quot;</span><!-- react-text: 100 -->: [<!-- /react-text --><span class="hljs-string" data-reactid="101">&quot;env&quot;</span><!-- react-text: 102 -->],
+  <!-- /react-text --><span class="hljs-attr" data-reactid="103">&quot;plugins&quot;</span><!-- react-text: 104 -->: [<!-- /react-text --><span class="hljs-string" data-reactid="105">&quot;async-to-generator&quot;</span><!-- react-text: 106 -->]
+}<!-- /react-text --></code></pre><!-- react-text: 107 -->
+<!-- /react-text --><p data-reactid="108"><!-- react-text: 109 -->其实，preset是一堆plugin的结合，那么plugin又是什么呢？<!-- /react-text --><br data-reactid="110"/><!-- react-text: 111 -->
+如下图，plugin 会转换 AST，对 AST 进行处理，从而也能够影响到产生出来的 JS Code。<!-- /react-text --></p><!-- react-text: 112 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmBuevqTrAt8VApb-bnWygS6cwrK?imageslim" width="489" height="114" data-reactid="113"/><!-- react-text: 114 -->
+<!-- /react-text --><p data-reactid="115">在后文中学习了开发 Babel 插件后，将阐述一下 Babel plugin 和 preset 的执行过程和顺序。</p><!-- react-text: 116 -->
+<!-- /react-text --><h2 id="开发-babel-插件" data-reactid="117"><a href="#%E5%BC%80%E5%8F%91-babel-%E6%8F%92%E4%BB%B6" aria-hidden="true" data-reactid="118"><span class="icon icon-link" data-reactid="119"></span></a><!-- react-text: 120 -->开发 Babel 插件<!-- /react-text --></h2><!-- react-text: 121 -->
+<!-- /react-text --><p data-reactid="122">了解了 Babel 插件的概念后，让我们动手撸一个 Babel 插件吧！  </p><!-- react-text: 123 -->
+<!-- /react-text --><h3 id="情景再现" data-reactid="124"><a href="#%E6%83%85%E6%99%AF%E5%86%8D%E7%8E%B0" aria-hidden="true" data-reactid="125"><span class="icon icon-link" data-reactid="126"></span></a><!-- react-text: 127 -->情景再现<!-- /react-text --></h3><!-- react-text: 128 -->
+<!-- /react-text --><p data-reactid="129">在使用构建工具 Webpack 开发大型项目的时候，我们可能通常需要 import 一大串依赖</p><!-- react-text: 130 -->
+<!-- /react-text --><pre data-reactid="131"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="132"><span class="hljs-keyword" data-reactid="133">import</span><!-- react-text: 134 --> a <!-- /react-text --><span class="hljs-keyword" data-reactid="135">from</span><!-- react-text: 136 --> <!-- /react-text --><span class="hljs-string" data-reactid="137">&#x27;a&#x27;</span><!-- react-text: 138 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="139">import</span><!-- react-text: 140 --> b <!-- /react-text --><span class="hljs-keyword" data-reactid="141">from</span><!-- react-text: 142 --> <!-- /react-text --><span class="hljs-string" data-reactid="143">&#x27;b&#x27;</span><!-- react-text: 144 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="145">import</span><!-- react-text: 146 --> c <!-- /react-text --><span class="hljs-keyword" data-reactid="147">from</span><!-- react-text: 148 --> <!-- /react-text --><span class="hljs-string" data-reactid="149">&#x27;c&#x27;</span><!-- react-text: 150 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="151">// ...</span><!-- react-text: 152 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="153">// code here</span></code></pre><!-- react-text: 154 -->
+<!-- /react-text --><p data-reactid="155"><!-- react-text: 156 -->但是在开发的逻辑中可能只需要用到其中的一丢丢依赖，比如 <!-- /react-text --><code data-reactid="157">a</code><!-- react-text: 158 -->，那么依赖<!-- /react-text --><code data-reactid="159">b</code><!-- react-text: 160 --> <!-- /react-text --><code data-reactid="161">c</code><!-- react-text: 162 --> 都是“无效”的依赖。<!-- /react-text --></p><!-- react-text: 163 -->
+<!-- /react-text --><p data-reactid="164"><strong data-reactid="165">注意：</strong><!-- react-text: 166 --> 无效只是相对而言的，因为在 <!-- /react-text --><code data-reactid="167">&#x27;b&#x27;, &#x27;c&#x27;</code><!-- react-text: 168 --> 依赖中可能会执行一些副作用的逻辑。如设置全局变量，环境变量，做些初始化工作...<!-- /react-text --></p><!-- react-text: 169 -->
+<!-- /react-text --><p data-reactid="170"><!-- react-text: 171 -->在优化项目的时候，就需要考虑到去除掉无效的 <!-- /react-text --><code data-reactid="172">import</code><!-- react-text: 173 --> 语句了，这样可以一定程度上加快程序执行速度，缩小打包出来的 bundle 大小。<!-- /react-text --></p><!-- react-text: 174 -->
+<!-- /react-text --><h3 id="开发插件！" data-reactid="175"><a href="#%E5%BC%80%E5%8F%91%E6%8F%92%E4%BB%B6%EF%BC%81" aria-hidden="true" data-reactid="176"><span class="icon icon-link" data-reactid="177"></span></a><!-- react-text: 178 -->开发插件！<!-- /react-text --></h3><!-- react-text: 179 -->
+<!-- /react-text --><p data-reactid="180">不想偷懒的墨鱼不是好程序员！对于上面的问题，可以通过开发 Babel 插件来实现，减少我们的人力工作量。</p><!-- react-text: 181 -->
+<!-- /react-text --><p data-reactid="182"><strong data-reactid="183">程序思路</strong><!-- react-text: 184 -->
+1. 根据 <!-- /react-text --><code data-reactid="185">import ...</code><!-- react-text: 186 --> 语法，得到 imported 变量名集合<!-- /react-text --><br data-reactid="187"/><!-- react-text: 188 -->
+2. 过滤掉使用过的 imported 变量名<!-- /react-text --><br data-reactid="189"/><!-- react-text: 190 -->
+3. 移除没有使用到的 <!-- /react-text --><code data-reactid="191">import ...</code><!-- react-text: 192 --> 语句<!-- /react-text --></p><!-- react-text: 193 -->
+<!-- /react-text --><p data-reactid="194">思路总是很简单，但只有真正实现过的人才知道里面的具体种种。</p><!-- react-text: 195 -->
+<!-- /react-text --><p data-reactid="196">Babel 插件返回一个 function ，入参为 babel 对象，返回 Object。</p><!-- react-text: 197 -->
+<!-- /react-text --><p data-reactid="198"><!-- react-text: 199 -->其中 <!-- /react-text --><code data-reactid="200">pre</code><!-- react-text: 201 -->, <!-- /react-text --><code data-reactid="202">post</code><!-- react-text: 203 --> 分别在进入/离开 AST 的时候触发，所以一般分别用来做初始化/删除对象的操作<!-- /react-text --></p><!-- react-text: 204 -->
+<!-- /react-text --><pre data-reactid="205"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="206"><span class="hljs-built_in" data-reactid="207">module</span><!-- react-text: 208 -->.exports = <!-- /react-text --><span class="hljs-function" data-reactid="209"><!-- react-text: 210 -->(<!-- /react-text --><span class="hljs-params" data-reactid="211">babel</span><!-- react-text: 212 -->) =&gt;<!-- /react-text --></span><!-- react-text: 213 --> {
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="214">return</span><!-- react-text: 215 --> {
+    pre(path) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="216">this</span><!-- react-text: 217 -->.runtimeData = {}
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="218">visitor</span><!-- react-text: 219 -->: {},
+    post(path) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="220">delete</span><!-- react-text: 221 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="222">this</span><!-- react-text: 223 -->.runtimeData
+    }
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 224 -->
+<!-- /react-text --><p data-reactid="225">然后是 visitor 访问者对象。</p><!-- react-text: 226 -->
+<!-- /react-text --><p data-reactid="227"><!-- react-text: 228 -->先看个简单的例子：<!-- /react-text --><br data-reactid="229"/><!-- react-text: 230 -->
+如需要将如下代码中的 x 变量重命名为 y<!-- /react-text --></p><!-- react-text: 231 -->
+<!-- /react-text --><pre data-reactid="232"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="233"><span class="hljs-keyword" data-reactid="234">const</span><!-- react-text: 235 --> x = <!-- /react-text --><span class="hljs-string" data-reactid="236">&#x27;x&#x27;</span><!-- react-text: 237 -->
+alert(x)<!-- /react-text --></code></pre><!-- react-text: 238 -->
+<!-- /react-text --><p data-reactid="239">visitor 书写为：</p><!-- react-text: 240 -->
+<!-- /react-text --><pre data-reactid="241"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="242"><span class="hljs-keyword" data-reactid="243">const</span><!-- react-text: 244 --> visitor = {
+    Identifier(path, data) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="245">if</span><!-- react-text: 246 --> (path.node.name === <!-- /react-text --><span class="hljs-string" data-reactid="247">&#x27;x&#x27;</span><!-- react-text: 248 -->) {
+            path.node.name = <!-- /react-text --><span class="hljs-string" data-reactid="249">&#x27;y&#x27;</span><!-- react-text: 250 -->
+        }
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 251 -->
+<!-- /react-text --><p data-reactid="252">输出为：</p><!-- react-text: 253 -->
+<!-- /react-text --><pre data-reactid="254"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="255"><span class="hljs-keyword" data-reactid="256">const</span><!-- react-text: 257 --> y = <!-- /react-text --><span class="hljs-string" data-reactid="258">&#x27;x&#x27;</span><!-- react-text: 259 -->
+alert(y)<!-- /react-text --></code></pre><!-- react-text: 260 -->
+<!-- /react-text --><p data-reactid="261"><!-- react-text: 262 -->可以看出，visitor 是 Object 类型，其中的 key 对应 AST 中的各个节点的 type，<!-- /react-text --><code data-reactid="263">path.node</code><!-- react-text: 264 --> 是 AST 中的节点数据。<!-- /react-text --></p><!-- react-text: 265 -->
+<!-- /react-text --><p data-reactid="266">简单了解 visitor 后，开始我们的开发吧！</p><!-- react-text: 267 -->
+<!-- /react-text --><h4 id="得到-imported-变量名集合" data-reactid="268"><a href="#%E5%BE%97%E5%88%B0-imported-%E5%8F%98%E9%87%8F%E5%90%8D%E9%9B%86%E5%90%88" aria-hidden="true" data-reactid="269"><span class="icon icon-link" data-reactid="270"></span></a><!-- react-text: 271 -->得到 imported 变量名集合<!-- /react-text --></h4><!-- react-text: 272 -->
+<!-- /react-text --><p data-reactid="273"><!-- react-text: 274 -->我们需要关心 <!-- /react-text --><code data-reactid="275">import</code><!-- react-text: 276 --> 语句有：<!-- /react-text --></p><!-- react-text: 277 -->
+<!-- /react-text --><pre data-reactid="278"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="279"><span class="hljs-keyword" data-reactid="280">import</span><!-- react-text: 281 --> lodash <!-- /react-text --><span class="hljs-keyword" data-reactid="282">from</span><!-- react-text: 283 --> <!-- /react-text --><span class="hljs-string" data-reactid="284">&#x27;loadsh&#x27;</span><!-- react-text: 285 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="286">import</span><!-- react-text: 287 --> { extend, cloneDeep <!-- /react-text --><span class="hljs-keyword" data-reactid="288">as</span><!-- react-text: 289 --> clone } <!-- /react-text --><span class="hljs-keyword" data-reactid="290">from</span><!-- react-text: 291 --> <!-- /react-text --><span class="hljs-string" data-reactid="292">&#x27;lodash&#x27;</span></code></pre><!-- react-text: 293 -->
+<!-- /react-text --><p data-reactid="294"><!-- react-text: 295 -->而对于 <!-- /react-text --><code data-reactid="296">import &#x27;babel-polyfill&#x27;</code><!-- react-text: 297 --> 语句，则不关心。<!-- /react-text --></p><!-- react-text: 298 -->
+<!-- /react-text --><p data-reactid="299"><!-- react-text: 300 -->以 <!-- /react-text --><code data-reactid="301">import { extend, cloneDeep as clone } from &#x27;lodash&#x27;</code><!-- react-text: 302 --> 为例，得到的 AST 为：
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmoMJFEwtRgN9pPLZeQW2-wmuFC-?imageslim" width="475" height="329" data-reactid="303"/></p><!-- react-text: 304 -->
+<!-- /react-text --><p data-reactid="305"><!-- react-text: 306 -->其中的数组 <!-- /react-text --><code data-reactid="307">specifiers</code><!-- react-text: 308 --> 为：
+<!-- /react-text --><img src="https://i.loli.net/2017/11/30/5a201ece80d93.jpg" width="356" height="505" data-reactid="309"/></p><!-- react-text: 310 -->
+<!-- /react-text --><p data-reactid="311"><!-- react-text: 312 -->所以我们只需要得到 <!-- /react-text --><code data-reactid="313">specifiers</code><!-- react-text: 314 --> 中的 <!-- /react-text --><code data-reactid="315">local.name</code><!-- react-text: 316 --> 即可，单为了后续对该 AST 结点进行操作(删除)，所以也需要存储结点信息，如下代码：<!-- /react-text --></p><!-- react-text: 317 -->
+<!-- /react-text --><pre data-reactid="318"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="319"><span class="hljs-function" data-reactid="320"><span class="hljs-keyword" data-reactid="321">function</span><!-- react-text: 322 --> <!-- /react-text --><span class="hljs-title" data-reactid="323">getSpecifierIdentifiers</span><!-- react-text: 324 -->(<!-- /react-text --><span class="hljs-params" data-reactid="325">specifiers = [], withPath = false</span><!-- react-text: 326 -->) <!-- /react-text --></span><!-- react-text: 327 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="328">const</span><!-- react-text: 329 --> collection = []
+  <!-- /react-text --><span class="hljs-function" data-reactid="330"><span class="hljs-keyword" data-reactid="331">function</span><!-- react-text: 332 --> <!-- /react-text --><span class="hljs-title" data-reactid="333">loop</span><!-- react-text: 334 -->(<!-- /react-text --><span class="hljs-params" data-reactid="335">path, index</span><!-- react-text: 336 -->) <!-- /react-text --></span><!-- react-text: 337 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="338">const</span><!-- react-text: 339 --> node = path.node
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="340">const</span><!-- react-text: 341 --> item = { path, <!-- /react-text --><span class="hljs-attr" data-reactid="342">name</span><!-- react-text: 343 -->: node.local.name }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="344">switch</span><!-- react-text: 345 --> (node.type) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="346">case</span><!-- react-text: 347 --> <!-- /react-text --><span class="hljs-string" data-reactid="348">&#x27;ImportDefaultSpecifier&#x27;</span><!-- react-text: 349 -->:
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="350">case</span><!-- react-text: 351 --> <!-- /react-text --><span class="hljs-string" data-reactid="352">&#x27;ImportSpecifier&#x27;</span><!-- react-text: 353 -->:
+        collection.push(item)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="354">break</span><!-- react-text: 355 -->;
+    }
+  }
+  specifiers.forEach(loop)
+
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="356">return</span><!-- react-text: 357 --> collection
+}<!-- /react-text --></code></pre><!-- react-text: 358 -->
+<!-- /react-text --><p data-reactid="359">以上代码将返回 </p><!-- react-text: 360 -->
+<!-- /react-text --><pre data-reactid="361"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="362"><!-- react-text: 363 -->[
+  { <!-- /react-text --><span class="hljs-attr" data-reactid="364">path</span><!-- react-text: 365 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="366">name</span><!-- react-text: 367 -->: <!-- /react-text --><span class="hljs-string" data-reactid="368">&#x27;extend&#x27;</span><!-- react-text: 369 --> },
+  { <!-- /react-text --><span class="hljs-attr" data-reactid="370">path</span><!-- react-text: 371 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="372">name</span><!-- react-text: 373 -->: <!-- /react-text --><span class="hljs-string" data-reactid="374">&#x27;clone&#x27;</span><!-- react-text: 375 --> }
+]<!-- /react-text --></code></pre><!-- react-text: 376 -->
+<!-- /react-text --><p data-reactid="377"><!-- react-text: 378 -->得到该条 <!-- /react-text --><code data-reactid="379">import</code><!-- react-text: 380 --> 语句的引入的变量数组后，还需要存储一份 <!-- /react-text --><code data-reactid="381">import</code><!-- react-text: 382 --> 语句的 NodePath，为了后续操作(删除)<!-- /react-text --></p><!-- react-text: 383 -->
+<!-- /react-text --><pre data-reactid="384"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="385"><!-- react-text: 386 -->{
+  <!-- /react-text --><span class="hljs-string" data-reactid="387">&#x27;extend&#x27;</span><!-- react-text: 388 -->: {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="389">parent</span><!-- react-text: 390 -->: path, <!-- /react-text --><span class="hljs-comment" data-reactid="391">// `import` 语句的 NodePath</span><!-- react-text: 392 -->
+    children: [
+      { <!-- /react-text --><span class="hljs-attr" data-reactid="393">path</span><!-- react-text: 394 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="395">name</span><!-- react-text: 396 -->: <!-- /react-text --><span class="hljs-string" data-reactid="397">&#x27;extend&#x27;</span><!-- react-text: 398 --> },
+      { <!-- /react-text --><span class="hljs-attr" data-reactid="399">path</span><!-- react-text: 400 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="401">name</span><!-- react-text: 402 -->: <!-- /react-text --><span class="hljs-string" data-reactid="403">&#x27;clone&#x27;</span><!-- react-text: 404 --> }
+    ],
+    <!-- /react-text --><span class="hljs-attr" data-reactid="405">data</span><!-- react-text: 406 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="407">path</span><!-- react-text: 408 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="409">name</span><!-- react-text: 410 -->: <!-- /react-text --><span class="hljs-string" data-reactid="411">&#x27;extend&#x27;</span><!-- react-text: 412 --> }
+  },
+  <!-- /react-text --><span class="hljs-string" data-reactid="413">&#x27;clone&#x27;</span><!-- react-text: 414 -->: {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="415">parent</span><!-- react-text: 416 -->: path,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="417">children</span><!-- react-text: 418 -->: [
+      { <!-- /react-text --><span class="hljs-attr" data-reactid="419">path</span><!-- react-text: 420 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="421">name</span><!-- react-text: 422 -->: <!-- /react-text --><span class="hljs-string" data-reactid="423">&#x27;extend&#x27;</span><!-- react-text: 424 --> },
+      { <!-- /react-text --><span class="hljs-attr" data-reactid="425">path</span><!-- react-text: 426 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="427">name</span><!-- react-text: 428 -->: <!-- /react-text --><span class="hljs-string" data-reactid="429">&#x27;clone&#x27;</span><!-- react-text: 430 --> }
+    ],
+    <!-- /react-text --><span class="hljs-attr" data-reactid="431">data</span><!-- react-text: 432 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="433">path</span><!-- react-text: 434 -->: NodePath, <!-- /react-text --><span class="hljs-attr" data-reactid="435">name</span><!-- react-text: 436 -->: <!-- /react-text --><span class="hljs-string" data-reactid="437">&#x27;clone&#x27;</span><!-- react-text: 438 --> }
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 439 -->
+<!-- /react-text --><h4 id="去除使用过的-imported-变量名" data-reactid="440"><a href="#%E5%8E%BB%E9%99%A4%E4%BD%BF%E7%94%A8%E8%BF%87%E7%9A%84-imported-%E5%8F%98%E9%87%8F%E5%90%8D" aria-hidden="true" data-reactid="441"><span class="icon icon-link" data-reactid="442"></span></a><!-- react-text: 443 -->去除使用过的 imported 变量名<!-- /react-text --></h4><!-- react-text: 444 -->
+<!-- /react-text --><p data-reactid="445"><!-- react-text: 446 -->在去除使用过的 imported 变量名之前，需要明确一点：<!-- /react-text --><br data-reactid="447"/><!-- react-text: 448 -->
+在 ES6 标准中，import 中定义的变量名是不能被重新定义的，如下代码是不被允许的。<!-- /react-text --></p><!-- react-text: 449 -->
+<!-- /react-text --><pre data-reactid="450"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="451"><span class="hljs-keyword" data-reactid="452">import</span><!-- react-text: 453 --> _ <!-- /react-text --><span class="hljs-keyword" data-reactid="454">from</span><!-- react-text: 455 --> <!-- /react-text --><span class="hljs-string" data-reactid="456">&#x27;lodash&#x27;</span><!-- react-text: 457 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="458">const</span><!-- react-text: 459 --> _ = <!-- /react-text --><span class="hljs-string" data-reactid="460">&#x27;hello&#x27;</span></code></pre><!-- react-text: 461 -->
+<!-- /react-text --><p data-reactid="462"><!-- react-text: 463 -->那么什么情况下 <!-- /react-text --><code data-reactid="464">extend</code><!-- react-text: 465 --> 是被使用的呢？<!-- /react-text --></p><!-- react-text: 466 -->
+<!-- /react-text --><pre data-reactid="467"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="468"><!-- react-text: 469 -->extend = <!-- /react-text --><span class="hljs-string" data-reactid="470">&#x27;extend&#x27;</span><!-- react-text: 471 -->
+[ extend ]
+{ <!-- /react-text --><span class="hljs-attr" data-reactid="472">key</span><!-- react-text: 473 -->: extend }
+extend - <!-- /react-text --><span class="hljs-number" data-reactid="474">2</span><!-- react-text: 475 -->
+extend / <!-- /react-text --><span class="hljs-number" data-reactid="476">2</span><!-- react-text: 477 -->
+extend &gt; <!-- /react-text --><span class="hljs-number" data-reactid="478">2</span><!-- react-text: 479 -->
+extend &lt;= <!-- /react-text --><span class="hljs-number" data-reactid="480">2</span><!-- react-text: 481 -->
+extend[<!-- /react-text --><span class="hljs-string" data-reactid="482">&#x27;key&#x27;</span><!-- react-text: 483 -->]()
+extend.key = <!-- /react-text --><span class="hljs-number" data-reactid="484">233</span><!-- react-text: 485 -->
+extend.key &gt; <!-- /react-text --><span class="hljs-number" data-reactid="486">233</span><!-- react-text: 487 -->
+&lt;extend /&gt;
+<!-- /react-text --><span class="xml" data-reactid="488"><span class="hljs-tag" data-reactid="489"><!-- react-text: 490 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="491">A</span><!-- react-text: 492 --> <!-- /react-text --><span class="hljs-attr" data-reactid="493">data</span><!-- react-text: 494 -->=<!-- /react-text --><span class="hljs-string" data-reactid="495">{extend}</span><!-- react-text: 496 --> /&gt;<!-- /react-text --></span><!-- react-text: 497 -->
+// ...<!-- /react-text --></span></code></pre><!-- react-text: 498 -->
+<!-- /react-text --><p data-reactid="499"><!-- react-text: 500 -->情况太多了 😢
+既然正面列举被使用的情况比较复杂，那何不逆向思维，考虑 <!-- /react-text --><code data-reactid="501">extend</code><!-- react-text: 502 --> 没被使用的情况呢？<!-- /react-text --></p><!-- react-text: 503 -->
+<!-- /react-text --><pre data-reactid="504"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="505"><span class="hljs-keyword" data-reactid="506">const</span><!-- react-text: 507 --> extend = <!-- /react-text --><span class="hljs-string" data-reactid="508">&#x27;value&#x27;</span><!-- react-text: 509 -->
+{ <!-- /react-text --><span class="hljs-attr" data-reactid="510">extend</span><!-- react-text: 511 -->: <!-- /react-text --><span class="hljs-string" data-reactid="512">&#x27;value&#x27;</span><!-- react-text: 513 --> }
+ref.extend
+<!-- /react-text --><span class="hljs-class" data-reactid="514"><span class="hljs-keyword" data-reactid="515">class</span><!-- react-text: 516 --> <!-- /react-text --><span class="hljs-title" data-reactid="517">A</span><!-- react-text: 518 --> <!-- /react-text --></span><!-- react-text: 519 -->{ 
+  extend() {}
+  extend = <!-- /react-text --><span class="hljs-number" data-reactid="520">233</span><!-- react-text: 521 -->
+}
+&lt;Component extend={<!-- /react-text --><span class="hljs-number" data-reactid="522">233</span><!-- react-text: 523 -->} /&gt;<!-- /react-text --></code></pre><!-- react-text: 524 -->
+<!-- /react-text --><p data-reactid="525">果然情况就好多了嘛 😄</p><!-- react-text: 526 -->
+<!-- /react-text --><p data-reactid="527">于是，去除使用过的 imported 变量名也可以欢快地完成啦！</p><!-- react-text: 528 -->
+<!-- /react-text --><h4 id="移除没有使用到的-import--语句" data-reactid="529"><a href="#%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84-import--%E8%AF%AD%E5%8F%A5" aria-hidden="true" data-reactid="530"><span class="icon icon-link" data-reactid="531"></span></a><!-- react-text: 532 -->移除没有使用到的 <!-- /react-text --><code data-reactid="533">import ...</code><!-- react-text: 534 --> 语句<!-- /react-text --></h4><!-- react-text: 535 -->
+<!-- /react-text --><ol data-reactid="536"><!-- react-text: 537 -->
+<!-- /react-text --><li data-reactid="538">遍历最终得到的没有使用到变量集合 A；</li><!-- react-text: 539 -->
+<!-- /react-text --><li data-reactid="540"><!-- react-text: 541 -->如果 item 中的 <!-- /react-text --><code data-reactid="542">children</code><!-- react-text: 543 --> 中每一个 <!-- /react-text --><code data-reactid="544">name</code><!-- react-text: 545 --> 都存在于 A 中，删除 <!-- /react-text --><code data-reactid="546">item.parent</code><!-- react-text: 547 --> 结点，否则只删除 <!-- /react-text --><code data-reactid="548">item.data.path</code><!-- react-text: 549 --> 结点；<!-- /react-text --></li><!-- react-text: 550 -->
+<!-- /react-text --></ol><!-- react-text: 551 -->
+<!-- /react-text --><h3 id="打完收工！" data-reactid="552"><a href="#%E6%89%93%E5%AE%8C%E6%94%B6%E5%B7%A5%EF%BC%81" aria-hidden="true" data-reactid="553"><span class="icon icon-link" data-reactid="554"></span></a><!-- react-text: 555 -->打完收工！<!-- /react-text --></h3><!-- react-text: 556 -->
+<!-- /react-text --><p data-reactid="557">完成了上面一系列的分析后，得到的最终插件代码大概这个样子：</p><!-- react-text: 558 -->
+<!-- /react-text --><pre data-reactid="559"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="560"><span class="hljs-built_in" data-reactid="561">module</span><!-- react-text: 562 -->.exports = {
+  pre() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="563">this</span><!-- react-text: 564 -->.runtimeData = {}
+  }
+  visitor: {
+    ImportDeclaration(path, data) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="565">const</span><!-- react-text: 566 --> locals = getSpecImport(path);
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="567">if</span><!-- react-text: 568 --> (locals) {
+        locals.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="569"><!-- react-text: 570 -->(<!-- /react-text --><span class="hljs-params" data-reactid="571">pathData, index, all</span><!-- react-text: 572 -->) =&gt;<!-- /react-text --></span><!-- react-text: 573 --> {
+          <!-- /react-text --><span class="hljs-keyword" data-reactid="574">const</span><!-- react-text: 575 --> {name} = pathData
+          <!-- /react-text --><span class="hljs-keyword" data-reactid="576">this</span><!-- react-text: 577 -->.runtimeData[name] = {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="578">parent</span><!-- react-text: 579 -->: path,
+            <!-- /react-text --><span class="hljs-attr" data-reactid="580">children</span><!-- react-text: 581 -->: all,
+            <!-- /react-text --><span class="hljs-attr" data-reactid="582">data</span><!-- react-text: 583 -->: pathData
+          }
+        })
+        <!-- /react-text --><span class="hljs-comment" data-reactid="584">// 跳过当前path的子节点的向下遍历</span><!-- react-text: 585 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="586">// 为了防止遍历 import 语句中的 Identifier</span><!-- react-text: 587 -->
+        path.skip()
+      }
+    },
+    Identifier() {
+      <!-- /react-text --><span class="hljs-comment" data-reactid="588">// 书写步骤2逻辑，删除使用过的Identifier</span><!-- react-text: 589 -->
+    },
+    JSXIdentifier() {
+      <!-- /react-text --><span class="hljs-comment" data-reactid="590">// 书写步骤2逻辑，删除使用过的Identifier  </span><!-- react-text: 591 -->
+    }
+  },
+  post() {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="592">// 书写步骤3逻辑</span><!-- react-text: 593 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="594">delete</span><!-- react-text: 595 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="596">this</span><!-- react-text: 597 -->.runtimeData
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 598 -->
+<!-- /react-text --><p data-reactid="599"><!-- react-text: 600 -->以上代码咋看一下逻辑的确没问题。<!-- /react-text --><br data-reactid="601"/><!-- react-text: 602 -->
+<!-- /react-text --><strong data-reactid="603">但是！</strong><!-- react-text: 604 -->搭配<!-- /react-text --><code data-reactid="605">preset-es2015</code><!-- react-text: 606 -->使用时，将会不能正确删除未使用的变量名或者 import 语句。<!-- /react-text --><br data-reactid="607"/><!-- react-text: 608 -->
+报错：<!-- /react-text --><code data-reactid="609">NodePath has been removed so is read-only.</code><!-- react-text: 610 -->
+因为 es2015 中会将 import 语句进行替换，相当于存储的 NodePath 已经被删除了。<!-- /react-text --></p><!-- react-text: 611 -->
+<!-- /react-text --><p data-reactid="612">关于Babel中plugin和preset的执行顺序，官方的解释如下：</p><!-- react-text: 613 -->
+<!-- /react-text --><blockquote data-reactid="614"><!-- react-text: 615 -->
+<!-- /react-text --><p data-reactid="616"><!-- react-text: 617 -->Plugins run before Presets.<!-- /react-text --><br data-reactid="618"/><!-- react-text: 619 -->
+Plugin ordering is first to last.<!-- /react-text --><br data-reactid="620"/><!-- react-text: 621 -->
+Preset ordering is reversed (last to first).<!-- /react-text --></p><!-- react-text: 622 -->
+<!-- /react-text --></blockquote><!-- react-text: 623 -->
+<!-- /react-text --><p data-reactid="624">既然 Plugins run before Presets，那为什么还会有上诉的问题呢？</p><!-- react-text: 625 -->
+<!-- /react-text --><p data-reactid="626">Babel的核心开发人员 @hzoo 做出下列解释:</p><!-- react-text: 627 -->
+<!-- /react-text --><blockquote data-reactid="628"><!-- react-text: 629 -->
+<!-- /react-text --><p data-reactid="630">Plugins do go before presets, but it just adds the same visitors first before merging them.</p><!-- react-text: 631 -->
+<!-- /react-text --></blockquote><!-- react-text: 632 -->
+<!-- /react-text --><p data-reactid="633">意思是，Babel 在处理 plugins 的时候，会将 visitor 里面各个对应的单元统一合并，然后再按照插件的顺序去执行。</p><!-- react-text: 634 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmNs17OZT1JSki4bVtVQ0Tepxk5P?imageslim" width="501" height="139" data-reactid="635"/><!-- react-text: 636 -->
+<!-- /react-text --><p data-reactid="637">所以在执行到 post() 方法时，其实es2015中的插件已经将 import 语句替换了 😢</p><!-- react-text: 638 -->
+<!-- /react-text --><p data-reactid="639"><!-- react-text: 640 -->那么该问题如何解决呢？<!-- /react-text --><br data-reactid="641"/><!-- react-text: 642 -->
+可以 AST 最外层的 Program 结点遍历 path，逻辑同上。<!-- /react-text --></p><!-- react-text: 643 -->
+<!-- /react-text --><p data-reactid="644">最终代码为：</p><!-- react-text: 645 -->
+<!-- /react-text --><pre data-reactid="646"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="647"><span class="hljs-keyword" data-reactid="648">const</span><!-- react-text: 649 --> traverseObject = {
+  ImportDeclaration(path, data) {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="650">// ...</span><!-- react-text: 651 -->
+  },
+  Identifier() {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="652">// ...</span><!-- react-text: 653 -->
+  }
+  JSXIdentifier() {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="654">// ...</span><!-- react-text: 655 -->
+  }
+}
+
+<!-- /react-text --><span class="hljs-built_in" data-reactid="656">module</span><!-- react-text: 657 -->.exports = <!-- /react-text --><span class="hljs-function" data-reactid="658"><span class="hljs-keyword" data-reactid="659">function</span><!-- react-text: 660 --> (<!-- /react-text --><span class="hljs-params" data-reactid="661">babel</span><!-- react-text: 662 -->) <!-- /react-text --></span><!-- react-text: 663 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="664">return</span><!-- react-text: 665 --> {
+    pre(path) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="666">this</span><!-- react-text: 667 -->.runtimeData = {}
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="668">visitor</span><!-- react-text: 669 -->: {
+      Program(path, data) {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="670">// 在最外层的 Program 遍历 path</span><!-- react-text: 671 -->
+        path.traverse(traverseObject, {
+          <!-- /react-text --><span class="hljs-attr" data-reactid="672">runtimeData</span><!-- react-text: 673 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="674">this</span><!-- react-text: 675 -->.runtimeData
+        })
+        handleRemovePath(<!-- /react-text --><span class="hljs-keyword" data-reactid="676">this</span><!-- react-text: 677 -->.runtimeData)
+      }
+    },
+    post() {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="678">delete</span><!-- react-text: 679 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="680">this</span><!-- react-text: 681 -->.runtimeData
+    }
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 682 -->
+<!-- /react-text --><p data-reactid="683"><!-- react-text: 684 -->源码：<!-- /react-text --><a href="https://github.com/imcuttle/babel-plugin-danger-remove-unused-import" data-reactid="685">GitHub👍</a></p><!-- react-text: 686 -->
+<!-- /react-text --><h2 id="参考资料" data-reactid="687"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="688"><span class="icon icon-link" data-reactid="689"></span></a><!-- react-text: 690 -->参考资料<!-- /react-text --></h2><!-- react-text: 691 -->
+<!-- /react-text --><ul data-reactid="692"><!-- react-text: 693 -->
+<!-- /react-text --><li data-reactid="694"><a href="https://github.com/babel/babel/issues/5623" data-reactid="695">Discussion: Fix Plugin Ordering #5623</a><!-- react-text: 696 -->  <!-- /react-text --></li><!-- react-text: 697 -->
+<!-- /react-text --><li data-reactid="698"><a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md" data-reactid="699">babel handbook</a></li><!-- react-text: 700 -->
+<!-- /react-text --></ul><!-- react-text: 701 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="702"></div><div class="paginator" data-reactid="703"><a title="《斯巴达克斯》剧评" class="prev" href="/the-review-of-spartacus" data-reactid="704">Prev</a><a title="优雅的文档生成器 —— Picidae" class="next" href="/graceful-document-maker-picidae" data-reactid="705">Next</a></div></div></main><footer data-reactid="706"><div class="copyright" data-reactid="707"><p data-reactid="708"><!-- react-text: 709 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="710">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

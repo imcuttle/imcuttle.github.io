@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1888438313"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">点歌机器人 (来自网易云音乐)</h1><div class="post-info" data-reactid="12"><time datetime="2016-09-05T21:20:00+00:00" data-reactid="13">Sep 5, 2016 9:20 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16">偶然的机会，发现了B站的点歌机器人，觉得挺好玩的就自己做了一个简易版点歌机器人，预览如下：</p><!-- react-text: 17 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FjcQLjCVCd6CuaU2UII4ZpM1hhsE?imageslim" alt="ClipboardImage" width="1440" height="733" data-reactid="18"/><!-- react-text: 19 -->
+<!-- /react-text --><!-- react-text: 20 -->
+## 功能
+<!-- /react-text --><ol data-reactid="21"><!-- react-text: 22 -->
+<!-- /react-text --><li data-reactid="23">使用websocket，支持多人同时点歌，发送弹幕聊天</li><!-- react-text: 24 -->
+<!-- /react-text --><li data-reactid="25">具有搜索suggestion，用户体验更佳</li><!-- react-text: 26 -->
+<!-- /react-text --><li data-reactid="27">点击mv视频右上角可以缩小放大，不影响用户其他操作</li><!-- react-text: 28 -->
+<!-- /react-text --><li data-reactid="29">具有mv的资源，优先播放mv</li><!-- react-text: 30 -->
+<!-- /react-text --><li data-reactid="31">对于未播放的已点歌曲，可以进行取消</li><!-- react-text: 32 -->
+<!-- /react-text --><li data-reactid="33">...</li><!-- react-text: 34 -->
+<!-- /react-text --></ol><!-- react-text: 35 -->
+<!-- /react-text --><h2 id="其他说明" data-reactid="36"><a href="#%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->其他说明<!-- /react-text --></h2><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">由于是实时多人点歌，所以不能够跳过当前播放歌曲，也不能跳跃播放，Mv只能够重头开始播放，mp3能够根据线上其他用户的播放进度进行同步</p><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43"><strong data-reactid="44">音乐资源均来自网易云音乐，该程序仅用于个人学习，不得用于任何商业用途</strong></p><!-- react-text: 45 -->
+<!-- /react-text --><p data-reactid="46">关于网易云音乐的接口规则，我就不多说了，因为关于商业机密，可能吃官司的,有兴趣的可以私下找我</p><!-- react-text: 47 -->
+<!-- /react-text --><h2 id="技术沉淀" data-reactid="48"><a href="#%E6%8A%80%E6%9C%AF%E6%B2%89%E6%B7%80" aria-hidden="true" data-reactid="49"><span class="icon icon-link" data-reactid="50"></span></a><!-- react-text: 51 -->技术沉淀<!-- /react-text --></h2><!-- react-text: 52 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FjewUWc85RsP7nJjQ3e4KGEgsKFO?imageslim" alt="ClipboardImage" width="1435" height="352" data-reactid="53"/><!-- react-text: 54 -->
+如上图，网易云音乐的请求参数是做了加密处理的。  
+关于网易云音乐请求参数的加密方法，简单提下
+```js
+<!-- /react-text --><p data-reactid="55">aesRsaEncrypt: function (text) {
+var secKey = createSecretKey(16);
+return {
+params: aesEncrypt(aesEncrypt(text, nonce), secKey),
+encSecKey: rsaEncrypt(secKey, pubKey, modulus)
+}
+}</p><!-- react-text: 56 -->
+<!-- /react-text --><pre data-reactid="57"><code data-query="{}" data-lang="data-lang" data-reactid="58">&lt;img src=&quot;http://obu9je6ng.bkt.clouddn.com/Fn_ldGpK_PAxokq0ZfW2CaDTPW2O?imageslim&quot; alt=&quot;ClipboardImage&quot; width=&quot;553&quot; height=&quot;434&quot; /&gt;
+
+`secKey`为本地随机生成的密文，通过rsa非对称加密算法加密，然后网易服务器通过约定好的与`pubKey`对应的另一个因数进行解密，得到`secKey`, 然后通过两次aes逆运算就能得到`text`，也就是真实的参数了。  
+
+这样做的好处不言而喻，不法分子很难破解抓取到的请求数据  
+但服务器负担加重了，每次提供服务前，还得先去破解一番
+
+另外！网易还做了一点安全措施，调用接口得到音乐url是有时间限制的!!!
+
+&lt;img src=&quot;http://obu9je6ng.bkt.clouddn.com/Fq-T4HHbU4OH-Yjq2mkFu7o0aCov?imageslim&quot; alt=&quot;ClipboardImage&quot; width=&quot;1435&quot; height=&quot;342&quot; /&gt;
+
+所以，不能够在点歌的时候就把音乐url抓取下来保存，必须得有用户需要播放的时候再抓取url  
+而且云音乐的mvurl不支持跨域访问，所以我只好做个代理，转发视频数据流了，但这样做的不好就是mv播放不能跳跃播放（如最上方动图所示），不知有没有大牛知道如何解决这个问题
+
+```javascript
+
+let url = req.url
+let q = URL.parse(req.url, true).query
+if(url.startsWith(SUFFIX)) {
+    if(q.id!=0)
+        gs.getMvUrl(q.id)
+            .then(json =&gt; {
+                if(json.hurl || json.murl) {
+                    res.writeHead(200, {&#x27;Content-Type&#x27;: u.suffix2Type(&#x27;mp4&#x27;)});
+                    var s = gs.getStream(json.hurl || json.murl)
+                    s.on(&#x27;error&#x27;, (err) =&gt; {
+                        s.close &amp;&amp; s.close()
+                        console.error(err)
+                        res.end()
+                    })
+                    //传递MV视频数据流
+                    s.pipe(res)
+                } else {
+                    res.writeHead(500);
+                    res.end(&#x27;Error &#x27;+JSON.stringify(json))
+                }
+            })
+    else {
+        res.writeHead(500);
+        res.end(&#x27;Error&#x27;)
+    }
+    return
+}
+</code></pre><!-- react-text: 59 -->
+<!-- /react-text --><h2 id="源码与使用" data-reactid="60"><a href="#%E6%BA%90%E7%A0%81%E4%B8%8E%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="61"><span class="icon icon-link" data-reactid="62"></span></a><!-- react-text: 63 -->源码与使用<!-- /react-text --></h2><!-- react-text: 64 -->
+<!-- /react-text --><p data-reactid="65"><a href="https://github.com/moyuyc/request-song-robot" data-reactid="66">song-robot</a></p><!-- react-text: 67 -->
+<!-- /react-text --><pre data-reactid="68"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="69">npm i song-robot -g
+song-robot -p 9888
+open http://localhost:9888</code></pre><!-- react-text: 70 -->
+<!-- /react-text --><h2 id="参考资料" data-reactid="71"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="72"><span class="icon icon-link" data-reactid="73"></span></a><!-- react-text: 74 -->参考资料<!-- /react-text --></h2><!-- react-text: 75 -->
+<!-- /react-text --><p data-reactid="76"><!-- react-text: 77 -->referer
+<!-- /react-text --><a href="https://zh.wikipedia.org/zh/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80" data-reactid="78">https://zh.wikipedia.org/zh/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80</a></p><!-- react-text: 79 -->
+<!-- /react-text --><p data-reactid="80"><!-- react-text: 81 -->网易云api破解
+<!-- /react-text --><a href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/#" data-reactid="82">http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/#</a></p><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84"><!-- react-text: 85 -->node crypto<!-- /react-text --><br data-reactid="86"/><!-- react-text: 87 -->
+<!-- /react-text --><a href="https://nodejs.org/api/crypto.html" data-reactid="88">https://nodejs.org/api/crypto.html</a></p><!-- react-text: 89 -->
+<!-- /react-text --><p data-reactid="90"><!-- react-text: 91 -->输入框光标变色<!-- /react-text --><br data-reactid="92"/><!-- react-text: 93 -->
+<!-- /react-text --><a href="http://jsfiddle.net/8k1k0awb/" data-reactid="94">http://jsfiddle.net/8k1k0awb/</a></p><!-- react-text: 95 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="96"></div><div class="paginator" data-reactid="97"><a title="H5之「离线应用」" class="prev" href="/h5-offline-way" data-reactid="98">Prev</a><a title="探究SegumentFault Markdown编辑器" class="next" href="/segumentfault-markdown-editor-and-mo-editor" data-reactid="99">Next</a></div></div></main><footer data-reactid="100"><div class="copyright" data-reactid="101"><p data-reactid="102"><!-- react-text: 103 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="104">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

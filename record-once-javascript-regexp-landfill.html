@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="298978033"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">JavaScript正则填坑记</h1><div class="post-info" data-reactid="12"><time datetime="2017-01-12T18:43:02+00:00" data-reactid="13">Jan 12, 2017 6:43 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="问题重现" data-reactid="16"><a href="#%E9%97%AE%E9%A2%98%E9%87%8D%E7%8E%B0" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->问题重现<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->不知道各位旁友在<!-- /react-text --><code data-reactid="23">webpack</code><!-- react-text: 24 -->的使用中，有没有碰到下面的问题情景：
+1. 在使用了<!-- /react-text --><code data-reactid="25">css Module</code><!-- react-text: 26 -->的情况下，同时又希望用一些<!-- /react-text --><code data-reactid="27">global</code><!-- react-text: 28 -->的布局，其实在<!-- /react-text --><code data-reactid="29">css Module</code><!-- react-text: 30 -->中直接用<!-- /react-text --></p><!-- react-text: 31 -->
+<!-- /react-text --><pre data-reactid="32"><code data-query="{}" data-lang="data-lang" data-reactid="33">:global(.title) {
+    color: green;
+}
+</code></pre><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><!-- react-text: 36 -->也是可以实现的，但是如果需要引入第三方css，如<!-- /react-text --><code data-reactid="37">Animate.css</code><!-- react-text: 38 -->，如果对每一个<!-- /react-text --><code data-reactid="39">classname</code><!-- react-text: 40 -->都进行手动的全局定义，工作量可不小。<!-- /react-text --></p><!-- react-text: 41 -->
+<!-- /react-text --><ol start="2" data-reactid="42"><!-- react-text: 43 -->
+<!-- /react-text --><li data-reactid="44"><!-- react-text: 45 -->关于<!-- /react-text --><code data-reactid="46">css</code><!-- react-text: 47 -->的打包问题，对于一些组件的样式，可以将<!-- /react-text --><code data-reactid="48">css</code><!-- react-text: 49 -->打包在<!-- /react-text --><code data-reactid="50">js</code><!-- react-text: 51 -->文件中，但是一些全局的<!-- /react-text --><code data-reactid="52">css</code><!-- react-text: 53 -->，或者一些需要第一时间加载的<!-- /react-text --><code data-reactid="54">css</code><!-- react-text: 55 --> (如<!-- /react-text --><code data-reactid="56">pace.css</code><!-- react-text: 57 -->，在页面加载过程中就需要第一时间解析出样式)，就需要使用<!-- /react-text --><code data-reactid="58">ExtractTextPlugin</code><!-- react-text: 59 -->打包成为单独的<!-- /react-text --><code data-reactid="60">css</code><!-- react-text: 61 -->文件了。<!-- /react-text --></li><!-- react-text: 62 -->
+<!-- /react-text --></ol><!-- react-text: 63 -->
+<!-- /react-text --><p data-reactid="64"><!-- react-text: 65 -->以上都是需要对于同一类型文件的不同处理。在<!-- /react-text --><code data-reactid="66">webpack</code><!-- react-text: 67 -->中就体现成用正则表达式进行文件名匹配。<!-- /react-text --></p><!-- react-text: 68 -->
+<!-- /react-text --><p data-reactid="69"><!-- react-text: 70 -->为了更优雅的命名，第一种情景来举例，我将全局的样式文件命名成<!-- /react-text --><code data-reactid="71">foo.global.less</code><!-- react-text: 72 -->，其他需要进行<!-- /react-text --><code data-reactid="73">css module</code><!-- react-text: 74 -->处理的则正常命名，如<!-- /react-text --><code data-reactid="75">bar.less</code><!-- react-text: 76 -->。<!-- /react-text --></p><!-- react-text: 77 -->
+<!-- /react-text --><h2 id="思路" data-reactid="78"><a href="#%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="79"><span class="icon icon-link" data-reactid="80"></span></a><!-- react-text: 81 -->思路<!-- /react-text --></h2><!-- react-text: 82 -->
+<!-- /react-text --><p data-reactid="83"><!-- react-text: 84 -->在进入主题之前，我先分享一个实用的在线正则网站<!-- /react-text --><a href="http://refiddle.com/" data-reactid="85">refiddle</a><!-- react-text: 86 -->，包含了不仅仅<!-- /react-text --><code data-reactid="87">Javascript</code><!-- react-text: 88 -->的正则<!-- /react-text --></p><!-- react-text: 89 -->
+<!-- /react-text --><p data-reactid="90"><!-- react-text: 91 -->下面的重头戏便是<!-- /react-text --><br data-reactid="92"/><!-- react-text: 93 -->
+<!-- /react-text --><strong data-reactid="94"><!-- react-text: 95 -->如何正则匹配<!-- /react-text --><code data-reactid="96">*.global.less</code><!-- react-text: 97 -->和<!-- /react-text --><code data-reactid="98">*.less</code><!-- react-text: 99 -->(不包括<!-- /react-text --><code data-reactid="100">*.global.less</code><!-- react-text: 101 -->)？<!-- /react-text --></strong></p><!-- react-text: 102 -->
+<!-- /react-text --><p data-reactid="103"><!-- react-text: 104 -->众所周知，<!-- /react-text --><code data-reactid="105">webpack</code><!-- react-text: 106 -->中是不存在多次正则匹配的，所以需要分别使用2个正则表达式来解决上面两种字符串的匹配。<!-- /react-text --></p><!-- react-text: 107 -->
+<!-- /react-text --><p data-reactid="108"><code data-reactid="109">*.global.less</code><!-- react-text: 110 -->字符串匹配？恩, so easy，<!-- /react-text --><code data-reactid="111">/\.global\.less$/</code><!-- react-text: 112 -->, 那么<!-- /react-text --><code data-reactid="113">*.less</code><!-- react-text: 114 -->(不包括<!-- /react-text --><code data-reactid="115">*.global.less</code><!-- react-text: 116 -->)呢？<!-- /react-text --></p><!-- react-text: 117 -->
+<!-- /react-text --><p data-reactid="118"><!-- react-text: 119 -->显然，这就需要用到正则的位置匹配了(<!-- /react-text --><code data-reactid="120">(^\.global)</code><!-- react-text: 121 -->和<!-- /react-text --><code data-reactid="122">[^\.global]</code><!-- react-text: 123 -->都是不正确的)，匹配前面不是<!-- /react-text --><code data-reactid="124">.global</code><!-- react-text: 125 -->的的位置。<!-- /react-text --></p><!-- react-text: 126 -->
+<!-- /react-text --><table data-reactid="127"><!-- react-text: 128 -->
+<!-- /react-text --><thead data-reactid="129"><!-- react-text: 130 -->
+<!-- /react-text --><tr data-reactid="131"><!-- react-text: 132 -->
+<!-- /react-text --><th data-reactid="133">分类</th><!-- react-text: 134 -->
+<!-- /react-text --><th data-reactid="135">语法</th><!-- react-text: 136 -->
+<!-- /react-text --><th data-reactid="137">说明</th><!-- react-text: 138 -->
+<!-- /react-text --></tr><!-- react-text: 139 -->
+<!-- /react-text --></thead><!-- react-text: 140 -->
+<!-- /react-text --><tbody data-reactid="141"><!-- react-text: 142 -->
+<!-- /react-text --><tr data-reactid="143"><!-- react-text: 144 -->
+<!-- /react-text --><td data-reactid="145">捕获</td><!-- react-text: 146 -->
+<!-- /react-text --><td data-reactid="147"><code data-reactid="148">(exp)</code></td><!-- react-text: 149 -->
+<!-- /react-text --><td data-reactid="150">匹配exp,并捕获文本到自动命名的组里</td><!-- react-text: 151 -->
+<!-- /react-text --></tr><!-- react-text: 152 -->
+<!-- /react-text --><tr data-reactid="153"><!-- react-text: 154 -->
+<!-- /react-text --><td data-reactid="155">捕获</td><!-- react-text: 156 -->
+<!-- /react-text --><td data-reactid="157"><code data-reactid="158">(?&lt;name&gt;exp)</code></td><!-- react-text: 159 -->
+<!-- /react-text --><td data-reactid="160">匹配exp,并捕获文本到名称为name的组里，也可以写成(?&#x27;name&#x27;exp)</td><!-- react-text: 161 -->
+<!-- /react-text --></tr><!-- react-text: 162 -->
+<!-- /react-text --><tr data-reactid="163"><!-- react-text: 164 -->
+<!-- /react-text --><td data-reactid="165">捕获</td><!-- react-text: 166 -->
+<!-- /react-text --><td data-reactid="167"><code data-reactid="168">(?:exp)</code></td><!-- react-text: 169 -->
+<!-- /react-text --><td data-reactid="170">匹配exp,不捕获匹配的文本，也不给此分组分配组号</td><!-- react-text: 171 -->
+<!-- /react-text --></tr><!-- react-text: 172 -->
+<!-- /react-text --><tr data-reactid="173"><!-- react-text: 174 -->
+<!-- /react-text --><td data-reactid="175">位置匹配</td><!-- react-text: 176 -->
+<!-- /react-text --><td data-reactid="177"><code data-reactid="178">(?=exp)</code></td><!-- react-text: 179 -->
+<!-- /react-text --><td data-reactid="180">匹配exp前面的位置</td><!-- react-text: 181 -->
+<!-- /react-text --></tr><!-- react-text: 182 -->
+<!-- /react-text --><tr data-reactid="183"><!-- react-text: 184 -->
+<!-- /react-text --><td data-reactid="185">位置匹配</td><!-- react-text: 186 -->
+<!-- /react-text --><td data-reactid="187"><code data-reactid="188">(?&lt;=exp)</code></td><!-- react-text: 189 -->
+<!-- /react-text --><td data-reactid="190">匹配exp后面的位置</td><!-- react-text: 191 -->
+<!-- /react-text --></tr><!-- react-text: 192 -->
+<!-- /react-text --><tr data-reactid="193"><!-- react-text: 194 -->
+<!-- /react-text --><td data-reactid="195">位置匹配</td><!-- react-text: 196 -->
+<!-- /react-text --><td data-reactid="197"><code data-reactid="198">(?!exp)</code></td><!-- react-text: 199 -->
+<!-- /react-text --><td data-reactid="200">匹配后面跟的不是exp的位置</td><!-- react-text: 201 -->
+<!-- /react-text --></tr><!-- react-text: 202 -->
+<!-- /react-text --><tr data-reactid="203"><!-- react-text: 204 -->
+<!-- /react-text --><td data-reactid="205">位置匹配</td><!-- react-text: 206 -->
+<!-- /react-text --><td data-reactid="207"><code data-reactid="208">(?&lt;!exp)</code></td><!-- react-text: 209 -->
+<!-- /react-text --><td data-reactid="210">匹配前面不是exp的位置</td><!-- react-text: 211 -->
+<!-- /react-text --></tr><!-- react-text: 212 -->
+<!-- /react-text --><tr data-reactid="213"><!-- react-text: 214 -->
+<!-- /react-text --><td data-reactid="215">注释</td><!-- react-text: 216 -->
+<!-- /react-text --><td data-reactid="217"><code data-reactid="218">(?#comment)</code></td><!-- react-text: 219 -->
+<!-- /react-text --><td data-reactid="220">这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</td><!-- react-text: 221 -->
+<!-- /react-text --></tr><!-- react-text: 222 -->
+<!-- /react-text --></tbody><!-- react-text: 223 -->
+<!-- /react-text --></table><!-- react-text: 224 -->
+<!-- /react-text --><p data-reactid="225"><!-- react-text: 226 -->如上表，很显然需要使用<!-- /react-text --><code data-reactid="227">(?&lt;!exp)</code><!-- react-text: 228 -->，所以正则表达式是<!-- /react-text --><code data-reactid="229">/(?&lt;!global)\.less$/</code><!-- react-text: 230 -->，完结撒花！<!-- /react-text --></p><!-- react-text: 231 -->
+<!-- /react-text --><p data-reactid="232"><!-- react-text: 233 -->但是！真的就这样可以了吗？？很不幸的是在js中并没有实现<!-- /react-text --><code data-reactid="234">(?&lt;=exp)</code><!-- react-text: 235 -->和<!-- /react-text --><code data-reactid="236">(?&lt;!exp)</code><!-- react-text: 237 -->的位置匹配。（可能是大家伙都没想到Js能走到今天这个地步，以为只是在浏览器上耍耍，数据验证没必要太复杂吧 ）<!-- /react-text --><br data-reactid="238"/><!-- react-text: 239 -->
+参看<!-- /react-text --><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp" data-reactid="240">RegExp</a><!-- react-text: 241 -->.<!-- /react-text --></p><!-- react-text: 242 -->
+<!-- /react-text --><p data-reactid="243"><!-- react-text: 244 -->经过一番查找和头脑风暴，最终得到了Js中不包含某子串的正则匹配<!-- /react-text --><br data-reactid="245"/><!-- react-text: 246 -->
+<!-- /react-text --><strong data-reactid="247"><code data-reactid="248">/^(.(?!\.global))+\.less$/</code></strong></p><!-- react-text: 249 -->
+<!-- /react-text --><p data-reactid="250"><code data-reactid="251">(?!\.global)</code><!-- react-text: 252 -->匹配的是后面不是<!-- /react-text --><code data-reactid="253">.global</code><!-- react-text: 254 -->的位置<!-- /react-text --><br data-reactid="255"/><!-- react-text: 256 -->
+<!-- /react-text --><code data-reactid="257">(.(?!\.global))+</code><!-- react-text: 258 -->匹配的就是若干个后面跟着不是<!-- /react-text --><code data-reactid="259">.global</code><!-- react-text: 260 -->的字符<!-- /react-text --><br data-reactid="261"/><!-- react-text: 262 -->
+<!-- /react-text --><code data-reactid="263">^</code><!-- react-text: 264 -->字符串首位置不能丢！，如果丢了，<!-- /react-text --><code data-reactid="265">/(.(?!\.global))+\.less$/</code><!-- react-text: 266 -->也能够匹配<!-- /react-text --><code data-reactid="267">foo.global.less</code><!-- react-text: 268 -->，因为从<!-- /react-text --><code data-reactid="269">foo</code><!-- react-text: 270 -->后面的<!-- /react-text --><code data-reactid="271">.</code><!-- react-text: 272 -->开始，后面跟着的就不是<!-- /react-text --><code data-reactid="273">.global</code><!-- react-text: 274 -->了。<!-- /react-text --></p><!-- react-text: 275 -->
+<!-- /react-text --><p data-reactid="276"><!-- react-text: 277 -->但是对于<!-- /react-text --><code data-reactid="278">.global.less</code><!-- react-text: 279 -->字符串，该正则也无能为力了。<!-- /react-text --></p><!-- react-text: 280 -->
+<!-- /react-text --><h2 id="参考" data-reactid="281"><a href="#%E5%8F%82%E8%80%83" aria-hidden="true" data-reactid="282"><span class="icon icon-link" data-reactid="283"></span></a><!-- react-text: 284 -->参考<!-- /react-text --></h2><!-- react-text: 285 -->
+<!-- /react-text --><ol data-reactid="286"><!-- react-text: 287 -->
+<!-- /react-text --><li data-reactid="288"><a href="http://deerchao.net/tutorials/regex/regex.htm" data-reactid="289">正则表达式30分钟入门教程</a></li><!-- react-text: 290 -->
+<!-- /react-text --><li data-reactid="291"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp" data-reactid="292">JavaScript RegExp</a></li><!-- react-text: 293 -->
+<!-- /react-text --><li data-reactid="294"><a href="http://www.cnblogs.com/bvbook/archive/2010/11/03/1867775.html" data-reactid="295">正则表达式匹配“不包含某个字符串” (通俗易懂还有图！)</a></li><!-- react-text: 296 -->
+<!-- /react-text --></ol><!-- react-text: 297 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="298"></div><div class="paginator" data-reactid="299"><a title="一些好玩或喜欢的东西" class="prev" href="/funny-something-summary" data-reactid="300">Prev</a><a title="利用Hook解决moka邮件通知" class="next" href="/moka-hooks" data-reactid="301">Next</a></div></div></main><footer data-reactid="302"><div class="copyright" data-reactid="303"><p data-reactid="304"><!-- react-text: 305 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="306">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

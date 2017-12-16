@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1954536634"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">React组件化 -&gt; 更好的 Demo 解决方案</h1><div class="post-info" data-reactid="12"><time datetime="2017-08-05T18:47:32+00:00" data-reactid="13">Aug 5, 2017 6:47 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="为什么" data-reactid="16"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->为什么<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"> React组件化的开发思维，大大地缩减了我们的开发时间。
+于此同时也带来了一些问题：</p><!-- react-text: 22 -->
+<!-- /react-text --><ol data-reactid="23"><!-- react-text: 24 -->
+<!-- /react-text --><li data-reactid="25"><!-- react-text: 26 -->
+<!-- /react-text --><p data-reactid="27">大量组件的维护和兼容问题</p><!-- react-text: 28 -->
+<!-- /react-text --></li><!-- react-text: 29 -->
+<!-- /react-text --><li data-reactid="30"><!-- react-text: 31 -->
+<!-- /react-text --><p data-reactid="32">对于组件的学习使用，需要组件Demo展示</p><!-- react-text: 33 -->
+<!-- /react-text --></li><!-- react-text: 34 -->
+<!-- /react-text --><li data-reactid="35"><!-- react-text: 36 -->
+<!-- /react-text --><p data-reactid="37">...</p><!-- react-text: 38 -->
+<!-- /react-text --></li><!-- react-text: 39 -->
+<!-- /react-text --></ol><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">对于第二点问题，Demo 的书写可能不能够对组件覆盖全面
+甚至需要深入查看组件源码才能明白配置项的功能</p><!-- react-text: 42 -->
+<!-- /react-text --><h2 id="解决方案" data-reactid="43"><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" aria-hidden="true" data-reactid="44"><span class="icon icon-link" data-reactid="45"></span></a><!-- react-text: 46 -->解决方案<!-- /react-text --></h2><!-- react-text: 47 -->
+<!-- /react-text --><h3 id="react-live" data-reactid="48"><a href="#react-live" aria-hidden="true" data-reactid="49"><span class="icon icon-link" data-reactid="50"></span></a><!-- react-text: 51 -->React-Live<!-- /react-text --></h3><!-- react-text: 52 -->
+<!-- /react-text --><p data-reactid="53"><a href="http://formidable.com/open-source/radium/" data-reactid="54">demo</a></p><!-- react-text: 55 -->
+<!-- /react-text --><h4 id="写法" data-reactid="56"><a href="#%E5%86%99%E6%B3%95" aria-hidden="true" data-reactid="57"><span class="icon icon-link" data-reactid="58"></span></a><!-- react-text: 59 -->写法<!-- /react-text --></h4><!-- react-text: 60 -->
+<!-- /react-text --><pre data-reactid="61"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="62"><span class="hljs-keyword" data-reactid="63">import</span><!-- react-text: 64 --> {
+    LiveProvider,
+    LiveEditor,
+    LiveError,
+    LivePreview
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="65">from</span><!-- react-text: 66 --> <!-- /react-text --><span class="hljs-string" data-reactid="67">&#x27;react-live&#x27;</span><!-- react-text: 68 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="69">import</span><!-- react-text: 70 --> Button <!-- /react-text --><span class="hljs-keyword" data-reactid="71">from</span><!-- react-text: 72 --> <!-- /react-text --><span class="hljs-string" data-reactid="73">&#x27;./Button&#x27;</span><!-- react-text: 74 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="75">import</span><!-- react-text: 76 --> {h, c} <!-- /react-text --><span class="hljs-keyword" data-reactid="77">from</span><!-- react-text: 78 --> <!-- /react-text --><span class="hljs-string" data-reactid="79">&#x27;@befe/utils/wrapper/erp&#x27;</span><!-- react-text: 80 -->
+
+<!-- /react-text --><span class="hljs-class" data-reactid="81"><span class="hljs-keyword" data-reactid="82">class</span><!-- react-text: 83 --> <!-- /react-text --><span class="hljs-title" data-reactid="84">App</span><!-- react-text: 85 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="86">extends</span><!-- react-text: 87 --> <!-- /react-text --><span class="hljs-title" data-reactid="88">Component</span><!-- react-text: 89 --> <!-- /react-text --></span><!-- react-text: 90 -->{
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="91">return</span><!-- react-text: 92 --> (
+            <!-- /react-text --><span class="xml" data-reactid="93"><span class="hljs-tag" data-reactid="94"><!-- react-text: 95 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="96">LiveProvider</span><!-- react-text: 97 -->
+                // 需要注入的数据
+                <!-- /react-text --><span class="hljs-attr" data-reactid="98">scope</span><!-- react-text: 99 -->=<!-- /react-text --><span class="hljs-string" data-reactid="100">{{</span><!-- react-text: 101 -->
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="102">h</span><!-- react-text: 103 -->,
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="104">type:</span><!-- react-text: 105 --> &#x27;<!-- /react-text --><span class="hljs-attr" data-reactid="106">primary</span><!-- react-text: 107 -->&#x27;,
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="108">Button</span><!-- react-text: 109 -->,
+                }}
+                <!-- /react-text --><span class="hljs-attr" data-reactid="110">code</span><!-- react-text: 111 -->=<!-- /react-text --><span class="hljs-string" data-reactid="112">{</span><!-- react-text: 113 -->`
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="114">h</span><!-- react-text: 115 -->(<!-- /react-text --><span class="hljs-attr" data-reactid="116">Button</span><!-- react-text: 117 -->, {
+                        <!-- /react-text --><span class="hljs-attr" data-reactid="118">type</span><!-- react-text: 119 -->,
+                        <!-- /react-text --><span class="hljs-attr" data-reactid="120">loading:</span><!-- react-text: 121 --> <!-- /react-text --><span class="hljs-attr" data-reactid="122">true</span><!-- react-text: 123 -->,
+                        <!-- /react-text --><span class="hljs-attr" data-reactid="124">onClick:</span><!-- react-text: 125 --> (<!-- /react-text --><span class="hljs-attr" data-reactid="126">e</span><!-- react-text: 127 -->) =&gt;<!-- /react-text --></span><!-- react-text: 128 --> {console.log(&#x27;click &#x27;)}
+                    }, type)
+                `}&gt;
+                    <!-- /react-text --></span><!-- react-text: 129 -->&lt;LiveEditor /&gt;<!-- /react-text --><span class="xml" data-reactid="130">
+                    </span><!-- react-text: 131 -->&lt;LiveError /&gt;<!-- /react-text --><span class="xml" data-reactid="132">
+                    </span><!-- react-text: 133 -->&lt;LivePreview /&gt;<!-- /react-text --><span class="xml" data-reactid="134"><!-- react-text: 135 -->
+                <!-- /react-text --><span class="hljs-tag" data-reactid="136"><!-- react-text: 137 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="138">LiveProvider</span><!-- react-text: 139 -->&gt;<!-- /react-text --></span></span><!-- react-text: 140 -->
+            )
+        )
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 141 -->
+<!-- /react-text --><h3 id="react-editable" data-reactid="142"><a href="#react-editable" aria-hidden="true" data-reactid="143"><span class="icon icon-link" data-reactid="144"></span></a><!-- react-text: 145 -->React-Editable<!-- /react-text --></h3><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147">具体效果看视频</p><!-- react-text: 148 -->
+<!-- /react-text --><video src="http://obu9je6ng.bkt.clouddn.com/editable-preview.mp4" controls="" width="500" height="300" data-reactid="149"><!-- react-text: 150 -->
+<!-- /react-text --><p data-reactid="151">可以方便 “编辑” React 组件（包括 Props、State、甚至一些其他自定义数据）
+并且视图进行同步更新</p><!-- react-text: 152 -->
+<!-- /react-text --><p data-reactid="153">是不是很方便的就可以对一个组件进行深层次的剖析了！！</p><!-- react-text: 154 -->
+<!-- /react-text --><p data-reactid="155"><a href="https://m-cuttlefish.github.io/react-mhoc/page/" data-reactid="156">Demo点我</a></p><!-- react-text: 157 -->
+<!-- /react-text --><ul data-reactid="158"><!-- react-text: 159 -->
+<!-- /react-text --><li data-reactid="160"><!-- react-text: 161 -->
+<!-- /react-text --><p data-reactid="162">参数</p><!-- react-text: 163 -->
+<!-- /react-text --><ul data-reactid="164"><!-- react-text: 165 -->
+<!-- /react-text --><li data-reactid="166"><!-- react-text: 167 -->groupName: string<!-- /react-text --><br data-reactid="168"/><!-- react-text: 169 -->
+编辑视图的组名(默认为组件名)<!-- /react-text --></li><!-- react-text: 170 -->
+<!-- /react-text --><li data-reactid="171"><!-- react-text: 172 -->attrNames: Array<!-- /react-text --><br data-reactid="173"/><!-- react-text: 174 -->
+需要编辑的数据keyNames, props强制支持 (默认[&#x27;state&#x27;])<!-- /react-text --></li><!-- react-text: 175 -->
+<!-- /react-text --></ul><!-- react-text: 176 -->
+<!-- /react-text --></li><!-- react-text: 177 -->
+<!-- /react-text --></ul><!-- react-text: 178 -->
+<!-- /react-text --><pre data-reactid="179"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="180"><span class="hljs-keyword" data-reactid="181">import</span><!-- react-text: 182 --> {editable} <!-- /react-text --><span class="hljs-keyword" data-reactid="183">from</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-string" data-reactid="185">&#x27;react-mhoc&#x27;</span><!-- react-text: 186 -->
+
+@editable
+<!-- /react-text --><span class="hljs-class" data-reactid="187"><span class="hljs-keyword" data-reactid="188">class</span><!-- react-text: 189 --> <!-- /react-text --><span class="hljs-title" data-reactid="190">MyComponent</span><!-- react-text: 191 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="192">extends</span><!-- react-text: 193 --> <!-- /react-text --><span class="hljs-title" data-reactid="194">React</span><!-- react-text: 195 -->.<!-- /react-text --><span class="hljs-title" data-reactid="196">Component</span><!-- react-text: 197 --> <!-- /react-text --></span><!-- react-text: 198 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="199">// ....</span><!-- react-text: 200 -->
+
+    <!-- /react-text --><span class="hljs-comment" data-reactid="201">// ref Api</span><!-- react-text: 202 -->
+    open() {}
+}
+
+
+<!-- /react-text --><span class="hljs-class" data-reactid="203"><span class="hljs-keyword" data-reactid="204">class</span><!-- react-text: 205 --> <!-- /react-text --><span class="hljs-title" data-reactid="206">App</span><!-- react-text: 207 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="208">extends</span><!-- react-text: 209 --> <!-- /react-text --><span class="hljs-title" data-reactid="210">React</span><!-- react-text: 211 -->.<!-- /react-text --><span class="hljs-title" data-reactid="212">Component</span><!-- react-text: 213 --> <!-- /react-text --></span><!-- react-text: 214 -->{
+
+    componentDidMount() {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="215">// not existed open</span><!-- react-text: 216 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="217">// this.ref.open()</span><!-- react-text: 218 -->
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="219">// ok</span><!-- react-text: 220 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="221">this</span><!-- react-text: 222 -->.ref.comp.open()
+    }
+
+    render() {
+        &lt;MyComponent ref={r =&gt; <!-- /react-text --><span class="hljs-keyword" data-reactid="223">this</span><!-- react-text: 224 -->.ref = r} /&gt;
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 225 -->
+<!-- /react-text --><h4 id="展望" data-reactid="226"><a href="#%E5%B1%95%E6%9C%9B" aria-hidden="true" data-reactid="227"><span class="icon icon-link" data-reactid="228"></span></a><!-- react-text: 229 -->展望<!-- /react-text --></h4><!-- react-text: 230 -->
+<!-- /react-text --><ol data-reactid="231"><!-- react-text: 232 -->
+<!-- /react-text --><li data-reactid="233">后续可以定义数据（props/state/...）的描述信息，如</li><!-- react-text: 234 -->
+<!-- /react-text --></ol><!-- react-text: 235 -->
+<!-- /react-text --><pre data-reactid="236"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="237"><span class="hljs-keyword" data-reactid="238">import</span><!-- react-text: 239 --> editable <!-- /react-text --><span class="hljs-keyword" data-reactid="240">from</span><!-- react-text: 241 --> <!-- /react-text --><span class="hljs-string" data-reactid="242">&#x27;react-mhoc/lib/editable&#x27;</span><!-- react-text: 243 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="244">import</span><!-- react-text: 245 --> <!-- /react-text --><span class="hljs-string" data-reactid="246">&#x27;react-mhoc/lib/attrEditable/style.css&#x27;</span><!-- react-text: 247 -->
+
+@editable({<!-- /react-text --><span class="hljs-attr" data-reactid="248">groupName</span><!-- react-text: 249 -->: <!-- /react-text --><span class="hljs-string" data-reactid="250">&#x27;MyComponent&#x27;</span><!-- react-text: 251 -->})
+<!-- /react-text --><span class="hljs-class" data-reactid="252"><span class="hljs-keyword" data-reactid="253">class</span><!-- react-text: 254 --> <!-- /react-text --><span class="hljs-title" data-reactid="255">Component</span><!-- react-text: 256 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="257">extends</span><!-- react-text: 258 --> <!-- /react-text --><span class="hljs-title" data-reactid="259">React</span><!-- react-text: 260 -->.<!-- /react-text --><span class="hljs-title" data-reactid="261">Component</span><!-- react-text: 262 --> <!-- /react-text --></span><!-- react-text: 263 -->{
+    
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="264">static</span><!-- react-text: 265 --> defaultProps = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="266">color</span><!-- react-text: 267 -->: <!-- /react-text --><span class="hljs-string" data-reactid="268">&#x27;red&#x27;</span><!-- react-text: 269 -->
+    }
+    
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="270">static</span><!-- react-text: 271 --> propsDescription = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="272">color</span><!-- react-text: 273 -->: <!-- /react-text --><span class="hljs-string" data-reactid="274">&#x27;我是文字的颜色配置&#x27;</span><!-- react-text: 275 -->
+    }
+    
+    render() {
+        
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 276 -->
+<!-- /react-text --><h2 id="对比" data-reactid="277"><a href="#%E5%AF%B9%E6%AF%94" aria-hidden="true" data-reactid="278"><span class="icon icon-link" data-reactid="279"></span></a><!-- react-text: 280 -->对比<!-- /react-text --></h2><!-- react-text: 281 -->
+<!-- /react-text --><h3 id="react-live-1" data-reactid="282"><a href="#react-live-1" aria-hidden="true" data-reactid="283"><span class="icon icon-link" data-reactid="284"></span></a><!-- react-text: 285 -->React-Live<!-- /react-text --></h3><!-- react-text: 286 -->
+<!-- /react-text --><h4 id="缺点" data-reactid="287"><a href="#%E7%BC%BA%E7%82%B9" aria-hidden="true" data-reactid="288"><span class="icon icon-link" data-reactid="289"></span></a><!-- react-text: 290 -->缺点<!-- /react-text --></h4><!-- react-text: 291 -->
+<!-- /react-text --><ol data-reactid="292"><!-- react-text: 293 -->
+<!-- /react-text --><li data-reactid="294">需要以字符串的形式，输入组件code，代码书写不友好。</li><!-- react-text: 295 -->
+<!-- /react-text --><li data-reactid="296">只能监控Props数据，对于state和其他自定义数据不能修改更新</li><!-- react-text: 297 -->
+<!-- /react-text --></ol><!-- react-text: 298 -->
+<!-- /react-text --><h4 id="优点" data-reactid="299"><a href="#%E4%BC%98%E7%82%B9" aria-hidden="true" data-reactid="300"><span class="icon icon-link" data-reactid="301"></span></a><!-- react-text: 302 -->优点<!-- /react-text --></h4><!-- react-text: 303 -->
+<!-- /react-text --><ol data-reactid="304"><!-- react-text: 305 -->
+<!-- /react-text --><li data-reactid="306">UI漂亮</li><!-- react-text: 307 -->
+<!-- /react-text --><li data-reactid="308">对程序员更友好</li><!-- react-text: 309 -->
+<!-- /react-text --></ol><!-- react-text: 310 -->
+<!-- /react-text --><h3 id="react-editable-1" data-reactid="311"><a href="#react-editable-1" aria-hidden="true" data-reactid="312"><span class="icon icon-link" data-reactid="313"></span></a><!-- react-text: 314 -->React-Editable<!-- /react-text --></h3><!-- react-text: 315 -->
+<!-- /react-text --><h4 id="缺点-1" data-reactid="316"><a href="#%E7%BC%BA%E7%82%B9-1" aria-hidden="true" data-reactid="317"><span class="icon icon-link" data-reactid="318"></span></a><!-- react-text: 319 -->缺点<!-- /react-text --></h4><!-- react-text: 320 -->
+<!-- /react-text --><ol data-reactid="321"><!-- react-text: 322 -->
+<!-- /react-text --><li data-reactid="323">UI有待美化</li><!-- react-text: 324 -->
+<!-- /react-text --></ol><!-- react-text: 325 -->
+<!-- /react-text --><h4 id="优点-1" data-reactid="326"><a href="#%E4%BC%98%E7%82%B9-1" aria-hidden="true" data-reactid="327"><span class="icon icon-link" data-reactid="328"></span></a><!-- react-text: 329 -->优点<!-- /react-text --></h4><!-- react-text: 330 -->
+<!-- /react-text --><ol data-reactid="331"><!-- react-text: 332 -->
+<!-- /react-text --><li data-reactid="333">修改更新Props/state和其他自定义数据</li><!-- react-text: 334 -->
+<!-- /react-text --><li data-reactid="335">自我维护，更新周期短</li><!-- react-text: 336 -->
+<!-- /react-text --></ol><!-- react-text: 337 -->
+<!-- /react-text --></video></article></div><div class="gitment-container" data-reactid="338"></div><div class="paginator" data-reactid="339"><a title="go-js 介绍" class="prev" href="/guide-of-gojs" data-reactid="340">Prev</a><a title="给学弟学妹的话" class="next" href="/some-words-for-students" data-reactid="341">Next</a></div></div></main><footer data-reactid="342"><div class="copyright" data-reactid="343"><p data-reactid="344"><!-- react-text: 345 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="346">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

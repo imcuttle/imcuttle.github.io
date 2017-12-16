@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-403107147"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">同构博客已更新！</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-12T19:18:46+00:00" data-reactid="13">Feb 12, 2017 7:18 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->学生时代最后一个学期的前夕（明天就回学校了）。完成了<!-- /react-text --><a href="http://blog.moyuyc.xyz" data-reactid="18">个人博客</a><!-- react-text: 19 -->的“换血”，页面风格没什么大的改版，<!-- /react-text --><strong data-reactid="20">重点是在后端数据接口的开发设计，和前端代码的重构，加上了 react 动态加载多说评论系统（使用 redux 分离数据逻辑处理代码），也加上了服务器渲染，都是为了 SEO 和首屏渲染！</strong></p><!-- react-text: 21 -->
+<!-- /react-text --><p data-reactid="22"><strong data-reactid="23"><!-- react-text: 24 -->地址: <!-- /react-text --><a href="http://blog.moyuyc.xyz" data-reactid="25">http://blog.moyuyc.xyz</a></strong></p><!-- react-text: 26 -->
+<!-- /react-text --><p data-reactid="27"><strong data-reactid="28"><!-- react-text: 29 -->仓库地址: <!-- /react-text --><a href="https://github.com/moyuyc/isomorphic-blog" data-reactid="30">isomorphic-blog</a></strong></p><!-- react-text: 31 -->
+<!-- /react-text --><p data-reactid="32">感谢陈老板的服务器！</p><!-- react-text: 33 -->
+<!-- /react-text --><p data-reactid="34">总结下开发过程中学习到的东西或者坑！</p><!-- react-text: 35 -->
+<!-- /react-text --><h2 id="学习的总结" data-reactid="36"><a href="#%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->学习的总结<!-- /react-text --></h2><!-- react-text: 40 -->
+<!-- /react-text --><h3 id="node模块寻找" data-reactid="41"><a href="#node%E6%A8%A1%E5%9D%97%E5%AF%BB%E6%89%BE" aria-hidden="true" data-reactid="42"><span class="icon icon-link" data-reactid="43"></span></a><!-- react-text: 44 -->node模块寻找<!-- /react-text --></h3><!-- react-text: 45 -->
+<!-- /react-text --><p data-reactid="46">对于该项目，前后端都需要 node package，所以对于项目包的管理是否重要！</p><!-- react-text: 47 -->
+<!-- /react-text --><p data-reactid="48">如下文件结构</p><!-- react-text: 49 -->
+<!-- /react-text --><pre data-reactid="50"><code data-query="{}" data-lang="data-lang" data-reactid="51">blog/
+├── backend/
+│   ├── a.js
+│   └── node_modules/ # module =&gt; express
+├── frontend/
+│   ├── b.js
+│   └── node_modules/ # module =&gt; react
+├── outter.js
+└── node_modules/  # module =&gt; jquery
+</code></pre><!-- react-text: 52 -->
+<!-- /react-text --><ul data-reactid="53"><!-- react-text: 54 -->
+<!-- /react-text --><li data-reactid="55">outter.js</li><!-- react-text: 56 -->
+<!-- /react-text --></ul><!-- react-text: 57 -->
+<!-- /react-text --><pre data-reactid="58"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="59"><span class="hljs-built_in" data-reactid="60">require</span><!-- react-text: 61 -->(<!-- /react-text --><span class="hljs-string" data-reactid="62">&#x27;express&#x27;</span><!-- react-text: 63 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="64">// Error: Cannot find module</span><!-- react-text: 65 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="66">require</span><!-- react-text: 67 -->(<!-- /react-text --><span class="hljs-string" data-reactid="68">&#x27;react&#x27;</span><!-- react-text: 69 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="70">// Error: Cannot find module</span><!-- react-text: 71 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="72">require</span><!-- react-text: 73 -->(<!-- /react-text --><span class="hljs-string" data-reactid="74">&#x27;jquery&#x27;</span><!-- react-text: 75 -->);<!-- /react-text --></code></pre><!-- react-text: 76 -->
+<!-- /react-text --><ul data-reactid="77"><!-- react-text: 78 -->
+<!-- /react-text --><li data-reactid="79">backend/a.js  </li><!-- react-text: 80 -->
+<!-- /react-text --></ul><!-- react-text: 81 -->
+<!-- /react-text --><pre data-reactid="82"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="83"><span class="hljs-built_in" data-reactid="84">require</span><!-- react-text: 85 -->(<!-- /react-text --><span class="hljs-string" data-reactid="86">&#x27;express&#x27;</span><!-- react-text: 87 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="88">require</span><!-- react-text: 89 -->(<!-- /react-text --><span class="hljs-string" data-reactid="90">&#x27;react&#x27;</span><!-- react-text: 91 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="92">// Error: Cannot find module</span><!-- react-text: 93 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="94">require</span><!-- react-text: 95 -->(<!-- /react-text --><span class="hljs-string" data-reactid="96">&#x27;jquery&#x27;</span><!-- react-text: 97 -->);<!-- /react-text --></code></pre><!-- react-text: 98 -->
+<!-- /react-text --><ul data-reactid="99"><!-- react-text: 100 -->
+<!-- /react-text --><li data-reactid="101">frontend/b.js  </li><!-- react-text: 102 -->
+<!-- /react-text --></ul><!-- react-text: 103 -->
+<!-- /react-text --><pre data-reactid="104"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="105"><span class="hljs-built_in" data-reactid="106">require</span><!-- react-text: 107 -->(<!-- /react-text --><span class="hljs-string" data-reactid="108">&#x27;express&#x27;</span><!-- react-text: 109 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="110">// Error: Cannot find module</span><!-- react-text: 111 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="112">require</span><!-- react-text: 113 -->(<!-- /react-text --><span class="hljs-string" data-reactid="114">&#x27;react&#x27;</span><!-- react-text: 115 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="116">require</span><!-- react-text: 117 -->(<!-- /react-text --><span class="hljs-string" data-reactid="118">&#x27;jquery&#x27;</span><!-- react-text: 119 -->);<!-- /react-text --></code></pre><!-- react-text: 120 -->
+<!-- /react-text --><p data-reactid="121"><!-- react-text: 122 -->如上各文件的引入包的情况，可知 node 加载非绝对路径或者相对路径的包，是首先加载该文件同级目录 <!-- /react-text --><code data-reactid="123">node_modules/</code><!-- react-text: 124 --> 寻找，然后依次向父级目录延伸，直到 <!-- /react-text --><code data-reactid="125">/</code><!-- react-text: 126 --> 根目录。<!-- /react-text --></p><!-- react-text: 127 -->
+<!-- /react-text --><p data-reactid="128"><em data-reactid="129"><!-- react-text: 130 -->其他文件 <!-- /react-text --><code data-reactid="131">.babelrc/.gitignore/.npmignore</code><!-- react-text: 132 --> 加载方式都是一样的！<!-- /react-text --></em></p><!-- react-text: 133 -->
+<!-- /react-text --><p data-reactid="134">所以我们只需要在项目最外层 install package，书写 .babelrc ...</p><!-- react-text: 135 -->
+<!-- /react-text --><p data-reactid="136"><!-- react-text: 137 -->同时一些 <!-- /react-text --><code data-reactid="138">npm script</code><!-- react-text: 139 --> 只需要写在项目最外层即可。
+只需要在最外层 <!-- /react-text --><code data-reactid="140">npm i cross-env --save</code><!-- react-text: 141 --> <!-- /react-text --></p><!-- react-text: 142 -->
+<!-- /react-text --><pre data-reactid="143"><code data-query="{}" data-lang="data-lang" data-reactid="144">&quot;start&quot;: &quot;cross-env NODE_ENV=production node backend/index.js&quot;
+&quot;dev&quot;: &quot;cross-env NODE_ENV=development node backend/index.js&quot;
+&quot;dev:front&quot;: &quot;cross-env NODE_ENV=development node frontend/index.js&quot;
+</code></pre><!-- react-text: 145 -->
+<!-- /react-text --><h3 id="node模块缓存清除" data-reactid="146"><a href="#node%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E6%B8%85%E9%99%A4" aria-hidden="true" data-reactid="147"><span class="icon icon-link" data-reactid="148"></span></a><!-- react-text: 149 -->node模块缓存清除<!-- /react-text --></h3><!-- react-text: 150 -->
+<!-- /react-text --><p data-reactid="151">由于文章是用 markdown 文件形式存储的，如果每次请求文章内容都需要读取文件的话，简直日狗，电脑硬盘也吃不消。</p><!-- react-text: 152 -->
+<!-- /react-text --><p data-reactid="153">所以我在服务器启动之前，就进行 markdown 文件遍历解析，保存至内存中，同时监听 markdown 文件夹变化，发生变化就动态更新内存数据。</p><!-- react-text: 154 -->
+<!-- /react-text --><p data-reactid="155"><em data-reactid="156">插一句！TODO: 感觉可以起个进程单独处理文件遍历解析的工作，用 IPC 进行 JSON 数据（不带 function）传输即可，充分利用多核！</em></p><!-- react-text: 157 -->
+<!-- /react-text --><p data-reactid="158">这样每次请求只需要读取内存就 OK，速度也比较快。</p><!-- react-text: 159 -->
+<!-- /react-text --><p data-reactid="160">同时还监听了配置文件的变化，变化则需要重新加载，那么就需要清除之前的缓存了。</p><!-- react-text: 161 -->
+<!-- /react-text --><pre data-reactid="162"><code data-query="{}" data-lang="data-lang" data-reactid="163">const clearCache = (modulepath) =&gt; delete require.cache[require.resolve(modulepath)]
+</code></pre><!-- react-text: 164 -->
+<!-- /react-text --><p data-reactid="165"><!-- react-text: 166 -->如上代码，<!-- /react-text --><code data-reactid="167">require.resolve</code><!-- react-text: 168 --> 和 <!-- /react-text --><code data-reactid="169">path.resolve</code><!-- react-text: 170 --> 方法基本一致，都是基于 <!-- /react-text --><code data-reactid="171">process.cwd()</code><!-- react-text: 172 --> 当前环境路径，解析 <!-- /react-text --><code data-reactid="173">..</code><!-- react-text: 174 --> <!-- /react-text --><code data-reactid="175">.</code><!-- react-text: 176 --> 得到绝对路径。<!-- /react-text --></p><!-- react-text: 177 -->
+<!-- /react-text --><p data-reactid="178"><em data-reactid="179"><!-- react-text: 180 -->再插一句！<!-- /react-text --><code data-reactid="181">require(&quot;../path&quot;)</code><!-- react-text: 182 --> 中的路径，不是基于 <!-- /react-text --><code data-reactid="183">process.cwd()</code><!-- react-text: 184 --> 的，而是 <!-- /react-text --><code data-reactid="185">__dirname</code></em></p><!-- react-text: 186 -->
+<!-- /react-text --><h3 id="配置文件-json--yaml" data-reactid="187"><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-json--yaml" aria-hidden="true" data-reactid="188"><span class="icon icon-link" data-reactid="189"></span></a><!-- react-text: 190 -->配置文件 json =&gt; yaml<!-- /react-text --></h3><!-- react-text: 191 -->
+<!-- /react-text --><p data-reactid="192">配置文件升级成 yaml 格式，yaml 真是方便！json 格式太僵硬了！</p><!-- react-text: 193 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" width="1003" height="402" data-reactid="194"/><!-- react-text: 195 -->
+<!-- /react-text --><h3 id="一些轮子" data-reactid="196"><a href="#%E4%B8%80%E4%BA%9B%E8%BD%AE%E5%AD%90" aria-hidden="true" data-reactid="197"><span class="icon icon-link" data-reactid="198"></span></a><!-- react-text: 199 -->一些轮子<!-- /react-text --></h3><!-- react-text: 200 -->
+<!-- /react-text --><ol data-reactid="201"><!-- react-text: 202 -->
+<!-- /react-text --><li data-reactid="203"><!-- react-text: 204 -->
+<!-- /react-text --><p data-reactid="205"><!-- react-text: 206 -->根据 react-router 自动生成 sitemap ，一切为了 搜！索！
+<!-- /react-text --><a href="https://github.com/moyuyc/react-router-sitemap-builder" data-reactid="207">react-router-sitemap-builder</a></p><!-- react-text: 208 -->
+<!-- /react-text --></li><!-- react-text: 209 -->
+<!-- /react-text --><li data-reactid="210"><!-- react-text: 211 -->
+<!-- /react-text --><p data-reactid="212"><!-- react-text: 213 -->更好的阅读体验！解析 markdown &amp; HTML 图像文本，读取 URL 图片数据得到大小，替换文本！
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="214"/><!-- react-text: 215 -->
+=&gt; =&gt; =&gt;
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" width="1003" height="402" data-reactid="216"/><!-- react-text: 217 -->
+<!-- /react-text --><a href="https://github.com/moyuyc/node-markdown-image-size" data-reactid="218">markdown-image-size</a></p><!-- react-text: 219 -->
+<!-- /react-text --></li><!-- react-text: 220 -->
+<!-- /react-text --><li data-reactid="221"><!-- react-text: 222 -->
+<!-- /react-text --><p data-reactid="223">react+多说踩坑！</p><!-- react-text: 224 -->
+<!-- /react-text --></li><!-- react-text: 225 -->
+<!-- /react-text --></ol><!-- react-text: 226 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FmY9Gu9I9nPbZE-40BgH8NRMd8tu?imageslim" width="842" height="577" data-reactid="227"/><!-- react-text: 228 -->
+<!-- /react-text --><p data-reactid="229">...不知怎么说，总之就是设置各种参数判断是不是脚本加载完成...</p><!-- react-text: 230 -->
+<!-- /react-text --><p data-reactid="231"><!-- react-text: 232 -->具体看代码吧 <!-- /react-text --><a href="https://github.com/moyuyc/isomorphic-blog/blob/master/frontend/src/components/DuoshuoComment/index.js" data-reactid="233">react-duoshuo-comment</a></p><!-- react-text: 234 -->
+<!-- /react-text --><p data-reactid="235">又水了一篇...</p><!-- react-text: 236 -->
+<!-- /react-text --><h2 id="其他的一些" data-reactid="237"><a href="#%E5%85%B6%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B" aria-hidden="true" data-reactid="238"><span class="icon icon-link" data-reactid="239"></span></a><!-- react-text: 240 -->其他的一些<!-- /react-text --></h2><!-- react-text: 241 -->
+<!-- /react-text --><ul data-reactid="242"><!-- react-text: 243 -->
+<!-- /react-text --><li data-reactid="244"><!-- react-text: 245 -->
+<!-- /react-text --><p data-reactid="246"><!-- react-text: 247 -->发布流程<!-- /react-text --><br data-reactid="248"/><!-- react-text: 249 -->
+在本地书写完 markdown 后 =&gt; git push 至 github =&gt; curl url =&gt; 服务器触发 git pull 更新文章 =&gt; 文件监听变化 =&gt; 更新数据 =&gt; 发布成功！<!-- /react-text --></p><!-- react-text: 250 -->
+<!-- /react-text --></li><!-- react-text: 251 -->
+<!-- /react-text --><li data-reactid="252"><!-- react-text: 253 -->
+<!-- /react-text --><p data-reactid="254"><!-- react-text: 255 -->SEO<!-- /react-text --><br data-reactid="256"/><!-- react-text: 257 -->
+谷歌真是技术杠杠的，没几天就可以搜到我的站点了，百度还是没有（都已提交网站和 sitemap.txt/robots.txt）
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FocOlJ-S5EvxL2Qrc00zWNif6kyy?imageslim" width="580" height="628" data-reactid="258"/></p><!-- react-text: 259 -->
+<!-- /react-text --></li><!-- react-text: 260 -->
+<!-- /react-text --></ul><!-- react-text: 261 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="262"></div><div class="paginator" data-reactid="263"><a title="node.js 同步请求" class="prev" href="/sync-request-in-nodejs" data-reactid="264">Prev</a><a title="Progressive Web App" class="next" href="/repost-progressive-web-app" data-reactid="265">Next</a></div></div></main><footer data-reactid="266"><div class="copyright" data-reactid="267"><p data-reactid="268"><!-- react-text: 269 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="270">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

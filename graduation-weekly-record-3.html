@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-280078402"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">毕设周记三</h1><div class="post-info" data-reactid="12"><time datetime="2017-04-16T09:00:42+00:00" data-reactid="13">Apr 16, 2017 9:00 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->题目：刷脸签到系统<!-- /react-text --><br data-reactid="18"/><!-- react-text: 19 -->
+姓名：余聪<!-- /react-text --><br data-reactid="20"/><!-- react-text: 21 -->
+学号：19130126<!-- /react-text --></p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">主要完成了 nodejs 调用 opencv 的工作；后续利用 javascript 进行样本的预处理（灰化，级联分类器检测，裁剪等），样本的训练与人脸的对比识别...</p><!-- react-text: 24 -->
+<!-- /react-text --><h2 id="知识点介绍" data-reactid="25"><a href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->知识点介绍<!-- /react-text --></h2><!-- react-text: 29 -->
+<!-- /react-text --><ul data-reactid="30"><!-- react-text: 31 -->
+<!-- /react-text --><li data-reactid="32"><!-- react-text: 33 -->nodejs 调用 C/C++<!-- /react-text --><br data-reactid="34"/><!-- react-text: 35 -->
+需要使用 <!-- /react-text --><a href="https://nodejs.org/api/addons.html" data-reactid="36"><code data-reactid="37">C/C++ Addons</code></a><!-- react-text: 38 -->   。图像处理最强大的库 opencv 便是用 C++ 实现的，这就不得不需要 nodeJs 与 C++ 之前通信，通过 nodeJs 调用 opencv 的方法，node-opencv 便是利用 nan （解决平台间兼容性问题，将异步事件驱动封装）与 v8 （javascript 对应的数据类型与 C++映射） ，通过 node-gyp 工具，将 C++ 打包成 一个动态链接库 *.node，通过 require 即可调用。<!-- /react-text --></li><!-- react-text: 39 -->
+<!-- /react-text --></ul><!-- react-text: 40 -->
+<!-- /react-text --><ul data-reactid="41"><!-- react-text: 42 -->
+<!-- /react-text --><li data-reactid="43"><!-- react-text: 44 -->
+<!-- /react-text --><p data-reactid="45"><!-- react-text: 46 -->人脸识别流程<!-- /react-text --><br data-reactid="47"/><!-- react-text: 48 -->
+人脸识别实际包括构建人脸识别系统的一系列相关技术，包括人脸图像采集、人脸定位、人脸识别预处理、身份确认以及身份查找等。上一步已经完成了人脸的采集； 人脸定位也就是人脸的检测，在一张图片中，找出人脸的位置。通过一些特征提取的方法，如HOG特征，LBP特征，Haar特征，训练得到级联分类器，分类器对图像的任意位置和任意尺寸的部分(通常是正方形或长方形)进行分类，判定是或不是人脸。opencv源码中提供了一些常用的分类器（XML）。人脸识别预处理也就是对图像进行灰化，人脸检测，得到统一大小的人脸图片；然后便是识别了，对样本训练生成特征脸后，对于输入的人脸进行预处理后，得到其特征脸权重向量，计算向量距离，找到最小距离的样本人脸。<!-- /react-text --></p><!-- react-text: 49 -->
+<!-- /react-text --></li><!-- react-text: 50 -->
+<!-- /react-text --><li data-reactid="51"><!-- react-text: 52 -->
+<!-- /react-text --><p data-reactid="53"><!-- react-text: 54 -->特征脸<!-- /react-text --><br data-reactid="55"/><!-- react-text: 56 -->
+特征脸（Eigenface）是指用于机器视觉领域中的人脸识别问题的一组特征向量。这些特征向量是从高维矢量空间的人脸图像的协方差矩阵计算而来。一组特征脸 可以通过在一大组描述不同人脸的图像上进行主成分分析（PCA）获得。任意一张人脸图像都可以被认为是这些标准脸的组合。另外，由于人脸是通过一系列向量（每个特征脸一个比例值）而不是数字图像进行保存，可以节省很多存储空间。可以看到特征脸的生成是需要整个样本数据的，所以如果用户修改了样本数据，需要对全部样本重新训练，得到一组全新的特征脸。<!-- /react-text --></p><!-- react-text: 57 -->
+<!-- /react-text --></li><!-- react-text: 58 -->
+<!-- /react-text --><li data-reactid="59"><!-- react-text: 60 -->
+<!-- /react-text --><p data-reactid="61"><!-- react-text: 62 -->PCA<!-- /react-text --><br data-reactid="63"/><!-- react-text: 64 -->
+主成分分析（Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。<!-- /react-text --></p><!-- react-text: 65 -->
+<!-- /react-text --></li><!-- react-text: 66 -->
+<!-- /react-text --></ul><!-- react-text: 67 -->
+<!-- /react-text --><h2 id="工作" data-reactid="68"><a href="#%E5%B7%A5%E4%BD%9C" aria-hidden="true" data-reactid="69"><span class="icon icon-link" data-reactid="70"></span></a><!-- react-text: 71 -->工作<!-- /react-text --></h2><!-- react-text: 72 -->
+<!-- /react-text --><p data-reactid="73"><!-- react-text: 74 -->整合了数据库和 opencv 后，系统架构如下：
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/16/58f2ca8f8c500.jpg" width="448" height="385" data-reactid="75"/></p><!-- react-text: 76 -->
+<!-- /react-text --><h3 id="opencv-环境安装" data-reactid="77"><a href="#opencv-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85" aria-hidden="true" data-reactid="78"><span class="icon icon-link" data-reactid="79"></span></a><!-- react-text: 80 -->opencv 环境安装<!-- /react-text --></h3><!-- react-text: 81 -->
+<!-- /react-text --><p data-reactid="82">由于开发平台是 OSX ，而 OSX 有 Homebrew 神器</p><!-- react-text: 83 -->
+<!-- /react-text --><pre data-reactid="84"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="85"><span class="hljs-comment" data-reactid="86"># 安装 Homebrew</span><!-- react-text: 87 -->
+/usr/bin/ruby -e <!-- /react-text --><span class="hljs-string" data-reactid="88"><!-- react-text: 89 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="90">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><!-- react-text: 91 -->&quot;<!-- /react-text --></span><!-- react-text: 92 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="93"># 设置 Homebrew镜像代理，国内下载加速</span><!-- react-text: 94 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="95">cd</span><!-- react-text: 96 --> <!-- /react-text --><span class="hljs-string" data-reactid="97"><!-- react-text: 98 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="99">$(brew --repo)</span><!-- react-text: 100 -->&quot;<!-- /react-text --></span><!-- react-text: 101 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="102">set</span><!-- react-text: 103 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="104">cd</span><!-- react-text: 105 --> <!-- /react-text --><span class="hljs-string" data-reactid="106"><!-- react-text: 107 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="108">$(brew --repo)</span><!-- react-text: 109 -->/Library/Taps/homebrew/homebrew-core&quot;<!-- /react-text --></span><!-- react-text: 110 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="111">set</span><!-- react-text: 112 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+brew update
+<!-- /react-text --><span class="hljs-built_in" data-reactid="113">echo</span><!-- react-text: 114 --> <!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27;</span><!-- react-text: 116 --> &gt;&gt; ~/.bash_profile
+<!-- /react-text --><span class="hljs-built_in" data-reactid="117">source</span><!-- react-text: 118 --> ~/.bash_profile
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="119"># 安装 opencv</span><!-- react-text: 120 -->
+brew tap homebrew/science
+brew install opencv<!-- /react-text --></code></pre><!-- react-text: 121 -->
+<!-- /react-text --><h3 id="node-addons尝试" data-reactid="122"><a href="#node-addons%E5%B0%9D%E8%AF%95" aria-hidden="true" data-reactid="123"><span class="icon icon-link" data-reactid="124"></span></a><!-- react-text: 125 -->node addons尝试<!-- /react-text --></h3><!-- react-text: 126 -->
+<!-- /react-text --><p data-reactid="127"><!-- react-text: 128 -->node addons 是在 node 环境调用 C 系列接口的方法，已经有人用该方法写过 node-opencv，并在此基础上我还加上了 <!-- /react-text --><code data-reactid="129">CircleLBP</code><!-- react-text: 130 --> <!-- /react-text --><code data-reactid="131">RectLBP</code><!-- react-text: 132 --> <!-- /react-text --><code data-reactid="133">ToThreeChannels</code><!-- react-text: 134 --> <!-- /react-text --><code data-reactid="135">PCA</code><!-- react-text: 136 --> 算法。其中 <!-- /react-text --><code data-reactid="137">ToThreeChannels</code><!-- react-text: 138 --> 是将 单通道（灰）或者 RGBA 通道变成 RGB 通道。<!-- /react-text --></p><!-- react-text: 139 -->
+<!-- /react-text --><pre data-reactid="140"><code class="hljs language-c++" data-query="{}" data-lang="c++" data-reactid="141"><!-- react-text: 142 -->NAN_METHOD(Matrix::ToThreeChannels) {
+  Nan::HandleScope scope;
+  Matrix *self = Nan::ObjectWrap::Unwrap&lt;Matrix&gt;(info.This());
+  cv::Mat image;
+
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="143">if</span><!-- react-text: 144 --> (self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="145">3</span><!-- react-text: 146 -->) {
+    image = self-&gt;mat;
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="147">else</span><!-- react-text: 148 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="149">if</span><!-- react-text: 150 --> (self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="151">1</span><!-- react-text: 152 -->) {
+    cv::Mat myimg = self-&gt;mat;
+    cv::cvtColor(myimg, image, CV_GRAY2RGB);
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="153">else</span><!-- react-text: 154 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="155">if</span><!-- react-text: 156 -->(self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="157">4</span><!-- react-text: 158 -->){
+    cv::Mat myimg = self-&gt;mat;
+    cv::cvtColor(myimg, image, CV_BGRA2RGB);
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="159">else</span><!-- react-text: 160 --> {
+    Nan::ThrowError(<!-- /react-text --><span class="hljs-string" data-reactid="161">&quot;those channels are not supported&quot;</span><!-- react-text: 162 -->);
+  }
+
+  self-&gt;mat = image;
+  info.GetReturnValue().Set(Nan::Null());
+}<!-- /react-text --></code></pre><!-- react-text: 163 -->
+<!-- /react-text --><h3 id="图片预处理（人脸检测）" data-reactid="164"><a href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%EF%BC%89" aria-hidden="true" data-reactid="165"><span class="icon icon-link" data-reactid="166"></span></a><!-- react-text: 167 -->图片预处理（人脸检测...）<!-- /react-text --></h3><!-- react-text: 168 -->
+<!-- /react-text --><p data-reactid="169">通道统一 -&gt; 灰化 -&gt; 级联分类器检测人脸 -&gt; 人脸尺寸统一 -&gt; 保存</p><!-- react-text: 170 -->
+<!-- /react-text --><p data-reactid="171"><!-- react-text: 172 -->经过多次尝试后，对于学生证件照，最终比较得出，采用 LBP 级联分类器，窗口放大 1.95 倍左右效果较好。（测试数据在 <!-- /react-text --><code data-reactid="173">backend/data/summary.json</code><!-- react-text: 174 -->）<!-- /react-text --></p><!-- react-text: 175 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884929797559.jpg" alt="alt" width="770" height="436" data-reactid="176"/><!-- react-text: 177 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588492ae5471e.jpg" alt="alt" width="770" height="436" data-reactid="178"/><!-- react-text: 179 -->
+<!-- /react-text --><h3 id="识别算法测试与确定" data-reactid="180"><a href="#%E8%AF%86%E5%88%AB%E7%AE%97%E6%B3%95%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%A1%AE%E5%AE%9A" aria-hidden="true" data-reactid="181"><span class="icon icon-link" data-reactid="182"></span></a><!-- react-text: 183 -->识别算法测试与确定<!-- /react-text --></h3><!-- react-text: 184 -->
+<!-- /react-text --><p data-reactid="185"><!-- react-text: 186 -->比较 opencv 中三种人脸识别算法，Eigen、Fisher、LBPH。数据在<!-- /react-text --><code data-reactid="187">backend/cpptest</code><!-- react-text: 188 --> 中<!-- /react-text --></p><!-- react-text: 189 -->
+<!-- /react-text --><table data-reactid="190"><caption data-reactid="191"><em data-reactid="192">opencv 人脸识别算法比较</em></caption><tbody data-reactid="193"><tr data-reactid="194"><th rowspan="2" style="text-align:center;" data-reactid="195">算法/时间(ms)</th><th colspan="2" data-reactid="196">实验1</th><th colspan="2" data-reactid="197">实验2</th><th colspan="2" data-reactid="198">实验3</th></tr><tr data-reactid="199"><td data-reactid="200">训练</td><td data-reactid="201">预测</td><td data-reactid="202">训练</td><td data-reactid="203">预测</td><td data-reactid="204">训练</td><td data-reactid="205">预测</td></tr><tr data-reactid="206"><th data-reactid="207">Eigen</th><td data-reactid="208">0.030648</td><td data-reactid="209">0.010711</td><td data-reactid="210">0.025524</td><td data-reactid="211">0.011132</td><td data-reactid="212">0.029332</td><td data-reactid="213">0.007791</td></tr><tr data-reactid="214"><th data-reactid="215">Fisher</th><td data-reactid="216">0.040043</td><td data-reactid="217">0.0089</td><td data-reactid="218">0.039244</td><td data-reactid="219">0.007145</td><td data-reactid="220">0.033777</td><td data-reactid="221">0.008276</td></tr><tr data-reactid="222"><th data-reactid="223">LBPH</th><td data-reactid="224">0.035812</td><td data-reactid="225">0.071586</td><td data-reactid="226">0.034822</td><td data-reactid="227">0.075267</td><td data-reactid="228">0.03204</td><td data-reactid="229">0.067166</td><!-- react-text: 230 -->
+<!-- /react-text --></tr></tbody></table><!-- react-text: 231 -->
+<!-- /react-text --><p data-reactid="232">综合比较可以得出，效率 Eigen &gt; Fisher &gt; LBPH
+所以采用Eigen（特征脸）算法</p><!-- react-text: 233 -->
+<!-- /react-text --><h3 id="学生信息接口（爬虫）" data-reactid="234"><a href="#%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%EF%BC%88%E7%88%AC%E8%99%AB%EF%BC%89" aria-hidden="true" data-reactid="235"><span class="icon icon-link" data-reactid="236"></span></a><!-- react-text: 237 -->学生信息接口（爬虫）<!-- /react-text --></h3><!-- react-text: 238 -->
+<!-- /react-text --><p data-reactid="239"><!-- react-text: 240 -->该系统还需要获取到学生的个人信息，比如通过学号和密码验证是否正确等等。在同一届的同学中，已经有一位同学研究教务系统比较透彻了，而且做了一个<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="241">查南师</a><!-- react-text: 242 -->网站，所以我只需要爬取该网站的接口即可。<!-- /react-text --></p><!-- react-text: 243 -->
+<!-- /react-text --><h3 id="图片预处理指令解释" data-reactid="244"><a href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="245"><span class="icon icon-link" data-reactid="246"></span></a><!-- react-text: 247 -->图片预处理指令解释<!-- /react-text --></h3><!-- react-text: 248 -->
+<!-- /react-text --><pre data-reactid="249"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="250"><span class="hljs-comment" data-reactid="251"># location: gp-njnu-photos-backend/package.json</span><!-- react-text: 252 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="253"># usage: (cd gp-njnu-photos-backend &amp;&amp; npm run $scriptName)</span><!-- react-text: 254 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="255"># 图片预处理</span><!-- react-text: 256 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="257"># detect face, then gray, save</span><!-- react-text: 258 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="259"># eg.  $ npm run grayface 2013 191301</span><!-- react-text: 260 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="261">#      $ npm run grayface 2013</span><!-- react-text: 262 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="263">#      $ npm run grayface</span><!-- react-text: 264 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="265"># npm run grayface year classno</span><!-- react-text: 266 -->
+
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="267"># 样本训练并写入文件。</span><!-- react-text: 268 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="269"># after read grayface images, then train and save it</span><!-- react-text: 270 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="271"># eg.  $ node pretreat/train_save.js -f --args 2013</span><!-- react-text: 272 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="273">#      $ node pretreat/train_save.js -f --args 2013 191301</span><!-- react-text: 274 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="275"># -f：force 重新训练，不论是否已存在训练数据</span><!-- react-text: 276 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="277"># --args year classno 训练哪一年哪一班级的图片</span></code></pre><!-- react-text: 278 -->
+<!-- /react-text --><h3 id="数据解释" data-reactid="279"><a href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="280"><span class="icon icon-link" data-reactid="281"></span></a><!-- react-text: 282 -->数据解释<!-- /react-text --></h3><!-- react-text: 283 -->
+<!-- /react-text --><p data-reactid="284"><!-- react-text: 285 -->在 <!-- /react-text --><code data-reactid="286">gp-njnu-photos-backend/data</code><!-- react-text: 287 --> 目录中<!-- /react-text --></p><!-- react-text: 288 -->
+<!-- /react-text --><pre data-reactid="289"><code data-query="{}" data-lang="data-lang" data-reactid="290">data/
+├── cache.json  # 由于学生的数据和身份验证需要通过查南师网站，其中中转的服务器较多，所以在本服务器做了个缓存数据，过7天将会清理该缓存。
+├── face-recognizer/
+│   ├── 2013-011301.yaml    # 特征脸数据
+│   ├── 2013-011302.yaml  
+│   └── facesNumObj.json    # 保存每个学号对应多少张人脸
+├── face-recognizer.json    # 保存每年级每个班级对应的学生照片的路径地址
+├── haarcascade_eye_tree_eyeglasses.xml  # 一系列分类器数据
+├── haarcascade_eye.xml
+├── haarcascade_frontalface_alt_tree.xml
+├── haarcascade_frontalface_alt.xml
+├── haarcascade_frontalface_alt2.xml
+├── haarcascade_frontalface_default.xml
+├── haarcascade_fullbody.xml
+├── haarcascade_lefteye_2splits.xml
+├── haarcascade_lowerbody.xml
+├── haarcascade_mcs_eyepair_big.xml
+├── haarcascade_mcs_eyepair_small.xml
+├── haarcascade_mcs_lefteye.xml
+├── haarcascade_mcs_mouth.xml
+├── haarcascade_mcs_nose.xml
+├── haarcascade_mcs_righteye.xml
+├── haarcascade_mcs_upperbody.xml
+├── haarcascade_profileface.xml
+├── haarcascade_righteye_2splits.xml
+├── haarcascade_upperbody.xml
+├── hogcascade_cars_sideview.xml
+├── images/         # 预处理后的样本，真正的样本数据
+│   ├── 2013/
+│   ├── 2015/
+│   └── 2016/
+├── students.json   # 不同分类器不同参数的比对
+└── summary.json    # 每个年级每个班级学生学号的集合
+</code></pre><!-- react-text: 291 -->
+<!-- /react-text --><h2 id="总结" data-reactid="292"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="293"><span class="icon icon-link" data-reactid="294"></span></a><!-- react-text: 295 -->总结<!-- /react-text --></h2><!-- react-text: 296 -->
+<!-- /react-text --><p data-reactid="297">由于核心算法调用的为开源的 opencv 方法，适用性不是特别高，准确率有待提高。</p><!-- react-text: 298 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="299"></div><div class="paginator" data-reactid="300"><a title="基于特征脸的人脸识别" class="prev" href="/gp-tranaltion" data-reactid="301">Prev</a><a title="毕设周记二" class="next" href="/week-record-2" data-reactid="302">Next</a></div></div></main><footer data-reactid="303"><div class="copyright" data-reactid="304"><p data-reactid="305"><!-- react-text: 306 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="307">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

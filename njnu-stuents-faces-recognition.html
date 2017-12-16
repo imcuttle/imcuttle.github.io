@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="267113607"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">刷脸签到系统回顾</h1><div class="post-info" data-reactid="12"><time datetime="2017-01-19T19:09:14+00:00" data-reactid="13">Jan 19, 2017 7:09 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><a href="https://face.moyuyc.xyz" data-reactid="17">毕设 👉 南师大刷脸签到系统 👉  face.moyuyc.xyz</a><!-- react-text: 18 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/18/587eea50913fd.jpg" alt="alt" width="1200" height="627" data-reactid="19"/></p><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->源码：<!-- /react-text --><a href="https://github.com/moyuyc/graduation-project" data-reactid="23">graduation-project</a></p><!-- react-text: 24 -->
+<!-- /react-text --><p data-reactid="25">写该文是为了准备写毕业论文的材料，所以文字介绍较多，比较面向大众程序员。</p><!-- react-text: 26 -->
+<!-- /react-text --><h1 id="任务概要（task-summary）" data-reactid="27"><a href="#%E4%BB%BB%E5%8A%A1%E6%A6%82%E8%A6%81%EF%BC%88task-summary%EF%BC%89" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->任务概要（Task Summary）<!-- /react-text --></h1><!-- react-text: 31 -->
+<!-- /react-text --><blockquote data-reactid="32"><!-- react-text: 33 -->
+<!-- /react-text --><p data-reactid="34">本刷脸系统主要分为学生签到、人脸录入、管理员模块。管理员模块，可以对学生的人脸样本，学生相信操作；该系统核心模块：学生签到，将动态监控摄像头，一旦识别出人脸便向服务器发出请求进行预处理 =&gt; 人脸检测 =&gt; 人脸比对。该系统将采用 Web 架构实现，前端使用react+redux+router+webpack技术栈，结构清晰，复用率高；后端将采用 nodejs+express 搭建服务器，C++ 实现核心人脸识别比对算法，通过 js 调用 C++ 核心算法；后续可以使用 electron 将前端界面打包成跨平台app，方便师生使用。</p><!-- react-text: 35 -->
+<!-- /react-text --></blockquote><!-- react-text: 36 -->
+<!-- /react-text --><h1 id="技术栈（technology-stack）" data-reactid="37"><a href="#%E6%8A%80%E6%9C%AF%E6%A0%88%EF%BC%88technology-stack%EF%BC%89" aria-hidden="true" data-reactid="38"><span class="icon icon-link" data-reactid="39"></span></a><!-- react-text: 40 -->技术栈（Technology Stack）<!-- /react-text --></h1><!-- react-text: 41 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/21/58826eb274d3a.jpg" alt="alt" width="900" height="496" data-reactid="42"/><!-- react-text: 43 -->
+<!-- /react-text --><p data-reactid="44">下面进行一些较为粗略的介绍，蜻蜓点水说说涉及的技术</p><!-- react-text: 45 -->
+<!-- /react-text --><h2 id="前端（front-end）" data-reactid="46"><a href="#%E5%89%8D%E7%AB%AF%EF%BC%88front-end%EF%BC%89" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->前端（Front-End）<!-- /react-text --></h2><!-- react-text: 50 -->
+<!-- /react-text --><ol data-reactid="51"><!-- react-text: 52 -->
+<!-- /react-text --><li data-reactid="53"><!-- react-text: 54 -->
+<!-- /react-text --><p data-reactid="55"><!-- react-text: 56 -->单页Web应用（single page web application，SPA），就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由 JavaScript 来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884d672c4710.jpg" alt="alt" width="550" height="609" data-reactid="57"/></p><!-- react-text: 58 -->
+<!-- /react-text --></li><!-- react-text: 59 -->
+<!-- /react-text --><li data-reactid="60"><!-- react-text: 61 -->
+<!-- /react-text --><p data-reactid="62"><!-- react-text: 63 -->使用主流 <!-- /react-text --><a href="https://webpack.github.io/" data-reactid="64">Webpack</a><!-- react-text: 65 --> 构建，进行前端模块自动化管理。<!-- /react-text --></p><!-- react-text: 66 -->
+<!-- /react-text --></li><!-- react-text: 67 -->
+<!-- /react-text --></ol><!-- react-text: 68 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884d5ba0680b.jpg" alt="alt" width="2598" height="1299" data-reactid="69"/><!-- react-text: 70 -->
+<!-- /react-text --><ol start="3" data-reactid="71"><!-- react-text: 72 -->
+<!-- /react-text --><li data-reactid="73"><!-- react-text: 74 -->
+<!-- /react-text --><p data-reactid="75"><!-- react-text: 76 -->使用Facebook提出的 <!-- /react-text --><a href="https://facebook.github.io/react/" data-reactid="77">React</a><!-- react-text: 78 --> 进行作为 View， 将 HTML DOM 进行上层抽象，提出 Virtual DOM 概念，一套理念，实现了Server render, Web UI, mobile UI 的统一。  Learn Once, Write Anywhere
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" alt="ClipboardImage" width="623" height="396" data-reactid="79"/></p><!-- react-text: 80 -->
+<!-- /react-text --></li><!-- react-text: 81 -->
+<!-- /react-text --><li data-reactid="82"><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84"><a href="https://github.com/reactjs/redux" data-reactid="85">Redux</a><!-- react-text: 86 -->，随着 JavaScript 单页应用开发日趋复杂，JavaScript 需要管理比任何时候都要多的 state (状态)，state 在什么时候，由于什么原因，如何变化已然不受控制。 当系统变得错综复杂的时候，想重现问题或者添加新功能就会变得举步维艰, Redux则是为了解决该痛点而产生。<!-- /react-text --></p><!-- react-text: 87 -->
+<!-- /react-text --></li><!-- react-text: 88 -->
+<!-- /react-text --><li data-reactid="89"><!-- react-text: 90 -->
+<!-- /react-text --><p data-reactid="91"><a href="https://github.com/ReactTraining/react-router" data-reactid="92">React Router</a><!-- react-text: 93 --> 是一个基于 React 之上的强大路由库，它可以让你向应用中快速地添加视图和数据流，既保证了单页应用的畅快，同时保持页面与 URL 间的同步。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d88d62dd5.jpg" alt="alt" width="622" height="341" data-reactid="94"/></p><!-- react-text: 95 -->
+<!-- /react-text --></li><!-- react-text: 96 -->
+<!-- /react-text --><li data-reactid="97"><!-- react-text: 98 -->
+<!-- /react-text --><p data-reactid="99"><!-- react-text: 100 -->*<!-- /react-text --><a href="https://babeljs.io/" data-reactid="101">Babel</a><!-- react-text: 102 --> =&gt; 使用 JavaScript 实现的编译器，正如官网所说的那样 Use next generation JavaScript, today.
+，可以利用 Babel 书写最新的 JavasScript 语法标准，如 ECMAScript 6 ，搭配 Webpack 使用更佳。<!-- /react-text --></p><!-- react-text: 103 -->
+<!-- /react-text --></li><!-- react-text: 104 -->
+<!-- /react-text --><li data-reactid="105"><!-- react-text: 106 -->
+<!-- /react-text --><p data-reactid="107"><!-- react-text: 108 -->*<!-- /react-text --><a href="http://es6-features.org/" data-reactid="109">ECMAScript6</a><!-- react-text: 110 --> =&gt; 2015 年提出的JavaScript标准，目标是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现。ES 6 具有一系列简明的语法糖，更佳的书写体验。但为了保证浏览器, Node 环境兼容性，往往配合 Babel 书写。<!-- /react-text --></p><!-- react-text: 111 -->
+<!-- /react-text --></li><!-- react-text: 112 -->
+<!-- /react-text --><li data-reactid="113"><!-- react-text: 114 -->
+<!-- /react-text --><p data-reactid="115">*less =&gt; 一种 CSS 预处理语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。</p><!-- react-text: 116 -->
+<!-- /react-text --></li><!-- react-text: 117 -->
+<!-- /react-text --><li data-reactid="118"><!-- react-text: 119 -->
+<!-- /react-text --><p data-reactid="120">使用 HTML5 的 getUserMedia 方法，调用计算机音频视频等硬件设备。为了安全问题，Chrome 只能在本地地址上调用该方法，外网地址则只能在通过证书检测的 HTTPS 服务中调用。</p><!-- react-text: 121 -->
+<!-- /react-text --></li><!-- react-text: 122 -->
+<!-- /react-text --></ol><!-- react-text: 123 -->
+<!-- /react-text --><h2 id="后端（back-end）" data-reactid="124"><a href="#%E5%90%8E%E7%AB%AF%EF%BC%88back-end%EF%BC%89" aria-hidden="true" data-reactid="125"><span class="icon icon-link" data-reactid="126"></span></a><!-- react-text: 127 -->后端（Back-End）<!-- /react-text --></h2><!-- react-text: 128 -->
+<!-- /react-text --><ol data-reactid="129"><!-- react-text: 130 -->
+<!-- /react-text --><li data-reactid="131"><!-- react-text: 132 -->采用 <!-- /react-text --><a href="https://nodejs.org/" data-reactid="133">nodeJs</a><!-- react-text: 134 --> 作为后端，采用 JavaScript 脚本语言开发。 nodeJs 具有异步事件驱动、非阻塞（non-blocking）IO 特性，采用 Google 的 V8 引擎来执行代码。<!-- /react-text --></li><!-- react-text: 135 -->
+<!-- /react-text --><li data-reactid="136">Node.js以单线程运行，使用非阻塞I/O调用，这样既可以支持数以万计的并发连接，又不会因多线程本身的特点而带来麻烦。众多请求只使用单线程的设计意味着可以用于创建高并发应用程序。Node.js应用程序的设计目标是任何需要操作I/O的函数都使用回调函数。
+这种设计的缺点是，如果不使用cluster、StrongLoop Process Manager或pm2等模块，Node.js就难以处理多核或多线程等情况。</li><!-- react-text: 137 -->
+<!-- /react-text --><li data-reactid="138"><!-- react-text: 139 -->pm2 =&gt; <!-- /react-text --><a href="https://segmentfault.com/a/1190000004621734" data-reactid="140">https://segmentfault.com/a/1190000004621734</a></li><!-- react-text: 141 -->
+<!-- /react-text --><li data-reactid="142"><!-- react-text: 143 -->isomorphic render（同构渲染）=&gt; 指的是前后端使用同一份代码。前端通过 Webpack 实现 CommonJs 的模块规范（Node亦是 CommonJs ）+ React 提出的 JSX ，使得 NodeJs 通过解析请求的 URL，适配 react-router 中的前端路由规则，得到 routing Props，还可以 dispatch(action) 同步或异步（一般是 isomorphic-fetch ），又或是直接读取数据，从而更新 store ，最后 nodeJs 通过 store 中的 state 渲染 JSX ，产生静态的 HTML，从而实现了前后端的同构渲染。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884dc559b020.jpg" alt="isomorphic render" width="640" height="400" data-reactid="144"/><!-- react-text: 145 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/29/588d9b8393522.jpg" alt="isomorphic render" width="610" height="412" data-reactid="146"/></li><!-- react-text: 147 -->
+<!-- /react-text --><li data-reactid="148"><a href="https://nodejs.org/api/addons.html" data-reactid="149">nodeJs C++ Addons</a><!-- react-text: 150 -->，nodeJs 就是使用C++语言实现的，图像处理最强大的库 opencv 便是用 C++ 实现的，这就不得不需要 nodeJs 与 C++ 之前通信，通过 nodeJs 调用 opencv 的方法，<!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="151">node-opencv</a><!-- react-text: 152 --> 便是利用 <!-- /react-text --><a href="https://github.com/nodejs/nan" data-reactid="153">nan</a><!-- react-text: 154 --> （解决平台间兼容性问题，将异步事件驱动封装）与 <!-- /react-text --><a href="https://github.com/v8/v8" data-reactid="155">v8</a><!-- react-text: 156 --> （javascript 对应的数据类型与 C++映射） ，通过 <!-- /react-text --><a href="https://github.com/nodejs/node-gyp" data-reactid="157">node-gyp</a><!-- react-text: 158 --> 工具，将 C++ 打包成 一个动态链接库 *.node，通过 require 即可调用。<!-- /react-text --></li><!-- react-text: 159 -->
+<!-- /react-text --><li data-reactid="160"><a href="https://github.com/mysqljs/mysql" data-reactid="161">node-mysql</a><!-- react-text: 162 --> ，由于 NodeJs 具有 non-blocking IO 与异步事件驱动的特性，所以很适合于 IO 密集型高并发业务，而访问数据库正是常用的 IO 操作。<!-- /react-text --></li><!-- react-text: 163 -->
+<!-- /react-text --><li data-reactid="164">NPM（全称Node Package Manager，即node包管理器），是Node预设的，通过国内 taobao 镜像可以加快下载速度。</li><!-- react-text: 165 -->
+<!-- /react-text --><li data-reactid="166"><a href="http://expressjs.com/zh-cn/" data-reactid="167">Express</a><!-- react-text: 168 -->（Node.js Web 应用程序框架），很方便的定义 restful api.<!-- /react-text --></li><!-- react-text: 169 -->
+<!-- /react-text --><li data-reactid="170"><!-- react-text: 171 -->Spider，网络爬虫，通过转发客户端的 HTTP 或 HTTPs 请求，得到远程服务器的响应数据，然后再一次转发至客户端中，也就是代理的意思
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/21/5882d1cb76d12.jpg" alt="alt" width="699" height="146" data-reactid="172"/><!-- react-text: 173 -->
+关于<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="174">南师大的一些 API</a><!-- react-text: 175 --> ，已经有前人用 Python 写过了，爬取教务系统数据，然后我只需要爬取对应的网站即可。<!-- /react-text --></li><!-- react-text: 176 -->
+<!-- /react-text --><li data-reactid="177">nginx，使用 C++ 实现的 Web 服务器，通过简单的配置就可以反向代理至正确的端口和应用层协议。</li><!-- react-text: 178 -->
+<!-- /react-text --><li data-reactid="179">由于浏览器安全性的考虑，对于外网地址使用摄像头需要在安全的HTTPs协议下，因此需要付费或免费地得到认可的证书，通过 nginx 配置，反向代理至 Node 进程即可。</li><!-- react-text: 180 -->
+<!-- /react-text --></ol><!-- react-text: 181 -->
+<!-- /react-text --><h2 id="其他（other）" data-reactid="182"><a href="#%E5%85%B6%E4%BB%96%EF%BC%88other%EF%BC%89" aria-hidden="true" data-reactid="183"><span class="icon icon-link" data-reactid="184"></span></a><!-- react-text: 185 -->其他（Other）<!-- /react-text --></h2><!-- react-text: 186 -->
+<!-- /react-text --><ol data-reactid="187"><!-- react-text: 188 -->
+<!-- /react-text --><li data-reactid="189">git 是用于 Linux 内核开发的版本控制工具。与 CVS、Subversion 一类的集中式版本控制工具不同，它采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。 git 的速度很快，这对于诸如 Linux 内核这样的大项目来说自然很重要。git 最为出色的是它的合并追踪（merge tracing）能力。</li><!-- react-text: 190 -->
+<!-- /react-text --><li data-reactid="191">GitHub 是一个通过 Git 进行版本控制的软件源代码托管服务，是全球最大的代码存放网站和开源社区。</li><!-- react-text: 192 -->
+<!-- /react-text --><li data-reactid="193">特征脸（Eigenface）是指用于机器视觉领域中的人脸识别问题的一组特征向量。这些特征向量是从高维矢量空间的人脸图像的协方差矩阵计算而来。一组特征脸 可以通过在一大组描述不同人脸的图像上进行主成分分析（PCA）获得。任意一张人脸图像都可以被认为是这些标准脸的组合。另外，由于人脸是通过一系列向量（每个特征脸一个比例值）而不是数字图像进行保存，可以节省很多存储空间。</li><!-- react-text: 194 -->
+<!-- /react-text --><li data-reactid="195">主成分分析（Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。</li><!-- react-text: 196 -->
+<!-- /react-text --><li data-reactid="197">OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV用C++语言编写，它的主要接口也是C++语言。</li><!-- react-text: 198 -->
+<!-- /react-text --></ol><!-- react-text: 199 -->
+<!-- /react-text --><h1 id="涉及知识（knowledage-involved）" data-reactid="200"><a href="#%E6%B6%89%E5%8F%8A%E7%9F%A5%E8%AF%86%EF%BC%88knowledage-involved%EF%BC%89" aria-hidden="true" data-reactid="201"><span class="icon icon-link" data-reactid="202"></span></a><!-- react-text: 203 -->涉及知识（Knowledage Involved）<!-- /react-text --></h1><!-- react-text: 204 -->
+<!-- /react-text --><ol data-reactid="205"><!-- react-text: 206 -->
+<!-- /react-text --><li data-reactid="207">javascript / react / redux / react-router / webpack / less / node / babel / es6 / tracking.js / isomorphic / promise</li><!-- react-text: 208 -->
+<!-- /react-text --><li data-reactid="209">http / https / express / mysql</li><!-- react-text: 210 -->
+<!-- /react-text --><li data-reactid="211">opencv / Eigenfaces FaceRecognizer / node addons 降维、特征提取、特征比对</li><!-- react-text: 212 -->
+<!-- /react-text --><li data-reactid="213">homebrew / curl / bash script / electron / cross-env / npm script / screen command / pm2 / nginx / git / seo</li><!-- react-text: 214 -->
+<!-- /react-text --><li data-reactid="215">搜索引擎优化（search engine optimization，SEO），是一种通过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。所谓“针对搜索引擎作最优化的处理”，是指为了要让网站更容易被搜索引擎接受。</li><!-- react-text: 216 -->
+<!-- /react-text --></ol><!-- react-text: 217 -->
+<!-- /react-text --><p data-reactid="218">不仅仅局限与以上。以上工具、理论、技术可能只是项目简单地使用，或是学习过程中触碰过而已。</p><!-- react-text: 219 -->
+<!-- /react-text --><h1 id="学习记录（learning-record）" data-reactid="220"><a href="#%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%EF%BC%88learning-record%EF%BC%89" aria-hidden="true" data-reactid="221"><span class="icon icon-link" data-reactid="222"></span></a><!-- react-text: 223 -->学习记录（Learning Record）<!-- /react-text --></h1><!-- react-text: 224 -->
+<!-- /react-text --><h2 id="2016年12月9日" data-reactid="225"><a href="#2016%E5%B9%B412%E6%9C%889%E6%97%A5" aria-hidden="true" data-reactid="226"><span class="icon icon-link" data-reactid="227"></span></a><!-- react-text: 228 -->2016年12月9日<!-- /react-text --></h2><!-- react-text: 229 -->
+<!-- /react-text --><ol data-reactid="230"><!-- react-text: 231 -->
+<!-- /react-text --><li data-reactid="232">初步确定课题：基于南师大本科生学生照片，进行人脸识别+特征提取+人脸相似度对比，判断输入人物图片是否存在于库中。若时间允许，精力有余，考虑加上声音比对，提高识别正确率。</li><!-- react-text: 233 -->
+<!-- /react-text --><li data-reactid="234"><!-- react-text: 235 -->成功下载南师大本科生照片，代码见<!-- /react-text --><code data-reactid="236">gp-image-download</code><!-- react-text: 237 -->文件夹，使用bash脚本+node实现，可以方便的跨平台。<!-- /react-text --></li><!-- react-text: 238 -->
+<!-- /react-text --></ol><!-- react-text: 239 -->
+<!-- /react-text --><h2 id="2016年12月10日" data-reactid="240"><a href="#2016%E5%B9%B412%E6%9C%8810%E6%97%A5" aria-hidden="true" data-reactid="241"><span class="icon icon-link" data-reactid="242"></span></a><!-- react-text: 243 -->2016年12月10日<!-- /react-text --></h2><!-- react-text: 244 -->
+<!-- /react-text --><p data-reactid="245">初步了解人脸识别检测。
+产生怀疑：
+1. 纯粹自己实现系列识别，特征提取，模式匹配等等。仅是识别算法理论，需要的数学功底较复杂...数学已经丢的差不多了..进度缓慢，无法入手，恐怕较难完成。
+2. 调用opencv接口或者调用网上api，恐怕工作量不够(应用交互设计完备点？)
+3. 换个课题？备选moka(1)或者iNjnu App(2)</p><!-- react-text: 246 -->
+<!-- /react-text --><h2 id="2016年12月11日" data-reactid="247"><a href="#2016%E5%B9%B412%E6%9C%8811%E6%97%A5" aria-hidden="true" data-reactid="248"><span class="icon icon-link" data-reactid="249"></span></a><!-- react-text: 250 -->2016年12月11日<!-- /react-text --></h2><!-- react-text: 251 -->
+<!-- /react-text --><ol data-reactid="252"><!-- react-text: 253 -->
+<!-- /react-text --><li data-reactid="254"><!-- react-text: 255 -->
+<!-- /react-text --><p data-reactid="256"><!-- react-text: 257 -->搭建学生签到系统开发环境，采用<!-- /react-text --><code data-reactid="258">react + redux + react-router + webpack</code><!-- react-text: 259 -->技术栈，利用web前端技术实现界面，后续可以使用<!-- /react-text --><code data-reactid="260">electron</code><!-- react-text: 261 -->打包为跨平台app<!-- /react-text --></p><!-- react-text: 262 -->
+<!-- /react-text --></li><!-- react-text: 263 -->
+<!-- /react-text --><li data-reactid="264"><!-- react-text: 265 -->
+<!-- /react-text --><p data-reactid="266"><!-- react-text: 267 -->注册<!-- /react-text --><code data-reactid="268">face++</code><!-- react-text: 269 -->账号，打算采用第三方人脸识别比对api<!-- /react-text --></p><!-- react-text: 270 -->
+<!-- /react-text --></li><!-- react-text: 271 -->
+<!-- /react-text --></ol><!-- react-text: 272 -->
+<!-- /react-text --><h2 id="2016年12月12日" data-reactid="273"><a href="#2016%E5%B9%B412%E6%9C%8812%E6%97%A5" aria-hidden="true" data-reactid="274"><span class="icon icon-link" data-reactid="275"></span></a><!-- react-text: 276 -->2016年12月12日<!-- /react-text --></h2><!-- react-text: 277 -->
+<!-- /react-text --><ol data-reactid="278"><!-- react-text: 279 -->
+<!-- /react-text --><li data-reactid="280"><!-- react-text: 281 -->
+<!-- /react-text --><p data-reactid="282">初步开发前端页面+后端服务(node express), 前后端分离</p><!-- react-text: 283 -->
+<!-- /react-text --></li><!-- react-text: 284 -->
+<!-- /react-text --><li data-reactid="285"><!-- react-text: 286 -->
+<!-- /react-text --><p data-reactid="287"><!-- react-text: 288 -->使用<!-- /react-text --><code data-reactid="289">Sublime</code><!-- react-text: 290 -->编辑器，默认缩进为<!-- /react-text --><code data-reactid="291">Tab</code><!-- react-text: 292 -->，书写脚本<!-- /react-text --><code data-reactid="293">updateIndent.js</code><!-- react-text: 294 -->，批量修改<!-- /react-text --><code data-reactid="295">Tab</code><!-- react-text: 296 -->为四空格<!-- /react-text --></p><!-- react-text: 297 -->
+<!-- /react-text --></li><!-- react-text: 298 -->
+<!-- /react-text --><li data-reactid="299"><!-- react-text: 300 -->
+<!-- /react-text --><p data-reactid="301">课题确定，《南师大学生刷脸签到系统》
+对于人脸识别+比对方面实现，初步考虑3个解决方案：</p><!-- react-text: 302 -->
+<!-- /react-text --></li><!-- react-text: 303 -->
+<!-- /react-text --><li data-reactid="304"><!-- react-text: 305 -->
+<!-- /react-text --><p data-reactid="306">人脸识别+比对算法完全自己实现。</p><!-- react-text: 307 -->
+<!-- /react-text --></li><!-- react-text: 308 -->
+<!-- /react-text --><li data-reactid="309"><!-- react-text: 310 -->
+<!-- /react-text --><p data-reactid="311">调用opencv人脸识别api + 自己实现人脸比对算法。</p><!-- react-text: 312 -->
+<!-- /react-text --></li><!-- react-text: 313 -->
+<!-- /react-text --><li data-reactid="314"><!-- react-text: 315 -->
+<!-- /react-text --><p data-reactid="316">调用网上较成熟的人脸识别+人脸比对接口，如Face++。
+以上三种解决方案工作量递减（或者工作量可以在系统功能完备性方面体现），但是识别比对准确率递增。</p><!-- react-text: 317 -->
+<!-- /react-text --></li><!-- react-text: 318 -->
+<!-- /react-text --></ol><!-- react-text: 319 -->
+<!-- /react-text --><p data-reactid="320">不知道老师对以上三种方案有什么看法。
+如果采用1或2，本人不知道应该看什么相关书籍入门(数学已经丢的差不多了，非考研党)，以及所用时间和最终效果都可能不尽人意。</p><!-- react-text: 321 -->
+<!-- /react-text --><p data-reactid="322">还有一个问题：面向学生的教务系统好像没有输入课程号，教师ID，输出全部选课学生ID的接口。或者在面向教师的教务系统才有提供，但我没有教师账号密码，不能自己爬取。不知道我应该联系谁，才可以提供该接口。</p><!-- react-text: 323 -->
+<!-- /react-text --><ol start="4" data-reactid="324"><!-- react-text: 325 -->
+<!-- /react-text --><li data-reactid="326"><a href="http://urp.njnu.edu.cn/authorizeUsers.portal?start=0&amp;limit=100&amp;term=191301" data-reactid="327">获取学号接口</a></li><!-- react-text: 328 -->
+<!-- /react-text --><li data-reactid="329">根据爬取的学生照片，创建数据库stu(id, audio), sign(id, time, stu_id); 班级的判断，通过已经得到ids.txt前6位得到（去掉非纯数字的，位数不同的）</li><!-- react-text: 330 -->
+<!-- /react-text --><li data-reactid="331">构思管理员入口 =&gt; 登录(判断是否已经登录) =&gt; 查看学生信息(根据学号，姓名，班级号) + 签到信息查看 </li><!-- react-text: 332 -->
+<!-- /react-text --></ol><!-- react-text: 333 -->
+<!-- /react-text --><h2 id="2016年12月13日" data-reactid="334"><a href="#2016%E5%B9%B412%E6%9C%8813%E6%97%A5" aria-hidden="true" data-reactid="335"><span class="icon icon-link" data-reactid="336"></span></a><!-- react-text: 337 -->2016年12月13日<!-- /react-text --></h2><!-- react-text: 338 -->
+<!-- /react-text --><ol data-reactid="339"><!-- react-text: 340 -->
+<!-- /react-text --><li data-reactid="341"><!-- react-text: 342 -->重拾数学
+<!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E7%A7%AF%E5%88%86" data-reactid="343">积分</a><!-- react-text: 344 --> <!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E6%96%B9%E5%B7%AE" data-reactid="345">方差</a><!-- react-text: 346 --> <!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E5%8D%8F%E6%96%B9%E5%B7%AE" data-reactid="347">协方差</a><!-- react-text: 348 -->
+[统计独立] 矩阵 <!-- /react-text --><a href="http://blog.csdn.net/itplus/article/details/11452743" data-reactid="349">协方差矩阵*(写得好)</a></li><!-- react-text: 350 -->
+<!-- /react-text --><li data-reactid="351">方差描述的是它的离散程度，也就是该变量离其期望值的距离。</li><!-- react-text: 352 -->
+<!-- /react-text --><li data-reactid="353">协方差表示的是两个变量的总体的误差，这与只表示一个变量误差的方差不同。 如果两个变量的变化趋势一致，也就是说如果其中一个大于自身的期望值，另外一个也大于自身的期望值，那么两个变量之间的协方差就是正值。 如果两个变量的变化趋势相反，即其中一个大于自身的期望值，另外一个却小于自身的期望值，那么两个变量之间的协方差就是负值。</li><!-- react-text: 354 -->
+<!-- /react-text --><li data-reactid="355"><a href="https://trackingjs.com/bower/tracking.js/examples/face_camera.html" data-reactid="356">face_camera</a><!-- react-text: 357 --> （Js人脸检测插件，去掉手动拍照，监控摄像头识别人脸，可以根据searching和是否有人脸进行对比操作，只发送多个人脸部分图像）<!-- /react-text --><strong data-reactid="358">看下源码，学习识别算法</strong></li><!-- react-text: 359 -->
+<!-- /react-text --></ol><!-- react-text: 360 -->
+<!-- /react-text --><h2 id="2016年12月14日" data-reactid="361"><a href="#2016%E5%B9%B412%E6%9C%8814%E6%97%A5" aria-hidden="true" data-reactid="362"><span class="icon icon-link" data-reactid="363"></span></a><!-- react-text: 364 -->2016年12月14日<!-- /react-text --></h2><!-- react-text: 365 -->
+<!-- /react-text --><ol data-reactid="366"><!-- react-text: 367 -->
+<!-- /react-text --><li data-reactid="368"><!-- react-text: 369 -->
+<!-- /react-text --><p data-reactid="370">opencv install:  </p><!-- react-text: 371 -->
+<!-- /react-text --><pre data-reactid="372"><code data-query="{}" data-lang="data-lang" data-reactid="373">brew tap homebrew/science
+brew install opencv
+</code></pre><!-- react-text: 374 -->
+<!-- /react-text --><p data-reactid="375"><a href="https://www.learnopencv.com/install-opencv-3-on-yosemite-osx-10-10-x/" data-reactid="376">install-opencv-3-on-yosemite-osx-10-10-x</a><!-- react-text: 377 -->
+<!-- /react-text --><a href="http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html" data-reactid="378">linux_install</a><!-- react-text: 379 -->
+<!-- /react-text --><a href="http://www.pyimagesearch.com/2015/06/15/install-opencv-3-0-and-python-2-7-on-osx/" data-reactid="380">install-opencv-3-0-and-python-2-7-on-osx</a></p><!-- react-text: 381 -->
+<!-- /react-text --></li><!-- react-text: 382 -->
+<!-- /react-text --><li data-reactid="383"><!-- react-text: 384 -->
+<!-- /react-text --><p data-reactid="385"><a href="http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_gcc_cmake/linux_gcc_cmake.html" data-reactid="386">添加opencv依赖</a></p><!-- react-text: 387 -->
+<!-- /react-text --></li><!-- react-text: 388 -->
+<!-- /react-text --><li data-reactid="389"><!-- react-text: 390 -->
+<!-- /react-text --><p data-reactid="391">brew更改源
+替换formula 索引的镜像（即 brew update 时所更新内容）</p><!-- react-text: 392 -->
+<!-- /react-text --><pre data-reactid="393"><code data-query="{}" data-lang="data-lang" data-reactid="394">cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+brew update
+</code></pre><!-- react-text: 395 -->
+<!-- /react-text --><p data-reactid="396">替换Homebrew 二进制预编译包的镜像</p><!-- react-text: 397 -->
+<!-- /react-text --><pre data-reactid="398"><code data-query="{}" data-lang="data-lang" data-reactid="399">echo &#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre><!-- react-text: 400 -->
+<!-- /react-text --></li><!-- react-text: 401 -->
+<!-- /react-text --><li data-reactid="402"><!-- react-text: 403 -->
+<!-- /react-text --><p data-reactid="404"><a href="https://github.com/peterbraden/node-opencv" data-reactid="405">node-opencv</a><br data-reactid="406"/><!-- react-text: 407 -->
+<!-- /react-text --><a href="https://github.com/peterbraden/node-opencv/issues/380#issuecomment-191492421" data-reactid="408">Issue</a></p><!-- react-text: 409 -->
+<!-- /react-text --></li><!-- react-text: 410 -->
+<!-- /react-text --></ol><!-- react-text: 411 -->
+<!-- /react-text --><h2 id="2016年12月16日" data-reactid="412"><a href="#2016%E5%B9%B412%E6%9C%8816%E6%97%A5" aria-hidden="true" data-reactid="413"><span class="icon icon-link" data-reactid="414"></span></a><!-- react-text: 415 -->2016年12月16日<!-- /react-text --></h2><!-- react-text: 416 -->
+<!-- /react-text --><ol data-reactid="417"><!-- react-text: 418 -->
+<!-- /react-text --><li data-reactid="419"><!-- react-text: 420 -->使用node-opencv检测人脸，挑选出效果相对好的分类模板<!-- /react-text --><code data-reactid="421">lbpcascade_frontalface.xml</code><!-- react-text: 422 -->, 对比效果数据见<!-- /react-text --><code data-reactid="423">backend/data/summary.json</code></li><!-- react-text: 424 -->
+<!-- /react-text --><li data-reactid="425"><!-- react-text: 426 -->死嚼PCA理论<!-- /react-text --><a href="http://blog.csdn.net/itplus/article/details/11451327" data-reactid="427">1</a><!-- react-text: 428 -->, <!-- /react-text --><a href="http://blog.csdn.net/liulina603/article/details/7912950" data-reactid="429">2</a></li><!-- react-text: 430 -->
+<!-- /react-text --></ol><!-- react-text: 431 -->
+<!-- /react-text --><h2 id="2016年12月18日" data-reactid="432"><a href="#2016%E5%B9%B412%E6%9C%8818%E6%97%A5" aria-hidden="true" data-reactid="433"><span class="icon icon-link" data-reactid="434"></span></a><!-- react-text: 435 -->2016年12月18日<!-- /react-text --></h2><!-- react-text: 436 -->
+<!-- /react-text --><ol data-reactid="437"><!-- react-text: 438 -->
+<!-- /react-text --><li data-reactid="439"><a href="http://www.freeformatter.com/xml-to-json-converter.html" data-reactid="440">人脸检测模式匹配数据xml2json</a><!-- react-text: 441 -->(需VPN)<!-- /react-text --></li><!-- react-text: 442 -->
+<!-- /react-text --><li data-reactid="443">发现人脸识别效果不佳，分析原因， 第一，样本每个人只有一张 ，第二，几年下来，人的变化比较大。</li><!-- react-text: 444 -->
+<!-- /react-text --><li data-reactid="445">新增样本输入模块，学生自主输入删除样本。（需要重新训练，存储）</li><!-- react-text: 446 -->
+<!-- /react-text --><li data-reactid="447">采用opencv Eigenfaces 人脸识别算法</li><!-- react-text: 448 -->
+<!-- /react-text --></ol><!-- react-text: 449 -->
+<!-- /react-text --><h2 id="2017年1月11日" data-reactid="450"><a href="#2017%E5%B9%B41%E6%9C%8811%E6%97%A5" aria-hidden="true" data-reactid="451"><span class="icon icon-link" data-reactid="452"></span></a><!-- react-text: 453 -->2017年1月11日<!-- /react-text --></h2><!-- react-text: 454 -->
+<!-- /react-text --><p data-reactid="455"><code data-reactid="456">image-download</code><!-- react-text: 457 -->去除对<!-- /react-text --><code data-reactid="458">wget</code><!-- react-text: 459 -->依赖，改用<!-- /react-text --><code data-reactid="460">curl</code><!-- react-text: 461 -->指令下载<!-- /react-text --></p><!-- react-text: 462 -->
+<!-- /react-text --><h2 id="2017年1月16日" data-reactid="463"><a href="#2017%E5%B9%B41%E6%9C%8816%E6%97%A5" aria-hidden="true" data-reactid="464"><span class="icon icon-link" data-reactid="465"></span></a><!-- react-text: 466 -->2017年1月16日<!-- /react-text --></h2><!-- react-text: 467 -->
+<!-- /react-text --><ol data-reactid="468"><!-- react-text: 469 -->
+<!-- /react-text --><li data-reactid="470"><!-- react-text: 471 -->
+<!-- /react-text --><p data-reactid="472"><code data-reactid="473">/usr/local/bin/mysql.server start</code><!-- react-text: 474 --> 启动mysql<!-- /react-text --></p><!-- react-text: 475 -->
+<!-- /react-text --></li><!-- react-text: 476 -->
+<!-- /react-text --><li data-reactid="477"><!-- react-text: 478 -->
+<!-- /react-text --><p data-reactid="479"><!-- react-text: 480 -->开始<!-- /react-text --><code data-reactid="481">mysql</code><!-- react-text: 482 -->数据库设计: <!-- /react-text --><code data-reactid="483">face_import table</code><!-- react-text: 484 -->, 书写DAO代码<!-- /react-text --></p><!-- react-text: 485 -->
+<!-- /react-text --></li><!-- react-text: 486 -->
+<!-- /react-text --><li data-reactid="487"><!-- react-text: 488 -->
+<!-- /react-text --><p data-reactid="489">简化部分业务逻辑，删除非必须输入情况(本地图片，网络图片)</p><!-- react-text: 490 -->
+<!-- /react-text --></li><!-- react-text: 491 -->
+<!-- /react-text --><li data-reactid="492"><!-- react-text: 493 -->
+<!-- /react-text --><p data-reactid="494"><!-- react-text: 495 -->考虑到数据的迁移简便和服务器负载，使用<!-- /react-text --><code data-reactid="496">sm.ms</code><!-- react-text: 497 -->免费图床，存储用户导入的人脸图片<!-- /react-text --></p><!-- react-text: 498 -->
+<!-- /react-text --></li><!-- react-text: 499 -->
+<!-- /react-text --><li data-reactid="500"><!-- react-text: 501 -->
+<!-- /react-text --><p data-reactid="502">完成100%人脸录入逻辑。TODO: 每次启动服务器需要读取数据库，得到smms图片数据，进行训练。（为了保证Dev环境启动速度，暂时不做）</p><!-- react-text: 503 -->
+<!-- /react-text --></li><!-- react-text: 504 -->
+<!-- /react-text --><li data-reactid="505"><!-- react-text: 506 -->
+<!-- /react-text --><p data-reactid="507"><!-- react-text: 508 -->引入<!-- /react-text --><code data-reactid="509">cross-env</code><!-- react-text: 510 -->：跨平台设置环境变量NPM包, 区分Dev(父进程监听js文件改动，改动后则重启服务器)与Production环境<!-- /react-text --></p><!-- react-text: 511 -->
+<!-- /react-text --></li><!-- react-text: 512 -->
+<!-- /react-text --></ol><!-- react-text: 513 -->
+<!-- /react-text --><h2 id="2017年1月17日" data-reactid="514"><a href="#2017%E5%B9%B41%E6%9C%8817%E6%97%A5" aria-hidden="true" data-reactid="515"><span class="icon icon-link" data-reactid="516"></span></a><!-- react-text: 517 -->2017年1月17日<!-- /react-text --></h2><!-- react-text: 518 -->
+<!-- /react-text --><ol data-reactid="519"><!-- react-text: 520 -->
+<!-- /react-text --><li data-reactid="521"><!-- react-text: 522 -->
+<!-- /react-text --><p data-reactid="523">改善训练样本方法，加上了smms外链的图片训练(一大串Promise)</p><!-- react-text: 524 -->
+<!-- /react-text --></li><!-- react-text: 525 -->
+<!-- /react-text --><li data-reactid="526"><!-- react-text: 527 -->
+<!-- /react-text --><p data-reactid="528">完成前后端分离的管理员登录状态控制(本地存储+md5编码)，完成管理员样本查看功能。</p><!-- react-text: 529 -->
+<!-- /react-text --></li><!-- react-text: 530 -->
+<!-- /react-text --></ol><!-- react-text: 531 -->
+<!-- /react-text --><h2 id="2017年1月18日" data-reactid="532"><a href="#2017%E5%B9%B41%E6%9C%8818%E6%97%A5" aria-hidden="true" data-reactid="533"><span class="icon icon-link" data-reactid="534"></span></a><!-- react-text: 535 -->2017年1月18日<!-- /react-text --></h2><!-- react-text: 536 -->
+<!-- /react-text --><ol data-reactid="537"><!-- react-text: 538 -->
+<!-- /react-text --><li data-reactid="539">完成每次启动服务器需要读取数据库，得到smms图片数据，进行训练。</li><!-- react-text: 540 -->
+<!-- /react-text --><li data-reactid="541">完成删除/添加人脸样本，重新训练逻辑(异步，不保证实时性)。</li><!-- react-text: 542 -->
+<!-- /react-text --><li data-reactid="543"><!-- react-text: 544 -->对于学生证照，<!-- /react-text --><code data-reactid="545">lbpcascade_frontalface, scale=1.95左右</code><!-- react-text: 546 -->人脸检测效果较好<!-- /react-text --></li><!-- react-text: 547 -->
+<!-- /react-text --><li data-reactid="548"><a href="http://stackoverflow.com/questions/13652778/what-is-confidence-in-opencvs-facerecognizer" data-reactid="549">distance convert to precentage</a></li><!-- react-text: 550 -->
+<!-- /react-text --><li data-reactid="551">confidence&lt;?, 认为是正确</li><!-- react-text: 552 -->
+<!-- /react-text --><li data-reactid="553">整体大致已经完成，阈值的确定尚未完成</li><!-- react-text: 554 -->
+<!-- /react-text --><li data-reactid="555"><a href="https://coderwall.com/p/h6yfda/use-and-to-jump-forwards-backwards-words-in-iterm-2-on-os-x" data-reactid="556">iterm2, 快捷键设置(useful!)</a></li><!-- react-text: 557 -->
+<!-- /react-text --></ol><!-- react-text: 558 -->
+<!-- /react-text --><h2 id="2017年1月19日" data-reactid="559"><a href="#2017%E5%B9%B41%E6%9C%8819%E6%97%A5" aria-hidden="true" data-reactid="560"><span class="icon icon-link" data-reactid="561"></span></a><!-- react-text: 562 -->2017年1月19日<!-- /react-text --></h2><!-- react-text: 563 -->
+<!-- /react-text --><ol data-reactid="564"><!-- react-text: 565 -->
+<!-- /react-text --><li data-reactid="566">Server读取app代码时，node_module回环加载，出现错误，修改成只使用最外层node_modules</li><!-- react-text: 567 -->
+<!-- /react-text --><li data-reactid="568">react Server端渲染，require() 样式文件的解决方法？(ignore, only无效)</li><!-- react-text: 569 -->
+<!-- /react-text --><li data-reactid="570"><!-- react-text: 571 -->
+<!-- /react-text --><p data-reactid="572">HTTPs才能使用摄像头，因此搞了个免费证书，配置下nginx</p><!-- react-text: 573 -->
+<!-- /react-text --><ul data-reactid="574"><!-- react-text: 575 -->
+<!-- /react-text --><li data-reactid="576"><a href="/%E5%80%BC%E5%BE%97%E7%BB%86%E5%9A%BC" data-reactid="577">https://aotu.io/notes/2016/08/16/nginx-https/</a></li><!-- react-text: 578 -->
+<!-- /react-text --><li data-reactid="579"><a href="/%E5%85%8D%E8%B4%B9%E8%AF%81%E4%B9%A6" data-reactid="580">https://www.zhihu.com/question/19578422</a></li><!-- react-text: 581 -->
+<!-- /react-text --><li data-reactid="582"><a href="http://serverfault.com/questions/67316/in-nginx-how-can-i-rewrite-all-http-requests-to-https-while-maintaining-sub-dom" data-reactid="583">http://serverfault.com/questions/67316/in-nginx-how-can-i-rewrite-all-http-requests-to-https-while-maintaining-sub-dom</a></li><!-- react-text: 584 -->
+<!-- /react-text --></ul><!-- react-text: 585 -->
+<!-- /react-text --></li><!-- react-text: 586 -->
+<!-- /react-text --><li data-reactid="587"><!-- react-text: 588 -->
+<!-- /react-text --><p data-reactid="589">mac迁移到ubuntu一系列的问题</p><!-- react-text: 590 -->
+<!-- /react-text --><ol data-reactid="591"><!-- react-text: 592 -->
+<!-- /react-text --><li data-reactid="593"><a href="http://stackoverflow.com/questions/12335848/opencv-program-compile-error-libopencv-core-so-2-4-cannot-open-shared-object-f" data-reactid="594">http://stackoverflow.com/questions/12335848/opencv-program-compile-error-libopencv-core-so-2-4-cannot-open-shared-object-f</a></li><!-- react-text: 595 -->
+<!-- /react-text --><li data-reactid="596"><!-- react-text: 597 -->unix平台的快速安装脚本=&gt; <!-- /react-text --><code data-reactid="598">start.sh</code></li><!-- react-text: 599 -->
+<!-- /react-text --></ol><!-- react-text: 600 -->
+<!-- /react-text --></li><!-- react-text: 601 -->
+<!-- /react-text --><li data-reactid="602"><a href="https://github.com/jiahaog/nativefier" data-reactid="603">nativefier</a><!-- react-text: 604 --> =&gt; 站点打包成App解决方案, <!-- /react-text --><code data-reactid="605">ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/</code></li><!-- react-text: 606 -->
+<!-- /react-text --><li data-reactid="607">app:packager scripts</li><!-- react-text: 608 -->
+<!-- /react-text --></ol><!-- react-text: 609 -->
+<!-- /react-text --><pre data-reactid="610"><code data-query="{}" data-lang="data-lang" data-reactid="611">&quot;app:mac64&quot;: &quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -a x64 -p mac --name \&quot;南师大刷脸签到\&quot; \&quot;https://face.moyuyc.xyz/\&quot; -i logos/logo.icns --disable-dev-tools --disable-context-menu&quot;,
+&quot;app:mac32&quot;: &quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -a ia32 -p mac --name \&quot;南师大刷脸签到\&quot; \&quot;https://face.moyuyc.xyz/\&quot; -i logos/logo.icns --disable-dev-tools --disable-context-menu&quot;,
+&quot;app:win32&quot;: &quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -p win32 -a x64 --name \&quot;南师大刷脸签到\&quot; \&quot;https://face.moyuyc.xyz/\&quot; -i logos/logo.png --disable-dev-tools --disable-context-menu&quot;,
+&quot;app:win64&quot;: &quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -p win32 -a ia32 --name \&quot;南师大刷脸签到\&quot; \&quot;https://face.moyuyc.xyz/\&quot; -i logos/logo.png --disable-dev-tools --disable-context-menu&quot;
+</code></pre><!-- react-text: 612 -->
+<!-- /react-text --><h2 id="2017年1月20日" data-reactid="613"><a href="#2017%E5%B9%B41%E6%9C%8820%E6%97%A5" aria-hidden="true" data-reactid="614"><span class="icon icon-link" data-reactid="615"></span></a><!-- react-text: 616 -->2017年1月20日<!-- /react-text --></h2><!-- react-text: 617 -->
+<!-- /react-text --><ol data-reactid="618"><!-- react-text: 619 -->
+<!-- /react-text --><li data-reactid="620"><!-- react-text: 621 -->同构渲染(优化seo+首屏渲染) <!-- /react-text --><a href="http://www.aliued.com/?p=3077" data-reactid="622">css module打包的解决方案</a><!-- react-text: 623 -->, <!-- /react-text --><a href="https://github.com/halt-hammerzeit/webpack-isomorphic-tools" data-reactid="624">webpack-isomorphic-tools</a></li><!-- react-text: 625 -->
+<!-- /react-text --><li data-reactid="626"><a href="https://github.com/chenzhiwei/linux/tree/master/screen" data-reactid="627">远端发布 screen指令</a></li><!-- react-text: 628 -->
+<!-- /react-text --></ol><!-- react-text: 629 -->
+<!-- /react-text --><h2 id="2017年1月21日" data-reactid="630"><a href="#2017%E5%B9%B41%E6%9C%8821%E6%97%A5" aria-hidden="true" data-reactid="631"><span class="icon icon-link" data-reactid="632"></span></a><!-- react-text: 633 -->2017年1月21日<!-- /react-text --></h2><!-- react-text: 634 -->
+<!-- /react-text --><ol data-reactid="635"><!-- react-text: 636 -->
+<!-- /react-text --><li data-reactid="637"><!-- react-text: 638 -->google+baidu 收录，添加 robots.txt 与 sitemap.txt，如今在google下搜索 <!-- /react-text --><code data-reactid="639">南京师范大学 刷脸</code><!-- react-text: 640 --> 即可<!-- /react-text --></li><!-- react-text: 641 -->
+<!-- /react-text --></ol><!-- react-text: 642 -->
+<!-- /react-text --><h1 id="系统剖析（system-analysis）" data-reactid="643"><a href="#%E7%B3%BB%E7%BB%9F%E5%89%96%E6%9E%90%EF%BC%88system-analysis%EF%BC%89" aria-hidden="true" data-reactid="644"><span class="icon icon-link" data-reactid="645"></span></a><!-- react-text: 646 -->系统剖析（System Analysis）<!-- /react-text --></h1><!-- react-text: 647 -->
+<!-- /react-text --><p data-reactid="648"><!-- react-text: 649 -->源码地址：<!-- /react-text --><a href="https://github.com/moyuyc/graduation-project" data-reactid="650">Graduation-Project</a></p><!-- react-text: 651 -->
+<!-- /react-text --><h2 id="文件结构（directory-tree）" data-reactid="652"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%EF%BC%88directory-tree%EF%BC%89" aria-hidden="true" data-reactid="653"><span class="icon icon-link" data-reactid="654"></span></a><!-- react-text: 655 -->文件结构（Directory Tree）<!-- /react-text --></h2><!-- react-text: 656 -->
+<!-- /react-text --><p data-reactid="657">顶层文件结构如下</p><!-- react-text: 658 -->
+<!-- /react-text --><pre data-reactid="659"><code data-query="{}" data-lang="data-lang" data-reactid="660">Graduation-Project/
+├── desktop/
+├── gp-image-download/
+├── gp-njnu-photos-app/
+└── gp-njnu-photos-backend/
+</code></pre><!-- react-text: 661 -->
+<!-- /react-text --><p data-reactid="662"><code data-reactid="663">desktop/</code><!-- react-text: 664 --> 中放的是将站点打包成 PC Desktop 的 Logo，<!-- /react-text --><code data-reactid="665">logo.icns</code><!-- react-text: 666 --> 用在 osx 系统中，<!-- /react-text --><code data-reactid="667">logo.png</code><!-- react-text: 668 --> 则用于 linux 与 windows 系统中，打包成的 PC Desktop 默认也是放在该文件夹下。<!-- /react-text --></p><!-- react-text: 669 -->
+<!-- /react-text --><pre data-reactid="670"><code data-query="{}" data-lang="data-lang" data-reactid="671">desktop/
+└── logos/
+    ├── logo.icns
+    ├── logo.ico
+    └── logo.png 
+</code></pre><!-- react-text: 672 -->
+<!-- /react-text --><p data-reactid="673"><code data-reactid="674">gp-image-download/</code><!-- react-text: 675 --> 文件夹里面放的是将教务系统的学生图片下载至该文件夹中，其中的 <!-- /react-text --><code data-reactid="676">data/</code><!-- react-text: 677 --> 文件夹放的是各年入学的学生的学号（部分学号不正确），数据是 <!-- /react-text --><code data-reactid="678">get-all-id.js</code><!-- react-text: 679 --> 脚本得到，具体工作细节在后面会说到。保证获取到各年的学生学号集后，通过 <!-- /react-text --><code data-reactid="680">download.sh</code><!-- react-text: 681 --> Bash 脚本即可进行下载；下载的图片放在 <!-- /react-text --><code data-reactid="682">images/</code><!-- react-text: 683 --> 中。<!-- /react-text --></p><!-- react-text: 684 -->
+<!-- /react-text --><pre data-reactid="685"><code data-query="{}" data-lang="data-lang" data-reactid="686">gp-image-download/
+├── data/
+│   └── ...
+├── download.sh
+├── get-all-id.js
+├── images/
+│   └── ...
+└── lib/
+    └── get-all-id.js
+</code></pre><!-- react-text: 687 -->
+<!-- /react-text --><p data-reactid="688"><code data-reactid="689">gp-njnu-photos-app/</code><!-- react-text: 690 --> 放的是前端代码，<!-- /react-text --><code data-reactid="691">app/</code><!-- react-text: 692 --> 是开发用的源码，<!-- /react-text --><code data-reactid="693">build/</code><!-- react-text: 694 --> 是用 Webpack 打包的压缩后的发布资源，包括 <!-- /react-text --><code data-reactid="695">css/js/html/image...</code></p><!-- react-text: 696 -->
+<!-- /react-text --><pre data-reactid="697"><code data-query="{}" data-lang="data-lang" data-reactid="698">gp-njnu-photos-app/
+├── app/
+│   └── ...
+├── build/
+│   └── ...
+├── index.js
+├── package.json
+├── webpack-assets.json
+└── webpack.config.js
+</code></pre><!-- react-text: 699 -->
+<!-- /react-text --><p data-reactid="700"><code data-reactid="701">gp-njnu-photos-backend/</code><!-- react-text: 702 --> 放的是后端的全部代码。  <!-- /react-text --></p><!-- react-text: 703 -->
+<!-- /react-text --><ul data-reactid="704"><!-- react-text: 705 -->
+<!-- /react-text --><li data-reactid="706"><code data-reactid="707">cpptest/</code><!-- react-text: 708 --> c++ opencv 的一些测试  <!-- /react-text --></li><!-- react-text: 709 -->
+<!-- /react-text --><li data-reactid="710"><code data-reactid="711">test/</code><!-- react-text: 712 --> nodejs 调用 opencv 接口的例子  <!-- /react-text --></li><!-- react-text: 713 -->
+<!-- /react-text --><li data-reactid="714"><code data-reactid="715">data/</code><!-- react-text: 716 --> 放些人脸 xml 模板数据，服务器运行时生成的缓存数据，预处理后的学生照片，上一次保存的训练数据。  <!-- /react-text --></li><!-- react-text: 717 -->
+<!-- /react-text --><li data-reactid="718"><code data-reactid="719">database/</code><!-- react-text: 720 --> 访问 mysql 的 JS 接口<!-- /react-text --></li><!-- react-text: 721 -->
+<!-- /react-text --><li data-reactid="722"><code data-reactid="723">lib/</code><!-- react-text: 724 --> 一些通用的 JS 方法，比如爬虫接口，图片上传接口...  <!-- /react-text --></li><!-- react-text: 725 -->
+<!-- /react-text --><li data-reactid="726"><code data-reactid="727">opencv/</code><!-- react-text: 728 --> 搭建 nodejs 与 C++ 桥梁的源码与产生的链接库<!-- /react-text --></li><!-- react-text: 729 -->
+<!-- /react-text --><li data-reactid="730"><code data-reactid="731">pretreat</code><!-- react-text: 732 --> 一些预处理接口，如人脸检测，图片灰化处理，样本数据的训练...<!-- /react-text --></li><!-- react-text: 733 -->
+<!-- /react-text --><li data-reactid="734"><code data-reactid="735">routes</code><!-- react-text: 736 --> express 的路由控制文件<!-- /react-text --></li><!-- react-text: 737 -->
+<!-- /react-text --><li data-reactid="738"><code data-reactid="739">ssl</code><!-- react-text: 740 --> HTTPs 证书与密钥<!-- /react-text --></li><!-- react-text: 741 -->
+<!-- /react-text --><li data-reactid="742"><code data-reactid="743">server.js</code><!-- react-text: 744 --> HTTP 服务入口<!-- /react-text --></li><!-- react-text: 745 -->
+<!-- /react-text --><li data-reactid="746"><code data-reactid="747">index.js</code><!-- react-text: 748 --> 在调用 <!-- /react-text --><code data-reactid="749">server.js</code><!-- react-text: 750 --> 之前，获取前端数据，使得后端能够处理静态资源（image/css/...），为前后端公用一套代码提供解决方案。（一般在线上环境使用）<!-- /react-text --></li><!-- react-text: 751 -->
+<!-- /react-text --><li data-reactid="752"><code data-reactid="753">provider.js</code><!-- react-text: 754 --> 创建子进程 <!-- /react-text --><code data-reactid="755">server.js</code><!-- react-text: 756 -->，同时监听后端开发目录代码的改动，一旦改动便杀死上一个子进程，并且再次创建子进程 <!-- /react-text --><code data-reactid="757">server.js</code><!-- react-text: 758 -->，可以实现后端代码的<!-- /react-text --><strong data-reactid="759"><em data-reactid="760">热更新</em></strong><!-- react-text: 761 -->。（一般在开发环境使用）<!-- /react-text --></li><!-- react-text: 762 -->
+<!-- /react-text --></ul><!-- react-text: 763 -->
+<!-- /react-text --><pre data-reactid="764"><code data-query="{}" data-lang="data-lang" data-reactid="765">gp-njnu-photos-backend/
+├── cpptest/
+│   └── ...
+├── test/
+│   └── ...
+├── data/
+│   └── ...
+├── database/
+│   └── ...
+├── lib/
+│   └── ...
+├── opencv/
+│   └── ...
+├── pretreat/
+│   └── ...
+├── routes/
+│   └── ...
+├── ssl/
+│   └── ...
+├── index.js
+├── package.json
+├── provider.js
+└── server.js
+</code></pre><!-- react-text: 766 -->
+<!-- /react-text --><h2 id="过程（learning-process）" data-reactid="767"><a href="#%E8%BF%87%E7%A8%8B%EF%BC%88learning-process%EF%BC%89" aria-hidden="true" data-reactid="768"><span class="icon icon-link" data-reactid="769"></span></a><!-- react-text: 770 -->过程（Learning Process）<!-- /react-text --></h2><!-- react-text: 771 -->
+<!-- /react-text --><h3 id="学生照片下载" data-reactid="772"><a href="#%E5%AD%A6%E7%94%9F%E7%85%A7%E7%89%87%E4%B8%8B%E8%BD%BD" aria-hidden="true" data-reactid="773"><span class="icon icon-link" data-reactid="774"></span></a><!-- react-text: 775 -->学生照片下载<!-- /react-text --></h3><!-- react-text: 776 -->
+<!-- /react-text --><p data-reactid="777"><!-- react-text: 778 -->下载证件照就需要图片的 URL，在<!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/03/%E5%88%A9%E7%94%A8Python%E7%88%AC%E5%8F%96%E5%AD%A6%E6%A0%A1%E7%BD%91%E7%AB%99%E4%B8%8A%E7%9A%84%E8%AF%81%E4%BB%B6%E7%85%A7%EF%BC%88%E5%9B%9B%EF%BC%89/" data-reactid="779">利用Python爬取学校网站上的证件照</a><!-- react-text: 780 -->一文中，说到了教务处的学生证 URL 规则是 <!-- /react-text --><code data-reactid="781">http://${hostname}/jwgl/photos/rx${year}/${studentno}.jpg</code><!-- react-text: 782 --> ，<!-- /react-text --><code data-reactid="783">hostname</code><!-- react-text: 784 -->就是教务系统的主机地址，<!-- /react-text --><code data-reactid="785">year</code><!-- react-text: 786 -->就是入年份，<!-- /react-text --><code data-reactid="787">studentno</code><!-- react-text: 788 -->是学生学号，比如某学生学号是<!-- /react-text --><code data-reactid="789">19140429</code><!-- react-text: 790 -->，其中学号的3-4位表示入学年份，表示学生是 2014 年入学，那么他的学生证 URL 就是 <!-- /react-text --><code data-reactid="791">http://223.2.10.123/jwgl/photos/rx2014/19140429</code><!-- react-text: 792 -->；  <!-- /react-text --></p><!-- react-text: 793 -->
+<!-- /react-text --><p data-reactid="794"><!-- react-text: 795 -->知道了学生照的 URL 规则后，那么怎么得到各个学年入学的学生学号集合呢？
+如果用穷举法，学号一共有 8 位，每位有 0-9 10 种可能，那么得到每一年的学生照片就需要 LOOP 10^8 次，这种级别的时间复杂度是不可接受的。于是通过查阅，搜索找到了
+<!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/13/%E5%88%A9%E7%94%A8Python%E8%BF%87%E6%BB%A4%E6%9C%89%E7%94%A8%E6%A0%A1%E5%9B%AD%E7%BD%91%E8%B4%A6%E5%8F%B7/" data-reactid="796">获取南师大学号</a><!-- react-text: 797 -->，里面提到了获取学号的接口<!-- /react-text --><code data-reactid="798">http://urp.njnu.edu.cn/authorizeUsers.portal?limit=100&amp;term=191301</code><!-- react-text: 799 -->，<!-- /react-text --><code data-reactid="800">term</code><!-- react-text: 801 --> 表示搜索关键字，可以是 <!-- /react-text --><code data-reactid="802">1913/191301/...</code><!-- react-text: 803 --> 将会返回学号中含有其字符串的数据，limit则是数据数最大限制，通过这个接口便可以得到学号集合<!-- /react-text --></p><!-- react-text: 804 -->
+<!-- /react-text --><p data-reactid="805"><!-- react-text: 806 -->最后便是学生照片下载的代码书写了。
+采用的是 Bash Script 书写，具有较强的易用性，不需要复杂的平台、环境依赖。第一版是使用 <!-- /react-text --><code data-reactid="807">wget</code><!-- react-text: 808 --> 指令进行下载，但是该指令在 <!-- /react-text --><code data-reactid="809">windows/osx</code><!-- react-text: 810 --> 需要额外安装，所以最后改成了 <!-- /react-text --><code data-reactid="811">curl</code><!-- react-text: 812 -->。<!-- /react-text --></p><!-- react-text: 813 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884923dd9155.jpg" alt="alt" width="770" height="436" data-reactid="814"/><!-- react-text: 815 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884926960c79.jpg" alt="alt" width="770" height="436" data-reactid="816"/><!-- react-text: 817 -->
+<!-- /react-text --><h3 id="人脸识别理论学习" data-reactid="818"><a href="#%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0" aria-hidden="true" data-reactid="819"><span class="icon icon-link" data-reactid="820"></span></a><!-- react-text: 821 -->人脸识别理论学习<!-- /react-text --></h3><!-- react-text: 822 -->
+<!-- /react-text --><p data-reactid="823"><!-- react-text: 824 -->人脸识别实际包括构建人脸识别系统的一系列相关技术，包括人脸图像采集、人脸定位、人脸识别预处理、身份确认以及身份查找等。上一步已经完成了人脸的采集；  人脸定位也就是人脸的检测，在一张图片中，找出人脸的位置。通过一些特征提取的方法，如<!-- /react-text --><a href="http://www.voidcn.com/blog/jscese/article/p-6250381.html" data-reactid="825">HOG特征，LBP特征，Haar特征</a><!-- react-text: 826 -->，<!-- /react-text --><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html" data-reactid="827">训练</a><!-- react-text: 828 -->得到级联分类器，分类器对图像的任意位置和任意尺寸的部分(通常是正方形或长方形)进行分类，判定是或不是人脸。opencv源码中提供了一些<!-- /react-text --><a href="https://github.com/opencv/opencv/tree/master/data" data-reactid="829">常用的分类器</a><!-- react-text: 830 -->（XML）。人脸识别预处理也就是对图像进行灰化，人脸检测，得到统一大小的人脸图片；然后便是识别了，对样本训练<!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%81%E8%84%B8#.E7.94.9F.E6.88.90.E7.89.B9.E5.BE.81.E8.84.B8" data-reactid="831">生成特征脸</a><!-- react-text: 832 -->后，对于输入的人脸进行预处理后，得到其<!-- /react-text --><a href="http://blog.csdn.net/smartempire/article/details/21406005" data-reactid="833">特征脸权重向量</a><!-- react-text: 834 -->，计算向量距离，找到最小距离的样本人脸。<!-- /react-text --></p><!-- react-text: 835 -->
+<!-- /react-text --><p data-reactid="836">可以看到特征脸的生成是需要整个样本数据的，所以如果用户修改了样本数据，需要对全部样本重新训练，得到一组全新的特征脸。</p><!-- react-text: 837 -->
+<!-- /react-text --><h3 id="opencv-环境安装" data-reactid="838"><a href="#opencv-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85" aria-hidden="true" data-reactid="839"><span class="icon icon-link" data-reactid="840"></span></a><!-- react-text: 841 -->opencv 环境安装<!-- /react-text --></h3><!-- react-text: 842 -->
+<!-- /react-text --><p data-reactid="843">由于开发平台是 OSX ，而 OSX 有 Homebrew 神器</p><!-- react-text: 844 -->
+<!-- /react-text --><pre data-reactid="845"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="846"><span class="hljs-comment" data-reactid="847"># 安装 Homebrew</span><!-- react-text: 848 -->
+/usr/bin/ruby -e <!-- /react-text --><span class="hljs-string" data-reactid="849"><!-- react-text: 850 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="851">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><!-- react-text: 852 -->&quot;<!-- /react-text --></span><!-- react-text: 853 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="854"># 设置 Homebrew镜像代理，国内下载加速</span><!-- react-text: 855 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="856">cd</span><!-- react-text: 857 --> <!-- /react-text --><span class="hljs-string" data-reactid="858"><!-- react-text: 859 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="860">$(brew --repo)</span><!-- react-text: 861 -->&quot;<!-- /react-text --></span><!-- react-text: 862 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="863">set</span><!-- react-text: 864 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="865">cd</span><!-- react-text: 866 --> <!-- /react-text --><span class="hljs-string" data-reactid="867"><!-- react-text: 868 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="869">$(brew --repo)</span><!-- react-text: 870 -->/Library/Taps/homebrew/homebrew-core&quot;<!-- /react-text --></span><!-- react-text: 871 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="872">set</span><!-- react-text: 873 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+brew update
+<!-- /react-text --><span class="hljs-built_in" data-reactid="874">echo</span><!-- react-text: 875 --> <!-- /react-text --><span class="hljs-string" data-reactid="876">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27;</span><!-- react-text: 877 --> &gt;&gt; ~/.bash_profile
+<!-- /react-text --><span class="hljs-built_in" data-reactid="878">source</span><!-- react-text: 879 --> ~/.bash_profile
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="880"># 安装 opencv</span><!-- react-text: 881 -->
+brew tap homebrew/science
+brew install opencv<!-- /react-text --></code></pre><!-- react-text: 882 -->
+<!-- /react-text --><h3 id="node-addons" data-reactid="883"><a href="#node-addons" aria-hidden="true" data-reactid="884"><span class="icon icon-link" data-reactid="885"></span></a><!-- react-text: 886 -->node addons<!-- /react-text --></h3><!-- react-text: 887 -->
+<!-- /react-text --><p data-reactid="888"><!-- react-text: 889 -->node addons 是在 node 环境调用 C 系列接口的方法，已经有人用该方法写过 <!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="890"><code data-reactid="891">node-opencv</code></a><!-- react-text: 892 -->，并在此基础上我还加上了 <!-- /react-text --><code data-reactid="893">CircleLBP</code><!-- react-text: 894 --> <!-- /react-text --><code data-reactid="895">RectLBP</code><!-- react-text: 896 --> <!-- /react-text --><code data-reactid="897">ToThreeChannels</code><!-- react-text: 898 --> <!-- /react-text --><code data-reactid="899">PCA</code><!-- react-text: 900 --> 算法，<!-- /react-text --><code data-reactid="901">ToThreeChannels</code><!-- react-text: 902 --> 是将 单通道（灰）或者 RGBA 通道变成 RGB 通道。<!-- /react-text --></p><!-- react-text: 903 -->
+<!-- /react-text --><pre data-reactid="904"><code class="hljs language-cpp" data-query="{}" data-lang="cpp" data-reactid="905"><!-- react-text: 906 -->NAN_METHOD(Matrix::ToThreeChannels) {
+  Nan::HandleScope scope;
+  Matrix *self = Nan::ObjectWrap::Unwrap&lt;Matrix&gt;(info.This());
+  cv::Mat image;
+
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="907">if</span><!-- react-text: 908 --> (self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="909">3</span><!-- react-text: 910 -->) {
+    image = self-&gt;mat;
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="911">else</span><!-- react-text: 912 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="913">if</span><!-- react-text: 914 --> (self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="915">1</span><!-- react-text: 916 -->) {
+    cv::Mat myimg = self-&gt;mat;
+    cv::cvtColor(myimg, image, CV_GRAY2RGB);
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="917">else</span><!-- react-text: 918 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="919">if</span><!-- react-text: 920 -->(self-&gt;mat.channels() == <!-- /react-text --><span class="hljs-number" data-reactid="921">4</span><!-- react-text: 922 -->){
+    cv::Mat myimg = self-&gt;mat;
+    cv::cvtColor(myimg, image, CV_BGRA2RGB);
+  } <!-- /react-text --><span class="hljs-keyword" data-reactid="923">else</span><!-- react-text: 924 --> {
+    Nan::ThrowError(<!-- /react-text --><span class="hljs-string" data-reactid="925">&quot;those channels are not supported&quot;</span><!-- react-text: 926 -->);
+  }
+
+  self-&gt;mat = image;
+  info.GetReturnValue().Set(Nan::Null());
+}<!-- /react-text --></code></pre><!-- react-text: 927 -->
+<!-- /react-text --><h3 id="图片预处理（人脸检测）" data-reactid="928"><a href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%EF%BC%89" aria-hidden="true" data-reactid="929"><span class="icon icon-link" data-reactid="930"></span></a><!-- react-text: 931 -->图片预处理（人脸检测...）<!-- /react-text --></h3><!-- react-text: 932 -->
+<!-- /react-text --><p data-reactid="933">通道统一 =&gt; 灰化 =&gt; 级联分类器检测人脸 =&gt; 人脸尺寸统一 =&gt; 保存</p><!-- react-text: 934 -->
+<!-- /react-text --><p data-reactid="935"><!-- react-text: 936 -->经过多次尝试后，对于学生证件照，最终比较得出，采用 LBP 级联分类器，窗口放大 1.95 倍左右效果较好。（测试数据在 <!-- /react-text --><code data-reactid="937">backend/data/summary.json</code><!-- react-text: 938 -->）<!-- /react-text --></p><!-- react-text: 939 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884929797559.jpg" alt="alt" width="770" height="436" data-reactid="940"/><!-- react-text: 941 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588492ae5471e.jpg" alt="alt" width="770" height="436" data-reactid="942"/><!-- react-text: 943 -->
+<!-- /react-text --><h3 id="识别算法测试与确定" data-reactid="944"><a href="#%E8%AF%86%E5%88%AB%E7%AE%97%E6%B3%95%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%A1%AE%E5%AE%9A" aria-hidden="true" data-reactid="945"><span class="icon icon-link" data-reactid="946"></span></a><!-- react-text: 947 -->识别算法测试与确定<!-- /react-text --></h3><!-- react-text: 948 -->
+<!-- /react-text --><p data-reactid="949"><!-- react-text: 950 -->比较 opencv 中三种人脸识别算法，Eigen、Fisher、LBPH。数据在<!-- /react-text --><code data-reactid="951">backend/cpptest/</code><!-- react-text: 952 --> 中<!-- /react-text --></p><!-- react-text: 953 -->
+<!-- /react-text --><table data-reactid="954"><!-- react-text: 955 -->
+　<!-- /react-text --><caption data-reactid="956"><em data-reactid="957">opencv 人脸识别算法比较</em></caption><!-- react-text: 958 -->
+　<!-- /react-text --><tr data-reactid="959"><!-- react-text: 960 -->
+　<!-- /react-text --><th rowspan="2" style="text-align:center;" data-reactid="961">算法/时间(ms)</th><!-- react-text: 962 -->
+　<!-- /react-text --><th colspan="2" data-reactid="963">实验1</th><!-- react-text: 964 -->
+　<!-- /react-text --><th colspan="2" data-reactid="965">实验2</th><!-- react-text: 966 -->
+　<!-- /react-text --><th colspan="2" data-reactid="967">实验3</th><!-- react-text: 968 -->
+　<!-- /react-text --><th colspan="2" data-reactid="969">实验4</th><!-- react-text: 970 -->
+　<!-- /react-text --><th colspan="2" data-reactid="971">实验5</th><!-- react-text: 972 -->
+　<!-- /react-text --></tr><tr data-reactid="973"><!-- react-text: 974 -->
+　<!-- /react-text --><td data-reactid="975">训练</td><td data-reactid="976">预测</td><td data-reactid="977">训练</td><td data-reactid="978">预测</td><td data-reactid="979">训练</td><td data-reactid="980">预测</td><td data-reactid="981">训练</td><td data-reactid="982">预测</td><td data-reactid="983">训练</td><td data-reactid="984">预测</td><!-- react-text: 985 -->
+　<!-- /react-text --></tr><tr data-reactid="986"><th data-reactid="987">Eigen</th><td data-reactid="988">0.030648</td><td data-reactid="989">0.010711</td><td data-reactid="990">0.025524</td><td data-reactid="991">0.011132</td><td data-reactid="992">0.029332</td><td data-reactid="993">0.007791</td><td data-reactid="994">0.036231</td><td data-reactid="995">0.020043</td><td data-reactid="996">0.026972</td><td data-reactid="997">0.005711</td><!-- react-text: 998 -->
+　<!-- /react-text --></tr><tr data-reactid="999"><th data-reactid="1000">Fisher</th><td data-reactid="1001">0.040043</td><td data-reactid="1002">0.0089</td><td data-reactid="1003">0.039244</td><td data-reactid="1004">0.007145</td><td data-reactid="1005">0.033777</td><td data-reactid="1006">0.008276</td><td data-reactid="1007">0.043099</td><td data-reactid="1008">0.013723</td><td data-reactid="1009">0.039407</td><td data-reactid="1010">0.015095</td><!-- react-text: 1011 -->
+　<!-- /react-text --></tr><tr data-reactid="1012"><th data-reactid="1013">LBPH</th><td data-reactid="1014">0.035812</td><td data-reactid="1015">0.071586</td><td data-reactid="1016">0.034822</td><td data-reactid="1017">0.075267</td><td data-reactid="1018">0.03204</td><td data-reactid="1019">0.067166</td><td data-reactid="1020">0.039263</td><td data-reactid="1021">0.075726</td><td data-reactid="1022">0.053047</td><td data-reactid="1023">0.074361</td><!-- react-text: 1024 -->
+<!-- /react-text --></tr></table><!-- react-text: 1025 -->
+<!-- /react-text --><p data-reactid="1026"><!-- react-text: 1027 -->综合比较可以得出，效率 Eigen &gt; Fisher &gt; LBPH<!-- /react-text --><br data-reactid="1028"/><!-- react-text: 1029 -->
+所以采用Eigen（特征脸）算法<!-- /react-text --></p><!-- react-text: 1030 -->
+<!-- /react-text --><h3 id="学生信息接口（爬虫）" data-reactid="1031"><a href="#%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%EF%BC%88%E7%88%AC%E8%99%AB%EF%BC%89" aria-hidden="true" data-reactid="1032"><span class="icon icon-link" data-reactid="1033"></span></a><!-- react-text: 1034 -->学生信息接口（爬虫）<!-- /react-text --></h3><!-- react-text: 1035 -->
+<!-- /react-text --><p data-reactid="1036"><!-- react-text: 1037 -->该系统还需要获取到学生的个人信息，比如通过学号和密码验证是否正确等等。在同一届的同学中，已经有一位同学研究教务系统比较透彻了，而且做了一个<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="1038">查南师</a><!-- react-text: 1039 -->网站，所以我只需要爬取该网站的接口即可。<!-- /react-text --></p><!-- react-text: 1040 -->
+<!-- /react-text --><h3 id="前端" data-reactid="1041"><a href="#%E5%89%8D%E7%AB%AF" aria-hidden="true" data-reactid="1042"><span class="icon icon-link" data-reactid="1043"></span></a><!-- react-text: 1044 -->前端<!-- /react-text --></h3><!-- react-text: 1045 -->
+<!-- /react-text --><p data-reactid="1046"><!-- react-text: 1047 -->该系统使用的是前后端分离的架构，页面的渲染交给客户端 <!-- /react-text --><code data-reactid="1048">JavaScript</code><!-- react-text: 1049 --> 来实现，后端只需要提供纯数据接口即可，让后端的工作更加纯粹。  <!-- /react-text --></p><!-- react-text: 1050 -->
+<!-- /react-text --><p data-reactid="1051"><!-- react-text: 1052 -->对于页面路由的控制，使用的是 HTML5 的 <!-- /react-text --><a href="https://developer.mozilla.org/en-US/docs/Web/API/History" data-reactid="1053">History API</a><!-- react-text: 1054 --> ，交给 JavaScript 来控制，所以只要不进行页面的强制刷新（Ctrl/cmd + R），所有路径的跳转都是不会从服务器获取 HTML CSS 进行渲染，这就是单页 Web 应用的核心，这样一来，用户体验就更佳，服务器负载也更小，但对于浏览器要求更高了。<!-- /react-text --></p><!-- react-text: 1055 -->
+<!-- /react-text --><p data-reactid="1056"><!-- react-text: 1057 -->结合 React Web Component 和 <!-- /react-text --><a href="https://github.com/css-modules/css-modules" data-reactid="1058">CSS Module</a><!-- react-text: 1059 --> 思想，将前端页面细分为若干个组件，在上层 Page 中进行数据的传输，组件的组合，在 Page 上层还有一层 App，把一些全局通用的组件放这。
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58845e6781176.jpg" alt="alt" width="986" height="558" data-reactid="1060"/></p><!-- react-text: 1061 -->
+<!-- /react-text --><p data-reactid="1062"><!-- react-text: 1063 -->而且所有的数据控制都在 <!-- /react-text --><code data-reactid="1064">reducer</code><!-- react-text: 1065 --> 中，层次清晰，代码复用性高。<!-- /react-text --></p><!-- react-text: 1066 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58845a7e4a302.jpg" alt="alt" width="800" height="600" data-reactid="1067"/><!-- react-text: 1068 -->
+```
+app/
+├── common/
+│   ├── css/
+│   │   └── ...
+│   ├── storage.js
+│   └── utils.js
+├── components/
+│   ├── Button/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── FaceRec/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── Header/
+│   │   ├── index.js
+│   │   └── style.less
+│   ├── .../
+│   └── Toast/
+│       ├── index.js
+│       └── style.less
+├── pages/
+│   ├── AboutPage.js
+│   ├── AdminLoginPage.js
+│   ├── AdminPage.js
+│   ├── AudioImportPage.js
+│   ├── FaceImportPage.js
+│   └── StuSignPage.js
+├── reducers/
+│   ├── about.js
+│   ├── actions.js
+│   ├── active.js
+│   ├── admin.js
+│   ├── appReducers.js
+│   ├── audioImport.js
+│   ├── base.js
+│   ├── faceImport.js
+│   └── upFace.js
+├── workers/
+│   └── face.worker.js
+├── App.js
+├── index.tpl.html
+├── main.js
+└── router.js
+```
+<!-- /react-text --><p data-reactid="1069"><!-- react-text: 1070 -->其中 <!-- /react-text --><code data-reactid="1071">workers/face.worker.js</code><!-- react-text: 1072 --> 文件是利用 Web Worker 起的另一个进程代码，主要做的是输入图片数据，输出人脸的位置大小，就是 JavaScript 版的人脸检测，之所以起另一个线程，是因为对于视频的人脸检测，对于实时性要求也比较高，检测也比较耗时，为了效率考虑使用了 Web Worker。 <!-- /react-text --></p><!-- react-text: 1073 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884dfc84c74c.jpg" alt="ClipboardImage" width="1395" height="470" data-reactid="1074"/><!-- react-text: 1075 -->
+<!-- /react-text --><h3 id="后端" data-reactid="1076"><a href="#%E5%90%8E%E7%AB%AF" aria-hidden="true" data-reactid="1077"><span class="icon icon-link" data-reactid="1078"></span></a><!-- react-text: 1079 -->后端<!-- /react-text --></h3><!-- react-text: 1080 -->
+<!-- /react-text --><p data-reactid="1081">由于视图的渲染都交给浏览器了，所以后端主要就是对于数据的逻辑处理了，比如样本录入，学生信息查询（爬虫），人脸识别（调用 opencv ），同时使用 mysql 数据库，存储样本录入的信息，表结构如下：</p><!-- react-text: 1082 -->
+<!-- /react-text --><pre data-reactid="1083"><code data-query="{}" data-lang="data-lang" data-reactid="1084">Table gp.`face_import`
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| stuid    | varchar(20)  | NO   |     | NULL    |       |
+| time     | datetime     | NO   |     | NULL    |       |
+| hash     | varchar(20)  | NO   | PRI | NULL    |       |
+| face_url | varchar(100) | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+</code></pre><!-- react-text: 1085 -->
+<!-- /react-text --><p data-reactid="1086"><code data-reactid="1087">hash</code><!-- react-text: 1088 --> 是每次上传样本的唯一 key 值，同时为了方便系统的部署迁移，没有将上传的样本数据存储在服务器中，而是存在 <!-- /react-text --><a href="https://sm.ms" data-reactid="1089">sm.ms</a><!-- react-text: 1090 --> 免费图床中，得到一个 <!-- /react-text --><code data-reactid="1091">face_url</code><!-- react-text: 1092 --> 字段，每次启动服务器之前都得进行样本的训练或者训练数据的读取；而且每次上传样本或者删除样本后，服务器都需要重新训练保存样本，重新生成一套特征脸。   <!-- /react-text --></p><!-- react-text: 1093 -->
+<!-- /react-text --><p data-reactid="1094"><!-- react-text: 1095 -->并且在开启服务器的环境和纯粹的数据处理的环境对于数据库的处理是不一样的，在服务器环境，需要开启数据库连接池，每次都从中去取出连接进行数据操作；而纯粹的读取数据库，得到<!-- /react-text --><code data-reactid="1096">face_url</code><!-- react-text: 1097 -->进行人脸的预处理或训练，则只需要每次单独的 开启连接 =&gt; 读取数据 =&gt; 关闭连接 即可，否则程序会一直运行下去，因为数据库连接池没关闭。<!-- /react-text --></p><!-- react-text: 1098 -->
+<!-- /react-text --><p data-reactid="1099"><!-- react-text: 1100 -->同时，所有的前端数据接口都是 <!-- /react-text --><code data-reactid="1101">/api/*</code><!-- react-text: 1102 --> 规则，同时对于管理员的用户名和密码会进行 md5 不可逆编码然后再传输，防止被他人捕捉到。<!-- /react-text --></p><!-- react-text: 1103 -->
+<!-- /react-text --><h3 id="同构渲染" data-reactid="1104"><a href="#%E5%90%8C%E6%9E%84%E6%B8%B2%E6%9F%93" aria-hidden="true" data-reactid="1105"><span class="icon icon-link" data-reactid="1106"></span></a><!-- react-text: 1107 -->同构渲染<!-- /react-text --></h3><!-- react-text: 1108 -->
+<!-- /react-text --><p data-reactid="1109">上文说到所有的页面渲染都是交给 JavaScript 控制，服务器返回的 HTML结构如下所示：</p><!-- react-text: 1110 -->
+<!-- /react-text --><pre data-reactid="1111"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="1112"><span class="hljs-meta" data-reactid="1113">&lt;!DOCTYPE html&gt;</span><!-- react-text: 1114 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1115"><!-- react-text: 1116 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1117">html</span><!-- react-text: 1118 -->&gt;<!-- /react-text --></span><!-- react-text: 1119 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1120"><!-- react-text: 1121 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1122">head</span><!-- react-text: 1123 -->&gt;<!-- /react-text --></span><!-- react-text: 1124 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1125"><!-- react-text: 1126 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1127">meta</span><!-- react-text: 1128 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1129">charset</span><!-- react-text: 1130 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1131">&quot;utf-8&quot;</span><!-- react-text: 1132 -->&gt;<!-- /react-text --></span><!-- react-text: 1133 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1134"><!-- react-text: 1135 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1136">meta</span><!-- react-text: 1137 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1138">http-equiv</span><!-- react-text: 1139 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1140">&quot;X-UA-Compatible&quot;</span><!-- react-text: 1141 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1142">content</span><!-- react-text: 1143 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1144">&quot;IE=edge,chrome=1&quot;</span><!-- react-text: 1145 -->&gt;<!-- /react-text --></span><!-- react-text: 1146 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1147"><!-- react-text: 1148 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1149">meta</span><!-- react-text: 1150 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1151">name</span><!-- react-text: 1152 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1153">&quot;viewport&quot;</span><!-- react-text: 1154 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1155">content</span><!-- react-text: 1156 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1157">&quot;width=device-width, initial-scale=1&quot;</span><!-- react-text: 1158 -->&gt;<!-- /react-text --></span><!-- react-text: 1159 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1160"><!-- react-text: 1161 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1162">title</span><!-- react-text: 1163 -->&gt;<!-- /react-text --></span><!-- react-text: 1164 -->南师大学生签到系统<!-- /react-text --><span class="hljs-tag" data-reactid="1165"><!-- react-text: 1166 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1167">title</span><!-- react-text: 1168 -->&gt;<!-- /react-text --></span><!-- react-text: 1169 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1170"><!-- react-text: 1171 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1172">link</span><!-- react-text: 1173 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1174">rel</span><!-- react-text: 1175 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1176">&quot;stylesheet&quot;</span><!-- react-text: 1177 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1178">type</span><!-- react-text: 1179 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1180">&quot;text/css&quot;</span><!-- react-text: 1181 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1182">href</span><!-- react-text: 1183 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1184">&quot;/pace.min.css&quot;</span><!-- react-text: 1185 -->&gt;<!-- /react-text --></span><!-- react-text: 1186 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1187"><!-- react-text: 1188 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1189">script</span><!-- react-text: 1190 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1191">type</span><!-- react-text: 1192 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1193">&quot;text/javascript&quot;</span><!-- react-text: 1194 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1195">src</span><!-- react-text: 1196 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1197">&quot;/pace.min.js&quot;</span><!-- react-text: 1198 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="1199"></span><span class="hljs-tag" data-reactid="1200"><!-- react-text: 1201 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1202">script</span><!-- react-text: 1203 -->&gt;<!-- /react-text --></span><!-- react-text: 1204 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1205"><!-- react-text: 1206 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1207">link</span><!-- react-text: 1208 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1209">href</span><!-- react-text: 1210 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1211">&quot;/style.min.css?v=b5afb06f45be775a70081c1e320e6c40&quot;</span><!-- react-text: 1212 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1213">rel</span><!-- react-text: 1214 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1215">&quot;stylesheet&quot;</span><!-- react-text: 1216 -->&gt;<!-- /react-text --></span><span class="hljs-tag" data-reactid="1217"><!-- react-text: 1218 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1219">head</span><!-- react-text: 1220 -->&gt;<!-- /react-text --></span><!-- react-text: 1221 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1222"><!-- react-text: 1223 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1224">body</span><!-- react-text: 1225 -->&gt;<!-- /react-text --></span><!-- react-text: 1226 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="1227"><!-- react-text: 1228 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1229">div</span><!-- react-text: 1230 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1231">id</span><!-- react-text: 1232 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1233">&quot;app&quot;</span><!-- react-text: 1234 -->&gt;<!-- /react-text --></span><span class="hljs-comment" data-reactid="1235">&lt;!--HTML--&gt;</span><span class="hljs-tag" data-reactid="1236"><!-- react-text: 1237 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1238">div</span><!-- react-text: 1239 -->&gt;<!-- /react-text --></span><!-- react-text: 1240 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1241"><!-- react-text: 1242 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1243">script</span><!-- react-text: 1244 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1245">type</span><!-- react-text: 1246 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1247">&quot;text/javascript&quot;</span><!-- react-text: 1248 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1249">src</span><!-- react-text: 1250 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1251">&quot;/libs.min.js?v=8d589c56bcac1e2c17a7&quot;</span><!-- react-text: 1252 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="1253"></span><span class="hljs-tag" data-reactid="1254"><!-- react-text: 1255 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1256">script</span><!-- react-text: 1257 -->&gt;<!-- /react-text --></span><!-- react-text: 1258 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1259"><!-- react-text: 1260 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1261">script</span><!-- react-text: 1262 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1263">type</span><!-- react-text: 1264 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1265">&quot;text/javascript&quot;</span><!-- react-text: 1266 --> <!-- /react-text --><span class="hljs-attr" data-reactid="1267">src</span><!-- react-text: 1268 -->=<!-- /react-text --><span class="hljs-string" data-reactid="1269">&quot;/app.main.min.js?v=448dfe9c907942d09623&quot;</span><!-- react-text: 1270 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="1271"></span><span class="hljs-tag" data-reactid="1272"><!-- react-text: 1273 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1274">script</span><!-- react-text: 1275 -->&gt;<!-- /react-text --></span><span class="hljs-tag" data-reactid="1276"><!-- react-text: 1277 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1278">body</span><!-- react-text: 1279 -->&gt;<!-- /react-text --></span><!-- react-text: 1280 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="1281"><!-- react-text: 1282 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1283">html</span><!-- react-text: 1284 -->&gt;<!-- /react-text --></span></code></pre><!-- react-text: 1285 -->
+<!-- /react-text --><p data-reactid="1286"><!-- react-text: 1287 -->其中任何数据都是没有的，只有 “第二时间” 通过 <!-- /react-text --><code data-reactid="1288">app.min.js</code><!-- react-text: 1289 --> 执行 JavaScript 进行渲染，所以对于用户短暂的 “第一时间” 感觉是不好的，什么都没有，也就是没有 “首屏渲染”，优化首屏渲染，就需要通过服务器返回带内容的 HTML。  <!-- /react-text --></p><!-- react-text: 1290 -->
+<!-- /react-text --><p data-reactid="1291"><!-- react-text: 1292 -->由于前端使用的是 <!-- /react-text --><code data-reactid="1293">react</code><!-- react-text: 1294 -->，将 HTML 抽象成为 <!-- /react-text --><code data-reactid="1295">JSX</code><!-- react-text: 1296 -->，将 DOM操作 转化成状态的变化，重新渲染的思想，所以使得<!-- /react-text --><strong data-reactid="1297"><!-- react-text: 1298 -->服务器端也能够解析<!-- /react-text --><code data-reactid="1299">react</code></strong><!-- react-text: 1300 -->，<!-- /react-text --><code data-reactid="1301">redux</code><!-- react-text: 1302 --> 又将状态的更新操作抽离出来，使得服务器端可以更方便的控制状态从而进行渲染（当然，只有 nodejs 作为后端渲染层才可以做到），同时由于前端使用 Babel 编译前端代码，所以可以用新型语法糖，为了服务器端也能够识别，所以也需要 babel-register<!-- /react-text --></p><!-- react-text: 1303 -->
+<!-- /react-text --><pre data-reactid="1304"><code data-query="{}" data-lang="data-lang" data-reactid="1305">import React from &#x27;react&#x27;;
+import {renderToString} from &#x27;react-dom/server&#x27;
+import reactRouter, {match, RouterContext} from &#x27;react-router&#x27;
+import {Provider} from &#x27;react-redux&#x27;
+import MyRouter, {configureStore} from 
+
+// This is fired every time the server side receives a request
+function handleRender(req, res, next) {
+    match({ routes: MyRouter, location: req.url }, function(error, redirectLocation, renderProps) {
+        if (error) {
+            res.status(500).send(error.stack);
+        } else if (redirectLocation) {
+            if(req.url.startsWith(&#x27;/api&#x27;) || fs.existsSync(path.join(fePath, url.parse(req.url).pathname)) ) {
+                next();
+            } else {
+                res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+            }
+        } else if (renderProps) {
+            var store = configureStore();
+            // console.log(renderProps, store);
+            // we can invoke some async operation(eg. fetchAction or getDataFromDatabase)
+            // call store.dispatch(Action(data)) to update state.
+            store.dispatch(pushRoute(req.url))
+            if(req.url === &#x27;/about&#x27;) {
+                store.dispatch(fetchRemoteMdText())
+                .then(data =&gt; {
+                    res.renderStore(store, renderProps);
+                })
+            } else {
+                res.renderStore(store, renderProps);
+            }
+
+        } else {
+            res.status(404).send(&#x27;Not found&#x27;)
+        }
+    })
+}
+
+express.response.renderStore = function (store, renderProps) {
+    const html = renderToString(
+        &lt;Provider store={store}&gt;
+            &lt;RouterContext {...renderProps} /&gt;
+        &lt;/Provider&gt;
+    );
+    this.header(&#x27;content-type&#x27;, &#x27;text/html; charset=utf-8&#x27;)
+    this.send(renderFullPage(&#x27;南师大刷脸签到系统&#x27;, html, store.getState()))
+}
+
+const htmlPath = path.join(fePath, &#x27;index.html&#x27;);
+var html = fs.readFileSync(htmlPath).toString();
+
+function renderFullPage(title, partHtml, initialState) {
+    // &lt;!--HTML--&gt;
+    var allHtml = html;
+    if(initialState) {
+        allHtml = allHtml.replace(/\/\*\s*?INITIAL_STATE\s*?\*\//, `window.__INITIAL_STATE__=${JSON.stringify(initialState)}`)
+    }
+    if(title) {
+        allHtml = allHtml.replace(/&lt;title&gt;[\s\S]*?&lt;\/title&gt;/, `&lt;title&gt;${title}&lt;/title&gt;`);
+    }
+    return allHtml.replace(/&lt;!--\s*?HTML\s*?--&gt;/, partHtml);
+
+}
+</code></pre><!-- react-text: 1306 -->
+<!-- /react-text --><p data-reactid="1307"><!-- react-text: 1308 -->同时让浏览器得到初始状态，<!-- /react-text --><code data-reactid="1309">window.__INITIAL_STATE__=${JSON.stringify(initialState)}</code><!-- react-text: 1310 -->，把初始状态<!-- /react-text --><code data-reactid="1311">window.__INITIAL_STATE__</code><!-- react-text: 1312 -->
+传给客户端<!-- /react-text --></p><!-- react-text: 1313 -->
+<!-- /react-text --><pre data-reactid="1314"><code data-query="{}" data-lang="data-lang" data-reactid="1315">const isBrowser = (() =&gt; !(typeof process === &#x27;object&#x27; &amp;&amp; typeof process.versions === &#x27;object&#x27; &amp;&amp; typeof process.versions.node !== &#x27;undefined&#x27;))();
+
+var _initState = isBrowser &amp;&amp; window.__INITIAL_STATE__ || initState
+const store = configureStore(
+    _initState
+)
+</code></pre><!-- react-text: 1316 -->
+<!-- /react-text --><p data-reactid="1317">以上，便可以实现同构渲染，既保证了 SPA 的用户体验，首屏渲染，而且解决了SEO（搜索引擎优化）的问题。</p><!-- react-text: 1318 -->
+<!-- /react-text --><h3 id="部署" data-reactid="1319"><a href="#%E9%83%A8%E7%BD%B2" aria-hidden="true" data-reactid="1320"><span class="icon icon-link" data-reactid="1321"></span></a><!-- react-text: 1322 -->部署<!-- /react-text --></h3><!-- react-text: 1323 -->
+<!-- /react-text --><p data-reactid="1324"><!-- react-text: 1325 -->开发的差不多后，找朋友要了个 ubuntu 的服务器，首先麻烦的就是环境的迁移了，由于源码都部署在 GitHub 上，所以直接 <!-- /react-text --><code data-reactid="1326">git clone</code><!-- react-text: 1327 --> 就可以得到了（原始证照和预处理后的证照、训练的 yaml 数据都没提交至 GitHub，所以代码库还是挺小的）。<!-- /react-text --></p><!-- react-text: 1328 -->
+<!-- /react-text --><p data-reactid="1329">然后 Ubuntu 上安装 opencv，Ubuntu 上可没有 Homebrew 神奇，所以只能下载源码包，自己进行编译连接，生成动态链接库</p><!-- react-text: 1330 -->
+<!-- /react-text --><p data-reactid="1331">安装好 node + npm + nvm，node 版本 ≥7.0，以及 mysql，导入 gp.sql</p><!-- react-text: 1332 -->
+<!-- /react-text --><p data-reactid="1333"><!-- react-text: 1334 -->再在服务器执行 <!-- /react-text --><code data-reactid="1335">npm install</code><!-- react-text: 1336 -->（安装项目依赖包，各个目录下都有自己独立的依赖包，前端目录则不必安装，因为只需要其产生的代码） =&gt; 下载脚本 =&gt; 预处理脚本 =&gt; 训练样本脚本 =&gt; 启动服务器<!-- /react-text --></p><!-- react-text: 1337 -->
+<!-- /react-text --><h3 id="nginx--https" data-reactid="1338"><a href="#nginx--https" aria-hidden="true" data-reactid="1339"><span class="icon icon-link" data-reactid="1340"></span></a><!-- react-text: 1341 -->nginx + https<!-- /react-text --></h3><!-- react-text: 1342 -->
+<!-- /react-text --><p data-reactid="1343">但是服务器启动后，外网还是不能直接访问，需要通过 nginx 反向代理，同时解析域名至服务器 IP，为了浏览器安全可以打开摄像头，还需要开启 HTTPs 协议，我使用的是腾讯云免费的一年证书，然后 nginx 配置后即可。</p><!-- react-text: 1344 -->
+<!-- /react-text --><h3 id="seo" data-reactid="1345"><a href="#seo" aria-hidden="true" data-reactid="1346"><span class="icon icon-link" data-reactid="1347"></span></a><!-- react-text: 1348 -->SEO<!-- /react-text --></h3><!-- react-text: 1349 -->
+<!-- /react-text --><p data-reactid="1350"><!-- react-text: 1351 -->为了增强站点的曝光率，就需要做 SEO 了，添加 <!-- /react-text --><code data-reactid="1352">robots.txt</code><!-- react-text: 1353 -->，站点地图，同时在前端页面加入不可见的 <!-- /react-text --><code data-reactid="1354">a</code><!-- react-text: 1355 --> 标签，利于网页爬虫爬取其他链接<!-- /react-text --></p><!-- react-text: 1356 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" alt="alt" width="909" height="662" data-reactid="1357"/><!-- react-text: 1358 -->
+<!-- /react-text --><h3 id="pc-desktop" data-reactid="1359"><a href="#pc-desktop" aria-hidden="true" data-reactid="1360"><span class="icon icon-link" data-reactid="1361"></span></a><!-- react-text: 1362 -->PC Desktop<!-- /react-text --></h3><!-- react-text: 1363 -->
+<!-- /react-text --><p data-reactid="1364"><!-- react-text: 1365 -->为了方便师生使用，还使用 <!-- /react-text --><code data-reactid="1366">nativefier</code><!-- react-text: 1367 --> 将站点打包成 PC Desktop，其实就是将站点 URL 和 Chrome 内核组合成一个 Application<!-- /react-text --></p><!-- react-text: 1368 -->
+<!-- /react-text --><h2 id="代码解析（code-analysis）" data-reactid="1369"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%88code-analysis%EF%BC%89" aria-hidden="true" data-reactid="1370"><span class="icon icon-link" data-reactid="1371"></span></a><!-- react-text: 1372 -->代码解析（Code Analysis）<!-- /react-text --></h2><!-- react-text: 1373 -->
+<!-- /react-text --><p data-reactid="1374">下面对某些代码进行剖析</p><!-- react-text: 1375 -->
+<!-- /react-text --><h3 id="获取id集合" data-reactid="1376"><a href="#%E8%8E%B7%E5%8F%96id%E9%9B%86%E5%90%88" aria-hidden="true" data-reactid="1377"><span class="icon icon-link" data-reactid="1378"></span></a><!-- react-text: 1379 -->获取ID集合<!-- /react-text --></h3><!-- react-text: 1380 -->
+<!-- /react-text --><pre data-reactid="1381"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1382"><span class="hljs-comment" data-reactid="1383">// gp-image-download/lib/get-all-id.js</span><!-- react-text: 1384 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1385">// language: javascript</span><!-- react-text: 1386 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1387">// env: node</span><!-- react-text: 1388 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1389">// usage: (cd gp-image-download &amp;&amp; node get-all-id.js)</span><!-- react-text: 1390 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1391">const</span><!-- react-text: 1392 --> URL = <!-- /react-text --><span class="hljs-string" data-reactid="1393">&quot;http://urp.njnu.edu.cn/authorizeUsers.portal&quot;</span><!-- react-text: 1394 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1395">const</span><!-- react-text: 1396 --> STU_FILE = <!-- /react-text --><span class="hljs-string" data-reactid="1397">&quot;data/students.json&quot;</span><!-- react-text: 1398 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1399">// 需要在浏览器先登录，得到已登录的 Cookie</span><!-- react-text: 1400 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1401">const</span><!-- react-text: 1402 --> COOKIE = <!-- /react-text --><span class="hljs-string" data-reactid="1403">&quot;njnuurpnew=ac16c83bd341d8ba0c3f2f092378; JSESSIONID=0001gcUXI0GWjdQg_ptI6NGAFaf:-5B0INP&quot;</span><!-- react-text: 1404 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1405">/* 请求 URL，写入 COOKIE，得到数据个数 recordCount */</span><!-- react-text: 1406 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1407">async</span><!-- react-text: 1408 --> <!-- /react-text --><span class="hljs-function" data-reactid="1409"><span class="hljs-keyword" data-reactid="1410">function</span><!-- react-text: 1411 --> <!-- /react-text --><span class="hljs-title" data-reactid="1412">getLimit</span><!-- react-text: 1413 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1414"></span><!-- react-text: 1415 -->) <!-- /react-text --></span><!-- react-text: 1416 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1417">try</span><!-- react-text: 1418 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1419">const</span><!-- react-text: 1420 --> x = <!-- /react-text --><span class="hljs-keyword" data-reactid="1421">await</span><!-- react-text: 1422 --> get({
+            ...url.parse(URL),
+            <!-- /react-text --><span class="hljs-attr" data-reactid="1423">headers</span><!-- react-text: 1424 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="1425">cookie</span><!-- react-text: 1426 -->: COOKIE }
+        })
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1427">// console.log(&#x27;xx&#x27;, x)</span><!-- react-text: 1428 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1429">const</span><!-- react-text: 1430 --> json = <!-- /react-text --><span class="hljs-built_in" data-reactid="1431">JSON</span><!-- react-text: 1432 -->.parse(x)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1433">return</span><!-- react-text: 1434 --> json.recordCount
+    } <!-- /react-text --><span class="hljs-keyword" data-reactid="1435">catch</span><!-- react-text: 1436 --> (ex) {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="1437">console</span><!-- react-text: 1438 -->.error(ex);
+    }
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1439">/* 请求 URL，写入 COOKIE，得到全部学生集合 */</span><!-- react-text: 1440 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1441">async</span><!-- react-text: 1442 --> <!-- /react-text --><span class="hljs-function" data-reactid="1443"><span class="hljs-keyword" data-reactid="1444">function</span><!-- react-text: 1445 --> <!-- /react-text --><span class="hljs-title" data-reactid="1446">getStuIds</span><!-- react-text: 1447 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1448">limit</span><!-- react-text: 1449 -->) <!-- /react-text --></span><!-- react-text: 1450 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1451">try</span><!-- react-text: 1452 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1453">const</span><!-- react-text: 1454 --> x = <!-- /react-text --><span class="hljs-keyword" data-reactid="1455">await</span><!-- react-text: 1456 --> get({
+            ...url.parse(URL+<!-- /react-text --><span class="hljs-string" data-reactid="1457">&quot;?limit=&quot;</span><!-- react-text: 1458 -->+limit),
+            <!-- /react-text --><span class="hljs-attr" data-reactid="1459">headers</span><!-- react-text: 1460 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="1461">cookie</span><!-- react-text: 1462 -->: COOKIE }
+        })
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1463">const</span><!-- react-text: 1464 --> json = <!-- /react-text --><span class="hljs-built_in" data-reactid="1465">JSON</span><!-- react-text: 1466 -->.parse(x)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1467">return</span><!-- react-text: 1468 --> json.principals.filter(<!-- /react-text --><span class="hljs-function" data-reactid="1469"><span class="hljs-params" data-reactid="1470">x</span><!-- react-text: 1471 -->=&gt;<!-- /react-text --></span><!-- react-text: 1472 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1473">let</span><!-- react-text: 1474 --> metier = x.metier.trim();
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1475">return</span><!-- react-text: 1476 --> metier==<!-- /react-text --><span class="hljs-string" data-reactid="1477">&#x27;本专科生&#x27;</span><!-- react-text: 1478 -->
+        })
+    } <!-- /react-text --><span class="hljs-keyword" data-reactid="1479">catch</span><!-- react-text: 1480 --> (ex) {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="1481">console</span><!-- react-text: 1482 -->.error(ex);
+    }
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1483">/* 由于全部学生数据量比较大，所以写入文件，下次读取文件即可 */</span><!-- react-text: 1484 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1485">async</span><!-- react-text: 1486 --> <!-- /react-text --><span class="hljs-function" data-reactid="1487"><span class="hljs-keyword" data-reactid="1488">function</span><!-- react-text: 1489 --> <!-- /react-text --><span class="hljs-title" data-reactid="1490">writeStudents</span><!-- react-text: 1491 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1492"></span><!-- react-text: 1493 -->) <!-- /react-text --></span><!-- react-text: 1494 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1495">const</span><!-- react-text: 1496 --> limit = <!-- /react-text --><span class="hljs-keyword" data-reactid="1497">await</span><!-- react-text: 1498 --> getLimit()
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1499">const</span><!-- react-text: 1500 --> stus = <!-- /react-text --><span class="hljs-keyword" data-reactid="1501">await</span><!-- react-text: 1502 --> getStuIds(limit)
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="1503">console</span><!-- react-text: 1504 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="1505">&#x27;writing &quot;%s&quot;&#x27;</span><!-- react-text: 1506 -->, STU_FILE)
+    fs.writeFileSync(STU_FILE, <!-- /react-text --><span class="hljs-built_in" data-reactid="1507">JSON</span><!-- react-text: 1508 -->.stringify(stus, <!-- /react-text --><span class="hljs-literal" data-reactid="1509">null</span><!-- react-text: 1510 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1511">4</span><!-- react-text: 1512 -->))
+
+    assignStuIds()
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1513">/* 读取全部学生数据，按照入学年份区分，得到以\r\n分割的学号集合文件 */</span><!-- react-text: 1514 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="1515"><span class="hljs-keyword" data-reactid="1516">function</span><!-- react-text: 1517 --> <!-- /react-text --><span class="hljs-title" data-reactid="1518">assignStuIds</span><!-- react-text: 1519 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1520"></span><!-- react-text: 1521 -->) <!-- /react-text --></span><!-- react-text: 1522 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1523">const</span><!-- react-text: 1524 --> stus = <!-- /react-text --><span class="hljs-built_in" data-reactid="1525">JSON</span><!-- react-text: 1526 -->.parse(fs.readFileSync(STU_FILE))
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1527">let</span><!-- react-text: 1528 --> all = stus.reduce(<!-- /react-text --><span class="hljs-function" data-reactid="1529"><!-- react-text: 1530 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1531">p, n</span><!-- react-text: 1532 -->) =&gt;<!-- /react-text --></span><!-- react-text: 1533 --> {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="1534">//19130126</span><!-- react-text: 1535 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1536">if</span><!-- react-text: 1537 -->(<!-- /react-text --><span class="hljs-regexp" data-reactid="1538">/^[\d]{8}$/</span><!-- react-text: 1539 -->.test(n.id)) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1540">let</span><!-- react-text: 1541 --> num = n.id.substr(<!-- /react-text --><span class="hljs-number" data-reactid="1542">2</span><!-- react-text: 1543 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1544">2</span><!-- react-text: 1545 -->);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1546">let</span><!-- react-text: 1547 --> year = <!-- /react-text --><span class="hljs-string" data-reactid="1548">&quot;20&quot;</span><!-- react-text: 1549 -->+num;
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="1550">if</span><!-- react-text: 1551 -->(year&gt;YEAR || <!-- /react-text --><span class="hljs-built_in" data-reactid="1552">isNaN</span><!-- react-text: 1553 -->(num)) <!-- /react-text --><span class="hljs-keyword" data-reactid="1554">return</span><!-- react-text: 1555 --> p
+            p[year] = p[year] || <!-- /react-text --><span class="hljs-string" data-reactid="1556">&#x27;&#x27;</span><!-- react-text: 1557 -->
+            p[year] += n.id+<!-- /react-text --><span class="hljs-string" data-reactid="1558">&#x27;\r\n&#x27;</span><!-- react-text: 1559 -->
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1560">return</span><!-- react-text: 1561 --> p
+    }, {})
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="1562">Object</span><!-- react-text: 1563 -->.keys(all).forEach(<!-- /react-text --><span class="hljs-function" data-reactid="1564"><span class="hljs-params" data-reactid="1565">k</span><!-- react-text: 1566 --> =&gt;<!-- /react-text --></span><!-- react-text: 1567 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1568">let</span><!-- react-text: 1569 --> v = all[k];
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="1570">console</span><!-- react-text: 1571 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="1572">&#x27;writing &quot;%s&quot;&#x27;</span><!-- react-text: 1573 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1574">&quot;data/student-ids-&quot;</span><!-- react-text: 1575 -->+k+<!-- /react-text --><span class="hljs-string" data-reactid="1576">&quot;.txt&quot;</span><!-- react-text: 1577 -->)
+        fs.writeFile(<!-- /react-text --><span class="hljs-string" data-reactid="1578">&quot;data/student-ids-&quot;</span><!-- react-text: 1579 -->+k+<!-- /react-text --><span class="hljs-string" data-reactid="1580">&quot;.txt&quot;</span><!-- react-text: 1581 -->, v.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="1582">/\r\n$/</span><!-- react-text: 1583 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1584">&#x27;&#x27;</span><!-- react-text: 1585 -->), ()=&gt;{})
+    })
+}<!-- /react-text --></code></pre><!-- react-text: 1586 -->
+<!-- /react-text --><h3 id="下载图片脚本" data-reactid="1587"><a href="#%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1588"><span class="icon icon-link" data-reactid="1589"></span></a><!-- react-text: 1590 -->下载图片脚本<!-- /react-text --></h3><!-- react-text: 1591 -->
+<!-- /react-text --><pre data-reactid="1592"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="1593"><span class="hljs-meta" data-reactid="1594">#!/bin/bash</span><!-- react-text: 1595 -->
+// gp-image-download/download.sh
+// language: bash script
+// env: bash
+// usage: (<!-- /react-text --><span class="hljs-built_in" data-reactid="1596">cd</span><!-- react-text: 1597 --> gp-image-download &amp;&amp; ./download.sh 2013)
+
+base=<!-- /react-text --><span class="hljs-string" data-reactid="1598">&quot;http://223.2.10.123/jwgl/photos/rx&quot;</span><!-- react-text: 1599 -->
+year=<!-- /react-text --><span class="hljs-string" data-reactid="1600">&quot;2013&quot;</span><!-- react-text: 1601 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1602"># 没有 images/ 文件夹则新建，健壮性</span><!-- react-text: 1603 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1604">if</span><!-- react-text: 1605 --> [ ! -d images ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1606">then</span><!-- react-text: 1607 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="1608">echo</span><!-- react-text: 1609 --> mkdir images
+    mkdir images
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1610">fi</span><!-- react-text: 1611 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="1612">cd</span><!-- react-text: 1613 --> images
+<!-- /react-text --><span class="hljs-comment" data-reactid="1614"># 将year赋值为第一个参数，默认为 2013</span><!-- react-text: 1615 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1616">if</span><!-- react-text: 1617 --> [ ! -z <!-- /react-text --><span class="hljs-string" data-reactid="1618"><!-- react-text: 1619 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="1620">$1</span><!-- react-text: 1621 -->&quot;<!-- /react-text --></span><!-- react-text: 1622 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1623">then</span><!-- react-text: 1624 -->
+    year=<!-- /react-text --><span class="hljs-variable" data-reactid="1625">$1</span><!-- react-text: 1626 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1627">fi</span><!-- react-text: 1628 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="1629">echo</span><!-- react-text: 1630 --> year=<!-- /react-text --><span class="hljs-variable" data-reactid="1631">$year</span><!-- react-text: 1632 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1633">if</span><!-- react-text: 1634 --> [ ! -d <!-- /react-text --><span class="hljs-variable" data-reactid="1635">$year</span><!-- react-text: 1636 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1637">then</span><!-- react-text: 1638 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="1639">echo</span><!-- react-text: 1640 --> mkdir <!-- /react-text --><span class="hljs-variable" data-reactid="1641">$year</span><!-- react-text: 1642 -->
+    mkdir <!-- /react-text --><span class="hljs-variable" data-reactid="1643">$year</span><!-- react-text: 1644 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1645">fi</span><!-- react-text: 1646 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="1647">cd</span><!-- react-text: 1648 --> <!-- /react-text --><span class="hljs-variable" data-reactid="1649">$year</span><!-- react-text: 1650 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1651"># 读取上一步获取的学号集合，放入arr</span><!-- react-text: 1652 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1653">while</span><!-- react-text: 1654 --> IFS=$<!-- /react-text --><span class="hljs-string" data-reactid="1655">&#x27;\r\n&#x27;</span><!-- react-text: 1656 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="1657">read</span><!-- react-text: 1658 --> var; <!-- /react-text --><span class="hljs-keyword" data-reactid="1659">do</span><!-- react-text: 1660 -->
+    arr+=(<!-- /react-text --><span class="hljs-variable" data-reactid="1661">$var</span><!-- react-text: 1662 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1663">done</span><!-- react-text: 1664 --> &lt; ../../data/student-ids-<!-- /react-text --><span class="hljs-variable" data-reactid="1665">$year</span><!-- react-text: 1666 -->.txt
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1667"># 将下载好的图片，按照 学年/班级/图片 放置</span><!-- react-text: 1668 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="1669"><span class="hljs-title" data-reactid="1670">assign_file</span></span><!-- react-text: 1671 -->() {
+    Name=<!-- /react-text --><span class="hljs-variable" data-reactid="1672">${1##*/}</span><!-- react-text: 1673 -->
+    Classno=<!-- /react-text --><span class="hljs-variable" data-reactid="1674">${Name:0:6}</span><!-- react-text: 1675 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1676">if</span><!-- react-text: 1677 --> [ ! -d <!-- /react-text --><span class="hljs-variable" data-reactid="1678">$Classno</span><!-- react-text: 1679 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1680">then</span><!-- react-text: 1681 -->
+        mkdir <!-- /react-text --><span class="hljs-variable" data-reactid="1682">$Classno</span><!-- react-text: 1683 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1684">fi</span><!-- react-text: 1685 -->
+    mv <!-- /react-text --><span class="hljs-variable" data-reactid="1686">$Name</span><!-- react-text: 1687 --> <!-- /react-text --><span class="hljs-string" data-reactid="1688"><!-- react-text: 1689 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="1690">$Classno</span><!-- react-text: 1691 -->&quot;<!-- /react-text --></span><!-- react-text: 1692 -->/
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1693"># 下载图片</span><!-- react-text: 1694 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1695"># params: $1 url; $2 filename</span><!-- react-text: 1696 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="1697"><span class="hljs-title" data-reactid="1698">down</span></span><!-- react-text: 1699 -->() {
+    URL=<!-- /react-text --><span class="hljs-variable" data-reactid="1700">$1</span><!-- react-text: 1701 -->
+    Name=<!-- /react-text --><span class="hljs-variable" data-reactid="1702">$2</span><!-- react-text: 1703 -->
+    data=`curl --fail --silent <!-- /react-text --><span class="hljs-variable" data-reactid="1704">$URL</span><!-- react-text: 1705 -->` 
+    <!-- /react-text --><span class="hljs-comment" data-reactid="1706"># &quot;$data&quot; 不能少  因为data中可能包含[]</span><!-- react-text: 1707 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1708">if</span><!-- react-text: 1709 --> [ ! -z <!-- /react-text --><span class="hljs-string" data-reactid="1710"><!-- react-text: 1711 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="1712">$data</span><!-- react-text: 1713 -->&quot;<!-- /react-text --></span><!-- react-text: 1714 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1715">then</span><!-- react-text: 1716 -->
+        curl --fail --silent <!-- /react-text --><span class="hljs-variable" data-reactid="1717">$URL</span><!-- react-text: 1718 --> &gt; <!-- /react-text --><span class="hljs-variable" data-reactid="1719">$Name</span><!-- react-text: 1720 -->
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="1721">echo</span><!-- react-text: 1722 --> <!-- /react-text --><span class="hljs-string" data-reactid="1723"><!-- react-text: 1724 -->&quot;SUCCESS! <!-- /react-text --><span class="hljs-variable" data-reactid="1725">$URL</span><!-- react-text: 1726 -->&quot;<!-- /react-text --></span><!-- react-text: 1727 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1728">fi</span><!-- react-text: 1729 -->
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1730"># 遍历arr，下载</span><!-- react-text: 1731 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1732">for</span><!-- react-text: 1733 --> id <!-- /react-text --><span class="hljs-keyword" data-reactid="1734">in</span><!-- react-text: 1735 --> <!-- /react-text --><span class="hljs-variable" data-reactid="1736">${arr[@]}</span><!-- react-text: 1737 -->; <!-- /react-text --><span class="hljs-keyword" data-reactid="1738">do</span><!-- react-text: 1739 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1740">if</span><!-- react-text: 1741 --> [ ! -z <!-- /react-text --><span class="hljs-variable" data-reactid="1742">$id</span><!-- react-text: 1743 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="1744">then</span><!-- react-text: 1745 -->
+        Name=<!-- /react-text --><span class="hljs-variable" data-reactid="1746">${id//$\s/}</span><!-- react-text: 1747 -->.jpg
+        down <!-- /react-text --><span class="hljs-string" data-reactid="1748"><!-- react-text: 1749 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="1750">$base</span><!-- react-text: 1751 -->&quot;<!-- /react-text --></span><span class="hljs-string" data-reactid="1752"><!-- react-text: 1753 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="1754">$year</span><!-- react-text: 1755 -->&quot;<!-- /react-text --></span><!-- react-text: 1756 -->/<!-- /react-text --><span class="hljs-variable" data-reactid="1757">$Name</span><!-- react-text: 1758 --> <!-- /react-text --><span class="hljs-variable" data-reactid="1759">$Name</span><!-- react-text: 1760 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1761">fi</span><!-- react-text: 1762 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1763">done</span><!-- react-text: 1764 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1765"># 下载结束后，重新放置文件</span><!-- react-text: 1766 -->
+arr=(*)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1767">for</span><!-- react-text: 1768 --> x <!-- /react-text --><span class="hljs-keyword" data-reactid="1769">in</span><!-- react-text: 1770 --> <!-- /react-text --><span class="hljs-variable" data-reactid="1771">${arr[@]}</span><!-- react-text: 1772 -->; <!-- /react-text --><span class="hljs-keyword" data-reactid="1773">do</span><!-- react-text: 1774 -->
+    assign_file <!-- /react-text --><span class="hljs-variable" data-reactid="1775">$x</span><!-- react-text: 1776 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1777">done</span></code></pre><!-- react-text: 1778 -->
+<!-- /react-text --><h3 id="npm-脚本" data-reactid="1779"><a href="#npm-%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1780"><span class="icon icon-link" data-reactid="1781"></span></a><!-- react-text: 1782 -->npm 脚本<!-- /react-text --></h3><!-- react-text: 1783 -->
+<!-- /react-text --><pre data-reactid="1784"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="1785"><span class="hljs-comment" data-reactid="1786">// gp-njnu-photos-backend/package.json</span><!-- react-text: 1787 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1788">// usage: (cd gp-njnu-photos-backend &amp;&amp; npm run $scriptName)</span><!-- react-text: 1789 -->
+
+<!-- /react-text --><span class="hljs-meta" data-reactid="1790"># 图片预处理</span><!-- react-text: 1791 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1792"># detect face, then gray, save</span><!-- react-text: 1793 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1794"># eg.  $ npm run grayface 2013 191301</span><!-- react-text: 1795 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1796">#      $ npm run grayface 2013</span><!-- react-text: 1797 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1798">#      $ npm run grayface</span><!-- react-text: 1799 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1800"># npm run grayface year classno</span><!-- react-text: 1801 -->
+
+
+<!-- /react-text --><span class="hljs-meta" data-reactid="1802"># 样本训练并写入文件。</span><!-- react-text: 1803 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1804"># after read grayface images, then train and save it</span><!-- react-text: 1805 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1806"># eg.  $ node pretreat/train_save.js -f --args 2013</span><!-- react-text: 1807 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1808">#      $ node pretreat/train_save.js -f --args 2013 191301</span><!-- react-text: 1809 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1810"># -f：重新训练，不论是否已存在训练数据</span><!-- react-text: 1811 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1812"># --args year classno 训练哪一年哪一班级的图片</span><!-- react-text: 1813 -->
+
+<!-- /react-text --><span class="hljs-string" data-reactid="1814">&quot;grayface&quot;</span><!-- react-text: 1815 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1816">&quot;node pretreat/gray_face.js&quot;</span><!-- react-text: 1817 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1818">&quot;train:force&quot;</span><!-- react-text: 1819 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1820">&quot;node pretreat/train_save.js -f&quot;</span><!-- react-text: 1821 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1822">&quot;train:smart&quot;</span><!-- react-text: 1823 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1824">&quot;node pretreat/train_save.js&quot;</span><!-- react-text: 1825 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1826">&quot;dev:w&quot;</span><!-- react-text: 1827 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1828">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node .&quot;</span><!-- react-text: 1829 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1830">&quot;dev&quot;</span><!-- react-text: 1831 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1832">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node index.js&quot;</span><!-- react-text: 1833 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1834">&quot;start&quot;</span><!-- react-text: 1835 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1836">&quot;cross-env NODE_STATUS=run, NODE_ENV=prod node index.js&quot;</span><!-- react-text: 1837 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1838">&quot;retrain&quot;</span><!-- react-text: 1839 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1840">&quot;npm run grayface &amp;&amp; npm run train:force&quot;</span><!-- react-text: 1841 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1842">&quot;retrain:dev&quot;</span><!-- react-text: 1843 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1844">&quot;npm run grayface 2013 191301 &amp;&amp; node pretreat/train_save.js -f --args 2013 191301&quot;</span><!-- react-text: 1845 -->,<!-- /react-text --></code></pre><!-- react-text: 1846 -->
+<!-- /react-text --><h3 id="开发环境（热部署）脚本" data-reactid="1847"><a href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88%E7%83%AD%E9%83%A8%E7%BD%B2%EF%BC%89%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1848"><span class="icon icon-link" data-reactid="1849"></span></a><!-- react-text: 1850 -->开发环境（热部署）脚本<!-- /react-text --></h3><!-- react-text: 1851 -->
+<!-- /react-text --><pre data-reactid="1852"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1853"><span class="hljs-comment" data-reactid="1854">// gp-njnu-photos-backend/provider.js</span><!-- react-text: 1855 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1856">// language: javascript</span><!-- react-text: 1857 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1858">// env: node</span><!-- react-text: 1859 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="1860">// usage: (cd gp-njnu-photos-backend &amp;&amp; npm run dev:w)</span><!-- react-text: 1861 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1862">var</span><!-- react-text: 1863 --> cp = <!-- /react-text --><span class="hljs-built_in" data-reactid="1864">require</span><!-- react-text: 1865 -->(<!-- /react-text --><span class="hljs-string" data-reactid="1866">&#x27;child_process&#x27;</span><!-- react-text: 1867 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1868">var</span><!-- react-text: 1869 --> p = <!-- /react-text --><span class="hljs-built_in" data-reactid="1870">require</span><!-- react-text: 1871 -->(<!-- /react-text --><span class="hljs-string" data-reactid="1872">&#x27;path&#x27;</span><!-- react-text: 1873 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1874">var</span><!-- react-text: 1875 --> fs = <!-- /react-text --><span class="hljs-built_in" data-reactid="1876">require</span><!-- react-text: 1877 -->(<!-- /react-text --><span class="hljs-string" data-reactid="1878">&#x27;fs&#x27;</span><!-- react-text: 1879 -->)
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1880">const</span><!-- react-text: 1881 --> isDir = <!-- /react-text --><span class="hljs-function" data-reactid="1882"><!-- react-text: 1883 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1884">filepath</span><!-- react-text: 1885 -->) =&gt;<!-- /react-text --></span><!-- react-text: 1886 --> fs.statSync(filepath).isDirectory()
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1887">/* 去除掉 非文件夹，node_modules文件夹，`.`开头的文件夹 */</span><!-- react-text: 1888 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1889">const</span><!-- react-text: 1890 --> children = fs.readdirSync(__dirname).filter(<!-- /react-text --><span class="hljs-function" data-reactid="1891"><span class="hljs-params" data-reactid="1892">n</span><!-- react-text: 1893 -->=&gt;<!-- /react-text --></span><!-- react-text: 1894 -->n!=<!-- /react-text --><span class="hljs-string" data-reactid="1895">&#x27;node_modules&#x27;</span><!-- react-text: 1896 --> &amp;&amp; !n.startsWith(<!-- /react-text --><span class="hljs-string" data-reactid="1897">&#x27;.&#x27;</span><!-- react-text: 1898 -->) &amp;&amp; isDir(p.join(__dirname, n)));
+
+[__dirname].concat(children).forEach(<!-- /react-text --><span class="hljs-function" data-reactid="1899"><span class="hljs-params" data-reactid="1900">dir</span><!-- react-text: 1901 --> =&gt;<!-- /react-text --></span><!-- react-text: 1902 --> fs.watch(dir, watchHandle))
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1903">/* 监听到文件被修改则触发 */</span><!-- react-text: 1904 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="1905"><span class="hljs-keyword" data-reactid="1906">function</span><!-- react-text: 1907 --> <!-- /react-text --><span class="hljs-title" data-reactid="1908">watchHandle</span><!-- react-text: 1909 --> (<!-- /react-text --><span class="hljs-params" data-reactid="1910">type, filename</span><!-- react-text: 1911 -->) <!-- /react-text --></span><!-- react-text: 1912 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="1913">// 无视不是js文件和点开头命名的文件</span><!-- react-text: 1914 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1915">if</span><!-- react-text: 1916 -->(filename.startsWith(<!-- /react-text --><span class="hljs-string" data-reactid="1917">&#x27;.&#x27;</span><!-- react-text: 1918 -->) || !filename.endsWith(<!-- /react-text --><span class="hljs-string" data-reactid="1919">&quot;.js&quot;</span><!-- react-text: 1920 -->)) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="1921">return</span><!-- react-text: 1922 -->;
+    }
+
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="1923">console</span><!-- react-text: 1924 -->.log(type, filename);
+    <!-- /react-text --><span class="hljs-comment" data-reactid="1925">// 杀死内存中的服务器进程</span><!-- react-text: 1926 -->
+    serverProcess.kill(<!-- /react-text --><span class="hljs-string" data-reactid="1927">&#x27;SIGINT&#x27;</span><!-- react-text: 1928 -->);
+    serverProcess = runServer();
+}
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1929">var</span><!-- react-text: 1930 --> serverProcess = runServer();
+<!-- /react-text --><span class="hljs-comment" data-reactid="1931">/* fork index.js 进程 */</span><!-- react-text: 1932 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="1933"><span class="hljs-keyword" data-reactid="1934">function</span><!-- react-text: 1935 --> <!-- /react-text --><span class="hljs-title" data-reactid="1936">runServer</span><!-- react-text: 1937 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1938"></span><!-- react-text: 1939 -->) <!-- /react-text --></span><!-- react-text: 1940 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1941">return</span><!-- react-text: 1942 --> cp.fork(<!-- /react-text --><span class="hljs-string" data-reactid="1943">&#x27;./index.js&#x27;</span><!-- react-text: 1944 -->, process.argv, {<!-- /react-text --><span class="hljs-attr" data-reactid="1945">stdio</span><!-- react-text: 1946 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="1947">0</span><!-- react-text: 1948 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1949">1</span><!-- react-text: 1950 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1951">2</span><!-- react-text: 1952 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1953">&#x27;ipc&#x27;</span><!-- react-text: 1954 -->]})
+}<!-- /react-text --></code></pre><!-- react-text: 1955 -->
+<!-- /react-text --><h3 id="服务器自动更新代码" data-reactid="1956"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="1957"><span class="icon icon-link" data-reactid="1958"></span></a><!-- react-text: 1959 -->服务器自动更新代码<!-- /react-text --></h3><!-- react-text: 1960 -->
+<!-- /react-text --><ul data-reactid="1961"><!-- react-text: 1962 -->
+<!-- /react-text --><li data-reactid="1963">服务器端</li><!-- react-text: 1964 -->
+<!-- /react-text --></ul><!-- react-text: 1965 -->
+<!-- /react-text --><pre data-reactid="1966"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1967"><span class="hljs-comment" data-reactid="1968">// gp-njnu-photos-backend/routes/control.js</span><!-- react-text: 1969 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="1970">/* 访问 /api/ctrl/pull 服务器执行 git pull，从 github 更新代码 */</span><!-- react-text: 1971 -->
+ctrl.all(<!-- /react-text --><span class="hljs-string" data-reactid="1972">&#x27;/pull&#x27;</span><!-- react-text: 1973 -->, (req, res) =&gt; {
+    res.writeHead(<!-- /react-text --><span class="hljs-number" data-reactid="1974">200</span><!-- react-text: 1975 -->, {
+        <!-- /react-text --><span class="hljs-string" data-reactid="1976">&#x27;Content-Type&#x27;</span><!-- react-text: 1977 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1978">&#x27;text/event-stream&#x27;</span><!-- react-text: 1979 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="1980">&#x27;Cache-Control&#x27;</span><!-- react-text: 1981 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1982">&#x27;no-cache&#x27;</span><!-- react-text: 1983 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="1984">&#x27;Connection&#x27;</span><!-- react-text: 1985 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1986">&#x27;keep-alive&#x27;</span><!-- react-text: 1987 -->
+    });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="1988">var</span><!-- react-text: 1989 --> ls = <!-- /react-text --><span class="hljs-built_in" data-reactid="1990">require</span><!-- react-text: 1991 -->(<!-- /react-text --><span class="hljs-string" data-reactid="1992">&#x27;child_process&#x27;</span><!-- react-text: 1993 -->).spawn(<!-- /react-text --><span class="hljs-string" data-reactid="1994">&#x27;git&#x27;</span><!-- react-text: 1995 -->, [<!-- /react-text --><span class="hljs-string" data-reactid="1996">&#x27;pull&#x27;</span><!-- react-text: 1997 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1998">&#x27;origin&#x27;</span><!-- react-text: 1999 -->, <!-- /react-text --><span class="hljs-string" data-reactid="2000">&#x27;master&#x27;</span><!-- react-text: 2001 -->])
+    ls.stdout.on(<!-- /react-text --><span class="hljs-string" data-reactid="2002">&#x27;data&#x27;</span><!-- react-text: 2003 -->, (data) =&gt; {
+        data = data.toString()
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="2004">console</span><!-- react-text: 2005 -->.log(data)
+        res.write(<!-- /react-text --><span class="hljs-string" data-reactid="2006"><!-- react-text: 2007 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="2008">${data}</span><!-- react-text: 2009 -->`<!-- /react-text --></span><!-- react-text: 2010 -->);
+    });
+
+    ls.stderr.on(<!-- /react-text --><span class="hljs-string" data-reactid="2011">&#x27;data&#x27;</span><!-- react-text: 2012 -->, (data) =&gt; {
+        data = data.toString()
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="2013">console</span><!-- react-text: 2014 -->.log(data)
+        res.write(<!-- /react-text --><span class="hljs-string" data-reactid="2015"><!-- react-text: 2016 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="2017">${data}</span><!-- react-text: 2018 -->`<!-- /react-text --></span><!-- react-text: 2019 -->);
+    });
+    ls.on(<!-- /react-text --><span class="hljs-string" data-reactid="2020">&#x27;close&#x27;</span><!-- react-text: 2021 -->, (code) =&gt; {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="2022">console</span><!-- react-text: 2023 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="2024"><!-- react-text: 2025 -->`child process exited with code <!-- /react-text --><span class="hljs-subst" data-reactid="2026">${code}</span><!-- react-text: 2027 -->`<!-- /react-text --></span><!-- react-text: 2028 -->)
+        res.end(<!-- /react-text --><span class="hljs-string" data-reactid="2029"><!-- react-text: 2030 -->`child process exited with code <!-- /react-text --><span class="hljs-subst" data-reactid="2031">${code}</span><!-- react-text: 2032 -->`<!-- /react-text --></span><!-- react-text: 2033 -->);
+    });
+
+})<!-- /react-text --></code></pre><!-- react-text: 2034 -->
+<!-- /react-text --><ul data-reactid="2035"><!-- react-text: 2036 -->
+<!-- /react-text --><li data-reactid="2037">本机（开发机）</li><!-- react-text: 2038 -->
+<!-- /react-text --></ul><!-- react-text: 2039 -->
+<!-- /react-text --><pre data-reactid="2040"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="2041"><!-- react-text: 2042 -->// path.sh
+<!-- /react-text --><span class="hljs-meta" data-reactid="2043">#!/bin/bash
+</span><!-- react-text: 2044 -->
+msg=<!-- /react-text --><span class="hljs-string" data-reactid="2045">&quot;from bash&quot;</span><!-- react-text: 2046 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2047">if</span><!-- react-text: 2048 --> [ -n <!-- /react-text --><span class="hljs-string" data-reactid="2049"><!-- react-text: 2050 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2051">$1</span><!-- react-text: 2052 -->&quot;<!-- /react-text --></span><!-- react-text: 2053 --> ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2054">then</span><!-- react-text: 2055 -->
+    msg=<!-- /react-text --><span class="hljs-variable" data-reactid="2056">$1</span><!-- react-text: 2057 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="2058"># 重新 build 前端代码</span><!-- react-text: 2059 -->
+    (<!-- /react-text --><span class="hljs-built_in" data-reactid="2060">cd</span><!-- react-text: 2061 --> gp-njnu-photos-app &amp;&amp; npm run build)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2062">fi</span><!-- react-text: 2063 -->
+
+git add .
+git commit -m <!-- /react-text --><span class="hljs-string" data-reactid="2064"><!-- react-text: 2065 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2066">$msg</span><!-- react-text: 2067 -->&quot;<!-- /react-text --></span><!-- react-text: 2068 -->
+git push
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2069"># 如果push成功（exitcode=0），则访问远端 /api/ctrl/pull，从而服务器也更新了代码</span><!-- react-text: 2070 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2071">if</span><!-- react-text: 2072 --> [ $? = 0 ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2073">then</span><!-- react-text: 2074 -->
+    curl https://face.moyuyc.xyz/api/ctrl/pull
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2075">fi</span></code></pre><!-- react-text: 2076 -->
+<!-- /react-text --><h3 id="desktop打包脚本" data-reactid="2077"><a href="#desktop%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="2078"><span class="icon icon-link" data-reactid="2079"></span></a><!-- react-text: 2080 -->Desktop打包脚本<!-- /react-text --></h3><!-- react-text: 2081 -->
+<!-- /react-text --><pre data-reactid="2082"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="2083"><!-- react-text: 2084 -->// package.json
+// usage: npm run script-name
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2085">&quot;app:mac64&quot;</span><!-- react-text: 2086 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2087">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a x64 -p mac --insecure -n 古南师大刷脸签到 https://face.moyuyc.xyz/ -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 2088 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="2089">&quot;app:mac32&quot;</span><!-- react-text: 2090 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2091">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a ia32 -p mac --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 2092 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="2093">&quot; -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 2094 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="2095">&quot;app:mac&quot;</span><!-- react-text: 2096 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2097">&quot;npm run app:mac32 &amp; npm run app:mac64&quot;</span><!-- react-text: 2098 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="2099">&quot;app:win&quot;</span><!-- react-text: 2100 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2101">&quot;npm run app:win32 &amp; npm run app:win64&quot;</span><!-- react-text: 2102 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="2103">&quot;app:win32&quot;</span><!-- react-text: 2104 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2105">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a x64 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 2106 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="2107">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 2108 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="2109">&quot;app:win64&quot;</span><!-- react-text: 2110 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="2111">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a ia32 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 2112 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="2113">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 2114 -->,<!-- /react-text --></code></pre><!-- react-text: 2115 -->
+<!-- /react-text --><h3 id="一键搭建环境脚本" data-reactid="2116"><a href="#%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="2117"><span class="icon icon-link" data-reactid="2118"></span></a><!-- react-text: 2119 -->一键搭建环境脚本<!-- /react-text --></h3><!-- react-text: 2120 -->
+<!-- /react-text --><pre data-reactid="2121"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="2122"><!-- react-text: 2123 -->// start.sh
+// language: bash script
+// env: bash
+// usage: ./start.sh
+
+<!-- /react-text --><span class="hljs-meta" data-reactid="2124">#!/bin/bash</span><!-- react-text: 2125 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="2126"><span class="hljs-title" data-reactid="2127">echoerr</span></span><!-- react-text: 2128 -->() { <!-- /react-text --><span class="hljs-built_in" data-reactid="2129">echo</span><!-- react-text: 2130 --> <!-- /react-text --><span class="hljs-string" data-reactid="2131"><!-- react-text: 2132 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2133">$@</span><!-- react-text: 2134 -->&quot;<!-- /react-text --></span><!-- react-text: 2135 --> 1&gt;&amp;2; }
+<!-- /react-text --><span class="hljs-function" data-reactid="2136"><span class="hljs-title" data-reactid="2137">command_exists</span></span><!-- react-text: 2138 --> () { <!-- /react-text --><span class="hljs-built_in" data-reactid="2139">type</span><!-- react-text: 2140 --> <!-- /react-text --><span class="hljs-string" data-reactid="2141"><!-- react-text: 2142 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2143">$1</span><!-- react-text: 2144 -->&quot;<!-- /react-text --></span><!-- react-text: 2145 --> &amp;&gt; /dev/null; }
+<!-- /react-text --><span class="hljs-function" data-reactid="2146"><span class="hljs-title" data-reactid="2147">command_exists_exit</span></span><!-- react-text: 2148 -->() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2149">if</span><!-- react-text: 2150 --> ! command_exists <!-- /react-text --><span class="hljs-string" data-reactid="2151"><!-- react-text: 2152 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2153">$1</span><!-- react-text: 2154 -->&quot;<!-- /react-text --></span><!-- react-text: 2155 --> ; <!-- /react-text --><span class="hljs-keyword" data-reactid="2156">then</span><!-- react-text: 2157 -->
+        echoerr <!-- /react-text --><span class="hljs-string" data-reactid="2158"><!-- react-text: 2159 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="2160">${1}</span><!-- react-text: 2161 --> command not exists&quot;<!-- /react-text --></span><!-- react-text: 2162 -->
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="2163">exit</span><!-- react-text: 2164 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2165">fi</span><!-- react-text: 2166 -->
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2167"># 必须的指令检查 git npm node mysql</span><!-- react-text: 2168 -->
+command_exists_exit git
+command_exists_exit npm
+command_exists_exit node
+command_exists_exit mysql
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2169"># 是否已经 clone 过，已经 clone 过，则更新代码，否则 clone</span><!-- react-text: 2170 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2171">if</span><!-- react-text: 2172 --> [ -d face-njnu ]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2173">then</span><!-- react-text: 2174 -->
+    (<!-- /react-text --><span class="hljs-built_in" data-reactid="2175">cd</span><!-- react-text: 2176 --> face-njnu &amp;&amp; git pull)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2177">else</span><!-- react-text: 2178 -->
+    git <!-- /react-text --><span class="hljs-built_in" data-reactid="2179">clone</span><!-- react-text: 2180 --> https://github.com/moyuyc/graduation-project.git face-njnu
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2181">fi</span><!-- react-text: 2182 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2183"># 要求输入下载同学的入学年份</span><!-- react-text: 2184 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2185">read</span><!-- react-text: 2186 --> -p <!-- /react-text --><span class="hljs-string" data-reactid="2187">&quot;which year do you want to download? (2013) [2013/n] &quot;</span><!-- react-text: 2188 --> REPLY
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2189">if</span><!-- react-text: 2190 --> [[ <!-- /react-text --><span class="hljs-variable" data-reactid="2191">$REPLY</span><!-- react-text: 2192 --> =~ ^[\s]*$ ]]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2193">then</span><!-- react-text: 2194 -->
+    YEAR=2013
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="2195">echo</span><!-- react-text: 2196 --> <!-- /react-text --><span class="hljs-string" data-reactid="2197"><!-- react-text: 2198 -->&quot;Downloading... Year=<!-- /react-text --><span class="hljs-variable" data-reactid="2199">$YEAR</span><!-- react-text: 2200 -->&quot;<!-- /react-text --></span><!-- react-text: 2201 -->
+    (<!-- /react-text --><span class="hljs-built_in" data-reactid="2202">cd</span><!-- react-text: 2203 --> face-njnu/gp-image-download &amp;&amp; ./download.sh <!-- /react-text --><span class="hljs-variable" data-reactid="2204">$YEAR</span><!-- react-text: 2205 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2206">elif</span><!-- react-text: 2207 --> [[ <!-- /react-text --><span class="hljs-variable" data-reactid="2208">$REPLY</span><!-- react-text: 2209 --> =~ ^[nN]$ ]]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2210">then</span><!-- react-text: 2211 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="2212">echo</span><!-- react-text: 2213 --> <!-- /react-text --><span class="hljs-string" data-reactid="2214">&quot;Skipped Download Images&quot;</span><!-- react-text: 2215 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2216">else</span><!-- react-text: 2217 -->
+    YEAR=<!-- /react-text --><span class="hljs-variable" data-reactid="2218">$REPLY</span><!-- react-text: 2219 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="2220">echo</span><!-- react-text: 2221 --> <!-- /react-text --><span class="hljs-string" data-reactid="2222"><!-- react-text: 2223 -->&quot;Downloading... Year=<!-- /react-text --><span class="hljs-variable" data-reactid="2224">$YEAR</span><!-- react-text: 2225 -->&quot;<!-- /react-text --></span><!-- react-text: 2226 -->
+    (<!-- /react-text --><span class="hljs-built_in" data-reactid="2227">cd</span><!-- react-text: 2228 --> face-njnu/gp-image-download &amp;&amp; ./download.sh <!-- /react-text --><span class="hljs-variable" data-reactid="2229">$YEAR</span><!-- react-text: 2230 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2231">fi</span><!-- react-text: 2232 -->
+
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2233">echo</span><!-- react-text: 2234 --> <!-- /react-text --><span class="hljs-string" data-reactid="2235">&quot;mysql data importing&quot;</span><!-- react-text: 2236 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="2237"># 是否需要导入 sql 数据到 mysql</span><!-- react-text: 2238 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2239">read</span><!-- react-text: 2240 --> -p <!-- /react-text --><span class="hljs-string" data-reactid="2241">&quot;Are you sure import sql data? [y/n]&quot;</span><!-- react-text: 2242 --> REPLY
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2243">if</span><!-- react-text: 2244 --> [[ <!-- /react-text --><span class="hljs-variable" data-reactid="2245">$REPLY</span><!-- react-text: 2246 --> =~ ^[yY]$ ]]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2247">then</span><!-- react-text: 2248 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="2249"># 输入 mysql 用户名，默认 root</span><!-- react-text: 2250 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="2251">read</span><!-- react-text: 2252 --> -p <!-- /react-text --><span class="hljs-string" data-reactid="2253">&quot;Username(root): &quot;</span><!-- react-text: 2254 --> REPLY
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2255">if</span><!-- react-text: 2256 --> [[ <!-- /react-text --><span class="hljs-variable" data-reactid="2257">$REPLY</span><!-- react-text: 2258 --> =~ ^[\s]*$ ]]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2259">then</span><!-- react-text: 2260 -->
+        USER=root
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2261">else</span><!-- react-text: 2262 -->
+        USER=<!-- /react-text --><span class="hljs-variable" data-reactid="2263">$REPLY</span><!-- react-text: 2264 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2265">fi</span><!-- react-text: 2266 -->
+
+    mysql -u <!-- /react-text --><span class="hljs-variable" data-reactid="2267">$USER</span><!-- react-text: 2268 --> -p gp &lt; face-njnu/gp.sql
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2269">fi</span><!-- react-text: 2270 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2271"># 是否需要安装 opencv</span><!-- react-text: 2272 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2273">read</span><!-- react-text: 2274 --> -p <!-- /react-text --><span class="hljs-string" data-reactid="2275">&quot;Are you sure install opencv? [y/n]&quot;</span><!-- react-text: 2276 --> REPLY
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2277">if</span><!-- react-text: 2278 --> [[ <!-- /react-text --><span class="hljs-variable" data-reactid="2279">$REPLY</span><!-- react-text: 2280 --> =~ ^[yY]$ ]]; <!-- /react-text --><span class="hljs-keyword" data-reactid="2281">then</span><!-- react-text: 2282 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2283">if</span><!-- react-text: 2284 --> command_exists apt-get; <!-- /react-text --><span class="hljs-keyword" data-reactid="2285">then</span><!-- react-text: 2286 -->
+        sudo apt-get install build-essential
+        sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2287">fi</span><!-- react-text: 2288 -->
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2289">if</span><!-- react-text: 2290 --> command_exists wget ; <!-- /react-text --><span class="hljs-keyword" data-reactid="2291">then</span><!-- react-text: 2292 -->
+        wget -O ~/opencv.zip https://github.com/opencv/opencv/archive/2.4.13.1.zip
+        unzip opencv.zip
+        mv ~/opencv-2.4.13.1 ~/opencv
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2293">else</span><!-- react-text: 2294 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="2295"># git clone https://github.com/Itseez/opencv_contrib.git ~/opencv_contrib</span><!-- react-text: 2296 -->
+        git <!-- /react-text --><span class="hljs-built_in" data-reactid="2297">clone</span><!-- react-text: 2298 --> https://github.com/opencv/opencv.git ~/opencv
+        (<!-- /react-text --><span class="hljs-built_in" data-reactid="2299">cd</span><!-- react-text: 2300 --> ~/opencv &amp;&amp; git checkout 2.4)
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="2301">fi</span><!-- react-text: 2302 -->
+    (<!-- /react-text --><span class="hljs-built_in" data-reactid="2303">cd</span><!-- react-text: 2304 --> ~/opencv &amp;&amp; rm -rf release &amp;&amp; mkdir release \
+        &amp;&amp; <!-- /react-text --><span class="hljs-built_in" data-reactid="2305">cd</span><!-- react-text: 2306 --> release &amp;&amp; \ <!-- /react-text --><span class="hljs-comment" data-reactid="2307"># ~/opencv_contrib/modules:</span><!-- react-text: 2308 -->
+        cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/<!-- /react-text --><span class="hljs-built_in" data-reactid="2309">local</span><!-- react-text: 2310 --> .. \
+        &amp;&amp; make \
+        &amp;&amp; sudo make install)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2311">fi</span><!-- react-text: 2312 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2313">if</span><!-- react-text: 2314 --> command_exists node-gyp ;
+    npm install node-gyp -g --registry=https://registry.npm.taobao.org
+<!-- /react-text --><span class="hljs-keyword" data-reactid="2315">fi</span><!-- react-text: 2316 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="2317"># 安装项目依赖，并且启动</span><!-- react-text: 2318 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2319">cd</span><!-- react-text: 2320 --> face-njnu
+npm install --registry=https://registry.npm.taobao.org
+<!-- /react-text --><span class="hljs-built_in" data-reactid="2321">cd</span><!-- react-text: 2322 --> gp-njnu-photos-backend
+npm install --registry=https://registry.npm.taobao.org
+(<!-- /react-text --><span class="hljs-built_in" data-reactid="2323">cd</span><!-- react-text: 2324 --> opencv &amp;&amp; npm run install )
+npm run retrain &amp;&amp; npm run start<!-- /react-text --></code></pre><!-- react-text: 2325 -->
+<!-- /react-text --><h2 id="系统模块（system-module）" data-reactid="2326"><a href="#%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97%EF%BC%88system-module%EF%BC%89" aria-hidden="true" data-reactid="2327"><span class="icon icon-link" data-reactid="2328"></span></a><!-- react-text: 2329 -->系统模块（System Module）<!-- /react-text --></h2><!-- react-text: 2330 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58848833b7414.jpg" alt="系统模块" width="770" height="401" data-reactid="2331"/><!-- react-text: 2332 -->
+<!-- /react-text --><h1 id="系统截图（system-screenshot）" data-reactid="2333"><a href="#%E7%B3%BB%E7%BB%9F%E6%88%AA%E5%9B%BE%EF%BC%88system-screenshot%EF%BC%89" aria-hidden="true" data-reactid="2334"><span class="icon icon-link" data-reactid="2335"></span></a><!-- react-text: 2336 -->系统截图（System Screenshot）<!-- /react-text --></h1><!-- react-text: 2337 -->
+<!-- /react-text --><ul data-reactid="2338"><!-- react-text: 2339 -->
+<!-- /react-text --><li data-reactid="2340"><!-- react-text: 2341 -->
+<!-- /react-text --><p data-reactid="2342"><!-- react-text: 2343 -->学生签到
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" alt="学生签到-1" width="1440" height="810" data-reactid="2344"/><!-- react-text: 2345 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" alt="学生签到-2" width="1440" height="810" data-reactid="2346"/></p><!-- react-text: 2347 -->
+<!-- /react-text --></li><!-- react-text: 2348 -->
+<!-- /react-text --><li data-reactid="2349"><!-- react-text: 2350 -->
+<!-- /react-text --><p data-reactid="2351"><!-- react-text: 2352 -->人脸录入
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884867e8c4f1.jpg" alt="alt" width="1440" height="810" data-reactid="2353"/></p><!-- react-text: 2354 -->
+<!-- /react-text --></li><!-- react-text: 2355 -->
+<!-- /react-text --><li data-reactid="2356"><!-- react-text: 2357 -->
+<!-- /react-text --><p data-reactid="2358"><!-- react-text: 2359 -->关于
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486cf622d8.jpg" alt="alt" width="1440" height="810" data-reactid="2360"/></p><!-- react-text: 2361 -->
+<!-- /react-text --></li><!-- react-text: 2362 -->
+<!-- /react-text --><li data-reactid="2363"><!-- react-text: 2364 -->
+<!-- /react-text --><p data-reactid="2365"><!-- react-text: 2366 -->管理员登录
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/588486ef8446d.jpg" alt="alt" width="1440" height="810" data-reactid="2367"/></p><!-- react-text: 2368 -->
+<!-- /react-text --></li><!-- react-text: 2369 -->
+<!-- /react-text --><li data-reactid="2370"><!-- react-text: 2371 -->
+<!-- /react-text --><p data-reactid="2372"><!-- react-text: 2373 -->管理员界面
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/5884873f1e625.jpg" alt="alt" width="1440" height="810" data-reactid="2374"/></p><!-- react-text: 2375 -->
+<!-- /react-text --></li><!-- react-text: 2376 -->
+<!-- /react-text --></ul><!-- react-text: 2377 -->
+<!-- /react-text --><h1 id="总结（sum-up）" data-reactid="2378"><a href="#%E6%80%BB%E7%BB%93%EF%BC%88sum-up%EF%BC%89" aria-hidden="true" data-reactid="2379"><span class="icon icon-link" data-reactid="2380"></span></a><!-- react-text: 2381 -->总结（Sum Up）<!-- /react-text --></h1><!-- react-text: 2382 -->
+<!-- /react-text --><p data-reactid="2383"><!-- react-text: 2384 -->学习并且使用了一套的 <!-- /react-text --><code data-reactid="2385">webpack+react+redux+router</code><!-- react-text: 2386 -->，以及同构渲染；同时巩固了一些 C 系列语言知识，尝试了 node 与 C/C++ “通信”的方式，入门学习了 opencv 以及人脸图像处理相关知识；尝试了站点的发布，与 HTTPs 的升级。对 前端/Nodejs/Web 体系认识更加深刻，对 unix 指令环境更加熟悉。<!-- /react-text --></p><!-- react-text: 2387 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="2388"></div><div class="paginator" data-reactid="2389"><a title="（译）进阶Bash Script指南（一）" class="prev" href="/advanced-bash-scripting-guide-1" data-reactid="2390">Prev</a><a title="2017 TodoList" class="next" href="/2017-newyear-todo-list" data-reactid="2391">Next</a></div></div></main><footer data-reactid="2392"><div class="copyright" data-reactid="2393"><p data-reactid="2394"><!-- react-text: 2395 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="2396">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

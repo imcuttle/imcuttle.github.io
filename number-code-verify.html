@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1564266511"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">数字验证码识别</h1><div class="post-info" data-reactid="12"><time datetime="2016-07-25T00:06:44+00:00" data-reactid="13">Jul 25, 2016 12:06 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="verifycode" data-reactid="16"><a href="#verifycode" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->VerifyCode<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">Java 实现的数字验证码识别, ...准确率不是很高, 模式识别和去噪处理的不是很好, 但学习入门已经够了，</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">而且！！！已经运用至之前做的教务系统的验证码识别</p><!-- react-text: 24 -->
+<!-- /react-text --><!-- react-text: 25 -->
+<!-- /react-text --><p data-reactid="26">整体的流程结构</p><!-- react-text: 27 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FjF5YYLISm4gTezikrNep3RISdDW?imageslim" alt="ClipboardImage" width="823" height="595" data-reactid="28"/><!-- react-text: 29 -->
+<!-- /react-text --><h1 id="识别思路" data-reactid="30"><a href="#%E8%AF%86%E5%88%AB%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->识别思路<!-- /react-text --></h1><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35">首先，得到图片数据，如</p><!-- react-text: 36 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fq0DWmDYGc-hjV-gW7UJArsx2ClO?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="37"/><!-- react-text: 38 -->
+<!-- /react-text --><p data-reactid="39">然后我试着对图片进行各种处理，比如...</p><!-- react-text: 40 -->
+<!-- /react-text --><ol data-reactid="41"><!-- react-text: 42 -->
+<!-- /react-text --><li data-reactid="43"><!-- react-text: 44 -->
+<!-- /react-text --><p data-reactid="45"><!-- react-text: 46 -->变成灰化图
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FubU9uTrN3cnPhPnuO5bOQykn5eG?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="47"/></p><!-- react-text: 48 -->
+<!-- /react-text --></li><!-- react-text: 49 -->
+<!-- /react-text --><li data-reactid="50"><!-- react-text: 51 -->
+<!-- /react-text --><p data-reactid="52"><!-- react-text: 53 -->去噪...好像效果不明显
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Ft_mbtLqREICr8bOaFyi5zEC0W2b?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="54"/></p><!-- react-text: 55 -->
+<!-- /react-text --></li><!-- react-text: 56 -->
+<!-- /react-text --><li data-reactid="57"><!-- react-text: 58 -->
+<!-- /react-text --><p data-reactid="59"><!-- react-text: 60 -->对灰化图去噪
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FosHgQkXuW3B-xmlrhUK6aqYfeIC?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="61"/></p><!-- react-text: 62 -->
+<!-- /react-text --></li><!-- react-text: 63 -->
+<!-- /react-text --><li data-reactid="64"><!-- react-text: 65 -->
+<!-- /react-text --><p data-reactid="66"><!-- react-text: 67 -->灰化图转成二值图（阈值128）
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fm7deFoygmibuLpMu3fD87I6_Pjn?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="68"/></p><!-- react-text: 69 -->
+<!-- /react-text --></li><!-- react-text: 70 -->
+<!-- /react-text --><li data-reactid="71"><!-- react-text: 72 -->
+<!-- /react-text --><p data-reactid="73"><!-- react-text: 74 -->原图转成二值图（阈值128）
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fm7deFoygmibuLpMu3fD87I6_Pjn?imageslim" alt="ClipboardImage" width="66" height="26" data-reactid="75"/></p><!-- react-text: 76 -->
+<!-- /react-text --></li><!-- react-text: 77 -->
+<!-- /react-text --><li data-reactid="78"><!-- react-text: 79 -->
+<!-- /react-text --><p data-reactid="80"><!-- react-text: 81 -->对二值图膨胀运算
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FhITj_7bt_Wq_h1p8TeThRlaL3Wi?imageslim" alt="ClipboardImage" width="70" height="30" data-reactid="82"/></p><!-- react-text: 83 -->
+<!-- /react-text --></li><!-- react-text: 84 -->
+<!-- /react-text --><li data-reactid="85"><!-- react-text: 86 -->
+<!-- /react-text --><p data-reactid="87"><!-- react-text: 88 -->对二值图腐蚀运算
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fjgst5D9y5GEDzhmDlyyn7EZomQs?imageslim" alt="ClipboardImage" width="70" height="30" data-reactid="89"/></p><!-- react-text: 90 -->
+<!-- /react-text --></li><!-- react-text: 91 -->
+<!-- /react-text --><li data-reactid="92"><!-- react-text: 93 -->
+<!-- /react-text --><p data-reactid="94"><!-- react-text: 95 -->对二值图开运算 (先腐蚀后膨胀)
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FhJ9RJll2ol5i2imagXHgvQSNPib?imageslim" alt="ClipboardImage" width="70" height="30" data-reactid="96"/></p><!-- react-text: 97 -->
+<!-- /react-text --></li><!-- react-text: 98 -->
+<!-- /react-text --><li data-reactid="99"><!-- react-text: 100 -->
+<!-- /react-text --><p data-reactid="101"><!-- react-text: 102 -->对二值图闭运算 (先膨胀后腐蚀)
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FrdLH6OY1OsJ8v11HhpaiON_q43d?imageslim" alt="ClipboardImage" width="70" height="30" data-reactid="103"/></p><!-- react-text: 104 -->
+<!-- /react-text --></li><!-- react-text: 105 -->
+<!-- /react-text --></ol><!-- react-text: 106 -->
+<!-- /react-text --><p data-reactid="107">多次实验对比后，发现还是对原图的二值化图最好处理。</p><!-- react-text: 108 -->
+<!-- /react-text --><p data-reactid="109">然后，便是将图片中的数字分割为固定大小的图片（固定大小是为了后续的模式学习与识别）</p><!-- react-text: 110 -->
+<!-- /react-text --><p data-reactid="111">其实在这里我可以使用一种比较无赖的方式处理，将这种有规律的数字验证码按照像素点位置进行分割，</p><!-- react-text: 112 -->
+<!-- /react-text --><p data-reactid="113">但是这样做就没意思了...，所以我选择了用深度优先搜索算法（利用堆栈结构，如果递归，会导致栈溢出），</p><!-- react-text: 114 -->
+<!-- /react-text --><p data-reactid="115">并且带标记（防止重复处理处理过的点），将八连通的集合分割出来</p><!-- react-text: 116 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkK1GV7Np4iV8QNWLqvupBvPD9S3?imageslim" alt="ClipboardImage" width="427" height="347" data-reactid="117"/><!-- react-text: 118 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fu5_Ay5Jkg1eiU6i4X5vpNOU3krr?imageslim" alt="ClipboardImage" width="632" height="530" data-reactid="119"/><!-- react-text: 120 -->
+<!-- /react-text --><p data-reactid="121">效果如下</p><!-- react-text: 122 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FgwUfefH7e0ruE-yCg4iVDnlNFwN?imageslim" alt="ClipboardImage" width="10" height="16" data-reactid="123"/><!-- react-text: 124 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FrQ5LqtTGxpX7vPTxSRkAtpYQUzV?imageslim" alt="ClipboardImage" width="8" height="16" data-reactid="125"/><!-- react-text: 126 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkhARQBT0IdX6-S2euZ7i0pHH42X?imageslim" alt="ClipboardImage" width="11" height="16" data-reactid="127"/><!-- react-text: 128 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FlXueQN2XdLsPvHne09vp7Bczmo4?imageslim" alt="ClipboardImage" width="11" height="16" data-reactid="129"/><!-- react-text: 130 -->
+<!-- /react-text --><p data-reactid="131">当然二值图中的噪点会影响字符的划分</p><!-- react-text: 132 -->
+<!-- /react-text --><p data-reactid="133">最后便是模式识别算法的选择了，我没有选中书上与网上说的基于向量距离的方法，而是自己想了一个方法，所以识别能力有限...</p><!-- react-text: 134 -->
+<!-- /react-text --><p data-reactid="135">思路是：先将将一些已知数字的样本进行存储为一串字符串，白色存为&quot;0&quot;，黑色为&quot;1&quot;</p><!-- react-text: 136 -->
+<!-- /react-text --><p data-reactid="137">效果如下</p><!-- react-text: 138 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FkB74y5to0WAqFUxD9Ot8NiDmmd4?imageslim" alt="ClipboardImage" width="10" height="16" data-reactid="139"/><!-- react-text: 140 -->
+<!-- /react-text --><pre data-reactid="141"><code data-query="{}" data-lang="data-lang" data-reactid="142">0111111111
+0111111111
+0111111111
+1100000011
+1000000011
+0000000110
+0000000110
+0000001100
+0001001100
+0000001100
+0000011000
+0000011000
+0000011000
+0000110000
+0000110000
+0000110000
+</code></pre><!-- react-text: 143 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fh2IM_GGns3WCSWAQ_FKWEyiij5s?imageslim" alt="ClipboardImage" width="10" height="16" data-reactid="144"/><!-- react-text: 145 -->
+<!-- /react-text --><pre data-reactid="146"><code data-query="{}" data-lang="data-lang" data-reactid="147">0000000110
+0000000110
+0000001110
+0000011110
+0000101110
+0001001110
+0001001110
+0010001110
+0100001110
+1000001110
+1111111111
+1111111111
+0000001110
+0000001110
+0000001110
+0000001110
+</code></pre><!-- react-text: 148 -->
+<!-- /react-text --><p data-reactid="149">将图像编码完成后，对比待识别图片与10种数字样本之间字符&quot;1&quot;的位置吻合度，最高的即为识别出来的数字</p><!-- react-text: 150 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/Fv0mcAA5fwfpfmtsEeuDVIccS3ev?imageslim" alt="ClipboardImage" width="697" height="523" data-reactid="151"/><!-- react-text: 152 -->
+<!-- /react-text --><p data-reactid="153">但是这种方法容易将3，5，8识别错误，或者因为分割的不成功而导致的识别错误。</p><!-- react-text: 154 -->
+<!-- /react-text --><p data-reactid="155">最后！提下Node调用Java的方法</p><!-- react-text: 156 -->
+<!-- /react-text --><p data-reactid="157"><!-- react-text: 158 -->目前我用的是<!-- /react-text --><code data-reactid="159">child_process</code><!-- react-text: 160 -->创建新进程，在新进程调用Java，传人图片文件地址进行处理。<!-- /react-text --></p><!-- react-text: 161 -->
+<!-- /react-text --><p data-reactid="162">但是！这种方法每次都需要重新启动Java，训练样本需要重新载入，效率是个问题。</p><!-- react-text: 163 -->
+<!-- /react-text --><p data-reactid="164"><!-- react-text: 165 -->2016/07/25更新!!! 改用 <!-- /react-text --><code data-reactid="166">WebService</code><!-- react-text: 167 --> 进行通信!<!-- /react-text --></p><!-- react-text: 168 -->
+<!-- /react-text --><h1 id="代码地址" data-reactid="169"><a href="#%E4%BB%A3%E7%A0%81%E5%9C%B0%E5%9D%80" aria-hidden="true" data-reactid="170"><span class="icon icon-link" data-reactid="171"></span></a><!-- react-text: 172 -->代码地址<!-- /react-text --></h1><!-- react-text: 173 -->
+<!-- /react-text --><ul data-reactid="174"><!-- react-text: 175 -->
+<!-- /react-text --><li data-reactid="176"><!-- react-text: 177 -->
+<!-- /react-text --><p data-reactid="178"><!-- react-text: 179 -->Java源码
+<!-- /react-text --><a href="https://github.com/moyuyc/VerifyCode" data-reactid="180">VerifyCode</a></p><!-- react-text: 181 -->
+<!-- /react-text --></li><!-- react-text: 182 -->
+<!-- /react-text --><li data-reactid="183"><!-- react-text: 184 -->
+<!-- /react-text --><p data-reactid="185"><!-- react-text: 186 -->一键查分（运用该技术）
+<!-- /react-text --><a href="https://github.com/moyuyc/njnu-quick-get-score" data-reactid="187">njnu-quick-get-score</a></p><!-- react-text: 188 -->
+<!-- /react-text --></li><!-- react-text: 189 -->
+<!-- /react-text --></ul><!-- react-text: 190 -->
+<!-- /react-text --><h1 id="参考资料" data-reactid="191"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="192"><span class="icon icon-link" data-reactid="193"></span></a><!-- react-text: 194 -->参考资料<!-- /react-text --></h1><!-- react-text: 195 -->
+<!-- /react-text --><p data-reactid="196">形态学运算</p><!-- react-text: 197 -->
+<!-- /react-text --><p data-reactid="198"><a href="http://blog.csdn.net/bagboy_taobao_com/article/details/5574159" data-reactid="199">http://blog.csdn.net/bagboy_taobao_com/article/details/5574159</a><!-- react-text: 200 -->
+<!-- /react-text --><a href="http://blog.csdn.net/hellousb2010/article/details/37939809" data-reactid="201">http://blog.csdn.net/hellousb2010/article/details/37939809</a></p><!-- react-text: 202 -->
+<!-- /react-text --><p data-reactid="203">字符分割</p><!-- react-text: 204 -->
+<!-- /react-text --><p data-reactid="205"><a href="https://www.zhihu.com/question/19702292" data-reactid="206">https://www.zhihu.com/question/19702292</a><!-- react-text: 207 -->
+<!-- /react-text --><a href="http://www.voidcn.com/blog/beechina/article/p-5761020.html" data-reactid="208">http://www.voidcn.com/blog/beechina/article/p-5761020.html</a></p><!-- react-text: 209 -->
+<!-- /react-text --><p data-reactid="210">PDF 299 模式识别</p><!-- react-text: 211 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="212"></div><div class="paginator" data-reactid="213"><a title="为你的博客添加搜索功能吧!" class="prev" href="/search-function-for-blog" data-reactid="214">Prev</a><a title="「滴滴滴，老司机开车了」nodejs爬取煎蛋网妹子图" class="next" href="/spider-girls-bynode" data-reactid="215">Next</a></div></div></main><footer data-reactid="216"><div class="copyright" data-reactid="217"><p data-reactid="218"><!-- react-text: 219 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="220">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

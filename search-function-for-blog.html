@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-2036350036"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">为你的博客添加搜索功能吧!</h1><div class="post-info" data-reactid="12"><time datetime="2016-08-06T23:15:42+00:00" data-reactid="13">Aug 6, 2016 11:15 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h1 id="search-spider-blog" data-reactid="16"><a href="#search-spider-blog" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->Search-Spider-Blog<!-- /react-text --></h1><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21"><!-- react-text: 22 -->提供个人博客文章搜索服务, 只需要配置个人博客地址, 载入博客数据, 开启Server服务, 即可开启文章搜索服务。
+对<!-- /react-text --><code data-reactid="23">blogconfig.json</code><!-- react-text: 24 -->配置文件监控, 修改后服务及时地更新博客数据<!-- /react-text --></p><!-- react-text: 25 -->
+<!-- /react-text --><!-- react-text: 26 -->
+<!-- /react-text --><p data-reactid="27"><strong data-reactid="28">本人用的为Hexo Blog, 所以Hexo用户体验更佳</strong></p><!-- react-text: 29 -->
+<!-- /react-text --><p data-reactid="30"><a href="https://github.com/moyuyc/search-spider-blog" data-reactid="31">代码地址</a></p><!-- react-text: 32 -->
+<!-- /react-text --><h2 id="使用说明" data-reactid="33"><a href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="34"><span class="icon icon-link" data-reactid="35"></span></a><!-- react-text: 36 -->使用说明<!-- /react-text --></h2><!-- react-text: 37 -->
+<!-- /react-text --><ul data-reactid="38"><!-- react-text: 39 -->
+<!-- /react-text --><li data-reactid="40"><!-- react-text: 41 -->
+<!-- /react-text --><p data-reactid="42">环境配置</p><!-- react-text: 43 -->
+<!-- /react-text --><pre data-reactid="44"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="45"><span class="hljs-comment" data-reactid="46"># after clone &amp;&amp; cd</span><!-- react-text: 47 -->
+npm i <!-- /react-text --></code></pre><!-- react-text: 48 -->
+<!-- /react-text --></li><!-- react-text: 49 -->
+<!-- /react-text --><li data-reactid="50"><!-- react-text: 51 -->
+<!-- /react-text --><p data-reactid="52"><!-- react-text: 53 -->对 <!-- /react-text --><code data-reactid="54">blogconfig.json</code><!-- react-text: 55 --> 进行配置（以我<!-- /react-text --><a href="http://moyuyc.github.io/" data-reactid="56">个人博客</a><!-- react-text: 57 -->为例）<!-- /react-text --></p><!-- react-text: 58 -->
+<!-- /react-text --><pre data-reactid="59"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="60"><!-- react-text: 61 -->
+{
+    <!-- /react-text --><span class="hljs-string" data-reactid="62">&quot;url&quot;</span><!-- react-text: 63 -->: <!-- /react-text --><span class="hljs-string" data-reactid="64">&quot;http://moyuyc.github.io/&quot;</span><!-- react-text: 65 -->,   <!-- /react-text --><span class="hljs-regexp" data-reactid="66">//</span><!-- react-text: 67 -->blog url
+    <!-- /react-text --><span class="hljs-string" data-reactid="68">&quot;mainPagePath&quot;</span><!-- react-text: 69 -->: <!-- /react-text --><span class="hljs-string" data-reactid="70">&quot;/archives/&quot;</span><!-- react-text: 71 -->,        <!-- /react-text --><span class="hljs-regexp" data-reactid="72">//</span><!-- react-text: 73 --> 所有文章页面（也就是第一页）
+    <!-- /react-text --><span class="hljs-string" data-reactid="74">&quot;spiderConfig&quot;</span><!-- react-text: 75 -->: {
+        <!-- /react-text --><span class="hljs-string" data-reactid="76">&quot;ArticleLinkEl&quot;</span><!-- react-text: 77 -->: <!-- /react-text --><span class="hljs-string" data-reactid="78">&quot;.post-title-link&quot;</span><!-- react-text: 79 -->, <!-- /react-text --><span class="hljs-regexp" data-reactid="80">//</span><!-- react-text: 81 --> 在<!-- /react-text --><span class="hljs-string" data-reactid="82">&quot;mainPagePath&quot;</span><!-- react-text: 83 -->中进入文章页面的超链接jQuery选择器
+        <!-- /react-text --><span class="hljs-string" data-reactid="84">&quot;splitPagePath&quot;</span><!-- react-text: 85 -->: <!-- /react-text --><span class="hljs-string" data-reactid="86">&quot;/archives/page/${page}/&quot;</span><!-- react-text: 87 -->, <!-- /react-text --><span class="hljs-regexp" data-reactid="88">//</span><!-- react-text: 89 --> 所有文章分页的规则, <!-- /react-text --><span class="hljs-variable" data-reactid="90">${page}</span><!-- react-text: 91 -->表示页码
+        <!-- /react-text --><span class="hljs-string" data-reactid="92">&quot;ArticleDateEl&quot;</span><!-- react-text: 93 -->: <!-- /react-text --><span class="hljs-string" data-reactid="94">&quot;time&quot;</span><!-- react-text: 95 -->,         <!-- /react-text --><span class="hljs-regexp" data-reactid="96">//</span><!-- react-text: 97 --> 在文章页面中日期的Jquery选择器
+        <!-- /react-text --><span class="hljs-string" data-reactid="98">&quot;ArticleTitleEl&quot;</span><!-- react-text: 99 -->: <!-- /react-text --><span class="hljs-string" data-reactid="100">&quot;.post-title&quot;</span><!-- react-text: 101 -->, <!-- /react-text --><span class="hljs-regexp" data-reactid="102">//</span><!-- react-text: 103 --> 在文章页面中标题的Jquery选择器
+        <!-- /react-text --><span class="hljs-string" data-reactid="104">&quot;ArticleContentEl&quot;</span><!-- react-text: 105 -->: <!-- /react-text --><span class="hljs-string" data-reactid="106">&quot;.post-body&quot;</span><!-- react-text: 107 --> <!-- /react-text --><span class="hljs-regexp" data-reactid="108">//</span><!-- react-text: 109 --> 在文章页面中内容的Jquery选择器
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 110 -->
+<!-- /react-text --></li><!-- react-text: 111 -->
+<!-- /react-text --><li data-reactid="112"><!-- react-text: 113 -->
+<!-- /react-text --><p data-reactid="114">脚本指令说明</p><!-- react-text: 115 -->
+<!-- /react-text --><pre data-reactid="116"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="117"><!-- react-text: 118 -->    
+npm start <!-- /react-text --><span class="hljs-comment" data-reactid="119"># 开启Server服务(默认端口7899, 可在scripts中修改), 开启后会自动更新一次数据</span><!-- react-text: 120 -->
+npm load  <!-- /react-text --><span class="hljs-comment" data-reactid="121"># 更新博客数据</span></code></pre><!-- react-text: 122 -->
+<!-- /react-text --></li><!-- react-text: 123 -->
+<!-- /react-text --><li data-reactid="124"><!-- react-text: 125 -->
+<!-- /react-text --><p data-reactid="126">Server接口说明</p><!-- react-text: 127 -->
+<!-- /react-text --><ol data-reactid="128"><!-- react-text: 129 -->
+<!-- /react-text --><li data-reactid="130"><!-- react-text: 131 -->
+<!-- /react-text --><p data-reactid="132"><code data-reactid="133">/load</code><!-- react-text: 134 --> : 重新加载博客数据<!-- /react-text --></p><!-- react-text: 135 -->
+<!-- /react-text --></li><!-- react-text: 136 -->
+<!-- /react-text --><li data-reactid="137"><!-- react-text: 138 -->
+<!-- /react-text --><p data-reactid="139"><code data-reactid="140">/api/search/(:type)</code><!-- react-text: 141 --> : type可选值为<!-- /react-text --><code data-reactid="142">date/content/title/all</code><!-- react-text: 143 -->, 根据什么来搜索, 参数格式为<!-- /react-text --><code data-reactid="144">?q=想搜什么&amp;n=数目(可选)</code></p><!-- react-text: 145 -->
+<!-- /react-text --></li><!-- react-text: 146 -->
+<!-- /react-text --><li data-reactid="147"><!-- react-text: 148 -->
+<!-- /react-text --><p data-reactid="149"><code data-reactid="150">/api/search/all</code><!-- react-text: 151 --> : 当未传<!-- /react-text --><code data-reactid="152">q</code><!-- react-text: 153 -->时, 返回所有文章<!-- /react-text --></p><!-- react-text: 154 -->
+<!-- /react-text --></li><!-- react-text: 155 -->
+<!-- /react-text --><li data-reactid="156"><!-- react-text: 157 -->
+<!-- /react-text --><p data-reactid="158">2 3点中的返回数据说明 : </p><!-- react-text: 159 -->
+<!-- /react-text --><pre data-reactid="160"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="161"><!-- react-text: 162 -->{
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="163">type</span><!-- react-text: 164 -->: <!-- /react-text --><span class="hljs-string" data-reactid="165">&#x27;title/date/content&#x27;</span><!-- react-text: 166 -->,
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="167">articles</span><!-- react-text: 168 -->: [ <!-- /react-text --><span class="hljs-comment" data-reactid="169">// 一般length为1</span><!-- react-text: 170 -->
+        {
+            <!-- /react-text --><span class="hljs-attribute" data-reactid="171">title</span><!-- react-text: 172 -->: <!-- /react-text --><span class="hljs-string" data-reactid="173">&#x27;title&#x27;</span><!-- react-text: 174 -->,
+            <!-- /react-text --><span class="hljs-attribute" data-reactid="175">datetime</span><!-- react-text: 176 -->: <!-- /react-text --><span class="hljs-string" data-reactid="177">&#x27;date&#x27;</span><!-- react-text: 178 -->,
+            <!-- /react-text --><span class="hljs-attribute" data-reactid="179">content</span><!-- react-text: 180 -->: <!-- /react-text --><span class="hljs-string" data-reactid="181">&#x27;content&#x27;</span><!-- react-text: 182 -->,
+            <!-- /react-text --><span class="hljs-attribute" data-reactid="183">path</span><!-- react-text: 184 -->: <!-- /react-text --><span class="hljs-string" data-reactid="185">&#x27;/url&#x27;</span><!-- react-text: 186 -->   <!-- /react-text --><span class="hljs-comment" data-reactid="187">// 文章链接地址 相对的</span><!-- react-text: 188 -->
+        }
+    ],
+    <!-- /react-text --><span class="hljs-attribute" data-reactid="189">indexs</span><!-- react-text: 190 -->: [] <!-- /react-text --><span class="hljs-comment" data-reactid="191">// 搜索到内容的索引位置</span><!-- react-text: 192 -->
+}<!-- /react-text --></code></pre><!-- react-text: 193 -->
+<!-- /react-text --></li><!-- react-text: 194 -->
+<!-- /react-text --><li data-reactid="195"><!-- react-text: 196 -->
+<!-- /react-text --><p data-reactid="197"><!-- react-text: 198 -->注意: 提供了多关键词的搜索, 如<!-- /react-text --><code data-reactid="199">keyword1+keyword2</code><!-- react-text: 200 --> 或者 <!-- /react-text --><code data-reactid="201">keyword1 keyword2</code></p><!-- react-text: 202 -->
+<!-- /react-text --></li><!-- react-text: 203 -->
+<!-- /react-text --><li data-reactid="204"><!-- react-text: 205 -->
+<!-- /react-text --><p data-reactid="206"><!-- react-text: 207 -->可以根据自己的需求, 直接使用 <!-- /react-text --><code data-reactid="208">/api/search/all</code><!-- react-text: 209 --> 所有数据做为静态数据进行本地搜索, 或者使用search服务都可<!-- /react-text --></p><!-- react-text: 210 -->
+<!-- /react-text --></li><!-- react-text: 211 -->
+<!-- /react-text --></ol><!-- react-text: 212 -->
+<!-- /react-text --></li><!-- react-text: 213 -->
+<!-- /react-text --></ul><!-- react-text: 214 -->
+<!-- /react-text --><h2 id="工作流程" data-reactid="215"><a href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B" aria-hidden="true" data-reactid="216"><span class="icon icon-link" data-reactid="217"></span></a><!-- react-text: 218 -->工作流程<!-- /react-text --></h2><!-- react-text: 219 -->
+<!-- /react-text --><ol data-reactid="220"><!-- react-text: 221 -->
+<!-- /react-text --><li data-reactid="222"><!-- react-text: 223 -->爬取博客文章数据, 保存至<!-- /react-text --><code data-reactid="224">db.json</code><!-- react-text: 225 -->中, 未使用数据库, 是为了轻量与方便移植, 而且只是提供个人服务<!-- /react-text --></li><!-- react-text: 226 -->
+<!-- /react-text --><li data-reactid="227"><!-- react-text: 228 -->为了更好的拓展性, 使用<!-- /react-text --><code data-reactid="229">cheerio</code><!-- react-text: 230 -->, 使用<!-- /react-text --><code data-reactid="231">jQuery选择器</code><!-- react-text: 232 --> 配置即可<!-- /react-text --></li><!-- react-text: 233 -->
+<!-- /react-text --><li data-reactid="234"><!-- react-text: 235 -->获取数据后, 便是搭建<!-- /react-text --><code data-reactid="236">http服务</code><!-- react-text: 237 -->, 提供搜索接口, 为了方便用户展示, 还提供了搜索到内容的索引位置<!-- /react-text --></li><!-- react-text: 238 -->
+<!-- /react-text --></ol><!-- react-text: 239 -->
+<!-- /react-text --><h2 id="效果查看" data-reactid="240"><a href="#%E6%95%88%E6%9E%9C%E6%9F%A5%E7%9C%8B" aria-hidden="true" data-reactid="241"><span class="icon icon-link" data-reactid="242"></span></a><!-- react-text: 243 -->效果查看<!-- /react-text --></h2><!-- react-text: 244 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FiR3acOCoX2AYv7FSSnpEPfYXEOs?imageslim" alt="ClipboardImage" width="864" height="688" data-reactid="245"/><!-- react-text: 246 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FoiPMH0e2DGk06Uw1olsMxeRBWfk?imageslim" alt="ClipboardImage" width="733" height="613" data-reactid="247"/><!-- react-text: 248 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="249"></div><div class="paginator" data-reactid="250"><a title="探究SegumentFault Markdown编辑器" class="prev" href="/segumentfault-markdown-editor-and-mo-editor" data-reactid="251">Prev</a><a title="数字验证码识别" class="next" href="/number-code-verify" data-reactid="252">Next</a></div></div></main><footer data-reactid="253"><div class="copyright" data-reactid="254"><p data-reactid="255"><!-- react-text: 256 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="257">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

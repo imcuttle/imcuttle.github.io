@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1181610610"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Moka (SPA Blog For Everyone)</h1><div class="post-info" data-reactid="12"><time datetime="2016-10-16T22:37:29+00:00" data-reactid="13">Oct 16, 2016 10:37 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->如今,单页应用&quot;横行霸道&quot;, 而且新时代知识信息海量,我们更需要自己的Blog来沉淀知识。
+综上,<!-- /react-text --><code data-reactid="18">Moka</code><!-- react-text: 19 -->走入了我们的实现。<!-- /react-text --></p><!-- react-text: 20 -->
+<!-- /react-text --><!-- react-text: 21 -->
+<!-- /react-text --><h2 id="usage" data-reactid="22"><a href="#usage" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->Usage<!-- /react-text --></h2><!-- react-text: 26 -->
+<!-- /react-text --><img src="https://segmentfault.com/img/bVEjtX" alt="alt" width="800" height="432" data-reactid="27"/><!-- react-text: 28 -->
+<!-- /react-text --><p data-reactid="29"><!-- react-text: 30 -->为了第一眼能看到效果, 我先把如何安装使用说一下。
+1. 一切从<!-- /react-text --><code data-reactid="31">npm</code><!-- react-text: 32 -->开始<!-- /react-text --></p><!-- react-text: 33 -->
+<!-- /react-text --><pre data-reactid="34"><code data-query="{}" data-lang="data-lang" data-reactid="35">    $ npm i -g moka-cli
+</code></pre><!-- react-text: 36 -->
+<!-- /react-text --><ol start="2" data-reactid="37"><!-- react-text: 38 -->
+<!-- /react-text --><li data-reactid="39">安装完成后</li><!-- react-text: 40 -->
+<!-- /react-text --></ol><!-- react-text: 41 -->
+<!-- /react-text --><pre data-reactid="42"><code data-query="{}" data-lang="data-lang" data-reactid="43">```sh    
+$ moka -h # 帮助
+$ moka -V # 版本
+
+$ mkdir myBlog
+$ cd myBlog
+$ moka i  # 开启自己的spa Blog
+$ moka g  # generate static pages
+$ moka s  # 开启本地服务，动态更新_articles
+$ moka ss  # 开启本地静态服务，需要先generate
+$ moka n abc # 新建一个article
+
+$ moka d  # 根据 moka.config.json deploy 发布 需要设置sshkey 
+$ moka b  # 根据 moka.config.json bak 发布 需要设置sshkey 
+``` 
+</code></pre><!-- react-text: 44 -->
+<!-- /react-text --><ol start="3" data-reactid="45"><!-- react-text: 46 -->
+<!-- /react-text --><li data-reactid="47"><!-- react-text: 48 -->
+<!-- /react-text --><p data-reactid="49">线上效果</p><!-- react-text: 50 -->
+<!-- /react-text --><p data-reactid="51"><a href="https://moyuyc.github.io/" data-reactid="52">moyuyc.github.io</a></p><!-- react-text: 53 -->
+<!-- /react-text --></li><!-- react-text: 54 -->
+<!-- /react-text --><li data-reactid="55"><!-- react-text: 56 -->
+<!-- /react-text --><p data-reactid="57">详细解释</p><!-- react-text: 58 -->
+<!-- /react-text --><p data-reactid="59">在当前目录下产生一套文件目录结构。如下：</p><!-- react-text: 60 -->
+<!-- /react-text --><pre data-reactid="61"><code data-query="{}" data-lang="data-lang" data-reactid="62">moka-blog/
+├── moka.config.json # moka配置，包括全局配置，如deploy，bak信息，主题选择
+├── package.json     # 可以无视
+├── source/          # moka g 会将该目录下非`_articles`文件夹放入static
+│   ├── _articles/   # moka g 将`_articles`下的markdown文件解析到static中
+│   └── ...
+├── static/          # moka g 产生的最终发布的目录，deploy便是发布该目录
+│   └── ...   
+├── template/
+│   └── article.md   # moka n 命令产生新文章的模板
+└── themes/          # moka g 将配置中选中对应的主题 `themeBuild`目录 拷贝到static
+     └── moka/        # 主题文件夹，其中包含theme.config.json, 根据主题要求自行配置
+</code></pre><!-- react-text: 63 -->
+<!-- /react-text --><p data-reactid="64"><!-- react-text: 65 -->关于<!-- /react-text --><code data-reactid="66">moka deploy &amp; moka bak</code><!-- react-text: 67 -->需要设置<!-- /react-text --><code data-reactid="68">github key</code><!-- react-text: 69 -->，这里给出<!-- /react-text --><a href="http://jingyan.baidu.com/article/a65957f4e91ccf24e77f9b11.html" data-reactid="70">Windows平台的设置教程</a><!-- react-text: 71 -->，其他平台大同小异<!-- /react-text --><br data-reactid="72"/><!-- react-text: 73 -->
+设置ssh key完成后，修改<!-- /react-text --><code data-reactid="74">moka.config.json</code><!-- react-text: 75 --> deploy与bak url字段即可，改成对应repo的url.<!-- /react-text --></p><!-- react-text: 76 -->
+<!-- /react-text --></li><!-- react-text: 77 -->
+<!-- /react-text --></ol><!-- react-text: 78 -->
+<!-- /react-text --><h2 id="document" data-reactid="79"><a href="#document" aria-hidden="true" data-reactid="80"><span class="icon icon-link" data-reactid="81"></span></a><!-- react-text: 82 -->Document<!-- /react-text --></h2><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84"><code data-reactid="85">Moka</code><!-- react-text: 86 -->, 认为前端UI与数据应该完全分离开来, 而不是像<!-- /react-text --><code data-reactid="87">hexo</code><!-- react-text: 88 -->那样传统的blog。
+这样做的好处不言而喻, 可能第一次加载数据较多, 但是后续操作更加畅快, 网站体验更加优化了。<!-- /react-text --></p><!-- react-text: 89 -->
+<!-- /react-text --><p data-reactid="90"><!-- react-text: 91 -->既然如此, 那么<!-- /react-text --><code data-reactid="92">Moka</code><!-- react-text: 93 -->产生的数据是什么样子的呢?<!-- /react-text --></p><!-- react-text: 94 -->
+<!-- /react-text --><h3 id="数据格式" data-reactid="95"><a href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F" aria-hidden="true" data-reactid="96"><span class="icon icon-link" data-reactid="97"></span></a><!-- react-text: 98 -->数据格式<!-- /react-text --></h3><!-- react-text: 99 -->
+<!-- /react-text --><p data-reactid="100"><code data-reactid="101">Moka</code><!-- react-text: 102 --> 采用主流的<!-- /react-text --><code data-reactid="103">json</code><!-- react-text: 104 -->字符串<!-- /react-text --></p><!-- react-text: 105 -->
+<!-- /react-text --><p data-reactid="106"><code data-reactid="107">$ moka generate</code><!-- react-text: 108 --> 后产生的json如下<!-- /react-text --></p><!-- react-text: 109 -->
+<!-- /react-text --><pre data-reactid="110"><code class="hljs language-json" data-query="{}" data-lang="json" data-reactid="111"><!-- react-text: 112 -->{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="113">&quot;main&quot;</span><!-- react-text: 114 -->: {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="115">&quot;filename&quot;</span><!-- react-text: 116 -->: {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="117">&quot;content&quot;</span><!-- react-text: 118 -->: <!-- /react-text --><span class="hljs-string" data-reactid="119">&quot;...&quot;</span><!-- react-text: 120 -->,
+            <!-- /react-text --><span class="hljs-attr" data-reactid="121">&quot;head&quot;</span><!-- react-text: 122 -->: {
+                <!-- /react-text --><span class="hljs-attr" data-reactid="123">&quot;date&quot;</span><!-- react-text: 124 -->: <!-- /react-text --><span class="hljs-string" data-reactid="125">&quot;&quot;</span><!-- react-text: 126 -->,
+                <!-- /react-text --><span class="hljs-attr" data-reactid="127">&quot;title&quot;</span><!-- react-text: 128 -->: <!-- /react-text --><span class="hljs-string" data-reactid="129">&quot;&quot;</span><!-- react-text: 130 -->,
+                <!-- /react-text --><span class="hljs-attr" data-reactid="131">&quot;tags&quot;</span><!-- react-text: 132 -->: [tagnames...] or <!-- /react-text --><span class="hljs-string" data-reactid="133">&quot;tagname&quot;</span><!-- react-text: 134 -->
+            }
+        }
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="135">&quot;index&quot;</span><!-- react-text: 136 -->: {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="137">&quot;sorted&quot;</span><!-- react-text: 138 -->: [filenames...],
+        <!-- /react-text --><span class="hljs-attr" data-reactid="139">&quot;tagMap&quot;</span><!-- react-text: 140 -->: {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="141">&quot;tagname&quot;</span><!-- react-text: 142 -->: [filenames...]
+        }
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 143 -->
+<!-- /react-text --><p data-reactid="144">说明</p><!-- react-text: 145 -->
+<!-- /react-text --><ul data-reactid="146"><!-- react-text: 147 -->
+<!-- /react-text --><li data-reactid="148"><code data-reactid="149">&quot;content&quot;</code><!-- react-text: 150 -->可以通过配置控制, 返回<!-- /react-text --><code data-reactid="151">markdown</code><!-- react-text: 152 -->或者<!-- /react-text --><code data-reactid="153">html</code><!-- react-text: 154 -->(请看下文配置<!-- /react-text --><code data-reactid="155">returnRaw</code><!-- react-text: 156 -->说明)<!-- /react-text --></li><!-- react-text: 157 -->
+<!-- /react-text --><li data-reactid="158"><code data-reactid="159">&quot;head&quot;</code><!-- react-text: 160 -->表示在文章中头部<!-- /react-text --><code data-reactid="161">---...---</code><!-- react-text: 162 -->中解析出来的数据, tags 可以是Array(多个)或String(单个)<!-- /react-text --></li><!-- react-text: 163 -->
+<!-- /react-text --><li data-reactid="164"><code data-reactid="165">&quot;sorted&quot;</code><!-- react-text: 166 -->为按照时间倒序的filenames数组<!-- /react-text --></li><!-- react-text: 167 -->
+<!-- /react-text --><li data-reactid="168"><code data-reactid="169">&quot;tagMap&quot;</code><!-- react-text: 170 -->为所有tag的映射, 即哪些文章包含<!-- /react-text --><code data-reactid="171">&quot;tagname&quot;</code></li><!-- react-text: 172 -->
+<!-- /react-text --></ul><!-- react-text: 173 -->
+<!-- /react-text --><h3 id="配置说明" data-reactid="174"><a href="#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="175"><span class="icon icon-link" data-reactid="176"></span></a><!-- react-text: 177 -->配置说明<!-- /react-text --></h3><!-- react-text: 178 -->
+<!-- /react-text --><p data-reactid="179"><!-- react-text: 180 -->主要包含 <!-- /react-text --><code data-reactid="181">default config</code><!-- react-text: 182 -->, <!-- /react-text --><code data-reactid="183">moka.config.json</code><!-- react-text: 184 -->, <!-- /react-text --><code data-reactid="185">theme.config.json</code><!-- react-text: 186 -->, <!-- /react-text --><code data-reactid="187">theme.config.js</code></p><!-- react-text: 188 -->
+<!-- /react-text --><ul data-reactid="189"><!-- react-text: 190 -->
+<!-- /react-text --><li data-reactid="191"><!-- react-text: 192 -->
+<!-- /react-text --><p data-reactid="193"><code data-reactid="194">default config</code><!-- react-text: 195 --> 为<!-- /react-text --><code data-reactid="196">Moka</code><!-- react-text: 197 -->初始配置, 不推荐修改<!-- /react-text --></p><!-- react-text: 198 -->
+<!-- /react-text --><pre data-reactid="199"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="200"><!-- react-text: 201 -->{
+ <!-- /react-text --><span class="hljs-attr" data-reactid="202">theme</span><!-- react-text: 203 -->: <!-- /react-text --><span class="hljs-string" data-reactid="204">&quot;moka&quot;</span><!-- react-text: 205 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="206">// 当前主题</span><!-- react-text: 207 -->
+ apiRoot: <!-- /react-text --><span class="hljs-string" data-reactid="208">&quot;moka_api&quot;</span><!-- react-text: 209 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="210">// moka generate 数据和配置 所存放的文件夹</span><!-- react-text: 211 -->
+ 
+ skipRegExp: <!-- /react-text --><span class="hljs-string" data-reactid="212">&quot;/[^\.(md|markdown)]$/&quot;</span><!-- react-text: 213 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="214">// 在 _articles 中渲染忽略的文件名正则表达式</span><!-- react-text: 215 -->
+ 
+ timeFormat: <!-- /react-text --><span class="hljs-string" data-reactid="216">&quot;YYYY/MM/DD HH:mm:ss&quot;</span><!-- react-text: 217 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="218">// 默认产生的时间格式 (参看moment.js)</span><!-- react-text: 219 -->
+
+ <!-- /react-text --><span class="hljs-comment" data-reactid="220">// marked 配置参看(marked.js: https://github.com/chjj/marked)</span><!-- react-text: 221 -->
+ marked: {
+     <!-- /react-text --><span class="hljs-attr" data-reactid="222">options</span><!-- react-text: 223 -->: {
+         <!-- /react-text --><span class="hljs-attr" data-reactid="224">gfm</span><!-- react-text: 225 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="226">true</span><!-- react-text: 227 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="228">tables</span><!-- react-text: 229 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="230">true</span><!-- react-text: 231 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="232">breaks</span><!-- react-text: 233 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="234">false</span><!-- react-text: 235 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="236">pedantic</span><!-- react-text: 237 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="238">false</span><!-- react-text: 239 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="240">sanitize</span><!-- react-text: 241 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="242">false</span><!-- react-text: 243 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="244">smartLists</span><!-- react-text: 245 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="246">true</span><!-- react-text: 247 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="248">smartypants</span><!-- react-text: 249 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="250">false</span><!-- react-text: 251 -->,
+         <!-- /react-text --><span class="hljs-attr" data-reactid="252">highlight</span><!-- react-text: 253 -->: <!-- /react-text --><span class="hljs-function" data-reactid="254"><span class="hljs-keyword" data-reactid="255">function</span><!-- react-text: 256 --> (<!-- /react-text --><span class="hljs-params" data-reactid="257">code</span><!-- react-text: 258 -->) <!-- /react-text --></span><!-- react-text: 259 -->{
+             <!-- /react-text --><span class="hljs-keyword" data-reactid="260">return</span><!-- react-text: 261 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="262">require</span><!-- react-text: 263 -->(<!-- /react-text --><span class="hljs-string" data-reactid="264">&#x27;highlight.js&#x27;</span><!-- react-text: 265 -->).highlightAuto(code).value;
+         }
+     },
+     <!-- /react-text --><span class="hljs-attr" data-reactid="266">setup</span><!-- react-text: 267 -->: <!-- /react-text --><span class="hljs-function" data-reactid="268"><span class="hljs-keyword" data-reactid="269">function</span><!-- react-text: 270 --> (<!-- /react-text --><span class="hljs-params" data-reactid="271">renderer</span><!-- react-text: 272 -->) <!-- /react-text --></span><!-- react-text: 273 -->{
+         renderer.heading = <!-- /react-text --><span class="hljs-function" data-reactid="274"><span class="hljs-keyword" data-reactid="275">function</span><!-- react-text: 276 --> (<!-- /react-text --><span class="hljs-params" data-reactid="277">text, level</span><!-- react-text: 278 -->) <!-- /react-text --></span><!-- react-text: 279 -->{
+             <!-- /react-text --><span class="hljs-keyword" data-reactid="280">var</span><!-- react-text: 281 --> escapedText = text.toLowerCase().replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="282">/[^\w]+/g</span><!-- react-text: 283 -->, <!-- /react-text --><span class="hljs-string" data-reactid="284">&#x27;-&#x27;</span><!-- react-text: 285 -->);
+
+             <!-- /react-text --><span class="hljs-keyword" data-reactid="286">return</span><!-- react-text: 287 --> <!-- /react-text --><span class="hljs-string" data-reactid="288">&#x27;&lt;h&#x27;</span><!-- react-text: 289 --> + level + <!-- /react-text --><span class="hljs-string" data-reactid="290">&#x27;&gt;&lt;a name=&quot;&#x27;</span><!-- react-text: 291 --> +
+                 escapedText +
+                 <!-- /react-text --><span class="hljs-string" data-reactid="292">&#x27;&quot; class=&quot;anchor&quot; href=&quot;#&#x27;</span><!-- react-text: 293 --> +
+                 escapedText +
+                 <!-- /react-text --><span class="hljs-string" data-reactid="294">&#x27;&quot;&gt;&lt;span class=&quot;header-link&quot;&gt;&lt;/span&gt;&lt;/a&gt;&#x27;</span><!-- react-text: 295 --> +
+                 text + <!-- /react-text --><span class="hljs-string" data-reactid="296">&#x27;&lt;/h&#x27;</span><!-- react-text: 297 --> + level + <!-- /react-text --><span class="hljs-string" data-reactid="298">&#x27;&gt;&#x27;</span><!-- react-text: 299 -->;
+         }
+     }
+ },
+
+ <!-- /react-text --><span class="hljs-attr" data-reactid="300">returnRaw</span><!-- react-text: 301 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="302">false</span><!-- react-text: 303 -->,  <!-- /react-text --><span class="hljs-comment" data-reactid="304">// * 是否返回markdown字符串, 那么需要主题自己转换markdown</span><!-- react-text: 305 -->
+ title: <!-- /react-text --><span class="hljs-string" data-reactid="306">&#x27;Blog&#x27;</span><!-- react-text: 307 -->,
+ <!-- /react-text --><span class="hljs-attr" data-reactid="308">favicon</span><!-- react-text: 309 -->: <!-- /react-text --><span class="hljs-string" data-reactid="310">&quot;favicon.ico&quot;</span><!-- react-text: 311 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="312">// 网站图标</span><!-- react-text: 313 -->
+ injectScript: <!-- /react-text --><span class="hljs-literal" data-reactid="314">true</span><!-- react-text: 315 -->,  <!-- /react-text --><span class="hljs-comment" data-reactid="316">// 是否注入`moka.inject.js`</span><!-- react-text: 317 -->
+ themeBuild: <!-- /react-text --><span class="hljs-string" data-reactid="318">&quot;build&quot;</span><!-- react-text: 319 --> <!-- /react-text --><span class="hljs-comment" data-reactid="320">// 将会取 themes/moka/build 中文件放到 static 中, 认为build为生产环境代码</span><!-- react-text: 321 -->
+}<!-- /react-text --></code></pre><!-- react-text: 322 -->
+<!-- /react-text --></li><!-- react-text: 323 -->
+<!-- /react-text --><li data-reactid="324"><!-- react-text: 325 -->
+<!-- /react-text --><p data-reactid="326"><code data-reactid="327">moka.config.json</code><!-- react-text: 328 --> 为全局站点配置, 在<!-- /react-text --><code data-reactid="329">apiRoot</code><!-- react-text: 330 -->中可以得到<!-- /react-text --></p><!-- react-text: 331 -->
+<!-- /react-text --><pre data-reactid="332"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="333"><!-- react-text: 334 -->{
+    <!-- /react-text --><span class="hljs-string" data-reactid="335">&quot;theme&quot;</span><!-- react-text: 336 -->: <!-- /react-text --><span class="hljs-string" data-reactid="337">&quot;moka&quot;</span><!-- react-text: 338 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="339">&quot;title&quot;</span><!-- react-text: 340 -->: <!-- /react-text --><span class="hljs-string" data-reactid="341">&quot;Moyu Blog&quot;</span><!-- react-text: 342 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="343">&quot;favicon&quot;</span><!-- react-text: 344 -->: <!-- /react-text --><span class="hljs-string" data-reactid="345">&quot;favicon.ico&quot;</span><!-- react-text: 346 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="347">&quot;author&quot;</span><!-- react-text: 348 -->: <!-- /react-text --><span class="hljs-string" data-reactid="349">&quot;moyu&quot;</span><!-- react-text: 350 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="351">&quot;description&quot;</span><!-- react-text: 352 -->: <!-- /react-text --><span class="hljs-string" data-reactid="353">&quot;moyu Blog&quot;</span><!-- react-text: 354 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="355">&quot;siteName&quot;</span><!-- react-text: 356 -->: <!-- /react-text --><span class="hljs-string" data-reactid="357">&quot;site&quot;</span><!-- react-text: 358 -->,
+    
+    <!-- /react-text --><span class="hljs-comment" data-reactid="359">// moka generate 配置</span><!-- react-text: 360 -->
+    <!-- /react-text --><span class="hljs-string" data-reactid="361">&quot;deploy&quot;</span><!-- react-text: 362 -->: {
+        <!-- /react-text --><span class="hljs-string" data-reactid="363">&quot;type&quot;</span><!-- react-text: 364 -->: <!-- /react-text --><span class="hljs-string" data-reactid="365">&quot;git&quot;</span><!-- react-text: 366 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="367">&quot;url&quot;</span><!-- react-text: 368 -->: <!-- /react-text --><span class="hljs-string" data-reactid="369">&quot;https://github.com/moyuyc/moyuyc.github.io.git&quot;</span><!-- react-text: 370 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="371">&quot;branch&quot;</span><!-- react-text: 372 -->: <!-- /react-text --><span class="hljs-string" data-reactid="373">&quot;master&quot;</span><!-- react-text: 374 -->
+    }
+}<!-- /react-text --></code></pre><!-- react-text: 375 -->
+<!-- /react-text --></li><!-- react-text: 376 -->
+<!-- /react-text --><li data-reactid="377"><!-- react-text: 378 -->
+<!-- /react-text --><p data-reactid="379"><code data-reactid="380">theme.config.json</code><!-- react-text: 381 --> 为主题配置, 在<!-- /react-text --><code data-reactid="382">apiRoot</code><!-- react-text: 383 -->中可以得到, 完全为主题开发者自定义<!-- /react-text --></p><!-- react-text: 384 -->
+<!-- /react-text --><p data-reactid="385"><!-- react-text: 386 -->  关于默认主题配置说明, 请看<!-- /react-text --><a href="/THEME_README.md" data-reactid="387">theme readme</a></p><!-- react-text: 388 -->
+<!-- /react-text --></li><!-- react-text: 389 -->
+<!-- /react-text --><li data-reactid="390"><!-- react-text: 391 -->
+<!-- /react-text --><p data-reactid="392"><code data-reactid="393">theme.config.js</code><!-- react-text: 394 --> 为了主题开放者也能够控制<!-- /react-text --><code data-reactid="395">Moka</code><!-- react-text: 396 -->产生数据, 可以修改该文件, 从而覆盖默认配置<!-- /react-text --></p><!-- react-text: 397 -->
+<!-- /react-text --><pre data-reactid="398"><code data-query="{}" data-lang="data-lang" data-reactid="399">module.exports = {
+    apiRoot: &quot;moka_api&quot;,
+    skipRegExp: &quot;/[^\.(md|markdown)]$/&quot;,
+    //http://momentjs.com/
+    timeFormat: &#x27;YYYY-MM-DD HH:mm&#x27;, // 返回的时间格式
+
+    marked: {
+        options: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false
+        },
+        setup: function (renderer) {
+            // 在这里控制renderer规则, 详细请看 marked
+        }
+    },
+    
+    returnRaw: false,
+    themeBuild: &quot;build&quot;,
+}
+</code></pre><!-- react-text: 400 -->
+<!-- /react-text --></li><!-- react-text: 401 -->
+<!-- /react-text --></ul><!-- react-text: 402 -->
+<!-- /react-text --><h3 id="闲话" data-reactid="403"><a href="#%E9%97%B2%E8%AF%9D" aria-hidden="true" data-reactid="404"><span class="icon icon-link" data-reactid="405"></span></a><!-- react-text: 406 -->闲话<!-- /react-text --></h3><!-- react-text: 407 -->
+<!-- /react-text --><p data-reactid="408"><!-- react-text: 409 -->开发者可以通过<!-- /react-text --><code data-reactid="410">ajax/fetch/...</code><!-- react-text: 411 -->异步获取 <!-- /react-text --><code data-reactid="412">apiRoot</code><!-- react-text: 413 -->配置下的<!-- /react-text --><code data-reactid="414">db.json/moka.config.json/theme.config.json</code></p><!-- react-text: 415 -->
+<!-- /react-text --><p data-reactid="416"><!-- react-text: 417 -->然后尽情用<!-- /react-text --><code data-reactid="418">react/vue/webpack/...</code><!-- react-text: 419 -->开发自己喜欢的主题吧。<!-- /react-text --></p><!-- react-text: 420 -->
+<!-- /react-text --><p data-reactid="421"><!-- react-text: 422 -->还有默认主题是用<!-- /react-text --><code data-reactid="423">react/webpack</code><!-- react-text: 424 -->开发的,
+但...不幸的是, 本人误操作把源码都删了..., 但万幸的是...留下了build, 生产环境的代码...<!-- /react-text --></p><!-- react-text: 425 -->
+<!-- /react-text --><p data-reactid="426"><a href="https://github.com/moyuyc/moka" data-reactid="427">star</a></p><!-- react-text: 428 -->
+<!-- /react-text --><h2 id="moka主题配置" data-reactid="429"><a href="#moka%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE" aria-hidden="true" data-reactid="430"><span class="icon icon-link" data-reactid="431"></span></a><!-- react-text: 432 -->Moka主题配置<!-- /react-text --></h2><!-- react-text: 433 -->
+<!-- /react-text --><p data-reactid="434"><!-- react-text: 435 -->默认主题是用<!-- /react-text --><code data-reactid="436">react/webpack</code><!-- react-text: 437 -->开发的,
+但...不幸的是, 本人误操作把源码都删了..., 但万幸的是...留下了build, 生产环境的代码...<!-- /react-text --></p><!-- react-text: 438 -->
+<!-- /react-text --><pre data-reactid="439"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="440"><!-- react-text: 441 -->{
+  <!-- /react-text --><span class="hljs-string" data-reactid="442">&quot;avatar&quot;</span><!-- react-text: 443 -->: <!-- /react-text --><span class="hljs-string" data-reactid="444">&quot;/head.jpg&quot;</span><!-- react-text: 445 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="446">// 头像</span><!-- react-text: 447 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="448">&quot;title&quot;</span><!-- react-text: 449 -->: <!-- /react-text --><span class="hljs-string" data-reactid="450">&quot; Moyu Dev Blog &quot;</span><!-- react-text: 451 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="452">// 网站title</span><!-- react-text: 453 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="454">&quot;description&quot;</span><!-- react-text: 455 -->: <!-- /react-text --><span class="hljs-string" data-reactid="456">&quot; Web, Node C/C++ Dev &quot;</span><!-- react-text: 457 -->,
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="458">&quot;mainInfoColor&quot;</span><!-- react-text: 459 -->: <!-- /react-text --><span class="hljs-string" data-reactid="460">&quot;&quot;</span><!-- react-text: 461 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="462">// 首页信息的文字颜色, 默认白色</span><!-- react-text: 463 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="464">&quot;canvasColor&quot;</span><!-- react-text: 465 -->: <!-- /react-text --><span class="hljs-string" data-reactid="466">&quot;&quot;</span><!-- react-text: 467 -->,   <!-- /react-text --><span class="hljs-comment" data-reactid="468">// 首页飘散的雪花颜色</span><!-- react-text: 469 -->
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="470">&quot;leftPercentage&quot;</span><!-- react-text: 471 -->: <!-- /react-text --><span class="hljs-number" data-reactid="472">50</span><!-- react-text: 473 -->,<!-- /react-text --><span class="hljs-comment" data-reactid="474">// 左侧百分比, 右侧将会自动为100-leftPercentage, &lt;=0 将会在非首页页面隐藏left</span><!-- react-text: 475 -->
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="476">&quot;pageSize&quot;</span><!-- react-text: 477 -->: <!-- /react-text --><span class="hljs-number" data-reactid="478">6</span><!-- react-text: 479 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="480">// 每页文章数目, &lt;=0 一页展示所有</span><!-- react-text: 481 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="482">&quot;summaryNum&quot;</span><!-- react-text: 483 -->: <!-- /react-text --><span class="hljs-number" data-reactid="484">50</span><!-- react-text: 485 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="486">// 摘要的文字截断字数</span><!-- react-text: 487 -->
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="488">&quot;postTarget&quot;</span><!-- react-text: 489 -->: <!-- /react-text --><span class="hljs-string" data-reactid="490">&quot;_blank&quot;</span><!-- react-text: 491 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="492">// 文章中link的跳转方式</span><!-- react-text: 493 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="494">&quot;iconTarget&quot;</span><!-- react-text: 495 -->: <!-- /react-text --><span class="hljs-string" data-reactid="496">&quot;_blank&quot;</span><!-- react-text: 497 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="498">// 左侧icon的link的跳转方式</span><!-- react-text: 499 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="500">&quot;projectTarget&quot;</span><!-- react-text: 501 -->: <!-- /react-text --><span class="hljs-string" data-reactid="502">&quot;_blank&quot;</span><!-- react-text: 503 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="504">// project中link的跳转方式</span><!-- react-text: 505 -->
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="506">&quot;home&quot;</span><!-- react-text: 507 -->: { <!-- /react-text --><span class="hljs-comment" data-reactid="508">// 首页中右侧文字内容</span><!-- react-text: 509 -->
+    <!-- /react-text --><span class="hljs-string" data-reactid="510">&quot;title&quot;</span><!-- react-text: 511 -->: <!-- /react-text --><span class="hljs-string" data-reactid="512">&quot;About Me&quot;</span><!-- react-text: 513 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="514">&quot;contentHtml&quot;</span><!-- react-text: 515 -->: <!-- /react-text --><span class="hljs-string" data-reactid="516">&quot;&lt;p&gt;I’m a Javascript enthusiast. I organise Baidu BEFE Meetup and try my best to help out with the team. I’m also a member of the core dev team.&lt;/p&gt;&lt;p&gt;&lt;img class=&#x27;emoji&#x27; src=&#x27;http://emojipedia-us.s3.amazonaws.com/cache/08/84/088419f4d97c19762c29008c4a89bbf4.png&#x27;/&gt;&lt;/p&gt;&quot;</span><!-- react-text: 517 -->
+  },
+  <!-- /react-text --><span class="hljs-comment" data-reactid="518">// projects</span><!-- react-text: 519 -->
+  <!-- /react-text --><span class="hljs-string" data-reactid="520">&quot;projects&quot;</span><!-- react-text: 521 -->: [
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="522">&quot;title&quot;</span><!-- react-text: 523 -->: <!-- /react-text --><span class="hljs-string" data-reactid="524">&quot;Moyu Theme&quot;</span><!-- react-text: 525 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="526">&quot;state&quot;</span><!-- react-text: 527 -->: <!-- /react-text --><span class="hljs-string" data-reactid="528">&quot;Doing&quot;</span><!-- react-text: 529 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="530">//可无</span><!-- react-text: 531 -->
+      <!-- /react-text --><span class="hljs-string" data-reactid="532">&quot;image&quot;</span><!-- react-text: 533 -->: <!-- /react-text --><span class="hljs-string" data-reactid="534">&quot;https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png&quot;</span><!-- react-text: 535 -->
+      <!-- /react-text --><span class="hljs-string" data-reactid="536">&quot;link&quot;</span><!-- react-text: 537 -->: <!-- /react-text --><span class="hljs-string" data-reactid="538">&quot;&quot;</span><!-- react-text: 539 --> <!-- /react-text --><span class="hljs-comment" data-reactid="540">// 点击跳转地址</span><!-- react-text: 541 -->
+    },
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="542">&quot;title&quot;</span><!-- react-text: 543 -->: <!-- /react-text --><span class="hljs-string" data-reactid="544">&quot;Moyu Theme&quot;</span><!-- react-text: 545 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="546">&quot;state&quot;</span><!-- react-text: 547 -->: <!-- /react-text --><span class="hljs-string" data-reactid="548">&quot;Doing&quot;</span><!-- react-text: 549 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="550">&quot;image&quot;</span><!-- react-text: 551 -->: <!-- /react-text --><span class="hljs-string" data-reactid="552">&quot;https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png&quot;</span><!-- react-text: 553 -->
+    },
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="554">&quot;title&quot;</span><!-- react-text: 555 -->: <!-- /react-text --><span class="hljs-string" data-reactid="556">&quot;Moyu Theme&quot;</span><!-- react-text: 557 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="558">&quot;state&quot;</span><!-- react-text: 559 -->: <!-- /react-text --><span class="hljs-string" data-reactid="560">&quot;Doing&quot;</span><!-- react-text: 561 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="562">&quot;image&quot;</span><!-- react-text: 563 -->: <!-- /react-text --><span class="hljs-string" data-reactid="564">&quot;https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png&quot;</span><!-- react-text: 565 -->
+    },
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="566">&quot;title&quot;</span><!-- react-text: 567 -->: <!-- /react-text --><span class="hljs-string" data-reactid="568">&quot;Moyu Theme&quot;</span><!-- react-text: 569 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="570">&quot;state&quot;</span><!-- react-text: 571 -->: <!-- /react-text --><span class="hljs-string" data-reactid="572">&quot;Doing&quot;</span><!-- react-text: 573 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="574">&quot;image&quot;</span><!-- react-text: 575 -->: <!-- /react-text --><span class="hljs-string" data-reactid="576">&quot;https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png&quot;</span><!-- react-text: 577 -->
+    },
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="578">&quot;title&quot;</span><!-- react-text: 579 -->: <!-- /react-text --><span class="hljs-string" data-reactid="580">&quot;Moyu Theme&quot;</span><!-- react-text: 581 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="582">&quot;state&quot;</span><!-- react-text: 583 -->: <!-- /react-text --><span class="hljs-string" data-reactid="584">&quot;Doing&quot;</span><!-- react-text: 585 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="586">&quot;image&quot;</span><!-- react-text: 587 -->: <!-- /react-text --><span class="hljs-string" data-reactid="588">&quot;https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png&quot;</span><!-- react-text: 589 -->
+    }
+  ],
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="590">&quot;icon&quot;</span><!-- react-text: 591 -->: [ <!-- /react-text --><span class="hljs-comment" data-reactid="592">// 左侧icons key命名参看font-awesome.css</span><!-- react-text: 593 -->
+    {
+      <!-- /react-text --><span class="hljs-string" data-reactid="594">&quot;github&quot;</span><!-- react-text: 595 -->: <!-- /react-text --><span class="hljs-string" data-reactid="596">&quot;https://github.com/moyuyc&quot;</span><!-- react-text: 597 -->
+    }
+  ],
+
+  <!-- /react-text --><span class="hljs-string" data-reactid="598">&quot;coverImage&quot;</span><!-- react-text: 599 -->: { <!-- /react-text --><span class="hljs-comment" data-reactid="600">// 左侧封面</span><!-- react-text: 601 -->
+    <!-- /react-text --><span class="hljs-string" data-reactid="602">&quot;images&quot;</span><!-- react-text: 603 -->: {
+      <!-- /react-text --><span class="hljs-string" data-reactid="604">&quot;tags&quot;</span><!-- react-text: 605 -->: <!-- /react-text --><span class="hljs-string" data-reactid="606">&quot;http://taylantatli.me/Halve/images/unsplash-gallery-image-3.jpg&quot;</span><!-- react-text: 607 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="608">&quot;home&quot;</span><!-- react-text: 609 -->: <!-- /react-text --><span class="hljs-string" data-reactid="610">&quot;http://taylantatli.me/Halve/images/unsplash-image-10.jpg&quot;</span><!-- react-text: 611 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="612">&quot;article&quot;</span><!-- react-text: 613 -->: <!-- /react-text --><span class="hljs-string" data-reactid="614">&quot;http://taylantatli.me/Halve/images/unsplash-gallery-image-3.jpg&quot;</span><!-- react-text: 615 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="616">&quot;serach&quot;</span><!-- react-text: 617 -->: <!-- /react-text --><span class="hljs-string" data-reactid="618">&quot;http://taylantatli.me/Halve/images/unsplash-image-10.jpg&quot;</span><!-- react-text: 619 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="620">&quot;notExist&quot;</span><!-- react-text: 621 -->: <!-- /react-text --><span class="hljs-string" data-reactid="622">&quot;http://taylantatli.me/Halve/images/unsplash-gallery-image-3.jpg&quot;</span><!-- react-text: 623 -->,
+      <!-- /react-text --><span class="hljs-string" data-reactid="624">&quot;posts&quot;</span><!-- react-text: 625 -->: [ <!-- /react-text --><span class="hljs-comment" data-reactid="626">// posts可为数组(对于每一页), 可为字符串</span><!-- react-text: 627 -->
+        <!-- /react-text --><span class="hljs-string" data-reactid="628">&quot;http://taylantatli.me/Halve/images/unsplash-image-10.jpg&quot;</span><!-- react-text: 629 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="630">&quot;http://taylantatli.me/Halve/images/home.png&quot;</span><!-- react-text: 631 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="632">&quot;http://taylantatli.me/Halve/images/unsplash-gallery-image-3.jpg&quot;</span><!-- react-text: 633 -->
+      ]
+    },
+    
+    <!-- /react-text --><span class="hljs-string" data-reactid="634">&quot;articleCover&quot;</span><!-- react-text: 635 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="636">true</span><!-- react-text: 637 -->   <!-- /react-text --><span class="hljs-comment" data-reactid="638">// 是否开启文章封面, 在文章头部配置 `cover: ...` 效果请看默认文章`Linux C学习一周`</span><!-- react-text: 639 -->
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 640 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="641"></div><div class="paginator" data-reactid="642"><a title="LinuxC OSX sendfile()" class="prev" href="/linux-c-osx-sendfile" data-reactid="643">Prev</a><a title="npm命令行小结" class="next" href="/npm-cached-option" data-reactid="644">Next</a></div></div></main><footer data-reactid="645"><div class="copyright" data-reactid="646"><p data-reactid="647"><!-- react-text: 648 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="649">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1226856382"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">和手动刷新说拜拜</h1><div class="post-info" data-reactid="12"><time datetime="2017-04-03T21:52:06+00:00" data-reactid="13">Apr 3, 2017 9:52 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="情景重现" data-reactid="16"><a href="#%E6%83%85%E6%99%AF%E9%87%8D%E7%8E%B0" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->情景重现<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><p data-reactid="21">前几天接了个私活，主要是修改一些前端页面样式和优化 html 结构等。</p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23"><!-- react-text: 24 -->其中 css/js 引入方式为 umd（Universal Module Definition） ，也就是直接用<!-- /react-text --><code data-reactid="25">script/link</code><!-- react-text: 26 -->引入。而不是<!-- /react-text --><code data-reactid="27">requirejs/seajs/webpack</code><!-- react-text: 28 --> 对应的 <!-- /react-text --><code data-reactid="29">amd/cmd/commonjs</code><!-- react-text: 30 --> 加载 javascript 或样式。<!-- /react-text --></p><!-- react-text: 31 -->
+<!-- /react-text --><p data-reactid="32">在不断地 修改样式 -&gt; 刷新页面的循环中，时间浪费了许多！</p><!-- react-text: 33 -->
+<!-- /react-text --><p data-reactid="34">于是萌生出：“造一个热更新服务的轮子”。</p><!-- react-text: 35 -->
+<!-- /react-text --><p data-reactid="36"><!-- react-text: 37 -->注意：<!-- /react-text --><em data-reactid="38">该工具只支持热更新 umd 引入的依赖</em></p><!-- react-text: 39 -->
+<!-- /react-text --><h2 id="原理" data-reactid="40"><a href="#%E5%8E%9F%E7%90%86" aria-hidden="true" data-reactid="41"><span class="icon icon-link" data-reactid="42"></span></a><!-- react-text: 43 -->原理<!-- /react-text --></h2><!-- react-text: 44 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/03/58e25ac7f17eb.jpg" width="576" height="338" data-reactid="45"/><!-- react-text: 46 -->
+<!-- /react-text --><p data-reactid="47"><!-- react-text: 48 -->如图，首先需要建立一个 http(s) 服务，通过该服务获取前端静态资源，对于 HTML 文件的请求，服务器需要额外插入一段客户端脚本。脚本的工作主要是用来建立 websocket 长连接。同时需要开启文件监听，异步监听到文件的变化，并广播 reload 消息至依赖该文件的客户端，客户端收到该消息后，便 <!-- /react-text --><code data-reactid="49">location.reload()</code><!-- react-text: 50 --> <!-- /react-text --><strong data-reactid="51">自动刷新页面</strong></p><!-- react-text: 52 -->
+<!-- /react-text --><h2 id="特性" data-reactid="53"><a href="#%E7%89%B9%E6%80%A7" aria-hidden="true" data-reactid="54"><span class="icon icon-link" data-reactid="55"></span></a><!-- react-text: 56 -->特性<!-- /react-text --></h2><!-- react-text: 57 -->
+<!-- /react-text --><ul data-reactid="58"><!-- react-text: 59 -->
+<!-- /react-text --><li data-reactid="60"><!-- react-text: 61 -->
+<!-- /react-text --><p data-reactid="62"><strong data-reactid="63">热更新</strong><!-- react-text: 64 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/03/31/58de5c97bfa0b.jpg" data-reactid="65"/></p><!-- react-text: 66 -->
+<!-- /react-text --></li><!-- react-text: 67 -->
+<!-- /react-text --><li data-reactid="68"><!-- react-text: 69 -->
+<!-- /react-text --><p data-reactid="70"><strong data-reactid="71">远程调试</strong><!-- react-text: 72 -->（适合局域网中移动端调试）
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/03/31/58de5c83f0eac.jpg" data-reactid="73"/></p><!-- react-text: 74 -->
+<!-- /react-text --></li><!-- react-text: 75 -->
+<!-- /react-text --><li data-reactid="76"><!-- react-text: 77 -->
+<!-- /react-text --><p data-reactid="78"><strong data-reactid="79">文件视图</strong><br data-reactid="80"/><!-- react-text: 81 -->
+访问：<!-- /react-text --><code data-reactid="82">http://localhost:8082/__hrs__/file</code><!-- react-text: 83 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/04/01/58df9961dd9b2.jpg" data-reactid="84"/></p><!-- react-text: 85 -->
+<!-- /react-text --></li><!-- react-text: 86 -->
+<!-- /react-text --><li data-reactid="87"><!-- react-text: 88 -->
+<!-- /react-text --><p data-reactid="89"><strong data-reactid="90">依赖关系查看</strong></p><!-- react-text: 91 -->
+<!-- /react-text --><ol data-reactid="92"><!-- react-text: 93 -->
+<!-- /react-text --><li data-reactid="94"><!-- react-text: 95 -->
+<!-- /react-text --><p data-reactid="96"><!-- react-text: 97 -->单个文件<!-- /react-text --><br data-reactid="98"/><!-- react-text: 99 -->
+访问：<!-- /react-text --><code data-reactid="100">http://localhost:8082/index.html.hrs.map</code></p><!-- react-text: 101 -->
+<!-- /react-text --><pre data-reactid="102"><code class="hljs language-json" data-query="{}" data-lang="json" data-reactid="103"><!-- react-text: 104 -->{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="105">&quot;/Users/moyu/my-code/JavaCode/dike/js/jquery-1.9.1.js&quot;</span><!-- react-text: 106 -->: <!-- /react-text --><span class="hljs-string" data-reactid="107">&quot;../../js/jquery-1.9.1.js&quot;</span><!-- react-text: 108 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="109">&quot;/Users/moyu/my-code/JavaCode/dike/js/bootstrap.js&quot;</span><!-- react-text: 110 -->: <!-- /react-text --><span class="hljs-string" data-reactid="111">&quot;../../js/bootstrap.js&quot;</span><!-- react-text: 112 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="113">&quot;/Users/moyu/my-code/JavaCode/dike/js/navbar.js&quot;</span><!-- react-text: 114 -->: <!-- /react-text --><span class="hljs-string" data-reactid="115">&quot;../../js/navbar.js&quot;</span><!-- react-text: 116 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="117">&quot;/Users/moyu/my-code/JavaCode/dike/css/font-awesome.min.css&quot;</span><!-- react-text: 118 -->: <!-- /react-text --><span class="hljs-string" data-reactid="119">&quot;../../css/font-awesome.min.css&quot;</span><!-- react-text: 120 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="121">&quot;/Users/moyu/my-code/JavaCode/dike/css/navbar.css&quot;</span><!-- react-text: 122 -->: <!-- /react-text --><span class="hljs-string" data-reactid="123">&quot;../../css/navbar.css&quot;</span><!-- react-text: 124 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="125">&quot;/Users/moyu/my-code/JavaCode/dike/css/conceptModel.css&quot;</span><!-- react-text: 126 -->: <!-- /react-text --><span class="hljs-string" data-reactid="127">&quot;../../css/conceptModel.css&quot;</span><!-- react-text: 128 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="129">&quot;/Users/moyu/my-code/JavaCode/dike/css/dropzone/dropzone.css&quot;</span><!-- react-text: 130 -->: <!-- /react-text --><span class="hljs-string" data-reactid="131">&quot;../../css/dropzone/dropzone.css&quot;</span><!-- react-text: 132 -->
+}<!-- /react-text --></code></pre><!-- react-text: 133 -->
+<!-- /react-text --></li><!-- react-text: 134 -->
+<!-- /react-text --><li data-reactid="135"><!-- react-text: 136 -->全局<!-- /react-text --><br data-reactid="137"/><!-- react-text: 138 -->
+访问：<!-- /react-text --><code data-reactid="139">http://localhost:8082/__hrs__/map</code></li><!-- react-text: 140 -->
+<!-- /react-text --></ol><!-- react-text: 141 -->
+<!-- /react-text --></li><!-- react-text: 142 -->
+<!-- /react-text --><li data-reactid="143"><!-- react-text: 144 -->
+<!-- /react-text --><p data-reactid="145"><!-- react-text: 146 -->转发请求（可避免跨域）<!-- /react-text --><br data-reactid="147"/><!-- react-text: 148 -->
+访问：<!-- /react-text --><code data-reactid="149">http://localhost:8082/__hrs__/forward?url=http://blog.moyuyc.xyz/head.jpg</code></p><!-- react-text: 150 -->
+<!-- /react-text --></li><!-- react-text: 151 -->
+<!-- /react-text --><li data-reactid="152"><!-- react-text: 153 -->
+<!-- /react-text --><p data-reactid="154"><!-- react-text: 155 -->配置文件<!-- /react-text --><br data-reactid="156"/><!-- react-text: 157 -->
+默认认为配置文件为：<!-- /react-text --><code data-reactid="158">hrs.config.js</code><br data-reactid="159"/><!-- react-text: 160 -->
+比如：<!-- /react-text --></p><!-- react-text: 161 -->
+<!-- /react-text --></li><!-- react-text: 162 -->
+<!-- /react-text --></ul><!-- react-text: 163 -->
+<!-- /react-text --><pre data-reactid="164"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="165"><span class="hljs-built_in" data-reactid="166">module</span><!-- react-text: 167 -->.exports = {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="168">proxy</span><!-- react-text: 169 -->: {
+        <!-- /react-text --><span class="hljs-string" data-reactid="170">&quot;/api&quot;</span><!-- react-text: 171 -->: {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="172">target</span><!-- react-text: 173 -->: <!-- /react-text --><span class="hljs-string" data-reactid="174">&quot;http://www.huya.com/longdd&quot;</span><!-- react-text: 175 -->,
+        },
+        <!-- /react-text --><span class="hljs-string" data-reactid="176">&quot;/php&quot;</span><!-- react-text: 177 -->: {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="178">redirect</span><!-- react-text: 179 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="180">true</span><!-- react-text: 181 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="182">// default: true</span><!-- react-text: 183 -->
+            target: <!-- /react-text --><span class="hljs-string" data-reactid="184">&quot;http://localhost:63343/start/static&quot;</span><!-- react-text: 185 -->,<!-- /react-text --><span class="hljs-comment" data-reactid="186">//&quot;http://localhost:6999&quot;,</span><!-- react-text: 187 -->
+            changeHost: <!-- /react-text --><span class="hljs-literal" data-reactid="188">true</span><!-- react-text: 189 -->,  <!-- /react-text --><span class="hljs-comment" data-reactid="190">// default: true</span><!-- react-text: 191 -->
+
+            hot: <!-- /react-text --><span class="hljs-literal" data-reactid="192">true</span><!-- react-text: 193 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="194">// hot reload enable? default: false</span><!-- react-text: 195 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="196">// Function/RegExp: will be set root config hotRule if it is null</span><!-- react-text: 197 -->
+            hotRule: <!-- /react-text --><span class="hljs-function" data-reactid="198"><span class="hljs-keyword" data-reactid="199">function</span><!-- react-text: 200 --> (<!-- /react-text --><span class="hljs-params" data-reactid="201">filename, request</span><!-- react-text: 202 -->) <!-- /react-text --></span><!-- react-text: 203 -->{
+                <!-- /react-text --><span class="hljs-comment" data-reactid="204">// console.log(request.url);</span><!-- react-text: 205 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="206">return</span><!-- react-text: 207 --> <!-- /react-text --><span class="hljs-regexp" data-reactid="208">/\.(php)$/</span><!-- react-text: 209 -->.test(filename);
+            },
+            <!-- /react-text --><span class="hljs-comment" data-reactid="210">// Function: return local file path</span><!-- react-text: 211 -->
+            mapLocal: <!-- /react-text --><span class="hljs-function" data-reactid="212"><span class="hljs-keyword" data-reactid="213">function</span><!-- react-text: 214 --> (<!-- /react-text --><span class="hljs-params" data-reactid="215">request</span><!-- react-text: 216 -->) <!-- /react-text --></span><!-- react-text: 217 -->{
+                <!-- /react-text --><span class="hljs-comment" data-reactid="218">// request: Express Request Object</span><!-- react-text: 219 -->
+                <!-- /react-text --><span class="hljs-comment" data-reactid="220">// console.log(&#x27;mapLocal&#x27;, request.originalUrl, request.baseUrl, request.url);</span><!-- react-text: 221 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="222">const</span><!-- react-text: 223 --> url = request.url.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="224">/\?[\s\S]*/</span><!-- react-text: 225 -->, <!-- /react-text --><span class="hljs-string" data-reactid="226">&#x27;&#x27;</span><!-- react-text: 227 -->)
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="228">return</span><!-- react-text: 229 --> <!-- /react-text --><span class="hljs-string" data-reactid="230">&quot;/Users/moyu/my-code/phpCode/start/static&quot;</span><!-- react-text: 231 --> + url;
+            },
+            <!-- /react-text --><span class="hljs-comment" data-reactid="232">// Function/String: return detected directory path</span><!-- react-text: 233 -->
+            mapRoot: <!-- /react-text --><span class="hljs-function" data-reactid="234"><span class="hljs-keyword" data-reactid="235">function</span><!-- react-text: 236 --> (<!-- /react-text --><span class="hljs-params" data-reactid="237">request</span><!-- react-text: 238 -->) <!-- /react-text --></span><!-- react-text: 239 -->{
+                <!-- /react-text --><span class="hljs-comment" data-reactid="240">// request: Express Request Object</span><!-- react-text: 241 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="242">return</span><!-- react-text: 243 --> <!-- /react-text --><span class="hljs-string" data-reactid="244">&quot;/Users/moyu/my-code/phpCode/start/static&quot;</span><!-- react-text: 245 -->;
+            }
+        },
+    },
+
+    <!-- /react-text --><span class="hljs-comment" data-reactid="246">// RegExp or function (filename) {...}</span><!-- react-text: 247 -->
+    hotRule: <!-- /react-text --><span class="hljs-regexp" data-reactid="248">/\.(html|htm)$/</span><!-- react-text: 249 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="250">// default: /\.(html|htm)$/</span><!-- react-text: 251 -->
+
+    setUp: <!-- /react-text --><span class="hljs-function" data-reactid="252"><span class="hljs-keyword" data-reactid="253">function</span><!-- react-text: 254 --> (<!-- /react-text --><span class="hljs-params" data-reactid="255">app</span><!-- react-text: 256 -->) <!-- /react-text --></span><!-- react-text: 257 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="258">/* app is an express server object. */</span><!-- react-text: 259 -->
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="260">// http://localhost:8082/test</span><!-- react-text: 261 -->
+        app.get(<!-- /react-text --><span class="hljs-string" data-reactid="262">&#x27;/test&#x27;</span><!-- react-text: 263 -->, <!-- /react-text --><span class="hljs-function" data-reactid="264"><span class="hljs-keyword" data-reactid="265">function</span><!-- react-text: 266 --> (<!-- /react-text --><span class="hljs-params" data-reactid="267">req, res</span><!-- react-text: 268 -->) <!-- /react-text --></span><!-- react-text: 269 -->{
+            res.end(<!-- /react-text --><span class="hljs-string" data-reactid="270">&quot;TEST!&quot;</span><!-- react-text: 271 -->);
+        });
+    }
+};<!-- /react-text --></code></pre><!-- react-text: 272 -->
+<!-- /react-text --><ul data-reactid="273"><!-- react-text: 274 -->
+<!-- /react-text --><li data-reactid="275"><!-- react-text: 276 -->支持跨域<!-- /react-text --><br data-reactid="277"/><!-- react-text: 278 -->
+建立起 hot reload server (端口 8082) 服务后，在你需要开启热更新的 html 中手动插入<!-- /react-text --></li><!-- react-text: 279 -->
+<!-- /react-text --></ul><!-- react-text: 280 -->
+<!-- /react-text --><pre data-reactid="281"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="282"><span class="hljs-tag" data-reactid="283"><!-- react-text: 284 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="285">script</span><!-- react-text: 286 -->
+    <!-- /react-text --><span class="hljs-attr" data-reactid="287">src</span><!-- react-text: 288 -->=<!-- /react-text --><span class="hljs-string" data-reactid="289">&quot;http://localhost:8082/__hrs__/client-script.js?reload=false&amp;debug=true&quot;</span><!-- react-text: 290 -->
+    <!-- /react-text --><span class="hljs-attr" data-reactid="291">hrs-local</span><!-- react-text: 292 -->=<!-- /react-text --><span class="hljs-string" data-reactid="293">&quot;/Users/moyu/fe-code/a/b/jsonp.html&quot;</span><!-- react-text: 294 -->
+    <!-- /react-text --><span class="hljs-attr" data-reactid="295">hrs-root</span><!-- react-text: 296 -->=<!-- /react-text --><span class="hljs-string" data-reactid="297">&quot;/Users/moyu/fe-code&quot;</span><!-- react-text: 298 -->
+&gt;<!-- /react-text --></span><span class="null" data-reactid="299"></span><span class="hljs-tag" data-reactid="300"><!-- react-text: 301 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="302">script</span><!-- react-text: 303 -->&gt;<!-- /react-text --></span></code></pre><!-- react-text: 304 -->
+<!-- /react-text --><pre data-reactid="305"><code data-query="{}" data-lang="data-lang" data-reactid="306">- `hrs-local` 该文件的绝对路径
+- `hrs-root` 需要监听的文件夹的路径（默认为`hrs-local`的文件夹路径，例中为：`/Users/moyu/fe-code/a/b`）
+</code></pre><!-- react-text: 307 -->
+<!-- /react-text --><h2 id="安装使用" data-reactid="308"><a href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="309"><span class="icon icon-link" data-reactid="310"></span></a><!-- react-text: 311 -->安装使用<!-- /react-text --></h2><!-- react-text: 312 -->
+<!-- /react-text --><p data-reactid="313">使用 nodejs 实现，需要 node 环境。</p><!-- react-text: 314 -->
+<!-- /react-text --><pre data-reactid="315"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="316">npm install -g simple-hot-reload-server</code></pre><!-- react-text: 317 -->
+<!-- /react-text --><pre data-reactid="318"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="319"><span class="hljs-attribute" data-reactid="320">Usage</span><!-- react-text: 321 -->: hrs [-p port] path
+
+<!-- /react-text --><span class="routeros" data-reactid="322"><!-- react-text: 323 -->Options:
+
+  -v --version                <!-- /react-text --><span class="hljs-builtin-name" data-reactid="324">get</span><!-- react-text: 325 --> current version.
+  -p --port                   <!-- /react-text --><span class="hljs-builtin-name" data-reactid="326">set</span><span class="hljs-built_in" data-reactid="327"> port </span><!-- react-text: 328 -->of server. (default: 8082)
+  -c --config                <!-- /react-text --><span class="hljs-built_in" data-reactid="329"> config </span><!-- react-text: 330 -->path. (default hrs.config.js)
+  -h --help                   how <!-- /react-text --><span class="hljs-keyword" data-reactid="331">to</span><!-- react-text: 332 --> use it.<!-- /react-text --></span></code></pre><!-- react-text: 333 -->
+<!-- /react-text --><p data-reactid="334"><!-- react-text: 335 -->最后，欢迎各位 <!-- /react-text --><a href="https://github.com/moyuyc/simple-hot-reload-server" data-reactid="336">star</a><!-- react-text: 337 -->！<!-- /react-text --></p><!-- react-text: 338 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="339"></div><div class="paginator" data-reactid="340"><a title="毕设周记二" class="prev" href="/week-record-2" data-reactid="341">Prev</a><a title="支付宝第三方支付，App支付教程" class="next" href="/ali-app-pay" data-reactid="342">Next</a></div></div></main><footer data-reactid="343"><div class="copyright" data-reactid="344"><p data-reactid="345"><!-- react-text: 346 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="347">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

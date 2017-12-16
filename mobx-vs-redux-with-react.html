@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="384276215"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Mobx VS Redux（React状态控制）</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-26T16:45:45+00:00" data-reactid="13">Feb 26, 2017 4:45 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><blockquote data-reactid="16"><!-- react-text: 17 -->
+<!-- /react-text --><p data-reactid="18"><!-- react-text: 19 -->我人就是闲不下来 - -<!-- /react-text --><br data-reactid="20"/><!-- react-text: 21 -->
+辛辛苦苦上了一周班，周末又捣鼓起 React+Mobx 一套了<!-- /react-text --></p><!-- react-text: 22 -->
+<!-- /react-text --><p data-reactid="23">下周要开始疯狂踩 React Native 的坑了，公司要我着手开发 app 了，心塞（mmp，拿着农民工的钱，干着“打天下”的事，本人还不是专业的 - -）</p><!-- react-text: 24 -->
+<!-- /react-text --><p data-reactid="25">还有，最近有童鞋反映我的文章看不懂，不照顾基础不好的童鞋，希望我想阮一峰大神一样循循善诱、由浅入深。（这可苦了我一个理科生了，阮大师好歹是位文科生）</p><!-- react-text: 26 -->
+<!-- /react-text --></blockquote><!-- react-text: 27 -->
+<!-- /react-text --><p data-reactid="28">不扯淡了。</p><!-- react-text: 29 -->
+<!-- /react-text --><h3 id="react" data-reactid="30"><a href="#react" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->React<!-- /react-text --></h3><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><!-- react-text: 36 -->React 是由 Facebook 提出的 View 层框架。之所以不在之前加上“前端”修饰，是因为 React  在提出时，目标就不仅仅是前端，Virtual Dom 的提出，使得 React 能运行在服务端(ssr)、移动端(react-native)、web端。所以是 <!-- /react-text --><strong data-reactid="37">Learn once, write anywhere</strong></p><!-- react-text: 38 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" alt="ClipboardImage" width="623" height="396" data-reactid="39"/><!-- react-text: 40 -->
+<!-- /react-text --><p data-reactid="41">React 希望通过状态改变来更新视图（diff算法，找到最佳的渲染），还可以通过一些组件内的生命周期方法，来改变视图，达到想要的交互效果。</p><!-- react-text: 42 -->
+<!-- /react-text --><p data-reactid="43"><!-- react-text: 44 -->React 入门看这就够了，<!-- /react-text --><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" data-reactid="45">React 简单入门教程，阮大牛</a></p><!-- react-text: 46 -->
+<!-- /react-text --><h3 id="redux" data-reactid="47"><a href="#redux" aria-hidden="true" data-reactid="48"><span class="icon icon-link" data-reactid="49"></span></a><!-- react-text: 50 -->Redux<!-- /react-text --></h3><!-- react-text: 51 -->
+<!-- /react-text --><p data-reactid="52">由于 React 只是一层 View，对于其数据需要自己管理，对于复杂的应用，如果缺少可维护的状态管理，这对于后面的开发工作是灾难性的。</p><!-- react-text: 53 -->
+<!-- /react-text --><p data-reactid="54">Redux 便是一套可维护的状态管理工具，</p><!-- react-text: 55 -->
+<!-- /react-text --><p data-reactid="56">其主张应用只有一个 store 存储数据，将该 store 层层分离、传入子组件。因此组件（纯渲染）只需要关注自己的需要的数据即可，具有很强的复用性！</p><!-- react-text: 57 -->
+<!-- /react-text --><p data-reactid="58">搭配一系列的 actions，通过 action ID 找到对应的 reducer 处理流程，更新 store，相应的，视图也更新了。</p><!-- react-text: 59 -->
+<!-- /react-text --><p data-reactid="60">所以在组件中的生命周期函数，用户触发的事件函数中，调用 action 即可。</p><!-- react-text: 61 -->
+<!-- /react-text --><img src="https://ooo.0o0.ooo/2017/01/22/58845a7e4a302.jpg" alt="alt" width="800" height="600" data-reactid="62"/><!-- react-text: 63 -->
+<!-- /react-text --><p data-reactid="64"><!-- react-text: 65 -->可以看出 redux 十分对大型应用的口味，而且很配合 react 的理念，<!-- /react-text --><strong data-reactid="66">组件化</strong><!-- react-text: 67 -->。<!-- /react-text --></p><!-- react-text: 68 -->
+<!-- /react-text --><p data-reactid="69"><em data-reactid="70">但是</em><!-- react-text: 71 -->，Redux 比较难上手，太多的新概念提出（action、reducer、store），这对于没有体会到 react 开发痛点的新同学来说，是晦涩的。<!-- /react-text --></p><!-- react-text: 72 -->
+<!-- /react-text --><blockquote data-reactid="73"><!-- react-text: 74 -->
+<!-- /react-text --><p data-reactid="75">当初在百度实习，我也是死磕了几天文档才懵懵懂懂的明白了一点，写了个简单的 demo，之后在看项目代码，写项目代码的时候才慢慢会用。</p><!-- react-text: 76 -->
+<!-- /react-text --><p data-reactid="77">但又过了这么久之后，自己独立从零开发，使用 react react-router redux 一套之后，才发现以前关于 redux 的疑问都迎刃而解了。之前写的都是个 xx 啊，真是苦了后面维护我代码的兄弟...</p><!-- react-text: 78 -->
+<!-- /react-text --></blockquote><!-- react-text: 79 -->
+<!-- /react-text --><p data-reactid="80">所以，Mobx 出现了。</p><!-- react-text: 81 -->
+<!-- /react-text --><h3 id="mobx" data-reactid="82"><a href="#mobx" aria-hidden="true" data-reactid="83"><span class="icon icon-link" data-reactid="84"></span></a><!-- react-text: 85 -->Mobx<!-- /react-text --></h3><!-- react-text: 86 -->
+<!-- /react-text --><p data-reactid="87">正如官方所说 </p><!-- react-text: 88 -->
+<!-- /react-text --><blockquote data-reactid="89"><!-- react-text: 90 -->
+<!-- /react-text --><p data-reactid="91"><em data-reactid="92">Simple, scalable state management</em></p><!-- react-text: 93 -->
+<!-- /react-text --></blockquote><!-- react-text: 94 -->
+<!-- /react-text --><p data-reactid="95">mobx 是一个简单，可扩展的状态管理器。</p><!-- react-text: 96 -->
+<!-- /react-text --><p data-reactid="97">Mobx 希望所有需要管理的状态, 都应该被提取出来， 并自动化，不需要书写代码判断是否需要更新视图。</p><!-- react-text: 98 -->
+<!-- /react-text --><p data-reactid="99"><!-- react-text: 100 -->Mobx 搭配 ES6 的<!-- /react-text --><a href="http://es6.ruanyifeng.com/#docs/decorator" data-reactid="101">修饰器</a><!-- react-text: 102 -->使用，代码更简单优雅。<!-- /react-text --></p><!-- react-text: 103 -->
+<!-- /react-text --><p data-reactid="104">Babel 需要 babel-plugin-transform-decorators-legacy 才能使用修饰器</p><!-- react-text: 105 -->
+<!-- /react-text --><p data-reactid="106">Mobx 希望一个 View 对应一个 Model，这对于熟悉面向对象编程的同学十分友好。</p><!-- react-text: 107 -->
+<!-- /react-text --><p data-reactid="108">更新 Model 后，View 也自动更新，十分直接（从 Store =&gt; View =&gt; Update）</p><!-- react-text: 109 -->
+<!-- /react-text --><p data-reactid="110">Redux 需要关注 Store =&gt; View =&gt; Action =&gt; Reducer 一套闭环</p><!-- react-text: 111 -->
+<!-- /react-text --><p data-reactid="112"><!-- react-text: 113 -->以下为 ES6 的一个<!-- /react-text --><a href="https://github.com/moyuyc/react-mobx-starter" data-reactid="114">评论列表demo</a></p><!-- react-text: 115 -->
+<!-- /react-text --><pre data-reactid="116"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="117"><span class="hljs-keyword" data-reactid="118">import</span><!-- react-text: 119 --> React <!-- /react-text --><span class="hljs-keyword" data-reactid="120">from</span><!-- react-text: 121 --> <!-- /react-text --><span class="hljs-string" data-reactid="122">&#x27;react&#x27;</span><!-- react-text: 123 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="124">import</span><!-- react-text: 125 --> {render} <!-- /react-text --><span class="hljs-keyword" data-reactid="126">from</span><!-- react-text: 127 --> <!-- /react-text --><span class="hljs-string" data-reactid="128">&#x27;react-dom&#x27;</span><!-- react-text: 129 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="130">import</span><!-- react-text: 131 --> {observable, computed, action, useStrict, toJS} <!-- /react-text --><span class="hljs-keyword" data-reactid="132">from</span><!-- react-text: 133 --> <!-- /react-text --><span class="hljs-string" data-reactid="134">&#x27;mobx&#x27;</span><!-- react-text: 135 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="136">import</span><!-- react-text: 137 --> {Provider, inject, observer} <!-- /react-text --><span class="hljs-keyword" data-reactid="138">from</span><!-- react-text: 139 --> <!-- /react-text --><span class="hljs-string" data-reactid="140">&#x27;mobx-react&#x27;</span><!-- react-text: 141 -->;
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="142">// View</span><!-- react-text: 143 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="144">// 视为观察者，其视图更新交给 mobx 管理</span><!-- react-text: 145 -->
+@observer
+<!-- /react-text --><span class="hljs-class" data-reactid="146"><span class="hljs-keyword" data-reactid="147">class</span><!-- react-text: 148 --> <!-- /react-text --><span class="hljs-title" data-reactid="149">Comment</span><!-- react-text: 150 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="151">extends</span><!-- react-text: 152 --> <!-- /react-text --><span class="hljs-title" data-reactid="153">React</span><!-- react-text: 154 -->.<!-- /react-text --><span class="hljs-title" data-reactid="155">Component</span><!-- react-text: 156 --> <!-- /react-text --></span><!-- react-text: 157 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="158">constructor</span><!-- react-text: 159 -->(props) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="160">super</span><!-- react-text: 161 -->(props)
+    }
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="162">const</span><!-- react-text: 163 --> {author, date, content, text} = <!-- /react-text --><span class="hljs-keyword" data-reactid="164">this</span><!-- react-text: 165 -->.props.store;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="166">const</span><!-- react-text: 167 --> {onDelete} = <!-- /react-text --><span class="hljs-keyword" data-reactid="168">this</span><!-- react-text: 169 -->.props;
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="170">return</span><!-- react-text: 171 --> (
+            <!-- /react-text --><span class="xml" data-reactid="172"><span class="hljs-tag" data-reactid="173"><!-- react-text: 174 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="175">div</span><!-- react-text: 176 -->&gt;<!-- /react-text --></span><!-- react-text: 177 -->
+                <!-- /react-text --></span><!-- react-text: 178 -->&lt;div&gt;{content}&lt;/div&gt;<!-- /react-text --><span class="xml" data-reactid="179">
+                </span><!-- react-text: 180 -->&lt;p&gt;{text}&lt;/p&gt;<!-- /react-text --><span class="xml" data-reactid="181">
+                </span><!-- react-text: 182 -->&lt;span&gt;{author}&lt;time&gt;{date}&lt;/time&gt;&lt;/span&gt;<!-- /react-text --><span class="xml" data-reactid="183">
+                </span><!-- react-text: 184 -->&lt;button onClick={onDelete}&gt;Delete&lt;/button&gt;<!-- /react-text --><span class="xml" data-reactid="185"><!-- react-text: 186 -->
+            <!-- /react-text --><span class="hljs-tag" data-reactid="187"><!-- react-text: 188 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="189">div</span><!-- react-text: 190 -->&gt;<!-- /react-text --></span></span><!-- react-text: 191 -->
+        )
+    }
+}
+<!-- /react-text --><span class="hljs-comment" data-reactid="192">// 注入 context 中 comments 属性  并且视为观察者</span><!-- react-text: 193 -->
+@inject(<!-- /react-text --><span class="hljs-string" data-reactid="194">&#x27;comments&#x27;</span><!-- react-text: 195 -->) @observer
+<!-- /react-text --><span class="hljs-class" data-reactid="196"><span class="hljs-keyword" data-reactid="197">class</span><!-- react-text: 198 --> <!-- /react-text --><span class="hljs-title" data-reactid="199">CommentList</span><!-- react-text: 200 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="201">extends</span><!-- react-text: 202 --> <!-- /react-text --><span class="hljs-title" data-reactid="203">React</span><!-- react-text: 204 -->.<!-- /react-text --><span class="hljs-title" data-reactid="205">Component</span><!-- react-text: 206 --> <!-- /react-text --></span><!-- react-text: 207 -->{
+    shouldComponentUpdate() {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="208">// 这里的代码不会起作用</span><!-- react-text: 209 -->
+        alert(<!-- /react-text --><span class="hljs-number" data-reactid="210">1</span><!-- react-text: 211 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="212">return</span><!-- react-text: 213 --> <!-- /react-text --><span class="hljs-literal" data-reactid="214">false</span><!-- react-text: 215 -->;
+    }
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="216">const</span><!-- react-text: 217 --> {comments} = <!-- /react-text --><span class="hljs-keyword" data-reactid="218">this</span><!-- react-text: 219 -->.props;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="220">return</span><!-- react-text: 221 --> (
+            <!-- /react-text --><span class="xml" data-reactid="222"><span class="hljs-tag" data-reactid="223"><!-- react-text: 224 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="225">ul</span><!-- react-text: 226 -->&gt;<!-- /react-text --></span><!-- react-text: 227 -->
+                {comments &amp;&amp; comments.get().map((comment, index) =&gt;
+                    <!-- /react-text --></span><!-- react-text: 228 -->&lt;Comment key={index} store={comment} onDelete={() =&gt; {comments.del(index)} }/&gt;
+                )}
+            &lt;/ul&gt;<!-- /react-text --><span class="xml" data-reactid="229">
+        )
+    }
+}
+
+// Model
+// 严格模式下，只能在 @action 修饰的方法才能修改被观察的数据
+useStrict(true);
+
+class CommentState {
+    // 被观察者，观察者将检查到其的改变，从而更新视图
+    @observable author = &quot;&quot;;
+
+    @observable date = &quot;&quot;;
+
+    @observable content = &quot;&quot;;
+
+    // 计算属性
+    @computed get text () {
+        return `${this.author} at ${this.date}: ${this.content}`;
+    }
+
+    constructor({author, date, content}) {
+        this.author = author;
+        this.date = date;
+        this.content = content;
+    }
+}
+
+class CommentListState {
+    @observable comments = [new CommentState({author: &#x27;auth&#x27;, datetime: &#x27;date&#x27;, content: &#x27;content&#x27;})];
+
+    toJSON() {
+        return toJS(this.comments);
+    }
+    constructor(comments) {
+        if (comments) {
+            this.set(comments);
+        }
+    }
+
+    get() {
+        return this.comments;
+    }
+
+    @action del(index) {
+        this.comments.splice(index, 1);
+    }
+
+    @action set(list) {
+        this.comments = list.map(x =&gt; new CommentState(x))
+    }
+
+    @action fetch() {
+        setTimeout(() =&gt; {
+            this.push([{author: &#x27;John&#x27;, datetime: &#x27;123&#x27;, content: &#x27;hahahaha&#x27;}]);
+        }, 1000);
+        return this;
+    }
+
+    @action push(list) {
+        this.comments.push(...new CommentListState(list).comments);
+    }
+
+}
+
+
+var store = {
+    comments: new CommentListState().fetch()
+}
+// Provider : 将 props 写入 Context, 使得其子代（非直系亦可）共享数据。
+render(
+    </span><!-- react-text: 230 -->&lt;Provider {...store} &gt;
+        &lt;CommentList /&gt;
+    &lt;/Provider&gt;<!-- /react-text --><span class="xml" data-reactid="231">,
+    document.getElementById(&#x27;root&#x27;)
+);</span></code></pre><!-- react-text: 232 -->
+<!-- /react-text --><p data-reactid="233">综上，Redux、MobX 各有千秋，MobX 虽然简单直接；但破坏了纯渲染组件结构，必须需要对应的 Model 才能正确使用；且其文档与生态环境没有 Redux 良好。
+喜欢简洁，爱尝试的同学可以试一下。</p><!-- react-text: 234 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="235"></div><div class="paginator" data-reactid="236"><a title="你不知道的Console" class="prev" href="/you-don&#x27;t-know-console" data-reactid="237">Prev</a><a title="node.js 同步请求" class="next" href="/sync-request-in-nodejs" data-reactid="238">Next</a></div></div></main><footer data-reactid="239"><div class="copyright" data-reactid="240"><p data-reactid="241"><!-- react-text: 242 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="243">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

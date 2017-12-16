@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1134796375"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">导入markdown至树状文档</h1><div class="post-info" data-reactid="12"><time datetime="2017-08-20T22:04:05+00:00" data-reactid="13">Aug 20, 2017 10:04 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><h2 id="为什么有这个需求" data-reactid="16"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E8%BF%99%E4%B8%AA%E9%9C%80%E6%B1%82" aria-hidden="true" data-reactid="17"><span class="icon icon-link" data-reactid="18"></span></a><!-- react-text: 19 -->为什么有这个需求<!-- /react-text --></h2><!-- react-text: 20 -->
+<!-- /react-text --><ol data-reactid="21"><!-- react-text: 22 -->
+<!-- /react-text --><li data-reactid="23">个人习惯于书写原生的Markdown（纯粹的文本编辑）。不需要记各种快捷键。</li><!-- react-text: 24 -->
+<!-- /react-text --><li data-reactid="25">书写原始 markdown 文件方便进行个人博客文章的部署和备份。</li><!-- react-text: 26 -->
+<!-- /react-text --><li data-reactid="27">方便将文章发布至其他平台（GitHub/SF...）</li><!-- react-text: 28 -->
+<!-- /react-text --></ol><!-- react-text: 29 -->
+<!-- /react-text --><h2 id="如何使用" data-reactid="30"><a href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->如何使用<!-- /react-text --></h2><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><a href="https://github.com/imcuttle/doc-import-md" data-reactid="36">repo地址(doc-import-md)</a></p><!-- react-text: 37 -->
+<!-- /react-text --><ul data-reactid="38"><!-- react-text: 39 -->
+<!-- /react-text --><li data-reactid="40">cli</li><!-- react-text: 41 -->
+<!-- /react-text --></ul><!-- react-text: 42 -->
+<!-- /react-text --><pre data-reactid="43"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="44"><!-- react-text: 45 -->npm i -g doc-import-md
+docin -h
+docin <!-- /react-text --><span class="hljs-built_in" data-reactid="46">set</span><!-- react-text: 47 -->-username &lt;your name&gt;
+docin <!-- /react-text --><span class="hljs-built_in" data-reactid="48">set</span><!-- react-text: 49 -->-password
+
+cat file/to/markdown | docin<!-- /react-text --></code></pre><!-- react-text: 50 -->
+<!-- /react-text --><ul data-reactid="51"><!-- react-text: 52 -->
+<!-- /react-text --><li data-reactid="53">package  </li><!-- react-text: 54 -->
+<!-- /react-text --></ul><!-- react-text: 55 -->
+<!-- /react-text --><pre data-reactid="56"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="57"><span class="hljs-keyword" data-reactid="58">var</span><!-- react-text: 59 --> DocImportMd = <!-- /react-text --><span class="hljs-built_in" data-reactid="60">require</span><!-- react-text: 61 -->(<!-- /react-text --><span class="hljs-string" data-reactid="62">&#x27;doc-import-md&#x27;</span><!-- react-text: 63 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="64">var</span><!-- react-text: 65 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="66">import</span><!-- react-text: 67 --> = <!-- /react-text --><span class="hljs-keyword" data-reactid="68">new</span><!-- react-text: 69 --> DocImportMd(<!-- /react-text --><span class="hljs-string" data-reactid="70">&#x27;username&#x27;</span><!-- react-text: 71 -->, <!-- /react-text --><span class="hljs-string" data-reactid="72">&#x27;pwd&#x27;</span><!-- react-text: 73 -->, <!-- /react-text --><span class="hljs-string" data-reactid="74">&#x27;address&#x27;</span><!-- react-text: 75 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="76">var</span><!-- react-text: 77 --> markdown = <!-- /react-text --><span class="hljs-string" data-reactid="78">&#x27;# H1\n ## hhh&#x27;</span><!-- react-text: 79 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="80">// new an document &amp; push to server.</span><!-- react-text: 81 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="82">import</span><!-- react-text: 83 -->
+    .new(markdown, <!-- /react-text --><span class="hljs-string" data-reactid="84">&#x27;title&#x27;</span><!-- react-text: 85 -->)
+    .then(<!-- /react-text --><span class="hljs-function" data-reactid="86"><span class="hljs-keyword" data-reactid="87">function</span><!-- react-text: 88 --> (<!-- /react-text --><span class="hljs-params" data-reactid="89">listId</span><!-- react-text: 90 -->) <!-- /react-text --></span><!-- react-text: 91 -->{
+
+    });
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="92">// insert document to document</span><!-- react-text: 93 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="94">// which is already existed</span><!-- react-text: 95 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="96">import</span><!-- react-text: 97 -->
+    .insert(<!-- /react-text --><span class="hljs-string" data-reactid="98">&#x27;listId&#x27;</span><!-- react-text: 99 -->, markdown, <!-- /react-text --><span class="hljs-string" data-reactid="100">&#x27;parentId &lt;maybe is null&gt;&#x27;</span><!-- react-text: 101 -->).then(<!-- /react-text --><span class="hljs-function" data-reactid="102"><span class="hljs-keyword" data-reactid="103">function</span><!-- react-text: 104 --> (<!-- /react-text --><span class="hljs-params" data-reactid="105">data</span><!-- react-text: 106 -->) <!-- /react-text --></span><!-- react-text: 107 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="108">// data.listId</span><!-- react-text: 109 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="110">// data.nodeId // maybe undefined</span><!-- react-text: 111 -->
+    });<!-- /react-text --></code></pre><!-- react-text: 112 -->
+<!-- /react-text --><h2 id="实现思路" data-reactid="113"><a href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="114"><span class="icon icon-link" data-reactid="115"></span></a><!-- react-text: 116 -->实现思路<!-- /react-text --></h2><!-- react-text: 117 -->
+<!-- /react-text --><pre data-reactid="118"><code class="hljs language-markdown" data-query="{}" data-lang="markdown" data-reactid="119"><span class="hljs-section" data-reactid="120"># A               -&gt;  # A --- i&#x27;m an apple.</span><!-- react-text: 121 -->
+i&#x27;m an apple.             |-- i&#x27;m an egg.
+i&#x27;m an egg.               |-- &gt; <!-- /react-text --><span class="hljs-code" data-reactid="122">```
+&gt; ```                     |   &gt; code A
+&gt; code A                  |   &gt; ``` 
+&gt; ```                     \-- ## A-1 --- text in A-1 
+                                     |-- 1. A-1-1
+## A-1                               |      |-- description1 in A-1-1 
+                                     |      \-- description2 in A-1-1
+text in A-1                          |-- 2. A-1-2
+                                     |-- 3. A-1-3
+1. A-1-1                             |-- not description 
+description1 in A-1-1                \-- ~~~\ncode\n~~~
+description2 in A-1-1
+2. A-1-2
+
+3. A-1-3
+
+
+not description
+
+~~~
+code B
+~~~</span></code></pre><!-- react-text: 123 -->
+<!-- /react-text --><p data-reactid="124">上面为 markdown 的输入和需要输出的中间数据结构。</p><!-- react-text: 125 -->
+<!-- /react-text --><ol data-reactid="126"><!-- react-text: 127 -->
+<!-- /react-text --><li data-reactid="128"><!-- react-text: 129 -->
+<!-- /react-text --><p data-reactid="130"><!-- react-text: 131 -->#难点 解析 Markdown 文本（借助亮亮的 <!-- /react-text --><a href="https://github.com/imcuttle/doc-import-md/blob/master/lib/TokenParser.js" data-reactid="132">TokenParserV2</a><!-- react-text: 133 -->设计）得到<!-- /react-text --><a href="https://github.com/imcuttle/doc-import-md/blob/master/lib/parser-factory/md-to-tree.js" data-reactid="134">树形数据结构</a><!-- react-text: 135 -->。<!-- /react-text --></p><!-- react-text: 136 -->
+<!-- /react-text --></li><!-- react-text: 137 -->
+<!-- /react-text --><li data-reactid="138"><!-- react-text: 139 -->
+<!-- /react-text --><p data-reactid="140"><!-- react-text: 141 -->分析 doc.eux 的传参规则. <!-- /react-text --><a href="https://github.com/imcuttle/doc-import-md/blob/master/lib/actions.js" data-reactid="142">code</a></p><!-- react-text: 143 -->
+<!-- /react-text --></li><!-- react-text: 144 -->
+<!-- /react-text --><li data-reactid="145"><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147"><!-- react-text: 148 -->进行 登录 -&gt; 新建文章 -&gt; 修改文章名 -&gt; 添加内容节点. <!-- /react-text --><a href="https://github.com/imcuttle/doc-import-md/blob/master/index.js" data-reactid="149">code</a></p><!-- react-text: 150 -->
+<!-- /react-text --></li><!-- react-text: 151 -->
+<!-- /react-text --></ol><!-- react-text: 152 -->
+<!-- /react-text --><h2 id="todo" data-reactid="153"><a href="#todo" aria-hidden="true" data-reactid="154"><span class="icon icon-link" data-reactid="155"></span></a><!-- react-text: 156 -->Todo<!-- /react-text --></h2><!-- react-text: 157 -->
+<!-- /react-text --><ul data-reactid="158"><!-- react-text: 159 -->
+<!-- /react-text --><li data-reactid="160"><!-- react-text: 161 -->
+<!-- /react-text --><p data-reactid="162"><!-- react-text: 163 -->加入 <!-- /react-text --><code data-reactid="164">doc -&gt; md</code><!-- react-text: 165 --> 的方向，与 <!-- /react-text --><code data-reactid="166">md -&gt; doc</code><!-- react-text: 167 --> 互逆<!-- /react-text --></p><!-- react-text: 168 -->
+<!-- /react-text --></li><!-- react-text: 169 -->
+<!-- /react-text --><li data-reactid="170"><!-- react-text: 171 -->
+<!-- /react-text --><p data-reactid="172">同构 request 实现  浏览器端的支持</p><!-- react-text: 173 -->
+<!-- /react-text --></li><!-- react-text: 174 -->
+<!-- /react-text --><li data-reactid="175"><!-- react-text: 176 -->
+<!-- /react-text --><p data-reactid="177"><!-- react-text: 178 -->考虑后续加入项目配置 <!-- /react-text --><code data-reactid="179">.docinrc</code></p><!-- react-text: 180 -->
+<!-- /react-text --><pre data-reactid="181"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="182"><span class="hljs-comment" data-reactid="183">// 后续提交 `docRoot` 下的`*.md` 文件</span><!-- react-text: 184 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="185">// git可以自动同步至doc</span><!-- react-text: 186 -->
+{
+    <!-- /react-text --><span class="hljs-string" data-reactid="187">&quot;docRoot&quot;</span><!-- react-text: 188 -->: <!-- /react-text --><span class="hljs-string" data-reactid="189">&quot;./doc&quot;</span><!-- react-text: 190 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="191">&quot;docAddress&quot;</span><!-- react-text: 192 -->: <!-- /react-text --><span class="hljs-string" data-reactid="193">&quot;....&quot;</span><!-- react-text: 194 -->,
+    <!-- /react-text --><span class="hljs-string" data-reactid="195">&quot;user&quot;</span><!-- react-text: 196 -->: {...}
+}<!-- /react-text --></code></pre><!-- react-text: 197 -->
+<!-- /react-text --></li><!-- react-text: 198 -->
+<!-- /react-text --></ul><!-- react-text: 199 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="200"></div><div class="paginator" data-reactid="201"><a title="markdown导入doc核心算法剖析" class="prev" href="/the-core-algorithm-of-doc-md-import" data-reactid="202">Prev</a><a title="组件库Demo页发布自动化" class="next" href="/deploy-demo-page-automatically" data-reactid="203">Next</a></div></div></main><footer data-reactid="204"><div class="copyright" data-reactid="205"><p data-reactid="206"><!-- react-text: 207 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="208">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

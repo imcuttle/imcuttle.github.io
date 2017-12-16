@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="103777423"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">（译）进阶Bash Script指南（一）</h1><div class="post-info" data-reactid="12"><time datetime="2017-01-24T20:42:54+00:00" data-reactid="13">Jan 24, 2017 8:42 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16"><!-- react-text: 17 -->原文：<!-- /react-text --><a href="http://www.tldp.org/LDP/abs/abs-guide.pdf" data-reactid="18">Advanced Bash-Scripting Guide</a></p><!-- react-text: 19 -->
+<!-- /react-text --><p data-reactid="20"><!-- react-text: 21 -->部分<!-- /react-text --><a href="https://github.com/moyuyc/advanced-bash-scripting-learning" data-reactid="22">学习代码</a></p><!-- react-text: 23 -->
+<!-- /react-text --><p data-reactid="24">只做部分翻译，一些个人遗漏的点。</p><!-- react-text: 25 -->
+<!-- /react-text --><h3 id="关于脚本头" data-reactid="26"><a href="#%E5%85%B3%E4%BA%8E%E8%84%9A%E6%9C%AC%E5%A4%B4" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->关于脚本头<!-- /react-text --></h3><!-- react-text: 30 -->
+<!-- /react-text --><p data-reactid="31"><!-- react-text: 32 -->Bash 中头部 <!-- /react-text --><code data-reactid="33">#!</code><!-- react-text: 34 --> ，如果没有用上 Bash 专用的语法（比如 A=abc，赋值语句），是可以被不加上。<!-- /react-text --></p><!-- react-text: 35 -->
+<!-- /react-text --><p data-reactid="36"><code data-reactid="37">#!/bin/sh</code><!-- react-text: 38 --> 调用的是默认的 Shell 解释器，在 Linux 中是 <!-- /react-text --><code data-reactid="39">/bin/bash</code></p><!-- react-text: 40 -->
+<!-- /react-text --><h3 id="参数个数到数组长度" data-reactid="41"><a href="#%E5%8F%82%E6%95%B0%E4%B8%AA%E6%95%B0%E5%88%B0%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6" aria-hidden="true" data-reactid="42"><span class="icon icon-link" data-reactid="43"></span></a><!-- react-text: 44 -->参数个数到数组长度<!-- /react-text --></h3><!-- react-text: 45 -->
+<!-- /react-text --><p data-reactid="46"><!-- react-text: 47 -->下面脚本中，<!-- /react-text --><code data-reactid="48">$#</code><!-- react-text: 49 --> 是参数数组的长度，可以用下面脚本判断参数的输入<!-- /react-text --></p><!-- react-text: 50 -->
+<!-- /react-text --><pre data-reactid="51"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="52"><span class="hljs-meta" data-reactid="53">#!/bin/sh
+</span><!-- react-text: 54 -->
+E_WRONG_ARGS=85
+script_parameters=<!-- /react-text --><span class="hljs-string" data-reactid="55">&quot;-a -h -m -z&quot;</span><!-- react-text: 56 -->
+Number_of_expected_args=1
+<!-- /react-text --><span class="hljs-comment" data-reactid="57"># -a = all, -h = help, etc.</span><!-- react-text: 58 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="59">if</span><!-- react-text: 60 --> [ <!-- /react-text --><span class="hljs-variable" data-reactid="61">$#</span><!-- react-text: 62 --> -ne <!-- /react-text --><span class="hljs-variable" data-reactid="63">$Number_of_expected_args</span><!-- react-text: 64 --> ]
+<!-- /react-text --><span class="hljs-keyword" data-reactid="65">then</span><!-- react-text: 66 -->
+ <!-- /react-text --><span class="hljs-built_in" data-reactid="67">echo</span><!-- react-text: 68 --> <!-- /react-text --><span class="hljs-string" data-reactid="69"><!-- react-text: 70 -->&quot;Usage: `basename <!-- /react-text --><span class="hljs-variable" data-reactid="71">$0</span><!-- react-text: 72 -->` <!-- /react-text --><span class="hljs-variable" data-reactid="73">$script_parameters</span><!-- react-text: 74 -->&quot;<!-- /react-text --></span><!-- react-text: 75 -->
+ <!-- /react-text --><span class="hljs-comment" data-reactid="76"># `basename $0` is the script&#x27;s filename.</span><!-- react-text: 77 -->
+ <!-- /react-text --><span class="hljs-built_in" data-reactid="78">exit</span><!-- react-text: 79 --> <!-- /react-text --><span class="hljs-variable" data-reactid="80">$E_WRONG_ARGS</span><!-- react-text: 81 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="82">fi</span></code></pre><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84"><!-- react-text: 85 -->上面例子可以看到<!-- /react-text --><code data-reactid="86">#</code><!-- react-text: 87 -->可以表示一个数组（字符串）的长度，如下例<!-- /react-text --></p><!-- react-text: 88 -->
+<!-- /react-text --><pre data-reactid="89"><code data-query="{}" data-lang="data-lang" data-reactid="90">arr=(a b c) &amp;&amp; str=string &amp;&amp; echo ${#arr}-${#str} # 3-6
+</code></pre><!-- react-text: 91 -->
+<!-- /react-text --><h3 id="脚本的执行方法" data-reactid="92"><a href="#%E8%84%9A%E6%9C%AC%E7%9A%84%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="93"><span class="icon icon-link" data-reactid="94"></span></a><!-- react-text: 95 -->脚本的执行方法<!-- /react-text --></h3><!-- react-text: 96 -->
+<!-- /react-text --><p data-reactid="97"><!-- react-text: 98 -->比如有<!-- /react-text --><code data-reactid="99">sh scriptname.sh</code><!-- react-text: 100 --> <!-- /react-text --><code data-reactid="101">bash scriptname.sh</code><!-- react-text: 102 -->，当然还有 <!-- /react-text --><code data-reactid="103">sh &lt; scriptname.sh</code><!-- react-text: 104 -->  ( 这种方法不建议，因为不能在脚本中读 <!-- /react-text --><code data-reactid="105">stdin</code><!-- react-text: 106 --> )。最方便的方法还是，直接用<!-- /react-text --><code data-reactid="107">chmod</code><!-- react-text: 108 -->变成可执行（executable）文件。<!-- /react-text --></p><!-- react-text: 109 -->
+<!-- /react-text --><pre data-reactid="110"><code data-query="{}" data-lang="data-lang" data-reactid="111">chmod 555 scriptname # readable/executable for all
+chmod +rx scriptname # readable/executable for all
+chmod u+rx scriptname # readable/executable for user
+</code></pre><!-- react-text: 112 -->
+<!-- /react-text --><h3 id="字符-" data-reactid="113"><a href="#%E5%AD%97%E7%AC%A6-" aria-hidden="true" data-reactid="114"><span class="icon icon-link" data-reactid="115"></span></a><!-- react-text: 116 -->字符 <!-- /react-text --><code data-reactid="117">#</code></h3><!-- react-text: 118 -->
+<!-- /react-text --><ol data-reactid="119"><!-- react-text: 120 -->
+<!-- /react-text --><li data-reactid="121"><!-- react-text: 122 -->
+<!-- /react-text --><p data-reactid="123"><!-- react-text: 124 -->普通字符<!-- /react-text --><code data-reactid="125">#</code><!-- react-text: 126 -->
+echo &quot;hello\n# comment\nworld&quot; | \
+sed -e &#x27;/#/d&#x27; | # 删除带有<!-- /react-text --><code data-reactid="127">#</code><!-- react-text: 128 -->字符的行 \<!-- /react-text --><br data-reactid="129"/><!-- react-text: 130 -->
+tr -d &#x27;\n&#x27; | # 删除换行符 \<!-- /react-text --><br data-reactid="131"/><!-- react-text: 132 -->
+sed -e &#x27;s/world/,Bash scripting/g&#x27;  # 字符替换<!-- /react-text --></p><!-- react-text: 133 -->
+<!-- /react-text --></li><!-- react-text: 134 -->
+<!-- /react-text --><li data-reactid="135"><!-- react-text: 136 -->
+<!-- /react-text --><p data-reactid="137"><!-- react-text: 138 -->字符串匹配
+str=abc123456123ABC
+echo ${str#<!-- /react-text --><em data-reactid="139">123}  # 删除 str 中匹配</em><!-- react-text: 140 -->123的 最短匹配
+echo ${str##<!-- /react-text --><em data-reactid="141">123} # 删除 str 中匹配</em><!-- react-text: 142 -->123的 贪心匹配<!-- /react-text --></p><!-- react-text: 143 -->
+<!-- /react-text --></li><!-- react-text: 144 -->
+<!-- /react-text --><li data-reactid="145"><!-- react-text: 146 -->
+<!-- /react-text --><p data-reactid="147">数字表达式
+echo $((2#101011))  # 二进制的101011</p><!-- react-text: 148 -->
+<!-- /react-text --></li><!-- react-text: 149 -->
+<!-- /react-text --></ol><!-- react-text: 150 -->
+<!-- /react-text --><h3 id="字符--1" data-reactid="151"><a href="#%E5%AD%97%E7%AC%A6--1" aria-hidden="true" data-reactid="152"><span class="icon icon-link" data-reactid="153"></span></a><!-- react-text: 154 -->字符 <!-- /react-text --><code data-reactid="155">;</code></h3><!-- react-text: 156 -->
+<!-- /react-text --><p data-reactid="157">在同一行中执行多条指令</p><!-- react-text: 158 -->
+<!-- /react-text --><pre data-reactid="159"><code data-query="{}" data-lang="data-lang" data-reactid="160">echo one; echo two
+
+if [ true ]; then  # ; 不能少, if/then 两条指令
+    echo &quot;true statement&quot;
+fi
+</code></pre><!-- react-text: 161 -->
+<!-- /react-text --><h3 id="双分号-" data-reactid="162"><a href="#%E5%8F%8C%E5%88%86%E5%8F%B7-" aria-hidden="true" data-reactid="163"><span class="icon icon-link" data-reactid="164"></span></a><!-- react-text: 165 -->双分号 <!-- /react-text --><code data-reactid="166">;;</code></h3><!-- react-text: 167 -->
+<!-- /react-text --><p data-reactid="168">在 case 选项中</p><!-- react-text: 169 -->
+<!-- /react-text --><pre data-reactid="170"><code data-query="{}" data-lang="data-lang" data-reactid="171">variable=abc
+case &quot;$variable&quot; in
+    abc)  echo &quot;\$variable = abc&quot; ;;
+    xyz)  echo &quot;\$variable = xyz&quot; ;;
+esac
+</code></pre><!-- react-text: 172 -->
+<!-- /react-text --><h3 id="逗号-" data-reactid="173"><a href="#%E9%80%97%E5%8F%B7-" aria-hidden="true" data-reactid="174"><span class="icon icon-link" data-reactid="175"></span></a><!-- react-text: 176 -->逗号 <!-- /react-text --><code data-reactid="177">,</code></h3><!-- react-text: 178 -->
+<!-- /react-text --><p data-reactid="179">字符串的拼接</p><!-- react-text: 180 -->
+<!-- /react-text --><pre data-reactid="181"><code data-query="{}" data-lang="data-lang" data-reactid="182">ls /usr{,/lib} # 列出 `/usr` 和 `/usr/lib` 下的文件
+mv file{,B}.txt # file.txt -&gt; fileB.txt
+</code></pre><!-- react-text: 183 -->
+<!-- /react-text --><h3 id="冒号-" data-reactid="184"><a href="#%E5%86%92%E5%8F%B7-" aria-hidden="true" data-reactid="185"><span class="icon icon-link" data-reactid="186"></span></a><!-- react-text: 187 -->冒号 <!-- /react-text --><code data-reactid="188">:</code></h3><!-- react-text: 189 -->
+<!-- /react-text --><p data-reactid="190">nop 操作，空操作，退出状态为0</p><!-- react-text: 191 -->
+<!-- /react-text --><pre data-reactid="192"><code data-query="{}" data-lang="data-lang" data-reactid="193">not-exist-command; echo $?
+
+not-exist-command; :; echo $?
+</code></pre><!-- react-text: 194 -->
+<!-- /react-text --><p data-reactid="195">选择符</p><!-- react-text: 196 -->
+<!-- /react-text --><pre data-reactid="197"><code data-query="{}" data-lang="data-lang" data-reactid="198">a=123
+b=456
+echo ${a:-$b} # 123
+
+a=
+b=456
+echo ${a:-$b} # 456
+</code></pre><!-- react-text: 199 -->
+<!-- /react-text --><h3 id="-与-" data-reactid="200"><a href="#-%E4%B8%8E-" aria-hidden="true" data-reactid="201"><span class="icon icon-link" data-reactid="202"></span></a><!-- react-text: 203 -->&quot;<!-- /react-text --><code data-reactid="204"></code><!-- react-text: 205 -->&quot; 与 $()<!-- /react-text --></h3><!-- react-text: 206 -->
+<!-- /react-text --><p data-reactid="207">指令运行输出结果赋值给某变量</p><!-- react-text: 208 -->
+<!-- /react-text --><pre data-reactid="209"><code data-query="{}" data-lang="data-lang" data-reactid="210">files=(*); echo ${files[@]} # or ${files}
+echo $(ls)
+echo `ls`
+</code></pre><!-- react-text: 211 -->
+<!-- /react-text --><h3 id="通配符" data-reactid="212"><a href="#%E9%80%9A%E9%85%8D%E7%AC%A6" aria-hidden="true" data-reactid="213"><span class="icon icon-link" data-reactid="214"></span></a><!-- react-text: 215 -->通配符<!-- /react-text --></h3><!-- react-text: 216 -->
+<!-- /react-text --><p data-reactid="217"><!-- react-text: 218 -->在 Unix 文件系统中，有 <!-- /react-text --><code data-reactid="219">*</code><!-- react-text: 220 -->、<!-- /react-text --><code data-reactid="221">?</code><!-- react-text: 222 -->、<!-- /react-text --><code data-reactid="223">[]</code></p><!-- react-text: 224 -->
+<!-- /react-text --><pre data-reactid="225"><code data-query="{}" data-lang="data-lang" data-reactid="226">echo /usr/*    # * 配对任意长，任意字符
+echo /usr/li?  # ? 配对一个字符
+echo /usr/li[a-z]
+</code></pre><!-- react-text: 227 -->
+<!-- /react-text --><h3 id="--三目运算符" data-reactid="228"><a href="#--%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6" aria-hidden="true" data-reactid="229"><span class="icon icon-link" data-reactid="230"></span></a><code data-reactid="231">? :</code><!-- react-text: 232 --> 三目运算符<!-- /react-text --></h3><!-- react-text: 233 -->
+<!-- /react-text --><pre data-reactid="234"><code data-query="{}" data-lang="data-lang" data-reactid="235">((x = 2&gt;0?123:456)); echo $x
+</code></pre><!-- react-text: 236 -->
+<!-- /react-text --><h3 id="id" data-reactid="237"><code data-reactid="238">$$</code></h3><!-- react-text: 239 -->
+<!-- /react-text --><pre data-reactid="240"><code data-query="{}" data-lang="data-lang" data-reactid="241">echo $$;   # process ID
+</code></pre><!-- react-text: 242 -->
+<!-- /react-text --><h3 id="-扩充" data-reactid="243"><a href="#-%E6%89%A9%E5%85%85" aria-hidden="true" data-reactid="244"><span class="icon icon-link" data-reactid="245"></span></a><code data-reactid="246">{}</code><!-- react-text: 247 --> 扩充<!-- /react-text --></h3><!-- react-text: 248 -->
+<!-- /react-text --><p data-reactid="249"><code data-reactid="250">{}</code><!-- react-text: 251 --> 内不允许任何空格，除非是转义后或是引号内<!-- /react-text --></p><!-- react-text: 252 -->
+<!-- /react-text --><ol data-reactid="253"><!-- react-text: 254 -->
+<!-- /react-text --><li data-reactid="255"><!-- react-text: 256 -->
+<!-- /react-text --><p data-reactid="257">字符串组合
+echo \&quot;{These,words,are,quoted}\&quot;   # &quot; prefix and suffix</p><!-- react-text: 258 -->
+<!-- /react-text --><pre data-reactid="259"><code data-query="{}" data-lang="data-lang" data-reactid="260"># &quot;These&quot; &quot;words&quot; &quot;are&quot; &quot;quoted&quot;
+
+cp file22.{txt,backup}
+# Copies &quot;file22.txt&quot; to &quot;file22.backup&quot;
+
+echo {a..z} # a b c d e f g h i j k l m n o p q r s t u v w x y z
+# Echoes characters between a and z.
+echo {0..3} # 0 1 2 3
+# Echoes characters between 0 and 3.
+base64_charset=( {A..Z} {a..z} {0..9} + / = )
+
+echo {file1,file2}\ :{\ A,&quot; B&quot;,&#x27; C&#x27;}
+# file1 : A file1 : B file1 : C file2 : A file2 : B file2 : C
+echo {file1,file2} :{\ A,&quot; B&quot;,&#x27; C&#x27;}
+# file1 file2 : A : B : C
+</code></pre><!-- react-text: 261 -->
+<!-- /react-text --></li><!-- react-text: 262 -->
+<!-- /react-text --><li data-reactid="263"><!-- react-text: 264 -->
+<!-- /react-text --><p data-reactid="265">代码块</p><!-- react-text: 266 -->
+<!-- /react-text --><pre data-reactid="267"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="268"><span class="hljs-meta" data-reactid="269">#!/bin/sh</span><!-- react-text: 270 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="271"># readfile line by line</span><!-- react-text: 272 -->
+File=<!-- /react-text --><span class="hljs-variable" data-reactid="273">${me=`basename &quot;$0&quot;`}</span><!-- react-text: 274 -->
+{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="275">read</span><!-- react-text: 276 --> line1
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="277">read</span><!-- react-text: 278 --> line2
+} &lt; <!-- /react-text --><span class="hljs-variable" data-reactid="279">$File</span><!-- react-text: 280 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="281">echo</span><!-- react-text: 282 --> <!-- /react-text --><span class="hljs-string" data-reactid="283"><!-- react-text: 284 -->&quot;First line in <!-- /react-text --><span class="hljs-variable" data-reactid="285">$File</span><!-- react-text: 286 --> is:&quot;<!-- /react-text --></span><!-- react-text: 287 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="288">echo</span><!-- react-text: 289 --> <!-- /react-text --><span class="hljs-string" data-reactid="290"><!-- react-text: 291 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="292">$line1</span><!-- react-text: 293 -->&quot;<!-- /react-text --></span><!-- react-text: 294 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="295">echo</span><!-- react-text: 296 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="297">echo</span><!-- react-text: 298 --> <!-- /react-text --><span class="hljs-string" data-reactid="299"><!-- react-text: 300 -->&quot;Second line in <!-- /react-text --><span class="hljs-variable" data-reactid="301">$File</span><!-- react-text: 302 --> is:&quot;<!-- /react-text --></span><!-- react-text: 303 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="304">echo</span><!-- react-text: 305 --> <!-- /react-text --><span class="hljs-string" data-reactid="306"><!-- react-text: 307 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="308">$line2</span><!-- react-text: 309 -->&quot;<!-- /react-text --></span></code></pre><!-- react-text: 310 -->
+<!-- /react-text --><pre data-reactid="311"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="312"><span class="hljs-meta" data-reactid="313">#!/bin/sh</span><!-- react-text: 314 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="315"># output save to out.html</span><!-- react-text: 316 -->
+{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="317">echo</span><!-- react-text: 318 --> <!-- /react-text --><span class="hljs-string" data-reactid="319">&quot;&lt;html&gt;&quot;</span><!-- react-text: 320 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="321">echo</span><!-- react-text: 322 --> <!-- /react-text --><span class="hljs-string" data-reactid="323">&quot;&lt;head&gt;&lt;/head&gt;&quot;</span><!-- react-text: 324 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="325">echo</span><!-- react-text: 326 --> <!-- /react-text --><span class="hljs-string" data-reactid="327">&quot;&lt;body&gt;&lt;h1&gt;Output&lt;/h1&gt;&lt;/body&gt;&quot;</span><!-- react-text: 328 -->
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="329">echo</span><!-- react-text: 330 --> <!-- /react-text --><span class="hljs-string" data-reactid="331">&quot;&lt;/html&gt;&quot;</span><!-- react-text: 332 -->
+} &gt; out.html
+
+open out.html<!-- /react-text --></code></pre><!-- react-text: 333 -->
+<!-- /react-text --></li><!-- react-text: 334 -->
+<!-- /react-text --></ol><!-- react-text: 335 -->
+<!-- /react-text --><h3 id="后台进程-" data-reactid="336"><a href="#%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B-" aria-hidden="true" data-reactid="337"><span class="icon icon-link" data-reactid="338"></span></a><!-- react-text: 339 -->后台进程 <!-- /react-text --><code data-reactid="340">&amp;</code></h3><!-- react-text: 341 -->
+<!-- /react-text --><p data-reactid="342"><code data-reactid="343">&amp;</code><!-- react-text: 344 --> 不仅仅可以用于单条指令，对于一个完整的语句块也是可以的。<!-- /react-text --></p><!-- react-text: 345 -->
+<!-- /react-text --><pre data-reactid="346"><code data-query="{}" data-lang="data-lang" data-reactid="347">for i in 1 2 3 4 5 6 7 8 9 10
+do
+  echo -n &quot;$i &quot;
+done &amp;
+</code></pre><!-- react-text: 348 -->
+<!-- /react-text --><h3 id="对的误解" data-reactid="349"><a href="#%E5%AF%B9%E7%9A%84%E8%AF%AF%E8%A7%A3" aria-hidden="true" data-reactid="350"><span class="icon icon-link" data-reactid="351"></span></a><!-- react-text: 352 -->对<!-- /react-text --><code data-reactid="353">&amp;&amp;</code><!-- react-text: 354 -->的误解<!-- /react-text --></h3><!-- react-text: 355 -->
+<!-- /react-text --><p data-reactid="356"><code data-reactid="357">&amp;&amp;</code><!-- react-text: 358 --> 并不是无条件的顺序执行下一条指令，而是需要上一条指令 <!-- /react-text --><code data-reactid="359">exit code</code><!-- react-text: 360 --> 等于 0。<!-- /react-text --></p><!-- react-text: 361 -->
+<!-- /react-text --><pre data-reactid="362"><code data-query="{}" data-lang="data-lang" data-reactid="363">(exit 1) &amp;&amp; echo 123  # print nothing.
+(exit 1); echo 123    # print 123.
+</code></pre><!-- react-text: 364 -->
+<!-- /react-text --><h3 id="比较操作符" data-reactid="365"><a href="#%E6%AF%94%E8%BE%83%E6%93%8D%E4%BD%9C%E7%AC%A6" aria-hidden="true" data-reactid="366"><span class="icon icon-link" data-reactid="367"></span></a><!-- react-text: 368 -->比较操作符<!-- /react-text --></h3><!-- react-text: 369 -->
+<!-- /react-text --><pre data-reactid="370"><code data-query="{}" data-lang="data-lang" data-reactid="371">#!/usr/bin/env bash
+
+files=(*.sh)
+file1=${files[1]}
+file2=${files[2]}
+
+if [ $file1 -ot $file2 ]
+then #      ^
+  echo &quot;File $file1 is older than $file2.&quot;
+fi
+
+a=123
+b=123
+
+if [ &quot;$a&quot; -eq &quot;$b&quot; ]
+then #    ^
+  echo &quot;$a is equal to $b.&quot;
+fi
+
+c=24
+d=47
+
+if [ &quot;$c&quot; -eq 24 -a &quot;$d&quot; -eq 47 ] # [[ &quot;$c&quot; = 24 &amp;&amp; &quot;$d&quot; = 47 ]]
+then #    ^              ^
+  echo &quot;$c equals 24 and $d equals 47.&quot;
+fi
+</code></pre><!-- react-text: 372 -->
+<!-- /react-text --><h3 id="--的扩展" data-reactid="373"><a href="#--%E7%9A%84%E6%89%A9%E5%B1%95" aria-hidden="true" data-reactid="374"><span class="icon icon-link" data-reactid="375"></span></a><code data-reactid="376">-</code><!-- react-text: 377 --> 的扩展<!-- /react-text --></h3><!-- react-text: 378 -->
+<!-- /react-text --><p data-reactid="379"><code data-reactid="380">-</code><!-- react-text: 381 --> 除了是对于指令的选项，如 <!-- /react-text --><code data-reactid="382">ls -al</code><!-- react-text: 383 --> ，还可以表示 <!-- /react-text --><code data-reactid="384">stdio</code></p><!-- react-text: 385 -->
+<!-- /react-text --><pre data-reactid="386"><code data-query="{}" data-lang="data-lang" data-reactid="387">tar cf - .  #stdout
+# The &#x27;c&#x27; option &#x27;tar&#x27; archiving command creates a new archive,
+# the &#x27;f&#x27; (file) option, followed by &#x27;-&#x27; designates the target file
+# as stdout, and do it in current directory tree (&#x27;.&#x27;).
+
+tar xpvf -  #stdin
+# Unarchive (&#x27;x&#x27;), preserve ownership and file permissions (&#x27;p&#x27;),
+# and send verbose messages to stdout (&#x27;v&#x27;),
+# reading data from stdin (&#x27;f&#x27; followed by &#x27;-&#x27;).
+
+file -  #stdin
+
+diff file.js - # stdin
+</code></pre><!-- react-text: 388 -->
+<!-- /react-text --><p data-reactid="389"><code data-reactid="390">cd -</code><!-- react-text: 391 --> 可以对 pwd 的切换，主要是保存了 OLDPWD<!-- /react-text --></p><!-- react-text: 392 -->
+<!-- /react-text --><pre data-reactid="393"><code data-query="{}" data-lang="data-lang" data-reactid="394">cd /
+cd ~
+echo $OLDPWD
+echo $PWD
+</code></pre><!-- react-text: 395 -->
+<!-- /react-text --><h3 id="其他符号" data-reactid="396"><a href="#%E5%85%B6%E4%BB%96%E7%AC%A6%E5%8F%B7" aria-hidden="true" data-reactid="397"><span class="icon icon-link" data-reactid="398"></span></a><!-- react-text: 399 -->其他符号<!-- /react-text --></h3><!-- react-text: 400 -->
+<!-- /react-text --><pre data-reactid="401"><code data-query="{}" data-lang="data-lang" data-reactid="402">echo ~+   # echo $PWD
+echo ~-   # echo $OLDPWD
+</code></pre><!-- react-text: 403 -->
+<!-- /react-text --><h3 id="有用的快捷键" data-reactid="404"><a href="#%E6%9C%89%E7%94%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE" aria-hidden="true" data-reactid="405"><span class="icon icon-link" data-reactid="406"></span></a><!-- react-text: 407 -->有用的快捷键<!-- /react-text --></h3><!-- react-text: 408 -->
+<!-- /react-text --><ol data-reactid="409"><!-- react-text: 410 -->
+<!-- /react-text --><li data-reactid="411">Ctl - Z  挂起前台进程</li><!-- react-text: 412 -->
+<!-- /react-text --><li data-reactid="413">Ctl - T  交换 2 个相邻字符</li><!-- react-text: 414 -->
+<!-- /react-text --><li data-reactid="415">Ctl - W  删除左边一个单词</li><!-- react-text: 416 -->
+<!-- /react-text --><li data-reactid="417">Ctl - X  选择高亮</li><!-- react-text: 418 -->
+<!-- /react-text --><li data-reactid="419">Ctl - Y  插入之前删除的文本（Ctl - W/U）</li><!-- react-text: 420 -->
+<!-- /react-text --><li data-reactid="421">Ctl - R  搜索历史指令</li><!-- react-text: 422 -->
+<!-- /react-text --><li data-reactid="423">Ctl - S  中断控制台输出</li><!-- react-text: 424 -->
+<!-- /react-text --><li data-reactid="425">Ctl - Q  恢复控制台输出</li><!-- react-text: 426 -->
+<!-- /react-text --></ol><!-- react-text: 427 -->
+<!-- /react-text --><h3 id="ifs-内部域分隔符" data-reactid="428"><a href="#ifs-%E5%86%85%E9%83%A8%E5%9F%9F%E5%88%86%E9%9A%94%E7%AC%A6" aria-hidden="true" data-reactid="429"><span class="icon icon-link" data-reactid="430"></span></a><code data-reactid="431">IFS</code><!-- react-text: 432 --> 内部域分隔符<!-- /react-text --></h3><!-- react-text: 433 -->
+<!-- /react-text --><pre data-reactid="434"><code data-query="{}" data-lang="data-lang" data-reactid="435">#!/bin/sh
+
+output_args_one_per_line()
+{
+    arg_list=$*
+    echo &quot;\$*=&#x27;$*&#x27;&quot;
+    for arg in $arg_list
+    do
+        echo &quot;[$arg]&quot;
+    done
+}
+
+x=&quot;a b c d e&quot;
+IFS=&#x27; &#x27;
+output_args_one_per_line $x
+
+x=&quot;a b c&quot;$&#x27;\t&#x27;&quot;d e&quot;
+IFS=$&#x27;\t&#x27;
+output_args_one_per_line $x
+</code></pre><!-- react-text: 436 -->
+<!-- /react-text --><h3 id="-与--1" data-reactid="437"><a href="#-%E4%B8%8E--1" aria-hidden="true" data-reactid="438"><span class="icon icon-link" data-reactid="439"></span></a><code data-reactid="440">$*</code><!-- react-text: 441 --> 与 <!-- /react-text --><code data-reactid="442">$@</code></h3><!-- react-text: 443 -->
+<!-- /react-text --><pre data-reactid="444"><code data-query="{}" data-lang="data-lang" data-reactid="445"> IFS=&quot;;&quot;
+ set x y z
+ echo $*    # x y z
+ echo &quot;$*&quot;  # x;y;z
+ echo &quot;$@&quot;  # x y z
+</code></pre><!-- react-text: 446 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="447"></div><div class="paginator" data-reactid="448"><a title="HTML -&gt; Markdown" class="prev" href="/html-to-markdown-by-javascript" data-reactid="449">Prev</a><a title="刷脸签到系统回顾" class="next" href="/njnu-stuents-faces-recognition" data-reactid="450">Next</a></div></div></main><footer data-reactid="451"><div class="copyright" data-reactid="452"><p data-reactid="453"><!-- react-text: 454 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="455">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

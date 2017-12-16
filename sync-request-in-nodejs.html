@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> imCuttle </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1440527699"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">node.js 同步请求</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-17T21:07:34+00:00" data-reactid="13">Feb 17, 2017 9:07 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><p data-reactid="16">node.js 以异步方式、事件队列为标准，基本每一套与网络、IO 相关的 API 都会设计成异步的。</p><!-- react-text: 17 -->
+<!-- /react-text --><p data-reactid="18">如，一段很平常的请求代码，用 node.js 只能用异步方式。</p><!-- react-text: 19 -->
+<!-- /react-text --><pre data-reactid="20"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="21"><span class="hljs-keyword" data-reactid="22">const</span><!-- react-text: 23 --> https = <!-- /react-text --><span class="hljs-built_in" data-reactid="24">require</span><!-- react-text: 25 -->(<!-- /react-text --><span class="hljs-string" data-reactid="26">&#x27;https&#x27;</span><!-- react-text: 27 -->);
+
+https.get(<!-- /react-text --><span class="hljs-string" data-reactid="28">&quot;https://nodejs.org/api/https.html&quot;</span><!-- react-text: 29 -->, res =&gt; res.pipe(process.stdout))<!-- /react-text --></code></pre><!-- react-text: 30 -->
+<!-- /react-text --><p data-reactid="31">异步方式不会阻塞进程，充分利用 CPU。</p><!-- react-text: 32 -->
+<!-- /react-text --><p data-reactid="33">但是，对于一些一次性的脚本、批处理，我们希望使用同步的方式。因为以上情形，对于效率要求不是十分迫切，更多的是需要清晰的代码结构，简明的代码逻辑。</p><!-- react-text: 34 -->
+<!-- /react-text --><p data-reactid="35"><!-- react-text: 36 -->本人在之前的 <!-- /react-text --><a href="https://github.com/moyuyc/node-markdown-image-size" data-reactid="37">markdown-image-size</a><!-- react-text: 38 --> 中，有这么个需求：<!-- /react-text --></p><!-- react-text: 39 -->
+<!-- /react-text --><blockquote data-reactid="40"><!-- react-text: 41 -->
+<!-- /react-text --><p data-reactid="42">浏览器在未加载完图片数据的时候，浏览器是不知道其大小的
+所以，默认大小都是 0，除非通过 style 设置了大小
+之后的某个时候，图片加载完成，浏览器得到图片大小，文章就会有跳动的感觉，阅读体验不佳</p><!-- react-text: 43 -->
+<!-- /react-text --><p data-reactid="44"><!-- react-text: 45 -->解决该问题，将 markdown 文本中的 <!-- /react-text --><code data-reactid="46">![](src)</code><!-- react-text: 47 --> 和 <!-- /react-text --><code data-reactid="48">&lt;img src=&quot;src&quot; /&gt;</code><!-- react-text: 49 --> 中的 <!-- /react-text --><code data-reactid="50">src</code><!-- react-text: 51 --> 匹配出来，如果是本地文件则读文件，得到图片大小；或者发送请求，得到图片数据进而得到图片大小，最后进行字符串 替换/插入，成为如下的 HTML 格式文本。<!-- /react-text --></p><!-- react-text: 52 -->
+<!-- /react-text --><p data-reactid="53"><code data-reactid="54">&lt;img width=&quot;100&quot; height=&quot;100&quot; src=&quot;url&quot; /&gt;</code></p><!-- react-text: 55 -->
+<!-- /react-text --></blockquote><!-- react-text: 56 -->
+<!-- /react-text --><p data-reactid="57">在这种情况下，同步的网络请求比异步的请求会更加合适，代码更加清晰，逻辑更简单，而且对代码效率要求不高。如下，便是简化后的同步请求，文本替换的代码。</p><!-- react-text: 58 -->
+<!-- /react-text --><pre data-reactid="59"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="60"><!-- react-text: 61 -->content.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="62">/!\[(.*)\]\((.*?[^\\])\)/g</span><!-- react-text: 63 -->, (matched, alt, src) =&gt; {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="64">// get image data from src synchronously</span><!-- react-text: 65 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="66">const</span><!-- react-text: 67 --> data = getData(src);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="68">const</span><!-- react-text: 69 --> size = sizeOf(data);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="70">return</span><!-- react-text: 71 --> <!-- /react-text --><span class="hljs-string" data-reactid="72"><!-- react-text: 73 -->`&lt;img alt=<!-- /react-text --><span class="hljs-subst" data-reactid="74">${alt}</span><!-- react-text: 75 --> src=<!-- /react-text --><span class="hljs-subst" data-reactid="76">${src}</span><!-- react-text: 77 --> width=<!-- /react-text --><span class="hljs-subst" data-reactid="78">${size.width}</span><!-- react-text: 79 --> height=<!-- /react-text --><span class="hljs-subst" data-reactid="80">${size.height}</span><!-- react-text: 81 --> /&gt;`<!-- /react-text --></span><!-- react-text: 82 -->
+})<!-- /react-text --></code></pre><!-- react-text: 83 -->
+<!-- /react-text --><p data-reactid="84">如果使用的是异步，则不能在第二个参数中直接 return 替换后的文本了，就需要更加复杂的代码逻辑（如标记文本的位置和长度，待请求结束后，进行替换）。</p><!-- react-text: 85 -->
+<!-- /react-text --><p data-reactid="86">那么具体应该如何实现 node.js 的同步请求呢？</p><!-- react-text: 87 -->
+<!-- /react-text --><!-- react-text: 88 -->
+<!-- /react-text --><p data-reactid="89">谷歌 &quot;sync request in nodejs&quot; </p><!-- react-text: 90 -->
+<!-- /react-text --><p data-reactid="91"><!-- react-text: 92 -->搜索结果中出来一个 <!-- /react-text --><a href="https://www.npmjs.com/package/sync-request" data-reactid="93">sync-request</a><!-- react-text: 94 -->，<!-- /react-text --><code data-reactid="95">npm install</code><!-- react-text: 96 --> 后果然能够同步网络请求，这顿时勾起了我的兴趣：在一个官方没有提供同步请求 api 的情况下，该第三方包是怎么实现请求的同步的呢？<!-- /react-text --></p><!-- react-text: 97 -->
+<!-- /react-text --><p data-reactid="98">阅读源码之后才发现作者十分巧妙的将异步问题转化成了同步问题，分析如下。</p><!-- react-text: 99 -->
+<!-- /react-text --><h2 id="sync-request" data-reactid="100"><a href="#sync-request" aria-hidden="true" data-reactid="101"><span class="icon icon-link" data-reactid="102"></span></a><code data-reactid="103">sync-request</code></h2><!-- react-text: 104 -->
+<!-- /react-text --><p data-reactid="105"><!-- react-text: 106 -->在 <!-- /react-text --><a href="https://github.com/ForbesLindesay/sync-request#how-is-this-possible" data-reactid="107">readme</a><!-- react-text: 108 --> 中，作者有这样一段话：<!-- /react-text --></p><!-- react-text: 109 -->
+<!-- /react-text --><blockquote data-reactid="110"><!-- react-text: 111 -->
+<!-- /react-text --><h3 id="how-is-this-possible" data-reactid="112"><a href="#how-is-this-possible" aria-hidden="true" data-reactid="113"><span class="icon icon-link" data-reactid="114"></span></a><!-- react-text: 115 -->How is this possible?<!-- /react-text --></h3><!-- react-text: 116 -->
+<!-- /react-text --><p data-reactid="117">Internally, this uses a separate worker process that is run using childProcess.spawnSync.</p><!-- react-text: 118 -->
+<!-- /react-text --><p data-reactid="119">The worker then makes the actual request using then-request so this has almost exactly the same API as that.</p><!-- react-text: 120 -->
+<!-- /react-text --><p data-reactid="121">This can also be used in a web browser via browserify because xhr has built in support for synchronous execution. Note that this is not recommended as it will be blocking.</p><!-- react-text: 122 -->
+<!-- /react-text --></blockquote><!-- react-text: 123 -->
+<!-- /react-text --><p data-reactid="124"><!-- react-text: 125 -->简言之作者实际上发送请求是用的 <!-- /react-text --><a href="https://github.com/then/then-request" data-reactid="126"><code data-reactid="127">then-request</code></a><!-- react-text: 128 -->，对官方的异步 API 用 Promise 进行封装，所以其是异步请求方式。<!-- /react-text --></p><!-- react-text: 129 -->
+<!-- /react-text --><p data-reactid="130"><!-- react-text: 131 -->异步转化同步方式，主要是借助了 <!-- /react-text --><code data-reactid="132">childProcess.spawnSync</code><!-- react-text: 133 --> 方法，创建<!-- /react-text --><strong data-reactid="134">同步进程</strong><!-- react-text: 135 -->。<!-- /react-text --></p><!-- react-text: 136 -->
+<!-- /react-text --><p data-reactid="137">阅读源码之后，基本的流程如下：</p><!-- react-text: 138 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FqF0tsO2D-38ngCbsbAbtprHwDH8?imageslim" width="748" height="453" data-reactid="139"/><!-- react-text: 140 -->
+<!-- /react-text --><p data-reactid="141"><!-- react-text: 142 -->首先需要 <!-- /react-text --><code data-reactid="143">nc</code><!-- react-text: 144 --> 指令的作用，以及标准输入输出如何传递字节数组。<!-- /react-text --></p><!-- react-text: 145 -->
+<!-- /react-text --><p data-reactid="146"><!-- react-text: 147 -->man page 中对 <!-- /react-text --><code data-reactid="148">nc</code><!-- react-text: 149 --> 的介绍为：<!-- /react-text --></p><!-- react-text: 150 -->
+<!-- /react-text --><blockquote data-reactid="151"><!-- react-text: 152 -->
+<!-- /react-text --><p data-reactid="153"><!-- react-text: 154 --> nc -- arbitrary TCP and UDP connections and listens<!-- /react-text --><br data-reactid="155"/><!-- react-text: 156 -->
+usage: nc <!-- /react-text --><options data-reactid="157"> [hostname]port[s]]</options></p><!-- react-text: 158 -->
+<!-- /react-text --></blockquote><!-- react-text: 159 -->
+<!-- /react-text --><p data-reactid="160">就是一个底层的系统调用，用于建立 TCP/UDP 连接或者监听某端口的，由于是系统调用，所以速度更快，效率更高。</p><!-- react-text: 161 -->
+<!-- /react-text --><p data-reactid="162"><!-- react-text: 163 -->标准输入输出如何传递字节数组，就需要将字节数组转化成字符串，然后在处理之前转化成字节数组，默认 nodejs 实现是将 Buffer 序列化为 <!-- /react-text --><code data-reactid="164">{&quot;type&quot;:&quot;Buffer&quot;,&quot;data&quot;:[1,2,3,4,5]}</code><!-- react-text: 165 -->，分成2个字段表示，但是这样是不能够反序列化回来的。<!-- /react-text --></p><!-- react-text: 166 -->
+<!-- /react-text --><p data-reactid="167">则需要重写 JSON 序列化的方法，主要是对 Buffer 的处理。</p><!-- react-text: 168 -->
+<!-- /react-text --><pre data-reactid="169"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="170"><span class="hljs-function" data-reactid="171"><span class="hljs-keyword" data-reactid="172">function</span><!-- react-text: 173 --> <!-- /react-text --><span class="hljs-title" data-reactid="174">stringify</span><!-- react-text: 175 --> (<!-- /react-text --><span class="hljs-params" data-reactid="176">o</span><!-- react-text: 177 -->) <!-- /react-text --></span><!-- react-text: 178 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="179">if</span><!-- react-text: 180 -->(o &amp;&amp; Buffer.isBuffer(o)) <!-- /react-text --><span class="hljs-comment" data-reactid="181">// hex, ascii 都是可以的</span><!-- react-text: 182 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="183">return</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="185">JSON</span><!-- react-text: 186 -->.stringify(<!-- /react-text --><span class="hljs-string" data-reactid="187">&#x27;:base64:&#x27;</span><!-- react-text: 188 --> + o.toString(<!-- /react-text --><span class="hljs-string" data-reactid="189">&#x27;base64&#x27;</span><!-- react-text: 190 -->));
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="191">if</span><!-- react-text: 192 --> (<!-- /react-text --><span class="hljs-string" data-reactid="193">&#x27;string&#x27;</span><!-- react-text: 194 --> === <!-- /react-text --><span class="hljs-keyword" data-reactid="195">typeof</span><!-- react-text: 196 --> o) {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="197">// 避免将 buffer 误认为 string</span><!-- react-text: 198 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="199">return</span><!-- react-text: 200 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="201">JSON</span><!-- react-text: 202 -->.stringify(<!-- /react-text --><span class="hljs-regexp" data-reactid="203">/^:/</span><!-- react-text: 204 -->.test(o) ? <!-- /react-text --><span class="hljs-string" data-reactid="205">&#x27;:&#x27;</span><!-- react-text: 206 --> + o : o)
+    }
+    <!-- /react-text --><span class="hljs-comment" data-reactid="207">// 其他维持原样</span><!-- react-text: 208 -->
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="209"><span class="hljs-keyword" data-reactid="210">function</span><!-- react-text: 211 --> <!-- /react-text --><span class="hljs-title" data-reactid="212">parse</span><!-- react-text: 213 --> (<!-- /react-text --><span class="hljs-params" data-reactid="214">o</span><!-- react-text: 215 -->) <!-- /react-text --></span><!-- react-text: 216 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="217">return</span><!-- react-text: 218 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="219">JSON</span><!-- react-text: 220 -->.parse(s, <!-- /react-text --><span class="hljs-function" data-reactid="221"><span class="hljs-keyword" data-reactid="222">function</span><!-- react-text: 223 --> (<!-- /react-text --><span class="hljs-params" data-reactid="224">key, value</span><!-- react-text: 225 -->) <!-- /react-text --></span><!-- react-text: 226 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="227">if</span><!-- react-text: 228 -->(<!-- /react-text --><span class="hljs-string" data-reactid="229">&#x27;string&#x27;</span><!-- react-text: 230 --> === <!-- /react-text --><span class="hljs-keyword" data-reactid="231">typeof</span><!-- react-text: 232 --> value) {
+          <!-- /react-text --><span class="hljs-keyword" data-reactid="233">if</span><!-- react-text: 234 -->(<!-- /react-text --><span class="hljs-regexp" data-reactid="235">/^:base64:/</span><!-- react-text: 236 -->.test(value))
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="237">return</span><!-- react-text: 238 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="239">new</span><!-- react-text: 240 --> Buffer(value.substring(<!-- /react-text --><span class="hljs-number" data-reactid="241">8</span><!-- react-text: 242 -->), <!-- /react-text --><span class="hljs-string" data-reactid="243">&#x27;hex&#x27;</span><!-- react-text: 244 -->)
+          <!-- /react-text --><span class="hljs-keyword" data-reactid="245">else</span><!-- react-text: 246 --> <!-- /react-text --><span class="hljs-comment" data-reactid="247">// string</span><!-- react-text: 248 -->
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="249">return</span><!-- react-text: 250 --> <!-- /react-text --><span class="hljs-regexp" data-reactid="251">/^:/</span><!-- react-text: 252 -->.test(value) ? value.substring(<!-- /react-text --><span class="hljs-number" data-reactid="253">1</span><!-- react-text: 254 -->) : value
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="255">return</span><!-- react-text: 256 --> value
+    })
+}<!-- /react-text --></code></pre><!-- react-text: 257 -->
+<!-- /react-text --><p data-reactid="258">理解了以上之后，再来具体看看代码</p><!-- react-text: 259 -->
+<!-- /react-text --><ul data-reactid="260"><!-- react-text: 261 -->
+<!-- /react-text --><li data-reactid="262"><!-- react-text: 263 -->find-port.js<!-- /react-text --><br data-reactid="264"/><!-- react-text: 265 -->
+得到一个空闲的端口返回，基本原理如下（仅为部分代码）<!-- /react-text --></li><!-- react-text: 266 -->
+<!-- /react-text --></ul><!-- react-text: 267 -->
+<!-- /react-text --><pre data-reactid="268"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="269"><span class="hljs-built_in" data-reactid="270">module</span><!-- react-text: 271 -->.exports = <!-- /react-text --><span class="hljs-function" data-reactid="272"><span class="hljs-keyword" data-reactid="273">function</span><!-- react-text: 274 --> (<!-- /react-text --><span class="hljs-params" data-reactid="275"></span><!-- react-text: 276 -->) <!-- /react-text --></span><!-- react-text: 277 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="278">return</span><!-- react-text: 279 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="280">new</span><!-- react-text: 281 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="282">Promise</span><!-- react-text: 283 -->(<!-- /react-text --><span class="hljs-function" data-reactid="284"><span class="hljs-keyword" data-reactid="285">function</span><!-- react-text: 286 --> (<!-- /react-text --><span class="hljs-params" data-reactid="287">resolve, reject</span><!-- react-text: 288 -->) <!-- /react-text --></span><!-- react-text: 289 -->{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="290">var</span><!-- react-text: 291 --> server = net.createServer();
+
+		server.unref();
+		server.on(<!-- /react-text --><span class="hljs-string" data-reactid="292">&#x27;error&#x27;</span><!-- react-text: 293 -->, reject);
+        <!-- /react-text --><span class="hljs-comment" data-reactid="294">// port = 0, 绑定可用的端口</span><!-- react-text: 295 -->
+		server.listen(<!-- /react-text --><span class="hljs-number" data-reactid="296">0</span><!-- react-text: 297 -->, <!-- /react-text --><span class="hljs-function" data-reactid="298"><span class="hljs-keyword" data-reactid="299">function</span><!-- react-text: 300 --> (<!-- /react-text --><span class="hljs-params" data-reactid="301"></span><!-- react-text: 302 -->) <!-- /react-text --></span><!-- react-text: 303 -->{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="304">var</span><!-- react-text: 305 --> port = server.address().port;
+
+			server.close(<!-- /react-text --><span class="hljs-function" data-reactid="306"><span class="hljs-keyword" data-reactid="307">function</span><!-- react-text: 308 --> (<!-- /react-text --><span class="hljs-params" data-reactid="309"></span><!-- react-text: 310 -->) <!-- /react-text --></span><!-- react-text: 311 -->{
+				resolve(port);
+			});
+		});
+	});
+};<!-- /react-text --></code></pre><!-- react-text: 312 -->
+<!-- /react-text --><ul data-reactid="313"><!-- react-text: 314 -->
+<!-- /react-text --><li data-reactid="315"><!-- react-text: 316 -->legacy-work.js<!-- /react-text --><br data-reactid="317"/><!-- react-text: 318 -->
+使用标准输入输出作为参数的来源和返回的出口，处理网络请求 (then-request) <!-- /react-text --></li><!-- react-text: 319 -->
+<!-- /react-text --></ul><!-- react-text: 320 -->
+<!-- /react-text --><pre data-reactid="321"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="322"><span class="hljs-keyword" data-reactid="323">const</span><!-- react-text: 324 --> concat = <!-- /react-text --><span class="hljs-built_in" data-reactid="325">require</span><!-- react-text: 326 -->(<!-- /react-text --><span class="hljs-string" data-reactid="327">&#x27;concat-stream&#x27;</span><!-- react-text: 328 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="329">const</span><!-- react-text: 330 --> request = <!-- /react-text --><span class="hljs-built_in" data-reactid="331">require</span><!-- react-text: 332 -->(<!-- /react-text --><span class="hljs-string" data-reactid="333">&#x27;then-request&#x27;</span><!-- react-text: 334 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="335">const</span><!-- react-text: 336 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="337">JSON</span><!-- react-text: 338 --> = <!-- /react-text --><span class="hljs-built_in" data-reactid="339">require</span><!-- react-text: 340 -->(<!-- /react-text --><span class="hljs-string" data-reactid="341">&#x27;./json-buffer&#x27;</span><!-- react-text: 342 -->);
+
+<!-- /react-text --><span class="hljs-function" data-reactid="343"><span class="hljs-keyword" data-reactid="344">function</span><!-- react-text: 345 --> <!-- /react-text --><span class="hljs-title" data-reactid="346">respond</span><!-- react-text: 347 -->(<!-- /react-text --><span class="hljs-params" data-reactid="348">data</span><!-- react-text: 349 -->) <!-- /react-text --></span><!-- react-text: 350 -->{
+  process.stdout.write(<!-- /react-text --><span class="hljs-built_in" data-reactid="351">JSON</span><!-- react-text: 352 -->.stringify(data), <!-- /react-text --><span class="hljs-function" data-reactid="353"><span class="hljs-keyword" data-reactid="354">function</span><!-- react-text: 355 -->(<!-- /react-text --><span class="hljs-params" data-reactid="356"></span><!-- react-text: 357 -->) <!-- /react-text --></span><!-- react-text: 358 -->{
+    process.exit(<!-- /react-text --><span class="hljs-number" data-reactid="359">0</span><!-- react-text: 360 -->);
+  });
+}
+
+process.stdin.pipe(concat(<!-- /react-text --><span class="hljs-function" data-reactid="361"><span class="hljs-keyword" data-reactid="362">function</span><!-- react-text: 363 --> (<!-- /react-text --><span class="hljs-params" data-reactid="364">stdin</span><!-- react-text: 365 -->) <!-- /react-text --></span><!-- react-text: 366 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="367">var</span><!-- react-text: 368 --> req = <!-- /react-text --><span class="hljs-built_in" data-reactid="369">JSON</span><!-- react-text: 370 -->.parse(stdin.toString());
+  request(req.method, req.url, req.options).done(<!-- /react-text --><span class="hljs-function" data-reactid="371"><span class="hljs-keyword" data-reactid="372">function</span><!-- react-text: 373 --> (<!-- /react-text --><span class="hljs-params" data-reactid="374">response</span><!-- react-text: 375 -->) <!-- /react-text --></span><!-- react-text: 376 -->{
+    respond({<!-- /react-text --><span class="hljs-attr" data-reactid="377">success</span><!-- react-text: 378 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="379">true</span><!-- react-text: 380 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="381">response</span><!-- react-text: 382 -->: response});
+  }, <!-- /react-text --><span class="hljs-function" data-reactid="383"><span class="hljs-keyword" data-reactid="384">function</span><!-- react-text: 385 --> (<!-- /react-text --><span class="hljs-params" data-reactid="386">err</span><!-- react-text: 387 -->) <!-- /react-text --></span><!-- react-text: 388 -->{
+    respond({<!-- /react-text --><span class="hljs-attr" data-reactid="389">success</span><!-- react-text: 390 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="391">false</span><!-- react-text: 392 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="393">error</span><!-- react-text: 394 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="395">message</span><!-- react-text: 396 -->: err.message }});
+  });
+}));<!-- /react-text --></code></pre><!-- react-text: 397 -->
+<!-- /react-text --><ul data-reactid="398"><!-- react-text: 399 -->
+<!-- /react-text --><li data-reactid="400"><!-- react-text: 401 -->nc-server.js<!-- /react-text --><br data-reactid="402"/><!-- react-text: 403 -->
+启动一个 TCP 服务端，为 nc 指令通信  <!-- /react-text --></li><!-- react-text: 404 -->
+<!-- /react-text --></ul><!-- react-text: 405 -->
+<!-- /react-text --><pre data-reactid="406"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="407"><span class="hljs-keyword" data-reactid="408">const</span><!-- react-text: 409 --> net = <!-- /react-text --><span class="hljs-built_in" data-reactid="410">require</span><!-- react-text: 411 -->(<!-- /react-text --><span class="hljs-string" data-reactid="412">&#x27;net&#x27;</span><!-- react-text: 413 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="414">const</span><!-- react-text: 415 --> concat = <!-- /react-text --><span class="hljs-built_in" data-reactid="416">require</span><!-- react-text: 417 -->(<!-- /react-text --><span class="hljs-string" data-reactid="418">&#x27;concat-stream&#x27;</span><!-- react-text: 419 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="420">const</span><!-- react-text: 421 --> request = <!-- /react-text --><span class="hljs-built_in" data-reactid="422">require</span><!-- react-text: 423 -->(<!-- /react-text --><span class="hljs-string" data-reactid="424">&#x27;then-request&#x27;</span><!-- react-text: 425 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="426">const</span><!-- react-text: 427 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="428">JSON</span><!-- react-text: 429 --> = <!-- /react-text --><span class="hljs-built_in" data-reactid="430">require</span><!-- react-text: 431 -->(<!-- /react-text --><span class="hljs-string" data-reactid="432">&#x27;./json-buffer&#x27;</span><!-- react-text: 433 -->);
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="434">const</span><!-- react-text: 435 --> server = net.createServer({<!-- /react-text --><span class="hljs-attr" data-reactid="436">allowHalfOpen</span><!-- react-text: 437 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="438">true</span><!-- react-text: 439 -->}, c =&gt; {
+  <!-- /react-text --><span class="hljs-function" data-reactid="440"><span class="hljs-keyword" data-reactid="441">function</span><!-- react-text: 442 --> <!-- /react-text --><span class="hljs-title" data-reactid="443">respond</span><!-- react-text: 444 -->(<!-- /react-text --><span class="hljs-params" data-reactid="445">data</span><!-- react-text: 446 -->) <!-- /react-text --></span><!-- react-text: 447 -->{
+    c.end(<!-- /react-text --><span class="hljs-built_in" data-reactid="448">JSON</span><!-- react-text: 449 -->.stringify(data));
+  }
+
+  c.pipe(concat(<!-- /react-text --><span class="hljs-function" data-reactid="450"><span class="hljs-keyword" data-reactid="451">function</span><!-- react-text: 452 --> (<!-- /react-text --><span class="hljs-params" data-reactid="453">stdin</span><!-- react-text: 454 -->) <!-- /react-text --></span><!-- react-text: 455 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="456">try</span><!-- react-text: 457 --> {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="458">const</span><!-- react-text: 459 --> req = <!-- /react-text --><span class="hljs-built_in" data-reactid="460">JSON</span><!-- react-text: 461 -->.parse(stdin.toString());
+      request(req.method, req.url, req.options).done(<!-- /react-text --><span class="hljs-function" data-reactid="462"><span class="hljs-keyword" data-reactid="463">function</span><!-- react-text: 464 --> (<!-- /react-text --><span class="hljs-params" data-reactid="465">response</span><!-- react-text: 466 -->) <!-- /react-text --></span><!-- react-text: 467 -->{
+        respond({<!-- /react-text --><span class="hljs-attr" data-reactid="468">success</span><!-- react-text: 469 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="470">true</span><!-- react-text: 471 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="472">response</span><!-- react-text: 473 -->: response});
+      }, <!-- /react-text --><span class="hljs-function" data-reactid="474"><span class="hljs-keyword" data-reactid="475">function</span><!-- react-text: 476 --> (<!-- /react-text --><span class="hljs-params" data-reactid="477">err</span><!-- react-text: 478 -->) <!-- /react-text --></span><!-- react-text: 479 -->{
+        respond({<!-- /react-text --><span class="hljs-attr" data-reactid="480">success</span><!-- react-text: 481 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="482">false</span><!-- react-text: 483 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="484">error</span><!-- react-text: 485 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="486">message</span><!-- react-text: 487 -->: err.message }});
+      });
+    } <!-- /react-text --><span class="hljs-keyword" data-reactid="488">catch</span><!-- react-text: 489 --> (ex) {
+      respond({<!-- /react-text --><span class="hljs-attr" data-reactid="490">success</span><!-- react-text: 491 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="492">false</span><!-- react-text: 493 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="494">error</span><!-- react-text: 495 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="496">message</span><!-- react-text: 497 -->: ex.message }});
+    }
+  }));
+});
+
+server.listen(+process.argv[<!-- /react-text --><span class="hljs-number" data-reactid="498">2</span><!-- react-text: 499 -->]);<!-- /react-text --></code></pre><!-- react-text: 500 -->
+<!-- /react-text --><p data-reactid="501"><!-- react-text: 502 -->其中 <!-- /react-text --><code data-reactid="503">{ allowHalfOpen: true }</code><!-- react-text: 504 --> 不可少，因为在执行 <!-- /react-text --><code data-reactid="505">spawnSync(&#x27;nc&#x27;, [&quot;127.0.0.1&quot;, nPort], {input: request})</code><!-- react-text: 506 --> 时，input 是 JSON 序列话后的字符串，输入后就到 EOF 了，相当于在 Shell 中 Ctrl+D 控制键，nc 客户端套接字就关闭了，只有允许半开套接字，客户端才能收到服务器的数据。如下图：对应为客户端的 FIN_WAIT_2 ~ TIME_WAIT 周期之间，服务器依旧可以发送数据。<!-- /react-text --></p><!-- react-text: 507 -->
+<!-- /react-text --><img src="http://obu9je6ng.bkt.clouddn.com/FnixeQVF2AFq-_T53WvL6Ubvk9WV?imageslim" width="600" height="509" data-reactid="508"/><!-- react-text: 509 -->
+<!-- /react-text --><p data-reactid="510">以上，便是对部分源码的解析</p><!-- react-text: 511 -->
+<!-- /react-text --><p data-reactid="512"><!-- react-text: 513 -->所以，最终的请求还是通过 <!-- /react-text --><code data-reactid="514">then-request</code><!-- react-text: 515 --> 来实现的，但是对于 <!-- /react-text --><code data-reactid="516">then-request</code><!-- react-text: 517 --> 并不支持 <!-- /react-text --><code data-reactid="518">multipart/formdata</code><!-- react-text: 519 -->，因此 <!-- /react-text --><code data-reactid="520">sync-request</code><!-- react-text: 521 --> 也是不支持的。 于是本人在 fork 之后，配合 <!-- /react-text --><a href="https://www.npmjs.com/package/form-data#alternative-submission-methods" data-reactid="522"><code data-reactid="523">form-data</code></a><!-- react-text: 524 --> 提了 <!-- /react-text --><a href="https://github.com/then/then-request/pull/28" data-reactid="525">pr</a><!-- react-text: 526 -->，希望作者能够早日 merge 吧。<!-- /react-text --></p><!-- react-text: 527 -->
+<!-- /react-text --><p data-reactid="528"><!-- react-text: 529 -->最后想说：<!-- /react-text --><em data-reactid="530">原来还可以这样实现同步！</em></p><!-- react-text: 531 -->
+<!-- /react-text --></article></div><div class="gitment-container" data-reactid="532"></div><div class="paginator" data-reactid="533"><a title="Mobx VS Redux（React状态控制）" class="prev" href="/mobx-vs-redux-with-react" data-reactid="534">Prev</a><a title="同构博客已更新！" class="next" href="/blog-update" data-reactid="535">Next</a></div></div></main><footer data-reactid="536"><div class="copyright" data-reactid="537"><p data-reactid="538"><!-- react-text: 539 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="540">Picidae</a></p></div></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

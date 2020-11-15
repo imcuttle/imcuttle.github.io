@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> git捣鼓记之「Pull Request」 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1734227295"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">git捣鼓记之「Pull Request」</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-28T15:48:32+00:00" data-reactid="13">Apr 28, 2016 3:48 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->昨天，又捣鼓了一会儿git，因为想把我关于<!-- /react-text --><a href="https://github.com/iissnan/hexo-theme-next" data-reactid="23">NexT</a><!-- react-text: 24 -->主题的修改提交到原作者github上，以方便更多人使用。<!-- /react-text --></p><h1 id="修改之处" data-reactid="25"><a href="#%E4%BF%AE%E6%94%B9%E4%B9%8B%E5%A4%84" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->修改之处<!-- /react-text --></h1><p data-reactid="29"><!-- react-text: 30 -->原版的主题中，有三种Schema（Muse/Mist/Pisces），在主题的配置文件<!-- /react-text --><code data-reactid="31">_config.yml</code><!-- react-text: 32 -->中，有sidebar:position属性，但是却反人类的<!-- /react-text --><strong data-reactid="33">仅仅</strong><!-- react-text: 34 -->只支持Pisces <!-- /react-text --><div data-reactid="35"><style data-reactid="36">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:780px;max-height:780pxpx;" data-reactid="37"><div class="medium-image-progressive-placeholder" style="padding-bottom:23.205128205128204%;" data-reactid="38"></div><div class="medium-image-progressive" data-reactid="39"><canvas data-reactid="40"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="41"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmcBlZwsZRfTu76I0UBIKmZUTBqB?imageslim" data-reactid="42"/><noscript data-reactid="43"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmcBlZwsZRfTu76I0UBIKmZUTBqB?imageslim" data-reactid="44"/></noscript></div></div></div></p><p data-reactid="45"><!-- react-text: 46 -->Pisces设置sidebar:position为left后，效果如下(图片来自原作者博客)： <!-- /react-text --><div data-reactid="47"><style data-reactid="48">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1021px;max-height:1021pxpx;" data-reactid="49"><div class="medium-image-progressive-placeholder" style="padding-bottom:86.97355533790402%;" data-reactid="50"></div><div class="medium-image-progressive" data-reactid="51"><canvas data-reactid="52"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="53"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlfSqCEE9xdbhoX8ge8heScTRS1C?imageslim" data-reactid="54"/><noscript data-reactid="55"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlfSqCEE9xdbhoX8ge8heScTRS1C?imageslim" data-reactid="56"/></noscript></div></div></div></p><p data-reactid="57">于是乎，我便「一言不合，开始动手」，研究起其他两个主题的sidebar源码起来。 有了原作者代码的参考，照葫芦画瓢，不一会儿也修改好了。 为了让更多人知道我闲的蛋疼的举动，于是我便打算 Pull Request.</p><h1 id="pull-request！" data-reactid="58"><a href="#pull-request%EF%BC%81" aria-hidden="true" data-reactid="59"><span class="icon icon-link" data-reactid="60"></span></a><!-- react-text: 61 -->Pull Request！<!-- /react-text --></h1><h2 id="fork" data-reactid="62"><a href="#fork" aria-hidden="true" data-reactid="63"><span class="icon icon-link" data-reactid="64"></span></a><!-- react-text: 65 -->Fork<!-- /react-text --></h2><p data-reactid="66"><!-- react-text: 67 -->首先，找到你需要修改的项目，Fork It！ <!-- /react-text --><div data-reactid="68"><style data-reactid="69">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:498px;max-height:498pxpx;" data-reactid="70"><div class="medium-image-progressive-placeholder" style="padding-bottom:28.313253012048197%;" data-reactid="71"></div><div class="medium-image-progressive" data-reactid="72"><canvas data-reactid="73"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="74"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo7IJxphHt6Kx1pBFlJ90ShA32pX?imageslim" data-reactid="75"/><noscript data-reactid="76"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo7IJxphHt6Kx1pBFlJ90ShA32pX?imageslim" data-reactid="77"/></noscript></div></div></div></p><h2 id="clone" data-reactid="78"><a href="#clone" aria-hidden="true" data-reactid="79"><span class="icon icon-link" data-reactid="80"></span></a><!-- react-text: 81 -->Clone<!-- /react-text --></h2><p data-reactid="82">Fork完成之后，找到你Fork的项目。</p><pre data-reactid="83"><code data-query="{}" data-lang="data-lang" data-reactid="84">git clone {ssh or https}
+cd {name} # 进入项目目录
+</code></pre><h2 id="new-branch--fix-bug" data-reactid="85"><a href="#new-branch--fix-bug" aria-hidden="true" data-reactid="86"><span class="icon icon-link" data-reactid="87"></span></a><!-- react-text: 88 -->New Branch &amp; Fix Bug<!-- /react-text --></h2><p data-reactid="89">Clone之后，切换分支（branch）</p><pre data-reactid="90"><code data-query="{}" data-lang="data-lang" data-reactid="91">git checkout -b fix-bug
+</code></pre><p data-reactid="92">然后在本地尽情地修改吧，修改完成后</p><pre data-reactid="93"><code data-query="{}" data-lang="data-lang" data-reactid="94">git add . &amp;&amp; git commit -m &quot;fix-bug&quot;
+git push origin fix-bug
+</code></pre><h2 id="pull-request" data-reactid="95"><a href="#pull-request" aria-hidden="true" data-reactid="96"><span class="icon icon-link" data-reactid="97"></span></a><!-- react-text: 98 -->Pull Request<!-- /react-text --></h2><p data-reactid="99"><!-- react-text: 100 -->提交你的修改至github后，切换branch至fix-bug <!-- /react-text --><div data-reactid="101"><style data-reactid="102">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1048px;max-height:1048pxpx;" data-reactid="103"><div class="medium-image-progressive-placeholder" style="padding-bottom:38.93129770992366%;" data-reactid="104"></div><div class="medium-image-progressive" data-reactid="105"><canvas data-reactid="106"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="107"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FiW1kAXel6WqirDiUDWlIMiLGIBZ?imageslim" data-reactid="108"/><noscript data-reactid="109"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FiW1kAXel6WqirDiUDWlIMiLGIBZ?imageslim" data-reactid="110"/></noscript></div></div></div><!-- react-text: 111 --> 点击<!-- /react-text --><strong data-reactid="112">Compare &amp; pull request</strong><!-- react-text: 113 -->按钮，然后写下你修改内容的说明就OK了<!-- /react-text --></p><h2 id="wait-to-be-merged" data-reactid="114"><a href="#wait-to-be-merged" aria-hidden="true" data-reactid="115"><span class="icon icon-link" data-reactid="116"></span></a><!-- react-text: 117 -->Wait To Be Merged<!-- /react-text --></h2><p data-reactid="118"><!-- react-text: 119 -->目前还没有同意Merge. = = <!-- /react-text --><div data-reactid="120"><style data-reactid="121">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1066px;max-height:1066pxpx;" data-reactid="122"><div class="medium-image-progressive-placeholder" style="padding-bottom:36.49155722326454%;" data-reactid="123"></div><div class="medium-image-progressive" data-reactid="124"><canvas data-reactid="125"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="126"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FthPzIG1sKMsA9YPt0fAuESHl73s?imageslim" data-reactid="127"/><noscript data-reactid="128"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FthPzIG1sKMsA9YPt0fAuESHl73s?imageslim" data-reactid="129"/></noscript></div></div></div></p><p data-reactid="130"><!-- react-text: 131 -->参考资料 <!-- /react-text --><a href="http://www.zhihu.com/question/21682976" data-reactid="132">http://www.zhihu.com/question/21682976</a></p></article></div><div class="gitment-container" data-reactid="133"></div><div class="paginator" data-reactid="134"><a title="从定时器到 Web Worker" class="prev" href="/from-timer-to-webworker" data-reactid="135">Prev</a><a title="play css3 Animation" class="next" href="/play_css3_Animation" data-reactid="136">Next</a></div></div></main><footer data-reactid="137"><div class="copyright" data-reactid="138"><p data-reactid="139"><!-- react-text: 140 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="141">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

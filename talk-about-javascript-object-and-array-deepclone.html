@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 谈谈JavaScript之数组对象深拷贝 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="789439584"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">谈谈JavaScript之数组对象深拷贝</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-30T09:46:14+00:00" data-reactid="13">Apr 30, 2016 9:46 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="回忆" data-reactid="17"><a href="#%E5%9B%9E%E5%BF%86" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->回忆<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->上周百度面试问了我关于数组的 <!-- /react-text --><code data-reactid="23">clone</code><!-- react-text: 24 --> 方法的实现，当时没来得及细想，然后口头上说<!-- /react-text --></p><blockquote data-reactid="25"><p data-reactid="26">数组就是一串数据序列，可以遍历然后进行深拷贝即可。</p></blockquote><p data-reactid="27"><!-- react-text: 28 -->关于细节实现的东西都没想，然后面试官那边好像就无语了... 不过好在我提到了 <!-- /react-text --><code data-reactid="29">深拷贝</code><!-- react-text: 30 --> 这个关键字。<!-- /react-text --></p><h1 id="再探clone" data-reactid="31"><a href="#%E5%86%8D%E6%8E%A2clone" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->再探clone<!-- /react-text --></h1><h2 id="浅复制" data-reactid="35"><a href="#%E6%B5%85%E5%A4%8D%E5%88%B6" aria-hidden="true" data-reactid="36"><span class="icon icon-link" data-reactid="37"></span></a><!-- react-text: 38 -->浅复制<!-- /react-text --></h2><p data-reactid="39">先看第一段代码</p><pre data-reactid="40"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="41"><span class="hljs-built_in" data-reactid="42">Array</span><!-- react-text: 43 -->.prototype.clone = <!-- /react-text --><span class="hljs-function" data-reactid="44"><span class="hljs-keyword" data-reactid="45">function</span><!-- react-text: 46 -->(<!-- /react-text --><span class="hljs-params" data-reactid="47"></span><!-- react-text: 48 -->)<!-- /react-text --></span><!-- react-text: 49 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="50">return</span><!-- react-text: 51 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="52">this</span><!-- react-text: 53 -->.slice();
+}<!-- /react-text --></code></pre><p data-reactid="54">乍看一下，好像挺快捷方便的就完成了。实际上，懂得c++/java中浅拷贝/深拷贝的人一看便知道这只是实现了浅复制。 测试代码如下，</p><pre data-reactid="55"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="56"><span class="hljs-keyword" data-reactid="57">var</span><!-- react-text: 58 --> arr = [<!-- /react-text --><span class="hljs-number" data-reactid="59">1</span><!-- react-text: 60 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="61">new</span><!-- react-text: 62 --> <!-- /react-text --><span class="hljs-function" data-reactid="63"><span class="hljs-keyword" data-reactid="64">function</span><!-- react-text: 65 --> (<!-- /react-text --><span class="hljs-params" data-reactid="66">x</span><!-- react-text: 67 -->)<!-- /react-text --></span><!-- react-text: 68 -->{
+                   <!-- /react-text --><span class="hljs-keyword" data-reactid="69">this</span><!-- react-text: 70 -->.x=x;
+               }(<!-- /react-text --><span class="hljs-number" data-reactid="71">3</span><!-- react-text: 72 -->)];
+<!-- /react-text --><span class="hljs-keyword" data-reactid="73">var</span><!-- react-text: 74 --> clone = arr.clone();
+clone[<!-- /react-text --><span class="hljs-number" data-reactid="75">1</span><!-- react-text: 76 -->].x=<!-- /react-text --><span class="hljs-number" data-reactid="77">1</span><!-- react-text: 78 -->;
+<!-- /react-text --><span class="hljs-built_in" data-reactid="79">console</span><!-- react-text: 80 -->.log(arr[<!-- /react-text --><span class="hljs-number" data-reactid="81">1</span><!-- react-text: 82 -->].x) <!-- /react-text --><span class="hljs-comment" data-reactid="83">// 1</span></code></pre><p data-reactid="84"><!-- react-text: 85 -->可以看到，<!-- /react-text --><code data-reactid="86">clone[1].x</code><!-- react-text: 87 -->改变导致<!-- /react-text --><code data-reactid="88">arr[1].x</code><!-- react-text: 89 -->改变，图示如下 <!-- /react-text --><div data-reactid="90"><style data-reactid="91">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:507px;max-height:507pxpx;" data-reactid="92"><div class="medium-image-progressive-placeholder" style="padding-bottom:67.85009861932939%;" data-reactid="93"></div><div class="medium-image-progressive" data-reactid="94"><canvas data-reactid="95"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="96"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqCHIEcVbSalCKIPiUhEDlAcEnR8?imageslim" data-reactid="97"/><noscript data-reactid="98"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqCHIEcVbSalCKIPiUhEDlAcEnR8?imageslim" data-reactid="99"/></noscript></div></div></div></p><h2 id="深复制" data-reactid="100"><a href="#%E6%B7%B1%E5%A4%8D%E5%88%B6" aria-hidden="true" data-reactid="101"><span class="icon icon-link" data-reactid="102"></span></a><!-- react-text: 103 -->深复制<!-- /react-text --></h2><pre data-reactid="104"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="105"><span class="hljs-built_in" data-reactid="106">Object</span><!-- react-text: 107 -->.prototype.clone = <!-- /react-text --><span class="hljs-function" data-reactid="108"><span class="hljs-keyword" data-reactid="109">function</span><!-- react-text: 110 --> (<!-- /react-text --><span class="hljs-params" data-reactid="111"></span><!-- react-text: 112 -->) <!-- /react-text --></span><!-- react-text: 113 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="114">var</span><!-- react-text: 115 --> clone = <!-- /react-text --><span class="hljs-keyword" data-reactid="116">new</span><!-- react-text: 117 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="118">this</span><!-- react-text: 119 -->.constructor(); <!-- /react-text --><span class="hljs-comment" data-reactid="120">//开辟新内存空间，保证clone出来的对象也有一个属性能够指向原对象的原型对象。</span><!-- react-text: 121 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="122">for</span><!-- react-text: 123 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="124">var</span><!-- react-text: 125 --> k <!-- /react-text --><span class="hljs-keyword" data-reactid="126">in</span><!-- react-text: 127 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="128">this</span><!-- react-text: 129 -->){
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="130">if</span><!-- react-text: 131 -->(!<!-- /react-text --><span class="hljs-keyword" data-reactid="132">this</span><!-- react-text: 133 -->.hasOwnProperty(k)) <!-- /react-text --><span class="hljs-keyword" data-reactid="134">continue</span><!-- react-text: 135 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="136">if</span><!-- react-text: 137 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="138">typeof</span><!-- react-text: 139 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="140">this</span><!-- react-text: 141 -->[k] === <!-- /react-text --><span class="hljs-string" data-reactid="142">&#x27;object&#x27;</span><!-- react-text: 143 -->)
+            clone[k] = <!-- /react-text --><span class="hljs-keyword" data-reactid="144">this</span><!-- react-text: 145 -->[k].clone();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="146">else</span><!-- react-text: 147 -->
+            clone[k] = <!-- /react-text --><span class="hljs-keyword" data-reactid="148">this</span><!-- react-text: 149 -->[k];
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="150">return</span><!-- react-text: 151 --> clone;
+};<!-- /react-text --></code></pre><p data-reactid="152"><!-- react-text: 153 -->利用递归来实现Object实例的深复制(重新开辟一份内存空间)，如图 <!-- /react-text --><div data-reactid="154"><style data-reactid="155">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:624px;max-height:624pxpx;" data-reactid="156"><div class="medium-image-progressive-placeholder" style="padding-bottom:52.40384615384615%;" data-reactid="157"></div><div class="medium-image-progressive" data-reactid="158"><canvas data-reactid="159"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="160"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkJZyQCbjx-o38csKs5ky9Bhf1hP?imageslim" data-reactid="161"/><noscript data-reactid="162"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkJZyQCbjx-o38csKs5ky9Bhf1hP?imageslim" data-reactid="163"/></noscript></div></div></div><!-- react-text: 164 --> 因为Array也属于Object，上面的代码也适用于Array<!-- /react-text --></p><p data-reactid="165"><strong data-reactid="166">不足之处：不能对DOM元素结点进行复制</strong></p></article></div><div class="gitment-container" data-reactid="167"></div><div class="paginator" data-reactid="168"><a title="「项目拾遗」谈谈websocket" class="prev" href="/talk-about-websocket" data-reactid="169">Prev</a><a title="从定时器到 Web Worker" class="next" href="/from-timer-to-webworker" data-reactid="170">Next</a></div></div></main><footer data-reactid="171"><div class="copyright" data-reactid="172"><p data-reactid="173"><!-- react-text: 174 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="175">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

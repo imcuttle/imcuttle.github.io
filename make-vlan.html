@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「思科模拟器」构建虚拟局域网（VLAN） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1828367232"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「思科模拟器」构建虚拟局域网（VLAN）</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-02T17:40:34+00:00" data-reactid="13">Jun 2, 2016 5:40 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21">思科模拟器是一款强大的模拟网络环境的软件，但是容量却不大，安装器只有70M左右，这篇文章将为你介绍利用思科模拟器构建VLAN网络。</p><h1 id="正文" data-reactid="22"><a href="#%E6%AD%A3%E6%96%87" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->正文<!-- /react-text --></h1><div data-reactid="26"><style data-reactid="27">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:661px;max-height:661pxpx;" data-reactid="28"><div class="medium-image-progressive-placeholder" style="padding-bottom:60.66565809379728%;" data-reactid="29"></div><div class="medium-image-progressive" data-reactid="30"><canvas data-reactid="31"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="32"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsF1gp7vbtW7SW5-JZIRGB81dKyD?imageslim" data-reactid="33"/><noscript data-reactid="34"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsF1gp7vbtW7SW5-JZIRGB81dKyD?imageslim" data-reactid="35"/></noscript></div></div></div><!-- react-text: 36 --> 如图，操作鼠标搭建如图简单的网络，用到了交换机（端口1-4）-直通线-普通终端。 点击终端图标，进入终端配置界面，点击`Desktop`标签，点击`IP Configuration`，如下图，静态设置IP地址。 <!-- /react-text --><div data-reactid="37"><style data-reactid="38">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="39"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="40"></div><div class="medium-image-progressive" data-reactid="41"><canvas data-reactid="42"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="43"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmNY-emWrMeUVUUfJXSe9-VYLT5y?imageslim" data-reactid="44"/><noscript data-reactid="45"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmNY-emWrMeUVUUfJXSe9-VYLT5y?imageslim" data-reactid="46"/></noscript></div></div></div><!-- react-text: 47 --> 配置完成后，你还可以进入终端的命令行界面`(Command Prompt)`，进行`ping`命令的测试，如下图 <!-- /react-text --><div data-reactid="48"><style data-reactid="49">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="50"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="51"></div><div class="medium-image-progressive" data-reactid="52"><canvas data-reactid="53"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="54"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhjrvRjEl-MdAAEfa0GP_xDVjv9w?imageslim" data-reactid="55"/><noscript data-reactid="56"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhjrvRjEl-MdAAEfa0GP_xDVjv9w?imageslim" data-reactid="57"/></noscript></div></div></div><!-- react-text: 58 --> <!-- /react-text --><div data-reactid="59"><style data-reactid="60">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="61"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="62"></div><div class="medium-image-progressive" data-reactid="63"><canvas data-reactid="64"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="65"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtXX7clqbOS62BDMMsQLRtnrZ236?imageslim" data-reactid="66"/><noscript data-reactid="67"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtXX7clqbOS62BDMMsQLRtnrZ236?imageslim" data-reactid="68"/></noscript></div></div></div><!-- react-text: 69 --> 然后，就是对于交换机进行配置了，建立不同的虚拟局域网。点击交换机图片，进入命令行界面，输入如下指令： ``` Switch(config)#vlan 1 #建立Vlan1，默认已经存在 Switch(config-vlan)#exit Switch(config)#vlan 2 #建立Vlan2 Switch(config-vlan)#exit Switch(config)#interface f0/1 #对1端口进行配置 Switch(config-if)#switchport access vlan 1 #将1端口加入vlan1，默认已经存在 Switch(config-if)#interface f0/2 Switch(config-if)#switchport access vlan 1 Switch(config-if)#interface f0/3 Switch(config-if)#switchport access vlan 2 Switch(config-if)#interface f0/4 Switch(config-if)#switchport access vlan 2 ``` 操作界面如下图所示： <!-- /react-text --><div data-reactid="70"><style data-reactid="71">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="72"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="73"></div><div class="medium-image-progressive" data-reactid="74"><canvas data-reactid="75"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="76"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FilWHzc67CSAsMGe7sVhEaVaOtAD?imageslim" data-reactid="77"/><noscript data-reactid="78"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FilWHzc67CSAsMGe7sVhEaVaOtAD?imageslim" data-reactid="79"/></noscript></div></div></div><!-- react-text: 80 --> 或者你可以利用图形界面进行操作 <!-- /react-text --><div data-reactid="81"><style data-reactid="82">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="83"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="84"></div><div class="medium-image-progressive" data-reactid="85"><canvas data-reactid="86"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="87"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fmdpx-owqvC7VGQVMLmD3YnSxFCD?imageslim" data-reactid="88"/><noscript data-reactid="89"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fmdpx-owqvC7VGQVMLmD3YnSxFCD?imageslim" data-reactid="90"/></noscript></div></div></div><!-- react-text: 91 --> <!-- /react-text --><div data-reactid="92"><style data-reactid="93">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="94"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="95"></div><div class="medium-image-progressive" data-reactid="96"><canvas data-reactid="97"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="98"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FndZ6bHcsFfIw7MbqVfN7eB1YW26?imageslim" data-reactid="99"/><noscript data-reactid="100"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FndZ6bHcsFfIw7MbqVfN7eB1YW26?imageslim" data-reactid="101"/></noscript></div></div></div><p data-reactid="102"><!-- react-text: 103 -->完成如上步骤后，你就完成了<!-- /react-text --><code data-reactid="104">vlan</code><!-- react-text: 105 -->的构建，下面进行测试。 进入<!-- /react-text --><code data-reactid="106">ip：192.168.100.11</code><!-- react-text: 107 -->的终端命令行，进行<!-- /react-text --><code data-reactid="108">ping</code><!-- react-text: 109 -->指令测试。 如下图，同属于vlan1的<!-- /react-text --><code data-reactid="110">192.168.100.12</code><!-- react-text: 111 -->能够ping通，但是valn2中的<!-- /react-text --><code data-reactid="112">192.168.200.12</code><!-- react-text: 113 -->不能够，所以测试正确。 <!-- /react-text --><div data-reactid="114"><style data-reactid="115">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="116"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="117"></div><div class="medium-image-progressive" data-reactid="118"><canvas data-reactid="119"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="120"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpZdc9IqufJCH-s6eAK5Dr9GN4Ln?imageslim" data-reactid="121"/><noscript data-reactid="122"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpZdc9IqufJCH-s6eAK5Dr9GN4Ln?imageslim" data-reactid="123"/></noscript></div></div></div></p><h1 id="总结" data-reactid="124"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="125"><span class="icon icon-link" data-reactid="126"></span></a><!-- react-text: 127 -->总结<!-- /react-text --></h1><p data-reactid="128">初步见识到了思科模拟器的威力，之后还会带来更多的文章教学。</p></article></div><div class="gitment-container" data-reactid="129"></div><div class="paginator" data-reactid="130"><a title="「图像处理」图像的直方图均衡化" class="prev" href="/img-normalize" data-reactid="131">Prev</a><a title="「node网络编程」SMTP客户端程序" class="next" href="/node-smtp" data-reactid="132">Next</a></div></div></main><footer data-reactid="133"><div class="copyright" data-reactid="134"><p data-reactid="135"><!-- react-text: 136 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="137">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 基于Mobx实现React双向绑定 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1064777900"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">基于Mobx实现React双向绑定</h1><div class="post-info" data-reactid="12"><time datetime="2018-03-13T10:11:13+00:00" data-reactid="13">Mar 13, 2018 10:11 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17">单向绑定非常简单，就是把Model绑定到View，当我们用JavaScript代码更新Model时，View就会自动更新。</p><p data-reactid="18">有单向绑定，就有双向绑定。如果用户更新了View，Model的数据也自动被更新了，这种情况就是双向绑定。</p><p data-reactid="19">什么情况下用户可以更新View呢？填写表单就是一个最直接的例子。当用户填写表单时，View的状态就被更新了，如果此时MVVM框架可以自动更新Model的状态，那就相当于我们把Model和View做了双向绑定：</p><div data-reactid="20"><style data-reactid="21">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:392px;max-height:392pxpx;" data-reactid="22"><div class="medium-image-progressive-placeholder" style="padding-bottom:60.204081632653065%;" data-reactid="23"></div><div class="medium-image-progressive" data-reactid="24"><canvas data-reactid="25"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="26"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/13/5aa73406bca50.jpg" data-reactid="27"/><noscript data-reactid="28"><img class="medium-image-origin" src="https://i.loli.net/2018/03/13/5aa73406bca50.jpg" data-reactid="29"/></noscript></div></div></div><p data-reactid="30">在浏览器中，当用户修改了表单的内容时，我们绑定的Model会自动更新：</p><div data-reactid="31"><style data-reactid="32">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:376px;max-height:376pxpx;" data-reactid="33"><div class="medium-image-progressive-placeholder" style="padding-bottom:67.5531914893617%;" data-reactid="34"></div><div class="medium-image-progressive" data-reactid="35"><canvas data-reactid="36"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="37"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/13/5aa7341151021.jpg" data-reactid="38"/><noscript data-reactid="39"><img class="medium-image-origin" src="https://i.loli.net/2018/03/13/5aa7341151021.jpg" data-reactid="40"/></noscript></div></div></div><p data-reactid="41">下面介绍实现以上逻辑交互，不同的实现方式</p><h2 id="原生react方式" data-reactid="42"><a href="#%E5%8E%9F%E7%94%9Freact%E6%96%B9%E5%BC%8F" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->原生React方式<!-- /react-text --></h2><pre data-reactid="46"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="47"><span class="hljs-keyword" data-reactid="48">export</span><!-- react-text: 49 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="50">default</span><!-- react-text: 51 --> <!-- /react-text --><span class="hljs-class" data-reactid="52"><span class="hljs-keyword" data-reactid="53">class</span><!-- react-text: 54 --> <!-- /react-text --><span class="hljs-title" data-reactid="55">Form</span><!-- react-text: 56 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="57">extends</span><!-- react-text: 58 --> <!-- /react-text --><span class="hljs-title" data-reactid="59">Component</span><!-- react-text: 60 --> <!-- /react-text --></span><!-- react-text: 61 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="62">// 实际业务中，数据可能是来自props</span><!-- react-text: 63 -->
+    state = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="64">name</span><!-- react-text: 65 -->: <!-- /react-text --><span class="hljs-string" data-reactid="66">&#x27;&#x27;</span><!-- react-text: 67 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="68">email</span><!-- react-text: 69 -->: <!-- /react-text --><span class="hljs-string" data-reactid="70">&#x27;&#x27;</span><!-- react-text: 71 -->
+    }
+    changeFromEvt = <!-- /react-text --><span class="hljs-function" data-reactid="72"><!-- react-text: 73 -->(<!-- /react-text --><span class="hljs-params" data-reactid="74">key, evt</span><!-- react-text: 75 -->) =&gt;<!-- /react-text --></span><!-- react-text: 76 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="77">this</span><!-- react-text: 78 -->.setState({
+            [key]: evt.target.value
+        })
+    }
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="79">return</span><!-- react-text: 80 --> (
+            <!-- /react-text --><span class="xml" data-reactid="81"><span class="hljs-tag" data-reactid="82"><!-- react-text: 83 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="84">form</span><!-- react-text: 85 -->&gt;<!-- /react-text --></span><!-- react-text: 86 -->
+                <!-- /react-text --></span><!-- react-text: 87 -->&lt;input
+                    value={this.state.name}
+                    onChange={this.changeFromEvt.bind(this, &#x27;name&#x27;)}
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    value={this.state.email}
+                    onChange={this.changeFromEvt.bind(this, &#x27;email&#x27;)}
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><h2 id="hoc方式" data-reactid="88"><a href="#hoc%E6%96%B9%E5%BC%8F" aria-hidden="true" data-reactid="89"><span class="icon icon-link" data-reactid="90"></span></a><!-- react-text: 91 -->Hoc方式<!-- /react-text --></h2><pre data-reactid="92"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="93"><span class="hljs-function" data-reactid="94"><span class="hljs-keyword" data-reactid="95">function</span><!-- react-text: 96 --> <!-- /react-text --><span class="hljs-title" data-reactid="97">PPHOC</span><!-- react-text: 98 -->(<!-- /react-text --><span class="hljs-params" data-reactid="99">WrappedComponent</span><!-- react-text: 100 -->) <!-- /react-text --></span><!-- react-text: 101 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="102">return</span><!-- react-text: 103 --> <!-- /react-text --><span class="hljs-class" data-reactid="104"><span class="hljs-keyword" data-reactid="105">class</span><!-- react-text: 106 --> <!-- /react-text --><span class="hljs-title" data-reactid="107">PP</span><!-- react-text: 108 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="109">extends</span><!-- react-text: 110 --> <!-- /react-text --><span class="hljs-title" data-reactid="111">React</span><!-- react-text: 112 -->.<!-- /react-text --><span class="hljs-title" data-reactid="113">Component</span><!-- react-text: 114 --> <!-- /react-text --></span><!-- react-text: 115 -->{
+    state = { <!-- /react-text --><span class="hljs-attr" data-reactid="116">fields</span><!-- react-text: 117 -->: {} }
+    
+    getField(fieldName) {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="118">if</span><!-- react-text: 119 --> (!<!-- /react-text --><span class="hljs-keyword" data-reactid="120">this</span><!-- react-text: 121 -->.state.fields[fieldName]) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="122">this</span><!-- react-text: 123 -->.state.fields[fieldName] = {
+          <!-- /react-text --><span class="hljs-attr" data-reactid="124">value</span><!-- react-text: 125 -->: <!-- /react-text --><span class="hljs-string" data-reactid="126">&#x27;&#x27;</span><!-- react-text: 127 -->,
+          <!-- /react-text --><span class="hljs-attr" data-reactid="128">onChange</span><!-- react-text: 129 -->: <!-- /react-text --><span class="hljs-function" data-reactid="130"><span class="hljs-params" data-reactid="131">event</span><!-- react-text: 132 --> =&gt;<!-- /react-text --></span><!-- react-text: 133 --> {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="134">this</span><!-- react-text: 135 -->.state.fields[fieldName].value = event.target.value
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="136">this</span><!-- react-text: 137 -->.forceUpdate()
+          }
+        }
+      }
+
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="138">return</span><!-- react-text: 139 --> {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="140">value</span><!-- react-text: 141 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="142">this</span><!-- react-text: 143 -->.state.fields[fieldName].value,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="144">onChange</span><!-- react-text: 145 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="146">this</span><!-- react-text: 147 -->.state.fields[fieldName].onChange
+      }
+    }
+
+    render() {
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="148">const</span><!-- react-text: 149 --> props = <!-- /react-text --><span class="hljs-built_in" data-reactid="150">Object</span><!-- react-text: 151 -->.assign({}, <!-- /react-text --><span class="hljs-keyword" data-reactid="152">this</span><!-- react-text: 153 -->.props, {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="154">fields</span><!-- react-text: 155 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="156">this</span><!-- react-text: 157 -->.getField.bind(<!-- /react-text --><span class="hljs-keyword" data-reactid="158">this</span><!-- react-text: 159 -->),
+      })
+      <!-- /react-text --><span class="hljs-keyword" data-reactid="160">return</span><!-- react-text: 161 --> (
+        <!-- /react-text --><span class="xml" data-reactid="162"><span class="hljs-tag" data-reactid="163"><!-- react-text: 164 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="165">WrappedComponent</span><!-- react-text: 166 --> {<!-- /react-text --><span class="hljs-attr" data-reactid="167">...props</span><!-- react-text: 168 -->}/&gt;<!-- /react-text --></span><!-- react-text: 169 -->
+      )
+    }
+  }
+}
+export default class Form extends React.Component {
+    render() {
+        return (
+            <!-- /react-text --></span><!-- react-text: 170 -->&lt;form&gt;
+                &lt;input
+                    {...this.props.fields(&#x27;name&#x27;)}
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    {...this.props.fields(&#x27;email&#x27;)}
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><h2 id="mobx（观察者）方式" data-reactid="171"><a href="#mobx%EF%BC%88%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%89%E6%96%B9%E5%BC%8F" aria-hidden="true" data-reactid="172"><span class="icon icon-link" data-reactid="173"></span></a><!-- react-text: 174 -->Mobx（观察者）方式<!-- /react-text --></h2><pre data-reactid="175"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="176"><span class="hljs-keyword" data-reactid="177">import</span><!-- react-text: 178 --> { observable, action } <!-- /react-text --><span class="hljs-keyword" data-reactid="179">from</span><!-- react-text: 180 --> <!-- /react-text --><span class="hljs-string" data-reactid="181">&#x27;mobx&#x27;</span><!-- react-text: 182 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="183">export</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="185">default</span><!-- react-text: 186 --> <!-- /react-text --><span class="hljs-class" data-reactid="187"><span class="hljs-keyword" data-reactid="188">class</span><!-- react-text: 189 --> <!-- /react-text --><span class="hljs-title" data-reactid="190">Form</span><!-- react-text: 191 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="192">extends</span><!-- react-text: 193 --> <!-- /react-text --><span class="hljs-title" data-reactid="194">Component</span><!-- react-text: 195 --> <!-- /react-text --></span><!-- react-text: 196 -->{
+    @observable form = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="197">name</span><!-- react-text: 198 -->: <!-- /react-text --><span class="hljs-string" data-reactid="199">&#x27;&#x27;</span><!-- react-text: 200 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="201">email</span><!-- react-text: 202 -->: <!-- /react-text --><span class="hljs-string" data-reactid="203">&#x27;&#x27;</span><!-- react-text: 204 -->
+    }
+    
+    changeFromEvt = <!-- /react-text --><span class="hljs-function" data-reactid="205"><!-- react-text: 206 -->(<!-- /react-text --><span class="hljs-params" data-reactid="207">key, evt</span><!-- react-text: 208 -->) =&gt;<!-- /react-text --></span><!-- react-text: 209 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="210">this</span><!-- react-text: 211 -->[key] = evt.target.value
+    }
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="212">return</span><!-- react-text: 213 --> (
+            <!-- /react-text --><span class="xml" data-reactid="214"><span class="hljs-tag" data-reactid="215"><!-- react-text: 216 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="217">form</span><!-- react-text: 218 -->&gt;<!-- /react-text --></span><!-- react-text: 219 -->
+                <!-- /react-text --></span><!-- react-text: 220 -->&lt;input
+                    value={this.state.name}
+                    onChange={this.changeFromEvt.bind(this, &#x27;name&#x27;)}
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    value={this.state.email}
+                    onChange={this.changeFromEvt.bind(this, &#x27;email&#x27;)}
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><h2 id="双向绑定方式-主角" data-reactid="221"><a href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F-%E4%B8%BB%E8%A7%92" aria-hidden="true" data-reactid="222"><span class="icon icon-link" data-reactid="223"></span></a><!-- react-text: 224 -->双向绑定方式 (主角)<!-- /react-text --></h2><pre data-reactid="225"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="226"><span class="hljs-keyword" data-reactid="227">import</span><!-- react-text: 228 --> { observable, binding } <!-- /react-text --><span class="hljs-keyword" data-reactid="229">from</span><!-- react-text: 230 --> <!-- /react-text --><span class="hljs-string" data-reactid="231">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 232 -->
+
+<!-- /react-text --><span class="hljs-class" data-reactid="233"><span class="hljs-keyword" data-reactid="234">class</span><!-- react-text: 235 --> <!-- /react-text --><span class="hljs-title" data-reactid="236">Form</span><!-- react-text: 237 --> <!-- /react-text --></span><!-- react-text: 238 -->{
+    @observable name = <!-- /react-text --><span class="hljs-string" data-reactid="239">&#x27;&#x27;</span><!-- react-text: 240 -->
+    @observable email = <!-- /react-text --><span class="hljs-string" data-reactid="241">&#x27;&#x27;</span><!-- react-text: 242 -->
+}
+
+@binding(<!-- /react-text --><span class="hljs-keyword" data-reactid="243">new</span><!-- react-text: 244 --> Form())
+<!-- /react-text --><span class="hljs-keyword" data-reactid="245">export</span><!-- react-text: 246 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="247">default</span><!-- react-text: 248 --> <!-- /react-text --><span class="hljs-class" data-reactid="249"><span class="hljs-keyword" data-reactid="250">class</span><!-- react-text: 251 --> <!-- /react-text --><span class="hljs-title" data-reactid="252">Form</span><!-- react-text: 253 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="254">extends</span><!-- react-text: 255 --> <!-- /react-text --><span class="hljs-title" data-reactid="256">Component</span><!-- react-text: 257 --> <!-- /react-text --></span><!-- react-text: 258 -->{
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="259">return</span><!-- react-text: 260 --> (
+            <!-- /react-text --><span class="xml" data-reactid="261"><span class="hljs-tag" data-reactid="262"><!-- react-text: 263 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="264">form</span><!-- react-text: 265 -->&gt;<!-- /react-text --></span><!-- react-text: 266 -->
+                <!-- /react-text --></span><!-- react-text: 267 -->&lt;input
+                    data-bind=&quot;name&quot;
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    data-bind=&quot;email&quot;
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre></article></div><div class="gitment-container" data-reactid="268"></div><div class="paginator" data-reactid="269"><a title="walli" class="prev" href="/walli-born" data-reactid="270">Prev</a><a title="view model 开发模式 （基于react + mobx）" class="next" href="/react-mobx-vm" data-reactid="271">Next</a></div></div></main><footer data-reactid="272"><div class="copyright" data-reactid="273"><p data-reactid="274"><!-- react-text: 275 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="276">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

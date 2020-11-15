@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 从定时器到 Web Worker - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1956231816"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">从定时器到 Web Worker</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-29T07:10:02+00:00" data-reactid="13">Apr 29, 2016 7:10 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->首先，JavaScript是单线程执行的，也就是同一时间只有你的一份js代码在运行（不论你cpu几核，os是以线程为基本单位分配任务调度的，为了利用多核cpu的优势，HTML5提出Web Worker标准，本文会讲到）， 那么JavaScript中的<!-- /react-text --><code data-reactid="23">setInterval</code><!-- react-text: 24 -->和<!-- /react-text --><code data-reactid="25">setTimeout</code><!-- react-text: 26 --> api是什么工作原理呢？<!-- /react-text --></p><h1 id="javascript事件循环" data-reactid="27"><a href="#javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->JavaScript事件循环<!-- /react-text --></h1><div data-reactid="31"><style data-reactid="32">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:626px;max-height:626pxpx;" data-reactid="33"><div class="medium-image-progressive-placeholder" style="padding-bottom:40.2555910543131%;" data-reactid="34"></div><div class="medium-image-progressive" data-reactid="35"><canvas data-reactid="36"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="37"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fi6SAvEO2F7QIveMXHvnKJpsDNlu?imageslim" data-reactid="38"/><noscript data-reactid="39"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fi6SAvEO2F7QIveMXHvnKJpsDNlu?imageslim" data-reactid="40"/></noscript></div></div></div><!-- react-text: 41 --> 如图，EventEmitters为事件发起者，比如你点击按钮，异步请求完成触发回调函数，定时器时间到了，事件触发...（这些是由多线程的浏览器来实现的）； Events为事件队列，表示亟待处理的事件，Event Handlers表示从事件队列中取出队首的事件，在堆、栈中的进行函数调用，语句运行。 明白了JavaScript的事件循环后，我们再来看看`setInterval`和`setTimeout`。<!-- /react-text --><h1 id="再探-setinterval-settimeout" data-reactid="42"><a href="#%E5%86%8D%E6%8E%A2-setinterval-settimeout" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->再探 setInterval setTimeout<!-- /react-text --></h1><h2 id="定时器原理" data-reactid="46"><a href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%8E%9F%E7%90%86" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->定时器原理<!-- /react-text --></h2><p data-reactid="50">先看下面这段代码</p><pre data-reactid="51"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="52"><span class="hljs-built_in" data-reactid="53">console</span><!-- react-text: 54 -->.log(<!-- /react-text --><span class="hljs-number" data-reactid="55">1</span><!-- react-text: 56 -->);
+setInterval(<!-- /react-text --><span class="hljs-function" data-reactid="57"><span class="hljs-keyword" data-reactid="58">function</span><!-- react-text: 59 -->(<!-- /react-text --><span class="hljs-params" data-reactid="60"></span><!-- react-text: 61 -->)<!-- /react-text --></span><!-- react-text: 62 -->{
+	<!-- /react-text --><span class="hljs-built_in" data-reactid="63">console</span><!-- react-text: 64 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="65">&#x27;interval&#x27;</span><!-- react-text: 66 -->);
+},<!-- /react-text --><span class="hljs-number" data-reactid="67">1</span><!-- react-text: 68 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="69">var</span><!-- react-text: 70 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="71">10</span><!-- react-text: 72 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="73">while</span><!-- react-text: 74 -->(i--&gt;<!-- /react-text --><span class="hljs-number" data-reactid="75">0</span><!-- react-text: 76 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="77">console</span><!-- react-text: 78 -->.log(<!-- /react-text --><span class="hljs-number" data-reactid="79">2</span><!-- react-text: 80 -->);
+setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="81"><span class="hljs-keyword" data-reactid="82">function</span><!-- react-text: 83 -->(<!-- /react-text --><span class="hljs-params" data-reactid="84"></span><!-- react-text: 85 -->)<!-- /react-text --></span><!-- react-text: 86 -->{
+	<!-- /react-text --><span class="hljs-built_in" data-reactid="87">console</span><!-- react-text: 88 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="89">&#x27;timeout&#x27;</span><!-- react-text: 90 -->);
+},<!-- /react-text --><span class="hljs-number" data-reactid="91">0</span><!-- react-text: 92 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="93">console</span><!-- react-text: 94 -->.log(<!-- /react-text --><span class="hljs-number" data-reactid="95">3</span><!-- react-text: 96 -->);<!-- /react-text --></code></pre><p data-reactid="97"><!-- react-text: 98 -->从事件循环角度解析下这段代码，首先执行<!-- /react-text --><code data-reactid="99">console.log(1);</code><!-- react-text: 100 --> 没问题，So Easy，然后继续，执行到<!-- /react-text --><code data-reactid="101">setInterval</code><!-- react-text: 102 -->， 时间为 1ms ，于是<!-- /react-text --><strong data-reactid="103">在1ms之后将setInterval的处理函数加入到事件队列中</strong><!-- react-text: 104 -->，于此同时，继续执行直到<!-- /react-text --><code data-reactid="105">setTimeout</code><!-- react-text: 106 -->， 于是<!-- /react-text --><strong data-reactid="107">在0ms之后将setTimeout的处理函数加入到事件队列中</strong><!-- react-text: 108 -->，最后执行完<!-- /react-text --><code data-reactid="109">console.log(3);</code><!-- react-text: 110 -->后，再从事件队列中取事件处理。 <!-- /react-text --><strong data-reactid="111">也就是说，定时器中的时间指的是过多少时间将处理函数加入到事件队列中，而不是立即执行</strong><!-- react-text: 112 --> 明白了上面的解释后，如果<!-- /react-text --></p><pre data-reactid="113"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="114"><span class="hljs-keyword" data-reactid="115">var</span><!-- react-text: 116 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="117">10</span><!-- react-text: 118 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="119">while</span><!-- react-text: 120 -->(i--&gt;<!-- /react-text --><span class="hljs-number" data-reactid="121">0</span><!-- react-text: 122 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="123">console</span><!-- react-text: 124 -->.log(<!-- /react-text --><span class="hljs-number" data-reactid="125">2</span><!-- react-text: 126 -->);<!-- /react-text --></code></pre><p data-reactid="127"><!-- react-text: 128 -->这段代码执行时间<!-- /react-text --><strong data-reactid="129">大于1ms</strong><!-- react-text: 130 -->，则setInterval在setTimeout之前加入事件队列，输出就应该如下<!-- /react-text --></p><pre data-reactid="131"><code data-query="{}" data-lang="data-lang" data-reactid="132">1
+2
+3
+interval
+timeout
+...
+</code></pre><h2 id="重复的定时器" data-reactid="133"><a href="#%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AE%9A%E6%97%B6%E5%99%A8" aria-hidden="true" data-reactid="134"><span class="icon icon-link" data-reactid="135"></span></a><!-- react-text: 136 -->重复的定时器<!-- /react-text --></h2><h3 id="setinterval问题暴露" data-reactid="137"><a href="#setinterval%E9%97%AE%E9%A2%98%E6%9A%B4%E9%9C%B2" aria-hidden="true" data-reactid="138"><span class="icon icon-link" data-reactid="139"></span></a><!-- react-text: 140 -->setInterval问题暴露<!-- /react-text --></h3><ul data-reactid="141"><li data-reactid="142"><!-- react-text: 143 -->场景重现 某个click事件处理程序使用<!-- /react-text --><code data-reactid="144">setInterval</code><!-- react-text: 145 -->设置了一个200ms时间间隔的重复定时器，click处理程序花了300ms时间，定时器代码花了400ms时间。<!-- /react-text --></li><li data-reactid="146">问题存在</li></ul><table data-reactid="147"><thead data-reactid="148"><tr data-reactid="149"><th data-reactid="150">时刻</th><th data-reactid="151">描述</th></tr></thead><tbody data-reactid="152"><tr data-reactid="153"><td data-reactid="154">0ms</td><td data-reactid="155">进入click事件处理程序</td></tr><tr data-reactid="156"><td data-reactid="157">5ms</td><td data-reactid="158">创建setInterval定时器</td></tr><tr data-reactid="159"><td data-reactid="160">205ms</td><td data-reactid="161">定时器事件添加至事件队列</td></tr><tr data-reactid="162"><td data-reactid="163">300ms</td><td data-reactid="164">click处理完成，取出定时器事件，进入定时器代码</td></tr><tr data-reactid="165"><td data-reactid="166">405ms</td><td data-reactid="167">事件队列中不存在定时器代码，添加定时器事件至队列</td></tr><tr data-reactid="168"><td data-reactid="169">605ms</td><td data-reactid="170">事件队列中存在定时器代码，定时器事件未至队列</td></tr><tr data-reactid="171"><td data-reactid="172">700ms</td><td data-reactid="173">定时器代码执行完毕，取出下一个事件队列中事件（定时器代码）</td></tr></tbody></table><p data-reactid="174"><strong data-reactid="175">可以看到，300ms-700ms执行完定时器代码后，紧接着下一个事件依旧是定时器事件，而不是预想的200ms</strong></p><h3 id="问题解决" data-reactid="176"><a href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3" aria-hidden="true" data-reactid="177"><span class="icon icon-link" data-reactid="178"></span></a><!-- react-text: 179 -->问题解决<!-- /react-text --></h3><p data-reactid="180">可以用下列链式setTimeout解决该问题</p><pre data-reactid="181"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="182"><!-- react-text: 183 -->setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="184"><span class="hljs-keyword" data-reactid="185">function</span><!-- react-text: 186 -->(<!-- /react-text --><span class="hljs-params" data-reactid="187"></span><!-- react-text: 188 -->)<!-- /react-text --></span><!-- react-text: 189 -->{
+	<!-- /react-text --><span class="hljs-comment" data-reactid="190">//do something</span><!-- react-text: 191 -->
+	setTimeout(<!-- /react-text --><span class="hljs-built_in" data-reactid="192">arguments</span><!-- react-text: 193 -->.callee,interval);
+},interval);<!-- /react-text --></code></pre><h3 id="举一反三" data-reactid="194"><a href="#%E4%B8%BE%E4%B8%80%E5%8F%8D%E4%B8%89" aria-hidden="true" data-reactid="195"><span class="icon icon-link" data-reactid="196"></span></a><!-- react-text: 197 -->举一反三<!-- /react-text --></h3><p data-reactid="198"><!-- react-text: 199 -->html5新增的api <!-- /react-text --><code data-reactid="200">requestAnimationFrame</code><!-- react-text: 201 -->，原理与<!-- /react-text --><code data-reactid="202">setTimeout</code><!-- react-text: 203 -->一致，详细参考<!-- /react-text --><a href="/2016/04/23/requestAnimationFrame_Vs_setInterval/" data-reactid="204">requestAnimationFrame Vs setInterval</a><!-- react-text: 205 --> <!-- /react-text --><strong data-reactid="206"><code data-reactid="207">setTimeout</code><!-- react-text: 208 -->,<!-- /react-text --><code data-reactid="209">requestAnimationFrame</code><!-- react-text: 210 -->注意放处理函数最后。<!-- /react-text --></strong></p><h1 id="javascript优劣" data-reactid="211"><a href="#javascript%E4%BC%98%E5%8A%A3" aria-hidden="true" data-reactid="212"><span class="icon icon-link" data-reactid="213"></span></a><!-- react-text: 214 -->JavaScript优劣<!-- /react-text --></h1><ul data-reactid="215"><li data-reactid="216"><p data-reactid="217">优点 单线程简单，通过事件循环实现并发。而不是传统的请求-等待-响应模式。</p></li><li data-reactid="218"><p data-reactid="219">缺点 单线程，不能充分利用多核CPU性能。</p></li></ul><h1 id="web-workers" data-reactid="220"><a href="#web-workers" aria-hidden="true" data-reactid="221"><span class="icon icon-link" data-reactid="222"></span></a><!-- react-text: 223 -->Web Workers<!-- /react-text --></h1><p data-reactid="224"><!-- react-text: 225 -->为了解决JavaScript单线程带来的不便，HTML5引入了Web Workers规范。 能够解决长时间运行的JavaScript脚本导致页面&quot;冻结&quot;的问题。 效果对比可以查看<!-- /react-text --><a href="http://moyuyc.xyz/painter" data-reactid="226">KMenus图像算法优化前</a><!-- react-text: 227 --> 和 <!-- /react-text --><a href="/htm/painter" data-reactid="228">KMenus图像算法优化后</a><!-- react-text: 229 --> 选择Image Choose，选择图片，点击画板放置图片后，点击K-Menus后，你会发现好像没发生什么事情一样。 其实在后台已经创建了一个Worker，处理冗长的K-Menus图像聚类算法了，而你能继续享受流畅的用户体验。 耐心等待一段时间，处理的结果才会返回回来，显示在界面上。 <!-- /react-text --><div data-reactid="230"><style data-reactid="231">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1544px;max-height:1544pxpx;" data-reactid="232"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.21761658031088%;" data-reactid="233"></div><div class="medium-image-progressive" data-reactid="234"><canvas data-reactid="235"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="236"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsZ_zH_gMSjd_JdVPTx_rUo2jHB0?imageslim" data-reactid="237"/><noscript data-reactid="238"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsZ_zH_gMSjd_JdVPTx_rUo2jHB0?imageslim" data-reactid="239"/></noscript></div></div></div></p><p data-reactid="240">代码如下</p><pre data-reactid="241"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="242"><span class="hljs-keyword" data-reactid="243">var</span><!-- react-text: 244 --> worker = <!-- /react-text --><span class="hljs-keyword" data-reactid="245">new</span><!-- react-text: 246 --> Worker(<!-- /react-text --><span class="hljs-string" data-reactid="247">&quot;js/algorithm.js&quot;</span><!-- react-text: 248 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="249">//发送data至worker中</span><!-- react-text: 250 -->
+worker.postMessage(data);
+<!-- /react-text --><span class="hljs-comment" data-reactid="251">//worker处理完数据后的回调函数</span><!-- react-text: 252 -->
+worker.onmessage = <!-- /react-text --><span class="hljs-function" data-reactid="253"><span class="hljs-keyword" data-reactid="254">function</span><!-- react-text: 255 --> (<!-- /react-text --><span class="hljs-params" data-reactid="256">ext</span><!-- react-text: 257 -->) <!-- /react-text --></span><!-- react-text: 258 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="259">var</span><!-- react-text: 260 --> data = ext.data;  <!-- /react-text --><span class="hljs-comment" data-reactid="261">//worker处理后返回的数据</span><!-- react-text: 262 -->
+}<!-- /react-text --></code></pre><p data-reactid="263"><code data-reactid="264">js/algorithm.js</code></p><pre data-reactid="265"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="266"><!-- react-text: 267 -->onmessage = <!-- /react-text --><span class="hljs-function" data-reactid="268"><span class="hljs-keyword" data-reactid="269">function</span><!-- react-text: 270 --> (<!-- /react-text --><span class="hljs-params" data-reactid="271">evt</span><!-- react-text: 272 -->) <!-- /react-text --></span><!-- react-text: 273 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="274">var</span><!-- react-text: 275 --> data = evt.data;<!-- /react-text --><span class="hljs-comment" data-reactid="276">//worker接受到的数据</span><!-- react-text: 277 -->
+	<!-- /react-text --><span class="hljs-comment" data-reactid="278">//do something about data</span><!-- react-text: 279 -->
+	postMessage(data);<!-- /react-text --><span class="hljs-comment" data-reactid="280">//发送处理后的数据</span><!-- react-text: 281 -->
+}<!-- /react-text --></code></pre></article></div><div class="gitment-container" data-reactid="282"></div><div class="paginator" data-reactid="283"><a title="谈谈JavaScript之数组对象深拷贝" class="prev" href="/talk-about-javascript-object-and-array-deepclone" data-reactid="284">Prev</a><a title="git捣鼓记之「Pull Request」" class="next" href="/pr-of-github" data-reactid="285">Next</a></div></div></main><footer data-reactid="286"><div class="copyright" data-reactid="287"><p data-reactid="288"><!-- react-text: 289 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="290">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

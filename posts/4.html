@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="40630739"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><section class="container" data-reactid="9"><div class="search-bar" data-reactid="10"><input value="" placeholder="Search..." data-reactid="11"/></div><ul class="home post-list" data-reactid="12"><li class="post-list-item" data-reactid="13"><article class="post-block" data-reactid="14"><h2 class="post-title" data-reactid="15"><a title="妈妈再也不用担心RD部署环境，影响FE开发了" class="post-title-link" href="/birdv3-standup" data-reactid="16">妈妈再也不用担心RD部署环境，影响FE开发了</a></h2><time class="post-info" datetime="2017-09-15T17:16:10+00:00" data-reactid="17">Sep 15, 2017</time><div class="post-content" data-reactid="18">
+
+## 头痛
+
+erp这边rd用的编译型语言Java，每次发版代码都需要重新编译一下，然后才能生效。
+但就是这个编译重新载入的时间，经常会影响我们FE开发！
+破坏我们创作代码的热情！
+
+于是为了解决该问题，基于birdV3的standup应运而生
+
+## 原理
+
+首先了解一下BirdV3的基本原理
+```
+Client(Browser)  --------&gt;    Bird    -------</div><a class="read-more" href="/birdv3-standup" data-reactid="19">...more</a></article></li><li class="post-list-item" data-reactid="20"><article class="post-block" data-reactid="21"><h2 class="post-title" data-reactid="22"><a title="基于Mobx实现 数据 - Url 同步" class="post-title-link" href="/mobx-url-sync-decorator" data-reactid="23">基于Mobx实现 数据 - Url 同步</a></h2><time class="post-info" datetime="2017-09-10T00:51:14+00:00" data-reactid="24">Sep 10, 2017</time><div class="post-content" data-reactid="25">
+
+
+## 需求
+
+在项目开发初期，未考虑到需要做数据列表页面的数据（如分页、排序、条件查询...）同步至 url.
+
+但这种需求在对于数据列表是必要的。
+
+因此需要一种较为“优雅的”方式来“独立”实现数据-url 的同步
+
+## 思路
+
+1. 首先，项目中的页面结构如下
+```
+state.js    # mobx 
+index.js    # react page
+...
+```
+一个view</div><a class="read-more" href="/mobx-url-sync-decorator" data-reactid="26">...more</a></article></li><li class="post-list-item" data-reactid="27"><article class="post-block" data-reactid="28"><h2 class="post-title" data-reactid="29"><a title="谈一谈React高阶组件" class="post-title-link" href="/talk-about-react-hoc" data-reactid="30">谈一谈React高阶组件</a></h2><time class="post-info" datetime="2017-09-03T20:51:47+00:00" data-reactid="31">Sep 3, 2017</time><div class="post-content" data-reactid="32">
+
+
+## 定义
+
+高阶组件（Higher Order Components, HOC）: 通过它，将一个组件包装成另一个组件
+```js
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+```
+
+## 两种HOC方式
+
+### wrap方法
+
+如下：将 Pagination 进行一层 wrap，为了与 rd 接口</div><a class="read-more" href="/talk-about-react-hoc" data-reactid="33">...more</a></article></li><li class="post-list-item" data-reactid="34"><article class="post-block" data-reactid="35"><h2 class="post-title" data-reactid="36"><a title="doc-pipe - 管理/同步 树状文档本地/服务器文章 解决方案" class="post-title-link" href="/doc-pipe-boom" data-reactid="37">doc-pipe - 管理/同步 树状文档本地/服务器文章 解决方案</a></h2><time class="post-info" datetime="2017-08-26T22:03:50+00:00" data-reactid="38">Aug 26, 2017</time><div class="post-content" data-reactid="39">
+
+## 画个饼
+
+1. doc-pipe 是一个本地和服务器两端的一个双向通道，可以从本地推送到服务器(push)，也可以拉取服务器树状文档至本地(pull)
+2. doc-pipe 可以完成在本地完成对远端文档的同步和管理
+3. doc-pipe 自动化生成文章索引
+
+## 目前定位
+
+1. 十分适合个人文章(不可协同编辑)的管理和发布，实现本地到远端的同步。
+2. 如：个人standup、分</div><a class="read-more" href="/doc-pipe-boom" data-reactid="40">...more</a></article></li><li class="post-list-item" data-reactid="41"><article class="post-block" data-reactid="42"><h2 class="post-title" data-reactid="43"><a title="markdown导入doc核心算法剖析" class="post-title-link" href="/the-core-algorithm-of-doc-md-import" data-reactid="44">markdown导入doc核心算法剖析</a></h2><time class="post-info" datetime="2017-08-22T09:32:02+00:00" data-reactid="45">Aug 22, 2017</time><div class="post-content" data-reactid="46">
+
+## 算法需要做什么事情
+
+- Input -&gt; Output  
+    将原始的markdown文本解析成为一颗树形结构。
+    ````markdown
+    # A               -&gt;  # A --- i&#x27;m an apple.
+    i&#x27;m an apple.             |-- i&#x27;m an egg.
+    i&#x27;m an egg.        </div><a class="read-more" href="/the-core-algorithm-of-doc-md-import" data-reactid="47">...more</a></article></li><li class="post-list-item" data-reactid="48"><article class="post-block" data-reactid="49"><h2 class="post-title" data-reactid="50"><a title="导入markdown至树状文档" class="post-title-link" href="/doc-import-from-markdown" data-reactid="51">导入markdown至树状文档</a></h2><time class="post-info" datetime="2017-08-20T22:04:05+00:00" data-reactid="52">Aug 20, 2017</time><div class="post-content" data-reactid="53">
+
+## 为什么有这个需求
+
+1. 个人习惯于书写原生的Markdown（纯粹的文本编辑）。不需要记各种快捷键。
+2. 书写原始 markdown 文件方便进行个人博客文章的部署和备份。
+3. 方便将文章发布至其他平台（GitHub/SF...）
+
+## 如何使用
+
+[repo地址(doc-import-md)](https://github.com/imcuttle/doc-import-md)</div><a class="read-more" href="/doc-import-from-markdown" data-reactid="54">...more</a></article></li><li class="post-list-item" data-reactid="55"><article class="post-block" data-reactid="56"><h2 class="post-title" data-reactid="57"><a title="组件库Demo页发布自动化" class="post-title-link" href="/deploy-demo-page-automatically" data-reactid="58">组件库Demo页发布自动化</a></h2><time class="post-info" datetime="2017-08-19T10:25:57+00:00" data-reactid="59">Aug 19, 2017</time><div class="post-content" data-reactid="60">
+
+## 必要性
+
+### 自动化是个好东西
+
+自动化可以帮我们简化一些枯燥（重复）的工作，提高工作效率。
+
+### Demo是个好东西
+
+Demo可以帮助我们更快捷地了解某组件的用法。
+
+
+## 自动化流程
+
+1. Dev Local: git push origin release/demo
+2. Git Remote: origin(remote git server) received t</div><a class="read-more" href="/deploy-demo-page-automatically" data-reactid="61">...more</a></article></li><li class="post-list-item" data-reactid="62"><article class="post-block" data-reactid="63"><h2 class="post-title" data-reactid="64"><a title="go-js 介绍" class="post-title-link" href="/guide-of-gojs" data-reactid="65">go-js 介绍</a></h2><time class="post-info" datetime="2017-08-17T09:29:58+00:00" data-reactid="66">Aug 17, 2017</time><div class="post-content" data-reactid="67">
+
+## 是什么
+
+首先，此gojs非彼gojs(图表库)
+
+该工具将 webpack &quot;内嵌&quot;，可以很方便快捷的&quot;搭建&quot;一个commonjs前端执行环境。
+只需要全局安装 `npm i -g go-js`
+
+## 概念
+
+`go-js` 认为一个js文件就是一个入口(entry)
+
+## 特征
+
+1. 程序运行时，自动下载依赖包
+    - js文件中静态`import/require`的</div><a class="read-more" href="/guide-of-gojs" data-reactid="68">...more</a></article></li><li class="post-list-item" data-reactid="69"><article class="post-block" data-reactid="70"><h2 class="post-title" data-reactid="71"><a title="React组件化 -&gt; 更好的 Demo 解决方案" class="post-title-link" href="/resolution-of-react-component-demo-page" data-reactid="72">React组件化 -&gt; 更好的 Demo 解决方案</a></h2><time class="post-info" datetime="2017-08-05T18:47:32+00:00" data-reactid="73">Aug 5, 2017</time><div class="post-content" data-reactid="74">
+
+## 为什么
+
+ React组件化的开发思维，大大地缩减了我们的开发时间。
+ 于此同时也带来了一些问题：
+ 
+  1. 大量组件的维护和兼容问题
+  2. 对于组件的学习使用，需要组件Demo展示
+  3. ...
+  
+对于第二点问题，Demo 的书写可能不能够对组件覆盖全面
+甚至需要深入查看组件源码才能明白配置项的功能
+
+## 解决方案
+
+### React-Live
+
+[demo](ht</div><a class="read-more" href="/resolution-of-react-component-demo-page" data-reactid="75">...more</a></article></li><li class="post-list-item" data-reactid="76"><article class="post-block" data-reactid="77"><h2 class="post-title" data-reactid="78"><a title="给学弟学妹的话" class="post-title-link" href="/some-words-for-students" data-reactid="79">给学弟学妹的话</a></h2><time class="post-info" datetime="2017-05-27T14:38:37+00:00" data-reactid="80">May 27, 2017</time><div class="post-content" data-reactid="81">
+
+# 前言
+临近大学毕业，做下小小的总结，算是为后面的优秀学子宣讲提供材料了。
+
+# 个人介绍
+
+- 姓名：余聪
+- 任职公司：北京百度
+- 任职岗位：Web 前端工程师
+- 税前年薪：xk*14.6月（12个正常月，1个月工资算年中奖，1.6月工资算年终奖）
+- GitHub：moyuyc（GitHub 是全球最大的代码存放网站和开源社区）
+- 博客：blog.moyuyc.xyz
+- QQ：</div><a class="read-more" href="/some-words-for-students" data-reactid="82">...more</a></article></li></ul><div class="paginator" data-reactid="83"><a class="prev" href="/posts/3" data-reactid="84">Prev</a><a class="next" href="/posts/5" data-reactid="85">Next</a></div></section></main><footer data-reactid="86"><div class="copyright" data-reactid="87"><p data-reactid="88"><!-- react-text: 89 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="90">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

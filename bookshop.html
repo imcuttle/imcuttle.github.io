@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 图书销售系统（书窝） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-756398612"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">图书销售系统（书窝）</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-20T18:04:41+00:00" data-reactid="13">Jun 20, 2016 6:04 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="图书销售系统--书窝" data-reactid="17"><a href="#%E5%9B%BE%E4%B9%A6%E9%94%80%E5%94%AE%E7%B3%BB%E7%BB%9F--%E4%B9%A6%E7%AA%9D" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->图书销售系统 —— 书窝<!-- /react-text --></h1><p data-reactid="21"><a href="http://bookshop.moyuyc.xyz" data-reactid="22"><strong data-reactid="23">书窝线上地址</strong></a><!-- react-text: 24 --> <!-- /react-text --><a href="https://github.com/moyuyc/book-shopping" data-reactid="25"><strong data-reactid="26">GitHub地址</strong></a><!-- react-text: 27 --> 由于时间有限，事务较重，系统实现只好从简。<!-- /react-text --></p><hr data-reactid="28"/><h2 id="需求分析" data-reactid="29"><a href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90" aria-hidden="true" data-reactid="30"><span class="icon icon-link" data-reactid="31"></span></a><!-- react-text: 32 -->需求分析<!-- /react-text --></h2><blockquote data-reactid="33"><p data-reactid="34">需交课程设计报告和软件（源代码）。课程设计报告将存档。报告内容包括：需求分析、算法思想描述、数据流图、E-R图、数据字典、程序结构、收获与体会等。 功能要求：实现一个基于web的网上图书的销售管理系统，能提供多种条件的查询，还应具有会员管理、意见反馈、销售分析等功能。将留言板、图表分析、文件上传等思想纳入其中。</p></blockquote><h3 id="用户系统" data-reactid="35"><a href="#%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F" aria-hidden="true" data-reactid="36"><span class="icon icon-link" data-reactid="37"></span></a><!-- react-text: 38 -->用户系统<!-- /react-text --></h3><p data-reactid="39">需要用户系统，用户是系统的根源，是数据的源头，该系统的用户就是要求中所说的会员，所以需要提供如下功能：</p><ul data-reactid="40"><li data-reactid="41">用户注册</li><li data-reactid="42">用户登录</li><li data-reactid="43">用户信息查看</li><li data-reactid="44">用户既可以是卖家，亦可以是买家</li></ul><h3 id="用户留言信息反馈" data-reactid="45"><a href="#%E7%94%A8%E6%88%B7%E7%95%99%E8%A8%80%E4%BF%A1%E6%81%AF%E5%8F%8D%E9%A6%88" aria-hidden="true" data-reactid="46"><span class="icon icon-link" data-reactid="47"></span></a><!-- react-text: 48 -->用户留言(信息反馈)<!-- /react-text --></h3><p data-reactid="49">为了逐渐完善系统，提供用户与建站者的交流通道，并且该通道不仅限于用户与建站者，用户与用户之间也能够互相交流，提高趣味性。具体功能如下：</p><ul data-reactid="50"><li data-reactid="51">用户留言</li><li data-reactid="52">留言查看</li></ul><h3 id="卖家买家系统" data-reactid="53"><a href="#%E5%8D%96%E5%AE%B6%E4%B9%B0%E5%AE%B6%E7%B3%BB%E7%BB%9F" aria-hidden="true" data-reactid="54"><span class="icon icon-link" data-reactid="55"></span></a><!-- react-text: 56 -->卖家买家系统<!-- /react-text --></h3><p data-reactid="57">买卖离不开卖家买家，该系统亦是如此，需要如下功能列表：</p><ul data-reactid="58"><li data-reactid="59">卖家</li><li data-reactid="60">图书上架</li><li data-reactid="61">图书修改</li><li data-reactid="62">图书查看</li><li data-reactid="63">销售情况图表</li><li data-reactid="64">买家</li><li data-reactid="65">图书查看购买</li><li data-reactid="66">买书记录查看</li><li data-reactid="67">图书评论与删除</li></ul><hr data-reactid="68"/><h2 id="设计文档" data-reactid="69"><a href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3" aria-hidden="true" data-reactid="70"><span class="icon icon-link" data-reactid="71"></span></a><!-- react-text: 72 -->设计文档<!-- /react-text --></h2><p data-reactid="73">该部分将涉及整个系统从无到有的设计思路，自底向上有 1. 数据库选择和设计 2. 服务器框架选择和设计 3. 前端框架选择和设计</p><p data-reactid="74">并且将针对具体细节给出相关表示，如数据字典，ER图，数据流图，算法设计等。</p><h3 id="数据库选择和设计" data-reactid="75"><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="76"><span class="icon icon-link" data-reactid="77"></span></a><!-- react-text: 78 -->数据库选择和设计<!-- /react-text --></h3><h4 id="选择与原因" data-reactid="79"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0" aria-hidden="true" data-reactid="80"><span class="icon icon-link" data-reactid="81"></span></a><!-- react-text: 82 -->选择与原因<!-- /react-text --></h4><p data-reactid="83"><!-- react-text: 84 -->该系统我选择了<!-- /react-text --><code data-reactid="85">MySQL</code><!-- react-text: 86 -->数据库，具体原因如下： 1. <!-- /react-text --><code data-reactid="87">MySQL</code><!-- react-text: 88 -->十分轻量，相比课堂上讲的<!-- /react-text --><code data-reactid="89">SQL Server</code><!-- react-text: 90 -->数据库，一个安装包2GB，MySQL的500MB简直小巫见大巫（最近看到属于<!-- /react-text --><code data-reactid="91">NoSQL</code><!-- react-text: 92 -->的<!-- /react-text --><code data-reactid="93">MongoDB</code><!-- react-text: 94 -->居然只有100MB）。 2. 短时间需要完成该系统，同时对于<!-- /react-text --><code data-reactid="95">MySQL</code><!-- react-text: 96 -->十分熟悉，之前做在线订票系统，在线考试系统等都是建立在MySQL上。 3. 具有<!-- /react-text --><code data-reactid="97">SQLYog</code><!-- react-text: 98 -->这种强大方便的图形操作软件，轻松导入导出数据，轻松连接远程服务器传递数据。<!-- /react-text --></p><p data-reactid="99"><!-- react-text: 100 -->基于以上原因，因此选择了<!-- /react-text --><code data-reactid="101">MySQL</code><!-- react-text: 102 -->。<!-- /react-text --></p><h4 id="数据字典" data-reactid="103"><a href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8" aria-hidden="true" data-reactid="104"><span class="icon icon-link" data-reactid="105"></span></a><!-- react-text: 106 -->数据字典<!-- /react-text --></h4><p data-reactid="107">用户</p><table data-reactid="108"><thead data-reactid="109"><tr data-reactid="110"><th data-reactid="111">字段</th><th data-reactid="112">类型</th><th data-reactid="113">备注</th></tr></thead><tbody data-reactid="114"><tr data-reactid="115"><td data-reactid="116">username</td><td data-reactid="117">varchar(12)</td><td data-reactid="118">用户名,唯一, 6-12位</td></tr><tr data-reactid="119"><td data-reactid="120">email</td><td data-reactid="121">varchar(20)</td><td data-reactid="122">电子邮箱,唯一</td></tr><tr data-reactid="123"><td data-reactid="124">password</td><td data-reactid="125">varchar(12)</td><td data-reactid="126">密码,6-12位</td></tr><tr data-reactid="127"><td data-reactid="128">registerDate</td><td data-reactid="129">date</td><td data-reactid="130">注册日期</td></tr></tbody></table><p data-reactid="131">留言</p><table data-reactid="132"><thead data-reactid="133"><tr data-reactid="134"><th data-reactid="135">字段</th><th data-reactid="136">类型</th><th data-reactid="137">备注</th></tr></thead><tbody data-reactid="138"><tr data-reactid="139"><td data-reactid="140">username</td><td data-reactid="141">varchar(12)</td><td data-reactid="142">留言者用户名</td></tr><tr data-reactid="143"><td data-reactid="144">content</td><td data-reactid="145">text</td><td data-reactid="146">留言内容</td></tr><tr data-reactid="147"><td data-reactid="148">datetime</td><td data-reactid="149">datetime</td><td data-reactid="150">留言时间</td></tr></tbody></table><p data-reactid="151">图书</p><table data-reactid="152"><thead data-reactid="153"><tr data-reactid="154"><th data-reactid="155">字段</th><th data-reactid="156">类型</th><th data-reactid="157">备注</th></tr></thead><tbody data-reactid="158"><tr data-reactid="159"><td data-reactid="160">bookID</td><td data-reactid="161">char(8)</td><td data-reactid="162">图书ID,唯一,如BK123456</td></tr><tr data-reactid="163"><td data-reactid="164">title</td><td data-reactid="165">varchar(25)</td><td data-reactid="166">书名</td></tr><tr data-reactid="167"><td data-reactid="168">author</td><td data-reactid="169">varchar(25)</td><td data-reactid="170">作者</td></tr><tr data-reactid="171"><td data-reactid="172">press</td><td data-reactid="173">varchar(25)</td><td data-reactid="174">出版社</td></tr><tr data-reactid="175"><td data-reactid="176">price</td><td data-reactid="177">decimal(10,1)</td><td data-reactid="178">价格,保留小数点后一位</td></tr><tr data-reactid="179"><td data-reactid="180">quantity</td><td data-reactid="181">int(11)</td><td data-reactid="182">库存量(本)</td></tr><tr data-reactid="183"><td data-reactid="184">image</td><td data-reactid="185">mediumblob</td><td data-reactid="186">封面图片</td></tr><tr data-reactid="187"><td data-reactid="188">seller</td><td data-reactid="189">varchar(12)</td><td data-reactid="190">卖家用户名</td></tr><tr data-reactid="191"><td data-reactid="192">importDate</td><td data-reactid="193">date</td><td data-reactid="194">上架日期</td></tr></tbody></table><p data-reactid="195">图书评论</p><table data-reactid="196"><thead data-reactid="197"><tr data-reactid="198"><th data-reactid="199">字段</th><th data-reactid="200">类型</th><th data-reactid="201">备注</th></tr></thead><tbody data-reactid="202"><tr data-reactid="203"><td data-reactid="204">username</td><td data-reactid="205">varchar(12)</td><td data-reactid="206">评论人用户名</td></tr><tr data-reactid="207"><td data-reactid="208">bookID</td><td data-reactid="209">char(8)</td><td data-reactid="210">被评论图书</td></tr><tr data-reactid="211"><td data-reactid="212">datetime</td><td data-reactid="213">datetime</td><td data-reactid="214">评论时间</td></tr><tr data-reactid="215"><td data-reactid="216">content</td><td data-reactid="217">text</td><td data-reactid="218">评论内容</td></tr></tbody></table><p data-reactid="219"><!-- react-text: 220 -->交易 <!-- /react-text --><strong data-reactid="221">因为交易完成后，卖家仍然可以对图书进行修改，所以我将买进时图书信息都存放在此表中，表示买进时图书的信息。</strong></p><table data-reactid="222"><thead data-reactid="223"><tr data-reactid="224"><th data-reactid="225">字段</th><th data-reactid="226">类型</th><th data-reactid="227">备注</th></tr></thead><tbody data-reactid="228"><tr data-reactid="229"><td data-reactid="230">tradeID</td><td data-reactid="231">char(10)</td><td data-reactid="232">交易记录ID,唯一,如TD12345678</td></tr><tr data-reactid="233"><td data-reactid="234">tradeDate</td><td data-reactid="235">date</td><td data-reactid="236">交易日期</td></tr><tr data-reactid="237"><td data-reactid="238">buyer</td><td data-reactid="239">varchar(12)</td><td data-reactid="240">买家用户名</td></tr><tr data-reactid="241"><td data-reactid="242">bookID</td><td data-reactid="243">char(8)</td><td data-reactid="244">书本ID</td></tr><tr data-reactid="245"><td data-reactid="246">title</td><td data-reactid="247">varchar(25)</td><td data-reactid="248">书名</td></tr><tr data-reactid="249"><td data-reactid="250">author</td><td data-reactid="251">varchar(25)</td><td data-reactid="252">作者</td></tr><tr data-reactid="253"><td data-reactid="254">press</td><td data-reactid="255">varchar(25)</td><td data-reactid="256">出版社</td></tr><tr data-reactid="257"><td data-reactid="258">price</td><td data-reactid="259">decimal(10,1)</td><td data-reactid="260">买进价格</td></tr><tr data-reactid="261"><td data-reactid="262">quantity</td><td data-reactid="263">int(11)</td><td data-reactid="264">库存</td></tr><tr data-reactid="265"><td data-reactid="266">image</td><td data-reactid="267">mediumblob</td><td data-reactid="268">封面</td></tr><tr data-reactid="269"><td data-reactid="270">seller</td><td data-reactid="271">varchar(12)</td><td data-reactid="272">卖家</td></tr></tbody></table><h4 id="e-r图" data-reactid="273"><a href="#e-r%E5%9B%BE" aria-hidden="true" data-reactid="274"><span class="icon icon-link" data-reactid="275"></span></a><!-- react-text: 276 -->E-R图<!-- /react-text --></h4><div data-reactid="277"><style data-reactid="278">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1111px;max-height:1111pxpx;" data-reactid="279"><div class="medium-image-progressive-placeholder" style="padding-bottom:63.366336633663366%;" data-reactid="280"></div><div class="medium-image-progressive" data-reactid="281"><canvas data-reactid="282"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="283"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FoxMZIrETvPN4uTkpBQL31CtwJ0T?imageslim" data-reactid="284"/><noscript data-reactid="285"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FoxMZIrETvPN4uTkpBQL31CtwJ0T?imageslim" data-reactid="286"/></noscript></div></div></div><h3 id="服务器框架选择和设计" data-reactid="287"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="288"><span class="icon icon-link" data-reactid="289"></span></a><!-- react-text: 290 -->服务器框架选择和设计<!-- /react-text --></h3><h4 id="选择与原因-1" data-reactid="291"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0-1" aria-hidden="true" data-reactid="292"><span class="icon icon-link" data-reactid="293"></span></a><!-- react-text: 294 -->选择与原因<!-- /react-text --></h4><p data-reactid="295"><!-- react-text: 296 -->作为<!-- /react-text --><code data-reactid="297">JS</code><!-- react-text: 298 -->动态语言的受益者，我服务器肯定就选择<!-- /react-text --><code data-reactid="299">nodejs</code><!-- react-text: 300 -->了。 1. 未使用过<!-- /react-text --><code data-reactid="301">nodejs</code><!-- react-text: 302 -->开发一个相对完整的系统，打算就将该系统作为入门了。 2. <!-- /react-text --><code data-reactid="303">nodejs</code><!-- react-text: 304 -->非常适合IO密集型的应用，采用的是异步事件队列的机制。 3. <!-- /react-text --><code data-reactid="305">JS</code><!-- react-text: 306 -->语言简洁灵活有趣。<!-- /react-text --></p><h4 id="nodejs与express" data-reactid="307"><a href="#nodejs%E4%B8%8Eexpress" aria-hidden="true" data-reactid="308"><span class="icon icon-link" data-reactid="309"></span></a><code data-reactid="310">nodejs</code><!-- react-text: 311 -->与<!-- /react-text --><code data-reactid="312">express</code></h4><ul data-reactid="313"><li data-reactid="314"><code data-reactid="315">nodejs</code><!-- react-text: 316 --> 基于ChromeV8引擎，以<!-- /react-text --><code data-reactid="317">JS</code><!-- react-text: 318 -->作为宿主语言的一个虚拟环境，<!-- /react-text --><code data-reactid="319">JS</code><!-- react-text: 320 -->于<!-- /react-text --><code data-reactid="321">NodeJs</code><!-- react-text: 322 -->可以看做是<!-- /react-text --><code data-reactid="323">Java</code><!-- react-text: 324 -->于<!-- /react-text --><code data-reactid="325">JVM</code><!-- react-text: 326 -->，<!-- /react-text --><code data-reactid="327">NodeJs</code><!-- react-text: 328 -->现在正在不断发展中，目标是与<!-- /react-text --><code data-reactid="329">Java</code><!-- react-text: 330 -->一样，能够形成一套十分完备的库，目前<!-- /react-text --><code data-reactid="331">NodeJs</code><!-- react-text: 332 -->的生态环境非常好，第三方模块层出不穷，而且由于<!-- /react-text --><code data-reactid="333">npm</code><!-- react-text: 334 -->，这些包是否方便管理与下载。<!-- /react-text --></li><li data-reactid="335"><code data-reactid="336">express</code><!-- react-text: 337 --> 介绍完<!-- /react-text --><code data-reactid="338">nodejs</code><!-- react-text: 339 -->，那么<!-- /react-text --><code data-reactid="340">express</code><!-- react-text: 341 -->是什么呢？<!-- /react-text --><code data-reactid="342">express</code><!-- react-text: 343 -->是<!-- /react-text --><code data-reactid="344">nodejs</code><!-- react-text: 345 -->的一个第三方Web框架，开发者可以用该框架非常方便有效的建立<!-- /react-text --><code data-reactid="346">HTTP</code><!-- react-text: 347 -->服务。<!-- /react-text --></li></ul><h4 id="结构设计" data-reactid="348"><a href="#%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="349"><span class="icon icon-link" data-reactid="350"></span></a><!-- react-text: 351 -->结构设计<!-- /react-text --></h4><h5 id="文件结构" data-reactid="352"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="353"><span class="icon icon-link" data-reactid="354"></span></a><!-- react-text: 355 -->文件结构<!-- /react-text --></h5><div data-reactid="356"><style data-reactid="357">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:465px;max-height:465pxpx;" data-reactid="358"><div class="medium-image-progressive-placeholder" style="padding-bottom:145.3763440860215%;" data-reactid="359"></div><div class="medium-image-progressive" data-reactid="360"><canvas data-reactid="361"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="362"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Ftoj335Z5Z0P3M_QKuXcg3qXn0ee?imageslim" data-reactid="363"/><noscript data-reactid="364"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Ftoj335Z5Z0P3M_QKuXcg3qXn0ee?imageslim" data-reactid="365"/></noscript></div></div></div><!-- react-text: 366 --> `db/` 所有数据库操作代码 `public/` 静态资源库，如js,css `routes/` 路由操作diam，对应url `utils/` 工具包代码 `views/` Jade模板文件 `app.js` 系统入口 `mysql.sql` mysql数据文件，可导入<!-- /react-text --><h5 id="部分数据流图" data-reactid="367"><a href="#%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE" aria-hidden="true" data-reactid="368"><span class="icon icon-link" data-reactid="369"></span></a><!-- react-text: 370 -->部分数据流图<!-- /react-text --></h5><ul data-reactid="371"><li data-reactid="372"><!-- react-text: 373 -->用户留言 <!-- /react-text --><div data-reactid="374"><style data-reactid="375">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:818px;max-height:818pxpx;" data-reactid="376"><div class="medium-image-progressive-placeholder" style="padding-bottom:18.21515892420538%;" data-reactid="377"></div><div class="medium-image-progressive" data-reactid="378"><canvas data-reactid="379"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="380"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fhi1zedL3Ba8-JoHaxvQkan4Lg1Y?imageslim" data-reactid="381"/><noscript data-reactid="382"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fhi1zedL3Ba8-JoHaxvQkan4Lg1Y?imageslim" data-reactid="383"/></noscript></div></div></div></li><li data-reactid="384"><!-- react-text: 385 -->卖家添加图书 <!-- /react-text --><div data-reactid="386"><style data-reactid="387">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:628px;max-height:628pxpx;" data-reactid="388"><div class="medium-image-progressive-placeholder" style="padding-bottom:29.14012738853503%;" data-reactid="389"></div><div class="medium-image-progressive" data-reactid="390"><canvas data-reactid="391"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="392"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fpl8ZZopdctwR0y-kpy4It_iScNL?imageslim" data-reactid="393"/><noscript data-reactid="394"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fpl8ZZopdctwR0y-kpy4It_iScNL?imageslim" data-reactid="395"/></noscript></div></div></div></li><li data-reactid="396"><!-- react-text: 397 -->买家购书 <!-- /react-text --><div data-reactid="398"><style data-reactid="399">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:773px;max-height:773pxpx;" data-reactid="400"><div class="medium-image-progressive-placeholder" style="padding-bottom:20.439844760672703%;" data-reactid="401"></div><div class="medium-image-progressive" data-reactid="402"><canvas data-reactid="403"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="404"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmTVXNcaMdFiI0awxq_zzpS67an7?imageslim" data-reactid="405"/><noscript data-reactid="406"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmTVXNcaMdFiI0awxq_zzpS67an7?imageslim" data-reactid="407"/></noscript></div></div></div></li></ul><h5 id="部分算法设计" data-reactid="408"><a href="#%E9%83%A8%E5%88%86%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="409"><span class="icon icon-link" data-reactid="410"></span></a><!-- react-text: 411 -->部分算法设计<!-- /react-text --></h5><p data-reactid="412">首先对于留言评论，防止恶意用户刷留言评论，设置了定时销毁器。 算法设计如下：</p><pre data-reactid="413"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="414"><span class="hljs-keyword" data-reactid="415">var</span><!-- react-text: 416 --> _timer = {};
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="417">var</span><!-- react-text: 418 --> Timer = {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="419">set</span><!-- react-text: 420 --> : <!-- /react-text --><span class="hljs-function" data-reactid="421"><span class="hljs-keyword" data-reactid="422">function</span><!-- react-text: 423 --> (<!-- /react-text --><span class="hljs-params" data-reactid="424">key,mill</span><!-- react-text: 425 -->) <!-- /react-text --></span><!-- react-text: 426 -->{ <!-- /react-text --><span class="hljs-comment" data-reactid="427">//设置定时器的关键字与销毁时间</span><!-- react-text: 428 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="429">this</span><!-- react-text: 430 -->.remove(key);
+        _timer[key] ={<!-- /react-text --><span class="hljs-attr" data-reactid="431">mill</span><!-- react-text: 432 -->:mill};
+        _timer[key].code = setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="433"><span class="hljs-keyword" data-reactid="434">function</span><!-- react-text: 435 --> (<!-- /react-text --><span class="hljs-params" data-reactid="436"></span><!-- react-text: 437 -->) <!-- /react-text --></span><!-- react-text: 438 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="439">delete</span><!-- react-text: 440 --> _timer[key];
+        },mill);
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="441">isExist</span><!-- react-text: 442 --> : <!-- /react-text --><span class="hljs-function" data-reactid="443"><span class="hljs-keyword" data-reactid="444">function</span><!-- react-text: 445 -->(<!-- /react-text --><span class="hljs-params" data-reactid="446">key</span><!-- react-text: 447 -->)<!-- /react-text --></span><!-- react-text: 448 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="449">return</span><!-- react-text: 450 --> !!_timer[key];
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="451">remove</span><!-- react-text: 452 --> : <!-- /react-text --><span class="hljs-function" data-reactid="453"><span class="hljs-keyword" data-reactid="454">function</span><!-- react-text: 455 -->(<!-- /react-text --><span class="hljs-params" data-reactid="456">key</span><!-- react-text: 457 -->)<!-- /react-text --></span><!-- react-text: 458 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="459">if</span><!-- react-text: 460 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="461">this</span><!-- react-text: 462 -->.isExist(key)){
+            clearTimeout(_timer[key].code);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="463">delete</span><!-- react-text: 464 --> _timer[key];
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="465">return</span><!-- react-text: 466 --> <!-- /react-text --><span class="hljs-literal" data-reactid="467">true</span><!-- react-text: 468 -->;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="469">return</span><!-- react-text: 470 --> <!-- /react-text --><span class="hljs-literal" data-reactid="471">false</span><!-- react-text: 472 -->;
+    }
+}<!-- /react-text --></code></pre><p data-reactid="473">该系统具有销售分析，如某卖家所有销售情况的折线图，x轴表示日期，y轴表示该日售出书籍数目。 算法设计如下：</p><pre data-reactid="474"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="475"><span class="hljs-comment" data-reactid="476">// all 表示所有卖家销售记录，0-N 时间从现在到以前</span><!-- react-text: 477 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="478"><span class="hljs-keyword" data-reactid="479">function</span><!-- react-text: 480 --> <!-- /react-text --><span class="hljs-title" data-reactid="481">makeLineChart</span><!-- react-text: 482 -->(<!-- /react-text --><span class="hljs-params" data-reactid="483">all</span><!-- react-text: 484 -->) <!-- /react-text --></span><!-- react-text: 485 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="486">if</span><!-- react-text: 487 -->(all==<!-- /react-text --><span class="hljs-literal" data-reactid="488">null</span><!-- react-text: 489 --> || all.length==<!-- /react-text --><span class="hljs-number" data-reactid="490">0</span><!-- react-text: 491 -->)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="492">return</span><!-- react-text: 493 -->;
+    <!-- /react-text --><span class="hljs-comment" data-reactid="494">//返回数据中 keys表示日期数组，data表示对应keys日期的销售量</span><!-- react-text: 495 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="496">return</span><!-- react-text: 497 --> all.reduceRight(<!-- /react-text --><span class="hljs-function" data-reactid="498"><!-- react-text: 499 -->(<!-- /react-text --><span class="hljs-params" data-reactid="500">p,n</span><!-- react-text: 501 -->)=&gt;<!-- /react-text --></span><!-- react-text: 502 -->{ <!-- /react-text --><span class="hljs-comment" data-reactid="503">// 从右向左归并</span><!-- react-text: 504 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="505">var</span><!-- react-text: 506 --> date = n.tradeDate;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="507">if</span><!-- react-text: 508 -->(p.keys[p.keys.length<!-- /react-text --><span class="hljs-number" data-reactid="509">-1</span><!-- react-text: 510 -->]!=date){
+            p.keys.push(date);
+            p.data.push(<!-- /react-text --><span class="hljs-number" data-reactid="511">1</span><!-- react-text: 512 -->);
+        }<!-- /react-text --><span class="hljs-keyword" data-reactid="513">else</span><!-- react-text: 514 -->{
+            p.data[p.data.length<!-- /react-text --><span class="hljs-number" data-reactid="515">-1</span><!-- react-text: 516 -->]++;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="517">return</span><!-- react-text: 518 --> p;         	
+    },{<!-- /react-text --><span class="hljs-attr" data-reactid="519">keys</span><!-- react-text: 520 -->:[],<!-- /react-text --><span class="hljs-attr" data-reactid="521">data</span><!-- react-text: 522 -->:[]});
+}<!-- /react-text --></code></pre><p data-reactid="523">销售分析中还具有周最受欢迎图书饼图，表示一周内各个图书销售情况。 算法设计如下：</p><pre data-reactid="524"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="525"><span class="hljs-comment" data-reactid="526">// all 表示所有卖家销售记录，0-N 时间从现在到以前</span><!-- react-text: 527 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="528"><span class="hljs-keyword" data-reactid="529">function</span><!-- react-text: 530 --> <!-- /react-text --><span class="hljs-title" data-reactid="531">makePieChart</span><!-- react-text: 532 -->(<!-- /react-text --><span class="hljs-params" data-reactid="533">all</span><!-- react-text: 534 -->) <!-- /react-text --></span><!-- react-text: 535 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="536">if</span><!-- react-text: 537 -->(all==<!-- /react-text --><span class="hljs-literal" data-reactid="538">null</span><!-- react-text: 539 --> || all.length==<!-- /react-text --><span class="hljs-number" data-reactid="540">0</span><!-- react-text: 541 -->)
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="542">return</span><!-- react-text: 543 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="544">var</span><!-- react-text: 545 --> pivot = all[all.length<!-- /react-text --><span class="hljs-number" data-reactid="546">-1</span><!-- react-text: 547 -->];  <!-- /react-text --><span class="hljs-comment" data-reactid="548">// 取出最后一个交易记录，也就是最近的</span><!-- react-text: 549 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="550">var</span><!-- react-text: 551 --> end = <!-- /react-text --><span class="hljs-keyword" data-reactid="552">new</span><!-- react-text: 553 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="554">Date</span><!-- react-text: 555 -->(pivot.tradeDate).setHours(<!-- /react-text --><span class="hljs-number" data-reactid="556">24</span><!-- react-text: 557 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="558">// 根据最近时间的时间得到第二天0点时间</span><!-- react-text: 559 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="560">var</span><!-- react-text: 561 --> start = <!-- /react-text --><span class="hljs-keyword" data-reactid="562">new</span><!-- react-text: 563 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="564">Date</span><!-- react-text: 565 -->(end - <!-- /react-text --><span class="hljs-number" data-reactid="566">1000</span><!-- react-text: 567 -->*<!-- /react-text --><span class="hljs-number" data-reactid="568">60</span><!-- react-text: 569 -->*<!-- /react-text --><span class="hljs-number" data-reactid="570">60</span><!-- react-text: 571 -->*<!-- /react-text --><span class="hljs-number" data-reactid="572">24</span><!-- react-text: 573 -->*<!-- /react-text --><span class="hljs-number" data-reactid="574">7</span><!-- react-text: 575 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="576">// 减去7天毫秒数，得到七天前时间</span><!-- react-text: 577 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="578">var</span><!-- react-text: 579 --> data = {<!-- /react-text --><span class="hljs-attr" data-reactid="580">keys</span><!-- react-text: 581 -->:[pivot.title],<!-- /react-text --><span class="hljs-attr" data-reactid="582">data</span><!-- react-text: 583 -->:[<!-- /react-text --><span class="hljs-number" data-reactid="584">1</span><!-- react-text: 585 -->]},titleMap = {};
+    titleMap[pivot.title]=<!-- /react-text --><span class="hljs-number" data-reactid="586">0</span><!-- react-text: 587 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="588">//初始化参数</span><!-- react-text: 589 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="590">for</span><!-- react-text: 591 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="592">var</span><!-- react-text: 593 --> i=all.length<!-- /react-text --><span class="hljs-number" data-reactid="594">-2</span><!-- react-text: 595 -->;i&gt;=<!-- /react-text --><span class="hljs-number" data-reactid="596">0</span><!-- react-text: 597 -->;i--){
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="598">if</span><!-- react-text: 599 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="600">new</span><!-- react-text: 601 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="602">Date</span><!-- react-text: 603 -->(all[i].tradeDate)&lt;start) <!-- /react-text --><span class="hljs-comment" data-reactid="604">// 如果时间再七天之前，跳出循环</span><!-- react-text: 605 -->
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="606">break</span><!-- react-text: 607 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="608">var</span><!-- react-text: 609 --> title = all[i].title;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="610">if</span><!-- react-text: 611 -->(titleMap[title]==<!-- /react-text --><span class="hljs-literal" data-reactid="612">null</span><!-- react-text: 613 -->){
+            titleMap[title] = data.keys.length;
+            data.keys.push(title);
+            data.data.push(<!-- /react-text --><span class="hljs-number" data-reactid="614">1</span><!-- react-text: 615 -->);
+        }<!-- /react-text --><span class="hljs-keyword" data-reactid="616">else</span><!-- react-text: 617 -->
+            data.data[titleMap[title]]++;
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="618">return</span><!-- react-text: 619 --> data;
+}<!-- /react-text --></code></pre><h3 id="前端框架选择和设计" data-reactid="620"><a href="#%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9%E5%92%8C%E8%AE%BE%E8%AE%A1" aria-hidden="true" data-reactid="621"><span class="icon icon-link" data-reactid="622"></span></a><!-- react-text: 623 -->前端框架选择和设计<!-- /react-text --></h3><h4 id="选择与原因-2" data-reactid="624"><a href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E5%8E%9F%E5%9B%A0-2" aria-hidden="true" data-reactid="625"><span class="icon icon-link" data-reactid="626"></span></a><!-- react-text: 627 -->选择与原因<!-- /react-text --></h4><p data-reactid="628"><!-- react-text: 629 -->针对于用户之间接触的前端界面，我选择了<!-- /react-text --><code data-reactid="630">Bootstrap3.0 UI</code><!-- react-text: 631 -->，<!-- /react-text --><code data-reactid="632">jQuery</code><!-- react-text: 633 -->，<!-- /react-text --><code data-reactid="634">marked.js</code><!-- react-text: 635 -->，<!-- /react-text --><code data-reactid="636">highlight.js</code><!-- react-text: 637 -->，<!-- /react-text --><code data-reactid="638">pace.js</code><!-- react-text: 639 -->，下面做出相关介绍与说明：<!-- /react-text --></p><ul data-reactid="640"><li data-reactid="641"><code data-reactid="642">BootStrap3.0</code><!-- react-text: 643 --> 一套完备的UI框架，包括美观的css样式和一些基于jQuery的组件。可以让开发者用最少的时间建立一个美观的界面。<!-- /react-text --></li><li data-reactid="644"><code data-reactid="645">jQuery</code><!-- react-text: 646 --> 因为<!-- /react-text --><code data-reactid="647">BootStrap</code><!-- react-text: 648 -->组件需要，而且能够方便进行DOM操作，强大的选择器与链式调用。<!-- /react-text --></li><li data-reactid="649"><code data-reactid="650">marked.js</code><!-- react-text: 651 --> 一个将<!-- /react-text --><code data-reactid="652">markdown</code><!-- react-text: 653 -->文本翻译为HTML的库，api简单。<!-- /react-text --></li><li data-reactid="654"><code data-reactid="655">highlight.js</code><!-- react-text: 656 --> 与<!-- /react-text --><code data-reactid="657">marked.js</code><!-- react-text: 658 -->配套使用，能够将代码段解析为具有样式类的库。<!-- /react-text --></li><li data-reactid="659"><code data-reactid="660">pace.js</code><!-- react-text: 661 --> 通过检查浏览器加载的状态，判断文档加载进度，并且提供了一系列的css样式，能够在页面加载的时候显示页面加载进度。<!-- /react-text --></li></ul><h4 id="文件结构-1" data-reactid="662"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84-1" aria-hidden="true" data-reactid="663"><span class="icon icon-link" data-reactid="664"></span></a><!-- react-text: 665 -->文件结构<!-- /react-text --></h4><pre data-reactid="666"><code data-query="{}" data-lang="data-lang" data-reactid="667">public/
+├── javascripts/
+│   ├── addbook.js
+│   ├── Ajaxdelete.js
+│   ├── indexjs.js
+│   ├── msgAnimate.js
+│   ├── msgjs.js
+│   ├── popImage.js
+│   ├── search.js
+│   ├── selljs.js
+│   ├── utils.js
+└── stylesheets/
+    ├── bootstrap/
+    ├── style.less
+    ├── style.css
+    ├── hljs-github-min.css
+    └── markdown.less
+</code></pre><p data-reactid="668"><code data-reactid="669">stylesheets/</code><!-- react-text: 670 -->文件夹放的是样式文件，其中的<!-- /react-text --><code data-reactid="671">style.less</code><!-- react-text: 672 -->是入口，<!-- /react-text --><code data-reactid="673">style.css</code><!-- react-text: 674 -->是利用node模块压缩后真正传送的样式文件<!-- /react-text --></p><h4 id="特殊功能说明" data-reactid="675"><a href="#%E7%89%B9%E6%AE%8A%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="676"><span class="icon icon-link" data-reactid="677"></span></a><!-- react-text: 678 -->特殊功能说明<!-- /react-text --></h4><ol data-reactid="679"><li data-reactid="680"><!-- react-text: 681 -->提示框动态固定显示 <!-- /react-text --><div data-reactid="682"><style data-reactid="683">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:500px;max-height:500pxpx;" data-reactid="684"><div class="medium-image-progressive-placeholder" style="padding-bottom:39.800000000000004%;" data-reactid="685"></div><div class="medium-image-progressive" data-reactid="686"><canvas data-reactid="687"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="688"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FrTSgOxaYM2B4s9dWmstn0ZDAoHs?imageslim" data-reactid="689"/><noscript data-reactid="690"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FrTSgOxaYM2B4s9dWmstn0ZDAoHs?imageslim" data-reactid="691"/></noscript></div></div></div><!-- react-text: 692 --> 方法一：（固定width）<!-- /react-text --></li></ol><pre data-reactid="693"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="694"><span class="hljs-selector-class" data-reactid="695">.messages</span><!-- react-text: 696 -->{
+  <!-- /react-text --><span class="hljs-selector-class" data-reactid="697">.box-shadow</span><!-- react-text: 698 -->(<!-- /react-text --><span class="hljs-number" data-reactid="699">0px</span><!-- react-text: 700 --> <!-- /react-text --><span class="hljs-number" data-reactid="701">0px</span><!-- react-text: 702 --> <!-- /react-text --><span class="hljs-number" data-reactid="703">8px</span><!-- react-text: 704 --> <!-- /react-text --><span class="hljs-number" data-reactid="705">3px</span><!-- react-text: 706 --> <!-- /react-text --><span class="hljs-number" data-reactid="707">#bbb</span><!-- react-text: 708 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="709">z-index</span><!-- react-text: 710 -->: <!-- /react-text --><span class="hljs-number" data-reactid="711">10000</span><!-- react-text: 712 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="713">position</span><!-- react-text: 714 -->: fixed;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="715">width</span><!-- react-text: 716 -->: <!-- /react-text --><span class="hljs-number" data-reactid="717">340px</span><!-- react-text: 718 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="719">height</span><!-- react-text: 720 -->: <!-- /react-text --><span class="hljs-number" data-reactid="721">50px</span><!-- react-text: 722 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="723">left</span><!-- react-text: 724 -->: <!-- /react-text --><span class="hljs-number" data-reactid="725">50%</span><!-- react-text: 726 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="727">top </span><!-- react-text: 728 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="729">50px</span><!-- react-text: 730 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="731">margin-left</span><!-- react-text: 732 -->: -<!-- /react-text --><span class="hljs-number" data-reactid="733">170px</span><!-- react-text: 734 -->;
+
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="735">-webkit-transition</span><!-- react-text: 736 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="737">2s</span><!-- react-text: 738 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="739">-moz-transition</span><!-- react-text: 740 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="741">2s</span><!-- react-text: 742 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="743">-ms-transition</span><!-- react-text: 744 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="745">2s</span><!-- react-text: 746 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="747">-o-transition</span><!-- react-text: 748 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="749">2s</span><!-- react-text: 750 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="751">transition</span><!-- react-text: 752 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="753">2s</span><!-- react-text: 754 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="755">opacity</span><!-- react-text: 756 -->:<!-- /react-text --><span class="hljs-number" data-reactid="757">0</span><!-- react-text: 758 -->;
+}<!-- /react-text --></code></pre><pre data-reactid="759"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="760"><span class="hljs-built_in" data-reactid="761">window</span><!-- react-text: 762 -->.onload = <!-- /react-text --><span class="hljs-function" data-reactid="763"><span class="hljs-keyword" data-reactid="764">function</span><!-- react-text: 765 --> (<!-- /react-text --><span class="hljs-params" data-reactid="766"></span><!-- react-text: 767 -->) <!-- /react-text --></span><!-- react-text: 768 -->{
+    $(<!-- /react-text --><span class="hljs-string" data-reactid="769">&#x27;.messages&#x27;</span><!-- react-text: 770 -->)
+        .css({<!-- /react-text --><span class="hljs-string" data-reactid="771">&#x27;transform&#x27;</span><!-- react-text: 772 -->:<!-- /react-text --><span class="hljs-string" data-reactid="773">&#x27;translate(0,120px)&#x27;</span><!-- react-text: 774 -->,<!-- /react-text --><span class="hljs-attr" data-reactid="775">opacity</span><!-- react-text: 776 -->:<!-- /react-text --><span class="hljs-number" data-reactid="777">1</span><!-- react-text: 778 -->})
+}<!-- /react-text --></code></pre><p data-reactid="779">方法二：width自适应</p><pre data-reactid="780"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="781"><span class="hljs-selector-class" data-reactid="782">.messages</span><!-- react-text: 783 -->{
+  <!-- /react-text --><span class="hljs-selector-class" data-reactid="784">.box-shadow</span><!-- react-text: 785 -->(<!-- /react-text --><span class="hljs-number" data-reactid="786">0px</span><!-- react-text: 787 --> <!-- /react-text --><span class="hljs-number" data-reactid="788">0px</span><!-- react-text: 789 --> <!-- /react-text --><span class="hljs-number" data-reactid="790">8px</span><!-- react-text: 791 --> <!-- /react-text --><span class="hljs-number" data-reactid="792">3px</span><!-- react-text: 793 --> <!-- /react-text --><span class="hljs-number" data-reactid="794">#bbb</span><!-- react-text: 795 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="796">z-index</span><!-- react-text: 797 -->: <!-- /react-text --><span class="hljs-number" data-reactid="798">10000</span><!-- react-text: 799 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="800">position</span><!-- react-text: 801 -->: fixed;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="802">left</span><!-- react-text: 803 -->: <!-- /react-text --><span class="hljs-number" data-reactid="804">50%</span><!-- react-text: 805 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="806">top </span><!-- react-text: 807 -->: <!-- /react-text --><span class="hljs-number" data-reactid="808">0px</span><!-- react-text: 809 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="810">-webkit-transform</span><!-- react-text: 811 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="812">50%</span><!-- react-text: 813 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="814">50%</span><!-- react-text: 815 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="816">-moz-transform</span><!-- react-text: 817 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="818">50%</span><!-- react-text: 819 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="820">50%</span><!-- react-text: 821 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="822">-ms-transform</span><!-- react-text: 823 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="824">50%</span><!-- react-text: 825 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="826">50%</span><!-- react-text: 827 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="828">-o-transform</span><!-- react-text: 829 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="830">50%</span><!-- react-text: 831 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="832">50%</span><!-- react-text: 833 -->);
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="834">transform</span><!-- react-text: 835 -->: translate(-<!-- /react-text --><span class="hljs-number" data-reactid="836">50%</span><!-- react-text: 837 -->,-<!-- /react-text --><span class="hljs-number" data-reactid="838">50%</span><!-- react-text: 839 -->);
+
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="840">-webkit-transition</span><!-- react-text: 841 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="842">2s</span><!-- react-text: 843 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="844">-moz-transition</span><!-- react-text: 845 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="846">2s</span><!-- react-text: 847 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="848">-ms-transition</span><!-- react-text: 849 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="850">2s</span><!-- react-text: 851 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="852">-o-transition</span><!-- react-text: 853 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="854">2s</span><!-- react-text: 855 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="856">transition</span><!-- react-text: 857 -->: all <!-- /react-text --><span class="hljs-number" data-reactid="858">2s</span><!-- react-text: 859 -->;
+  <!-- /react-text --><span class="hljs-attribute" data-reactid="860">opacity</span><!-- react-text: 861 -->:<!-- /react-text --><span class="hljs-number" data-reactid="862">0</span><!-- react-text: 863 -->;
+}<!-- /react-text --></code></pre><pre data-reactid="864"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="865"><span class="hljs-built_in" data-reactid="866">window</span><!-- react-text: 867 -->.onload = <!-- /react-text --><span class="hljs-function" data-reactid="868"><span class="hljs-keyword" data-reactid="869">function</span><!-- react-text: 870 --> (<!-- /react-text --><span class="hljs-params" data-reactid="871"></span><!-- react-text: 872 -->) <!-- /react-text --></span><!-- react-text: 873 -->{
+    $(<!-- /react-text --><span class="hljs-string" data-reactid="874">&#x27;.messages&#x27;</span><!-- react-text: 875 -->)
+        <!-- /react-text --><span class="hljs-comment" data-reactid="876">// .css({&#x27;transform&#x27;:&#x27;translate(0,120px)&#x27;,opacity:1})</span><!-- react-text: 877 -->
+        .css({<!-- /react-text --><span class="hljs-string" data-reactid="878">&#x27;margin-top&#x27;</span><!-- react-text: 879 -->:<!-- /react-text --><span class="hljs-string" data-reactid="880">&#x27;140px&#x27;</span><!-- react-text: 881 -->,<!-- /react-text --><span class="hljs-attr" data-reactid="882">opacity</span><!-- react-text: 883 -->:<!-- /react-text --><span class="hljs-number" data-reactid="884">1</span><!-- react-text: 885 -->})
+}<!-- /react-text --></code></pre><ol start="2" data-reactid="886"><li data-reactid="887"><!-- react-text: 888 -->跳至评论，评论区高亮 <!-- /react-text --><div data-reactid="889"><style data-reactid="890">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:594px;max-height:594pxpx;" data-reactid="891"><div class="medium-image-progressive-placeholder" style="padding-bottom:104.54545454545455%;" data-reactid="892"></div><div class="medium-image-progressive" data-reactid="893"><canvas data-reactid="894"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="895"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FrPkTfIt8U2R0Cvr-lpcPfbqfUED?imageslim" data-reactid="896"/><noscript data-reactid="897"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FrPkTfIt8U2R0Cvr-lpcPfbqfUED?imageslim" data-reactid="898"/></noscript></div></div></div></li></ol><pre data-reactid="899"><code class="hljs language-less" data-query="{}" data-lang="less" data-reactid="900"><span class="hljs-keyword" data-reactid="901">@keyframes</span><!-- react-text: 902 --> blinking {
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="903">0%</span><!-- react-text: 904 --> {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="905">//opacity: 0;</span><!-- react-text: 906 -->
+    }
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="907">30%</span><!-- react-text: 908 -->{
+        <!-- /react-text --><span class="hljs-attribute" data-reactid="909">background-color</span><!-- react-text: 910 -->: <!-- /react-text --><span class="hljs-number" data-reactid="911">#fcf8e3</span><!-- react-text: 912 -->;
+    }
+    <!-- /react-text --><span class="hljs-selector-tag" data-reactid="913">100%</span><!-- react-text: 914 --> {
+        <!-- /react-text --><span class="hljs-attribute" data-reactid="915">background-color</span><!-- react-text: 916 -->: <!-- /react-text --><span class="hljs-number" data-reactid="917">#fcf8e3</span><!-- react-text: 918 -->;
+        <!-- /react-text --><span class="hljs-comment" data-reactid="919">//opacity: 1;</span><!-- react-text: 920 -->
+    }
+}
+<!-- /react-text --><span class="hljs-selector-class" data-reactid="921">.blink</span><!-- react-text: 922 -->{
+    <!-- /react-text --><span class="hljs-selector-class" data-reactid="923">.animation</span><!-- react-text: 924 -->(blinking <!-- /react-text --><span class="hljs-number" data-reactid="925">2.8s</span><!-- react-text: 926 -->)
+}<!-- /react-text --></code></pre><pre data-reactid="927"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="928"><!-- react-text: 929 -->$(<!-- /react-text --><span class="hljs-string" data-reactid="930">&#x27;[role=link-msg]&#x27;</span><!-- react-text: 931 -->).click(<!-- /react-text --><span class="hljs-function" data-reactid="932"><span class="hljs-keyword" data-reactid="933">function</span><!-- react-text: 934 --> (<!-- /react-text --><span class="hljs-params" data-reactid="935">e</span><!-- react-text: 936 -->) <!-- /react-text --></span><!-- react-text: 937 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="938">var</span><!-- react-text: 939 --> x = $(<!-- /react-text --><span class="hljs-keyword" data-reactid="940">this</span><!-- react-text: 941 -->.hash).next().children().removeClass(<!-- /react-text --><span class="hljs-string" data-reactid="942">&#x27;blink&#x27;</span><!-- react-text: 943 -->)
+        setTimeout(<!-- /react-text --><span class="hljs-function" data-reactid="944"><span class="hljs-keyword" data-reactid="945">function</span><!-- react-text: 946 --> (<!-- /react-text --><span class="hljs-params" data-reactid="947"></span><!-- react-text: 948 -->) <!-- /react-text --></span><!-- react-text: 949 -->{
+            x.addClass(<!-- /react-text --><span class="hljs-string" data-reactid="950">&#x27;blink&#x27;</span><!-- react-text: 951 -->).children(<!-- /react-text --><span class="hljs-string" data-reactid="952">&#x27;textarea&#x27;</span><!-- react-text: 953 -->).focus();
+        },<!-- /react-text --><span class="hljs-number" data-reactid="954">0</span><!-- react-text: 955 -->)
+    });<!-- /react-text --></code></pre><ol start="3" data-reactid="956"><li data-reactid="957">markdown编辑区可粘贴网络图片</li></ol><pre data-reactid="958"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="959"><!-- react-text: 960 -->input.onpaste = <!-- /react-text --><span class="hljs-function" data-reactid="961"><span class="hljs-keyword" data-reactid="962">function</span><!-- react-text: 963 --> (<!-- /react-text --><span class="hljs-params" data-reactid="964">e</span><!-- react-text: 965 -->) <!-- /react-text --></span><!-- react-text: 966 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="967">var</span><!-- react-text: 968 --> clipboardData, pastedData;
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="969">// Get pasted data via clipboard API</span><!-- react-text: 970 -->
+        clipboardData = e.clipboardData || <!-- /react-text --><span class="hljs-built_in" data-reactid="971">window</span><!-- react-text: 972 -->.clipboardData;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="973">var</span><!-- react-text: 974 --> text = clipboardData.getData(<!-- /react-text --><span class="hljs-string" data-reactid="975">&#x27;text/plain&#x27;</span><!-- react-text: 976 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="977">if</span><!-- react-text: 978 -->(!text){
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="979">var</span><!-- react-text: 980 --> img = clipboardData.getData(<!-- /react-text --><span class="hljs-string" data-reactid="981">&#x27;text/html&#x27;</span><!-- react-text: 982 -->);
+            img.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="983">/&lt;img.+src=&quot;(.+?)&quot;/g</span><!-- react-text: 984 -->,(m,c)=&gt;{
+                e.preventDefault();
+                <!-- /react-text --><span class="hljs-comment" data-reactid="985">// 调用</span><!-- react-text: 986 -->
+                <!-- /react-text --><span class="hljs-built_in" data-reactid="987">document</span><!-- react-text: 988 -->.execCommand(<!-- /react-text --><span class="hljs-string" data-reactid="989">&#x27;insertText&#x27;</span><!-- react-text: 990 -->, <!-- /react-text --><span class="hljs-literal" data-reactid="991">false</span><!-- react-text: 992 -->, <!-- /react-text --><span class="hljs-string" data-reactid="993">&quot;![ClipboardImage](&quot;</span><!-- react-text: 994 -->+c+<!-- /react-text --><span class="hljs-string" data-reactid="995">&quot;)&quot;</span><!-- react-text: 996 -->);
+            })
+        }
+    };<!-- /react-text --></code></pre><ol start="4" data-reactid="997"><li data-reactid="998"><!-- react-text: 999 -->代码段右上角显示语言 <!-- /react-text --><div data-reactid="1000"><style data-reactid="1001">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:928px;max-height:928pxpx;" data-reactid="1002"><div class="medium-image-progressive-placeholder" style="padding-bottom:79.09482758620689%;" data-reactid="1003"></div><div class="medium-image-progressive" data-reactid="1004"><canvas data-reactid="1005"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1006"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsEQEWGTxxkj6McnadZdnfk9NPjP?imageslim" data-reactid="1007"/><noscript data-reactid="1008"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsEQEWGTxxkj6McnadZdnfk9NPjP?imageslim" data-reactid="1009"/></noscript></div></div></div></li></ol><hr data-reactid="1010"/><h2 id="系统截图" data-reactid="1011"><a href="#%E7%B3%BB%E7%BB%9F%E6%88%AA%E5%9B%BE" aria-hidden="true" data-reactid="1012"><span class="icon icon-link" data-reactid="1013"></span></a><!-- react-text: 1014 -->系统截图<!-- /react-text --></h2><div data-reactid="1015"><style data-reactid="1016">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1194px;max-height:1194pxpx;" data-reactid="1017"><div class="medium-image-progressive-placeholder" style="padding-bottom:66.33165829145729%;" data-reactid="1018"></div><div class="medium-image-progressive" data-reactid="1019"><canvas data-reactid="1020"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1021"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm7BX0YWaliIY1WBkmUDTNfh7ZOv?imageslim" data-reactid="1022"/><noscript data-reactid="1023"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm7BX0YWaliIY1WBkmUDTNfh7ZOv?imageslim" data-reactid="1024"/></noscript></div></div></div><!-- react-text: 1025 --> <!-- /react-text --><div data-reactid="1026"><style data-reactid="1027">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1185px;max-height:1185pxpx;" data-reactid="1028"><div class="medium-image-progressive-placeholder" style="padding-bottom:36.708860759493675%;" data-reactid="1029"></div><div class="medium-image-progressive" data-reactid="1030"><canvas data-reactid="1031"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1032"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fk-q4DgGxi38zkNuYrsjIUj1tbKr?imageslim" data-reactid="1033"/><noscript data-reactid="1034"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fk-q4DgGxi38zkNuYrsjIUj1tbKr?imageslim" data-reactid="1035"/></noscript></div></div></div><!-- react-text: 1036 --> <!-- /react-text --><div data-reactid="1037"><style data-reactid="1038">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1170px;max-height:1170pxpx;" data-reactid="1039"><div class="medium-image-progressive-placeholder" style="padding-bottom:83.16239316239317%;" data-reactid="1040"></div><div class="medium-image-progressive" data-reactid="1041"><canvas data-reactid="1042"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1043"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkQTiUEHfw-ngnXOdoTXebY5doQ7?imageslim" data-reactid="1044"/><noscript data-reactid="1045"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkQTiUEHfw-ngnXOdoTXebY5doQ7?imageslim" data-reactid="1046"/></noscript></div></div></div><!-- react-text: 1047 --> <!-- /react-text --><div data-reactid="1048"><style data-reactid="1049">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1199px;max-height:1199pxpx;" data-reactid="1050"><div class="medium-image-progressive-placeholder" style="padding-bottom:75.39616346955796%;" data-reactid="1051"></div><div class="medium-image-progressive" data-reactid="1052"><canvas data-reactid="1053"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1054"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlTGXCPrYvVER7aW7X-JoNmJIhmh?imageslim" data-reactid="1055"/><noscript data-reactid="1056"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlTGXCPrYvVER7aW7X-JoNmJIhmh?imageslim" data-reactid="1057"/></noscript></div></div></div><!-- react-text: 1058 --> <!-- /react-text --><div data-reactid="1059"><style data-reactid="1060">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1168px;max-height:1168pxpx;" data-reactid="1061"><div class="medium-image-progressive-placeholder" style="padding-bottom:43.321917808219176%;" data-reactid="1062"></div><div class="medium-image-progressive" data-reactid="1063"><canvas data-reactid="1064"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1065"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnS9RKLBBoJ5o35D7s5PqiQXOQA9?imageslim" data-reactid="1066"/><noscript data-reactid="1067"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnS9RKLBBoJ5o35D7s5PqiQXOQA9?imageslim" data-reactid="1068"/></noscript></div></div></div><!-- react-text: 1069 --> <!-- /react-text --><div data-reactid="1070"><style data-reactid="1071">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1161px;max-height:1161pxpx;" data-reactid="1072"><div class="medium-image-progressive-placeholder" style="padding-bottom:62.87683031869078%;" data-reactid="1073"></div><div class="medium-image-progressive" data-reactid="1074"><canvas data-reactid="1075"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1076"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FuAKYxsc1Z3trMhrmzHb-u6kPldZ?imageslim" data-reactid="1077"/><noscript data-reactid="1078"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FuAKYxsc1Z3trMhrmzHb-u6kPldZ?imageslim" data-reactid="1079"/></noscript></div></div></div><!-- react-text: 1080 --> <!-- /react-text --><div data-reactid="1081"><style data-reactid="1082">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1240px;max-height:1240pxpx;" data-reactid="1083"><div class="medium-image-progressive-placeholder" style="padding-bottom:77.33870967741936%;" data-reactid="1084"></div><div class="medium-image-progressive" data-reactid="1085"><canvas data-reactid="1086"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1087"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo0bkjy5iYh0JzWfIbkPLpklxhbR?imageslim" data-reactid="1088"/><noscript data-reactid="1089"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo0bkjy5iYh0JzWfIbkPLpklxhbR?imageslim" data-reactid="1090"/></noscript></div></div></div><!-- react-text: 1091 --> <!-- /react-text --><div data-reactid="1092"><style data-reactid="1093">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1185px;max-height:1185pxpx;" data-reactid="1094"><div class="medium-image-progressive-placeholder" style="padding-bottom:61.26582278481013%;" data-reactid="1095"></div><div class="medium-image-progressive" data-reactid="1096"><canvas data-reactid="1097"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1098"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgROOlb4_LlW5cLV9dDD4A6_bAIh?imageslim" data-reactid="1099"/><noscript data-reactid="1100"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgROOlb4_LlW5cLV9dDD4A6_bAIh?imageslim" data-reactid="1101"/></noscript></div></div></div><!-- react-text: 1102 --> <!-- /react-text --><div data-reactid="1103"><style data-reactid="1104">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1173px;max-height:1173pxpx;" data-reactid="1105"><div class="medium-image-progressive-placeholder" style="padding-bottom:49.531116794543905%;" data-reactid="1106"></div><div class="medium-image-progressive" data-reactid="1107"><canvas data-reactid="1108"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1109"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fhaqdcpm0qP0-MO6Jk_eglLD0eXR?imageslim" data-reactid="1110"/><noscript data-reactid="1111"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fhaqdcpm0qP0-MO6Jk_eglLD0eXR?imageslim" data-reactid="1112"/></noscript></div></div></div><!-- react-text: 1113 --> <!-- /react-text --><div data-reactid="1114"><style data-reactid="1115">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1191px;max-height:1191pxpx;" data-reactid="1116"><div class="medium-image-progressive-placeholder" style="padding-bottom:62.72040302267003%;" data-reactid="1117"></div><div class="medium-image-progressive" data-reactid="1118"><canvas data-reactid="1119"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1120"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FifYYeoniR5rxoFXFgH6wEjI5Aw0?imageslim" data-reactid="1121"/><noscript data-reactid="1122"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FifYYeoniR5rxoFXFgH6wEjI5Aw0?imageslim" data-reactid="1123"/></noscript></div></div></div><hr data-reactid="1124"/><h2 id="收获与体会" data-reactid="1125"><a href="#%E6%94%B6%E8%8E%B7%E4%B8%8E%E4%BD%93%E4%BC%9A" aria-hidden="true" data-reactid="1126"><span class="icon icon-link" data-reactid="1127"></span></a><!-- react-text: 1128 -->收获与体会<!-- /react-text --></h2><ul data-reactid="1129"><li data-reactid="1130"><!-- react-text: 1131 -->感受到了<!-- /react-text --><code data-reactid="1132">nodejs</code><!-- react-text: 1133 -->与<!-- /react-text --><code data-reactid="1134">express</code><!-- react-text: 1135 -->的魅力<!-- /react-text --></li><li data-reactid="1136">增强了系统的整体把控架构能力</li><li data-reactid="1137">掌握了一些常见具体问题的处理方式</li><li data-reactid="1138">不足在于后端异步结构代码比较冗杂，难于管理</li></ul><h2 id="参考资料" data-reactid="1139"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="1140"><span class="icon icon-link" data-reactid="1141"></span></a><!-- react-text: 1142 -->参考资料<!-- /react-text --></h2><ul data-reactid="1143"><li data-reactid="1144"><a href="http://www.cnblogs.com/kongxianghai/archive/2015/02/15/4293139.html" data-reactid="1145">nodejs express4.x 文件上传</a></li><li data-reactid="1146"><a href="http://jade-lang.com/reference/attributes/" data-reactid="1147">Jade 完整教程</a></li><li data-reactid="1148"><a href="http://www.jiawin.com/pace-js-automatic-page-load-progress-bar" data-reactid="1149">page.js</a></li><li data-reactid="1150"><a href="http://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser" data-reactid="1151">javascript-get-clipboard-data-on-paste-event-cross-browser</a></li><li data-reactid="1152"><a href="http://www.haorooms.com/post/jq_js_xxjdt" data-reactid="1153">www.haorooms.com/post/jq_js_xxjdt</a></li></ul></article></div><div class="gitment-container" data-reactid="1154"></div><div class="paginator" data-reactid="1155"><a title="「滴滴滴，老司机开车了」nodejs爬取煎蛋网妹子图" class="prev" href="/spider-girls-bynode" data-reactid="1156">Prev</a><a title="「项目拾遗」HTTP文件浏览（静态文件+express4.x+md/code文件渲染）" class="next" href="/express4x-file-explorer" data-reactid="1157">Next</a></div></div></main><footer data-reactid="1158"><div class="copyright" data-reactid="1159"><p data-reactid="1160"><!-- react-text: 1161 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="1162">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

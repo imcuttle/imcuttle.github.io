@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Progressive Web App - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1166159128"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Progressive Web App</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-10T19:35:48+00:00" data-reactid="13">Feb 10, 2017 7:35 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><!-- react-text: 18 -->转自：<!-- /react-text --><a href="https://zhuanlan.zhihu.com/p/25167289?utm_source=wechat_timeline&amp;utm_medium=social&amp;from=timeline&amp;isappinstalled=1" data-reactid="19">知乎</a></p><p data-reactid="20"><!-- react-text: 21 -->html =&gt; markdown 来自 <!-- /react-text --><a href="https://github.com/moyuyc/html-markdown" data-reactid="22">html-markdown</a></p><p data-reactid="23">原文：</p><blockquote data-reactid="24"><p data-reactid="25">今年 9 月份的时候，《程序员》杂志社就邀请我写一篇关于 PWA 的文章。后来花式拖稿，拖过了 10 月的 QCon，11 月的 GDG DevFest，终于在 12 月把这篇长文熬了出来。几次分享的不成熟，这次的结构算是比较满意了。「 可能是目前中文世界里对 PWA 最全面详细的长文了」，作为外刊君的一员，希望你能喜欢。&gt;</p><p data-reactid="26"><!-- react-text: 27 -->本文首发于 <!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//geek.csdn.net/news/detail/135595" data-reactid="28"><!-- react-text: 29 -->CSDN<!-- /react-text --><i class="icon-external" data-reactid="30"></i></a><!-- react-text: 31 --> 与《程序员》2017 年 2 月刊，现同步发布于 <!-- /react-text --><a href="https://zhuanlan.zhihu.com/FrontendMagazine" data-reactid="32">前端外刊评论</a><!-- react-text: 33 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/" data-reactid="34"><!-- react-text: 35 -->Hux Blog<!-- /react-text --><i class="icon-external" data-reactid="36"></i></a><!-- react-text: 37 -->，转载请保留链接 ;)<!-- /react-text --></p></blockquote><h2 id="b下一代-web-应用？b" data-reactid="38"><a href="#b%E4%B8%8B%E4%B8%80%E4%BB%A3-web-%E5%BA%94%E7%94%A8%EF%BC%9Fb" aria-hidden="true" data-reactid="39"><span class="icon icon-link" data-reactid="40"></span></a><b data-reactid="41">下一代 Web 应用？</b></h2><p data-reactid="42">近年来，Web 应用在整个软件与互联网行业承载的责任越来越重，软件复杂度和维护成本越来越高，Web 技术，尤其是 Web 客户端技术，迎来了爆发式的发展。</p><p data-reactid="43"><!-- react-text: 44 -->包括但不限于基于 Node.js 的前端工程化方案；诸如 Webpack、Rollup 这样的打包工具；Babel、PostCSS 这样的转译工具；TypeScript、Elm 这样转译至 JavaScript 的编程语言；React、Angular、Vue 这样面向现代 web 应用需求的前端框架及其生态，也涌现出了像<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//nerds.airbnb.com/isomorphic-javascript-future-web-apps/" data-reactid="45"><!-- react-text: 46 -->同构 JavaScript<!-- /react-text --><i class="icon-external" data-reactid="47"></i></a><!-- react-text: 48 -->与<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//medium.com/%40mjackson/universal-javascript-4761051b7ae9%23.unrzyz3b2" data-reactid="49"><!-- react-text: 50 -->通用 JavaScript 应用<!-- /react-text --><i class="icon-external" data-reactid="51"></i></a><!-- react-text: 52 -->这样将服务器端渲染（Server-side Rendering）与单页面应用模型（Single-page App）结合的 web 应用架构方式，可以说是百花齐放。<!-- /react-text --></p><p data-reactid="53"><!-- react-text: 54 -->但是，Web 应用在移动时代并没有达到其在桌面设备上流行的程度。究其原因，尽管上述的各种方案已经充分利用了现有的 JavaScript 计算能力、CSS 布局能力、HTTP 缓存与浏览器 API 对当代基于 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Ajax_%28programming%29" data-reactid="55"><!-- react-text: 56 -->Ajax<!-- /react-text --><i class="icon-external" data-reactid="57"></i></a><!-- react-text: 58 --> 与<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Responsive_web_design" data-reactid="59"><!-- react-text: 60 -->响应式设计<!-- /react-text --><i class="icon-external" data-reactid="61"></i></a><!-- react-text: 62 -->的 web 应用模型的性能与体验带来了工程角度的巨大突破，我们仍然无法在不借助原生程序辅助浏览器的前提下突破 web 平台本身对 web 应用固有的桎梏：<!-- /react-text --><strong data-reactid="63">客户端软件（即网页）需要下载所带来的网络延迟；与 Web 应用依赖浏览器作为入口所带来的体验问题。</strong></p><div data-reactid="64"><style data-reactid="65">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="66"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.333333333333336%;" data-reactid="67"></div><div class="medium-image-progressive" data-reactid="68"><canvas data-reactid="69"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="70"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f2342ae5aa.jpg" data-reactid="71"/><noscript data-reactid="72"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f2342ae5aa.jpg" data-reactid="73"/></noscript></div></div></div><!-- react-text: 74 --> *Web 与原生应用在移动平台上的使用时长对比 [图片来源: Google<!-- /react-text --><i class="icon-external" data-reactid="75"></i><!-- react-text: 76 -->](https://link.zhihu.com/?target=https%3A//developers.google.com/web/events/pwaroadshow/)*<!-- /react-text --><p data-reactid="77">在桌面设备上，由于网络条件稳定，屏幕尺寸充分，交互方式趋向于多任务，这两点造成的负面影响对比 web 应用免于安装、随叫随到、无需更新等优点，瑕不掩瑜。但是在移动时代，脆弱的网络连接与全新的人机交互方式使得这两个问题被无限放大，严重制约了 web 应用在移动平台的发展。在用户眼里，原生应用不会出现「白屏」，清一色都摆在主屏幕上；而 web 应用则是浏览器这个应用中的应用，使用起来并不方便，而且加载也比原生应用要慢。</p><p data-reactid="78">Progressive Web Apps（以下简称 PWA）以及构成 PWA 的一系列关键技术的出现，终于让我们看到了彻底解决这两个平台级别问题的曙光：能够显著提高应用加载速度、甚至让 web 应用可以在离线环境使用的 Service Worker 与 Cache Storage；用于描述 web 应用元数据（metadata）、让 web 应用能够像原生应用一样被添加到主屏、全屏执行的 Web App Manifest；以及进一步提高 web 应用与操作系统集成能力，让 web 应用能在未被激活时发起推送通知的 Push API 与 Notification API 等等。</p><p data-reactid="79"><!-- react-text: 80 -->将这些技术组合在一起会是怎样的效果呢？「印度阿里巴巴」 —— <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Flipkart" data-reactid="81"><!-- react-text: 82 -->Flipkart<!-- /react-text --><i class="icon-external" data-reactid="83"></i></a><!-- react-text: 84 --> 在 2015 年一度关闭了自己的移动端网站，却在年底发布了现在最为人津津乐道的 PWA 案例 <!-- /react-text --><em data-reactid="85">FlipKart Lite</em><!-- react-text: 86 -->，成为世界上第一个支撑大规模业务的 PWA。发布的一周后它就亮相于 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//youtu.be/m2a9hlUFRhg" data-reactid="87"><!-- react-text: 88 -->Chrome Dev Summit 2015<!-- /react-text --><i class="icon-external" data-reactid="89"></i></a><!-- react-text: 90 --> 上，笔者当时就被惊艳到了。为了方便各媒介上的读者观看，笔者做了几幅图方便给大家介绍：<!-- /react-text --><div data-reactid="91"><style data-reactid="92">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="93"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.333333333333336%;" data-reactid="94"></div><div class="medium-image-progressive" data-reactid="95"><canvas data-reactid="96"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="97"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f236cc65a9.jpg" data-reactid="98"/><noscript data-reactid="99"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f236cc65a9.jpg" data-reactid="100"/></noscript></div></div></div></p><p data-reactid="101"><em data-reactid="102"><!-- react-text: 103 -->图片来源: Hux &amp; <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//medium.com/%40AdityaPunjani/building-flipkart-lite-a-progressive-web-app-2c211e641883%23.hz4d3kw41" data-reactid="104"><!-- react-text: 105 -->Medium.com<!-- /react-text --><i class="icon-external" data-reactid="106"></i></a></em></p><p data-reactid="107"><!-- react-text: 108 -->当浏览器发现用户<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/%3Fhl%3Den" data-reactid="109"><!-- react-text: 110 -->需要<!-- /react-text --><i class="icon-external" data-reactid="111"></i></a><!-- react-text: 112 --> Flipkart Lite 时，它就会提示用户「嘿，你可以把它添加至主屏哦」（用户也可以手动添加）。这样，Flipkart Lite 就会像原生应用一样在主屏上留下一个自定义的 icon 作为入口；与一般的书签不同，当用户点击 icon 时，Flipkat Lite 将直接全屏打开，不再受困于浏览器的 UI 中，而且有自己的启动屏效果。<!-- /react-text --></p><div data-reactid="113"><style data-reactid="114">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="115"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.333333333333336%;" data-reactid="116"></div><div class="medium-image-progressive" data-reactid="117"><canvas data-reactid="118"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="119"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23ac00284.jpg" data-reactid="120"/><noscript data-reactid="121"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23ac00284.jpg" data-reactid="122"/></noscript></div></div></div><!-- react-text: 123 --> *图片来源: Hux &amp; [Medium.com<!-- /react-text --><i class="icon-external" data-reactid="124"></i><!-- react-text: 125 -->](https://link.zhihu.com/?target=https%3A//medium.com/%40AdityaPunjani/building-flipkart-lite-a-progressive-web-app-2c211e641883%23.hz4d3kw41)*<!-- /react-text --><p data-reactid="126">更强大的是，在无法访问网络时，Flipkart Lite 可以像原生应用一样照常执行，还会很骚气的变成黑白色；不但如此，曾经访问过的商品都会被缓存下来得以在离线时继续访问。在商品降价、促销等时刻，Flipkart Lite 会像原生应用一样发起推送通知，吸引用户回到应用。</p><p data-reactid="127"><strong data-reactid="128">无需担心网络延迟；有着独立入口与独立的保活机制。</strong><!-- react-text: 129 -->之前两个问题的一并解决，宣告着 web 应用在移动设备上的浴火重生：满足 PWA 模型的 web 应用，将逐渐成为移动操作系统的一等公民，并将向原生应用发起挑战与「复仇」。<!-- /react-text --></p><p data-reactid="130"><!-- react-text: 131 -->更令笔者兴奋的是，就在今年 11 月的 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//youtu.be/eI3B6x0fw9s" data-reactid="132"><!-- react-text: 133 -->Chrome Dev Summit 2016<!-- /react-text --><i class="icon-external" data-reactid="134"></i></a><!-- react-text: 135 --> 上，Chrome 的工程 VP Darin Fisher 介绍了 Chrome 团队正在做的一些实验：把「添加至主屏」重命名为「安装」，被安装的 PWA 不再仅以 widget 的形式显示在桌面上，而是真正做到与所有原生应用平级，一样被收纳进应用抽屉（App Drawer）里，一样出现在系统设置中 🎉🎉🎉。<!-- /react-text --></p><p data-reactid="136"><em data-reactid="137"><div data-reactid="138"><style data-reactid="139">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="140"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.333333333333336%;" data-reactid="141"></div><div class="medium-image-progressive" data-reactid="142"><canvas data-reactid="143"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="144"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23cbcdb3a.jpg" data-reactid="145"/><noscript data-reactid="146"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23cbcdb3a.jpg" data-reactid="147"/></noscript></div></div></div><!-- react-text: 148 --> 图片来源: Hux &amp; <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//twitter.com/adityapunjani" data-reactid="149"><!-- react-text: 150 -->@adityapunjani<!-- /react-text --><i class="icon-external" data-reactid="151"></i></a></em></p><p data-reactid="152">图中从左到右分别为：类似原生应用的安装界面；被收纳在应用抽屉里的 Flipkart Lite 与 Hux Blog；设置界面中并列出现的 Flipkart 原生应用与 Flipkart Lite PWA （可以看到 PWA 巨大的体积优势）</p><p data-reactid="153"><strong data-reactid="154">笔者相信，PWA 模型将继约 20 年前横空出世的 Ajax 与约 10 年前风靡移动互联网的响应式设计之后，掀起 web 应用模型的第三次根本性革命，将 web 应用带进一个全新的时代。</strong></p><h2 id="bpwa-关键技术的前世今生b" data-reactid="155"><a href="#bpwa-%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9Fb" aria-hidden="true" data-reactid="156"><span class="icon icon-link" data-reactid="157"></span></a><b data-reactid="158">PWA 关键技术的前世今生</b></h2><h3 id="web-app-manifesti-classicon-externali" data-reactid="159"><a href="#web-app-manifesti-classicon-externali" aria-hidden="true" data-reactid="160"><span class="icon icon-link" data-reactid="161"></span></a><a href="https://link.zhihu.com/?target=https%3A//w3c.github.io/manifest/%23use-cases-and-requirements" data-reactid="162"><!-- react-text: 163 -->Web App Manifest<!-- /react-text --><i class="icon-external" data-reactid="164"></i></a></h3><p data-reactid="165">Web App Manifest，即通过一个清单文件向浏览器暴露 web 应用的元数据，包括名字、icon 的 URL 等，以备浏览器使用，比如在添加至主屏或推送通知时暴露给操作系统，从而增强 web 应用与操作系统的集成能力。</p><p data-reactid="166"><!-- react-text: 167 -->让 web 应用在移动设备上的体验更接近原生应用的尝试其实早在 2008 年的 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/pwa-qcon2016/%23/37" data-reactid="168"><!-- react-text: 169 -->iOS 1.1.3 与 iOS 2.1.0 <!-- /react-text --><i class="icon-external" data-reactid="170"></i></a><!-- react-text: 171 -->时就开始了，它们分别为 web 应用增加了对自定义 icon 和全屏打开的支持。<!-- /react-text --></p><div data-reactid="172"><style data-reactid="173">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="174"><div class="medium-image-progressive-placeholder" style="padding-bottom:49%;" data-reactid="175"></div><div class="medium-image-progressive" data-reactid="176"><canvas data-reactid="177"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="178"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23df899a4.jpg" data-reactid="179"/><noscript data-reactid="180"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23df899a4.jpg" data-reactid="181"/></noscript></div></div></div><!-- react-text: 182 --> *图片来源: [appleinsider.com<!-- /react-text --><i class="icon-external" data-reactid="183"></i><!-- react-text: 184 -->](https://link.zhihu.com/?target=http%3A//appleinsider.com/articles/08/10/03/latest_iphone_software_supports_full_screen_web_apps.html)*<!-- /react-text --><p data-reactid="185"><!-- react-text: 186 -->但是很快，随着越来越多的私有平台通过<!-- /react-text --><meta data-reactid="187"/><!-- react-text: 188 -->/<!-- /react-text --><link data-reactid="189"/><!-- react-text: 190 -->标签来为 web 应用添加「私货」， 很快就被塞满了：<!-- /react-text --></p><pre data-reactid="191"><code data-query="{}" data-lang="data-lang" data-reactid="192">&lt;!-- Add to homescreen for Safari on iOS --&gt;
+&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
+&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;&gt;
+&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;Lighten&quot;&gt;
+
+&lt;!-- Add to homescreen for Chrome on Android --&gt;
+&lt;meta name=&quot;mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
+&lt;mate name=&quot;theme-color&quot; content=&quot;#000000&quot;&gt;
+
+&lt;!-- Icons for iOS and Android Chrome M31~M38 --&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;144x144&quot; href=&quot;images/touch/apple-touch-icon-144x144-precomposed.png&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;114x114&quot; href=&quot;images/touch/apple-touch-icon-114x114-precomposed.png&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;72x72&quot; href=&quot;images/touch/apple-touch-icon-72x72-precomposed.png&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;images/touch/apple-touch-icon-57x57-precomposed.png&quot;&gt;
+
+&lt;!-- Icon for Android Chrome, recommended --&gt;
+&lt;link rel=&quot;shortcut icon&quot; sizes=&quot;196x196&quot; href=&quot;images/touch/touch-icon-196x196.png&quot;&gt;
+
+&lt;!-- Tile icon for Win8 (144x144 + tile color) --&gt;
+&lt;meta name=&quot;msapplication-TileImage&quot; content=&quot;images/touch/ms-touch-icon-144x144-precomposed.png&quot;&gt;
+&lt;meta name=&quot;msapplication-TileColor&quot; content=&quot;#3372DF&quot;&gt;
+
+&lt;!-- Generic Icon --&gt;
+&lt;link rel=&quot;shortcut icon&quot; href=&quot;images/touch/touch-icon-57x57.png&quot;&gt;
+</code></pre><p data-reactid="193"><!-- react-text: 194 -->显然，这种做法并不优雅：分散又重复的元数据定义多余且难以维持同步，与 html 耦合在一起也加重了浏览器检查元数据未来变动的成本。与此同时，社区里开始出现使用 manifest 文件以中心化地描述元数据的方案，比如 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.chrome.com/extensions/manifest" data-reactid="195"><!-- react-text: 196 -->Chrome Extension、 Chrome Hosted Web Apps (2010)<!-- /react-text --><i class="icon-external" data-reactid="197"></i></a><!-- react-text: 198 -->与 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Archive/Firefox_OS/Firefox_OS_apps/Building_apps_for_Firefox_OS/Manifest" data-reactid="199"><!-- react-text: 200 -->Firefox OS App Manifest (2011)<!-- /react-text --><i class="icon-external" data-reactid="201"></i></a><!-- react-text: 202 --> 使用 JSON；<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//cordova.apache.org/docs/en/6.x/config_ref/index.html" data-reactid="203"><!-- react-text: 204 -->Cordova<!-- /react-text --><i class="icon-external" data-reactid="205"></i></a><!-- react-text: 206 --> 与 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//msdn.microsoft.com/en-us/library/dn320426%2528v%3Dvs.85%2529.aspx" data-reactid="207"><!-- react-text: 208 -->Windows Pinned Site<!-- /react-text --><i class="icon-external" data-reactid="209"></i></a><!-- react-text: 210 --> 使用 XML；<!-- /react-text --></p><p data-reactid="211"><!-- react-text: 212 -->2013 年，W3C WebApps 工作组开始对基于 JSON 的 Manifest 进行标准化，于同年年底发布<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.w3.org/TR/2013/WD-appmanifest-20131217/" data-reactid="213"><!-- react-text: 214 -->第一份公开 Working Draft<!-- /react-text --><i class="icon-external" data-reactid="215"></i></a><!-- react-text: 216 -->，并逐渐演化成为今天的 W3C Web App Manifest：<!-- /react-text --></p><pre data-reactid="217"><code data-query="{}" data-lang="data-lang" data-reactid="218">{
+  &quot;short_name&quot;: &quot;Manifest Sample&quot;,
+  &quot;name&quot;: &quot;Web Application Manifest Sample&quot;,
+  &quot;icons&quot;: [{
+      &quot;src&quot;: &quot;launcher-icon-2x.png&quot;,
+      &quot;sizes&quot;: &quot;96x96&quot;,
+      &quot;type&quot;: &quot;image/png&quot;
+   }],
+  &quot;scope&quot;: &quot;/sample/&quot;,
+  &quot;start_url&quot;: &quot;/sample/index.html&quot;,
+  &quot;display&quot;: &quot;standalone&quot;,
+  &quot;orientation&quot;: &quot;landscape&quot;
+  &quot;theme_color&quot;: &quot;#000&quot;,
+  &quot;background_color&quot;: &quot;#fff&quot;,
+}
+</code></pre><pre data-reactid="219"><code data-query="{}" data-lang="data-lang" data-reactid="220">&lt;!-- document --&gt;
+&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;
+</code></pre><p data-reactid="221">诸如 name、icons、display 都是我们比较熟悉的，而大部分新增的成员则为 web 应用带来了一系列以前 web 应用想做却做不到（或在之前只能靠 hack）的新特性：</p><ul data-reactid="222"><li data-reactid="223"><!-- react-text: 224 -->scope：定义了 web 应用的浏览作用域，比如作用域外的 URL 就会打开浏览器而不会在当前 PWA 里继续浏览。- start_url：定义了一个 PWA 的入口页面。比如说你添加 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me" data-reactid="225"><!-- react-text: 226 -->Hux Blog<!-- /react-text --><i class="icon-external" data-reactid="227"></i></a><!-- react-text: 228 --> 的任何一个文章到主屏，从主屏打开时都会访问 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me" data-reactid="229"><!-- react-text: 230 -->Hux Blog<!-- /react-text --><i class="icon-external" data-reactid="231"></i></a><!-- react-text: 232 --> 的主页。- orientation：终于，我们可以锁定屏幕旋转了（喜极而泣…）- theme_color/background_color：主题色与背景色，用于配置一些可定制的操作系统 UI 以提高用户体验，比如 Android 的状态栏、任务栏等。 这个清单的成员还有很多，比如用于声明「对应原生应用」的 related_applications 等等，本文就不一一列举了。作为 PWA 的「户口本」，承载着 web 应用与操作系统集成能力的重任，Web App Manifest 还将在日后不断扩展，以满足 web 应用高速演化的需要。<!-- /react-text --></li></ul><h3 id="service-workeri-classicon-externali" data-reactid="233"><a href="#service-workeri-classicon-externali" aria-hidden="true" data-reactid="234"><span class="icon icon-link" data-reactid="235"></span></a><a href="https://link.zhihu.com/?target=https%3A//w3c.github.io/ServiceWorker/" data-reactid="236"><!-- react-text: 237 -->Service Worker<!-- /react-text --><i class="icon-external" data-reactid="238"></i></a></h3><p data-reactid="239">我们原有的整个 Web 应用模型，都是构建在「用户能上网」的前提之下的，所以一离线就只能玩小恐龙了。其实，对于「让 web 应用离线执行」这件事，Service Worker 至少是 web 社区的第三次尝试了。</p><p data-reactid="240"><!-- react-text: 241 -->故事可以追溯到 2007 年的 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Google_Gears" data-reactid="242"><!-- react-text: 243 -->Google Gears<!-- /react-text --><i class="icon-external" data-reactid="244"></i></a><!-- react-text: 245 -->：为了让自家的 Gmail、Youtube、Google Reader 等 web 应用可以在本地存储数据与离线执行，Google 开发了一个浏览器拓展来增强 web 应用。Google Gears 支持 IE 6、Safari 3、Firefox 1.5 等浏览器；要知道，那一年 Chrome 都还没出生呢。<!-- /react-text --></p><p data-reactid="246">在 Gears API 中，我们通过向 LocalServer 模块提交一个缓存文件清单来实现离线支持：</p><pre data-reactid="247"><code data-query="{}" data-lang="data-lang" data-reactid="248">// Somewhere in your javascript
+var localServer = google.gears.factory.create(&quot;bata.localserver&quot;);
+var store = localServer.createManagedStore(STORE_NAME);
+store.manifestUrl = &quot;manifest.json&quot;
+</code></pre><pre data-reactid="249"><code data-query="{}" data-lang="data-lang" data-reactid="250">// manifest.json - 假设 JSON 有注释
+{
+　　&quot;betaManifestVersion&quot;:　1,
+　　&quot;version&quot;: 　&quot;1.0&quot;,
+　　&quot;entries&quot;:　[　
+　　　　{　&quot;url&quot;: 　&quot;index.html&quot;},
+　　　　{　&quot;url&quot;: 　&quot;main.js&quot;}
+　　]
+}
+</code></pre><p data-reactid="251"><!-- react-text: 252 -->是不是感到很熟悉？好像 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.w3.org/TR/2011/WD-html5-20110525/offline.html" data-reactid="253"><!-- react-text: 254 -->HTML5 规范<!-- /react-text --><i class="icon-external" data-reactid="255"></i></a><!-- react-text: 256 -->中的 Application Cache 也是类似的东西？<!-- /react-text --></p><pre data-reactid="257"><code data-query="{}" data-lang="data-lang" data-reactid="258">&lt;html manifest=&quot;cache.appcache&quot;&gt;
+</code></pre><pre data-reactid="259"><code data-query="{}" data-lang="data-lang" data-reactid="260">CACHE MANIFEST
+
+CACHE:
+index.html
+main.js
+</code></pre><p data-reactid="261"><!-- react-text: 262 -->是的，Gears 的 LocalServer 就是后来大家所熟知的 App Cache 的前身，大约从 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.w3.org/TR/offline-webapps/" data-reactid="263"><!-- react-text: 264 -->2008<!-- /react-text --><i class="icon-external" data-reactid="265"></i></a><!-- react-text: 266 --> 年开始 W3C 就开始尝试将 Gears 进行标准化了；除了 LocalServer，Gears 中用于提供并行计算能力的 WorkerPool 模块与用于提供本地数据库与 SQL 支持的 Database 模块也分别是日后 Web Worker 与 Web SQL Database（后被废弃）的前身。<!-- /react-text --></p><p data-reactid="267"><!-- react-text: 268 -->HTML5 App Cache 作为第二波「让 web 应用离线执行」的尝试，确实也服务了比如 Google Doc、尤雨溪早年作品 HTML5 Clear、以及一直用 web 应用作为自己 iOS 应用的 <!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//FT.com" data-reactid="269"><span class="invisible" data-reactid="270">http://</span><span class="visible" data-reactid="271">FT.com</span><span class="invisible" data-reactid="272"></span><i class="icon-external" data-reactid="273"></i></a><!-- react-text: 274 -->（Financial Times）等不少 web 应用。那么，还有 Service Worker 什么事呢？<!-- /react-text --></p><p data-reactid="275"><!-- react-text: 276 -->是啊，如果 App Cache 没有被设计得<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/sw-101-gdgdf/%23/12" data-reactid="277"><!-- react-text: 278 -->烂到完全不可编程、无法清理缓存、几乎没有路由机制、出了 Bug 一点救都没有<!-- /react-text --><i class="icon-external" data-reactid="279"></i></a><!-- react-text: 280 -->，可能就真没 Service Worker 什么事了。<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/sw-101-gdgdf/%23/13" data-reactid="281"><!-- react-text: 282 -->App Cache 已经在前不久定稿的 HTML5.1 中被拿掉了，W3C 为了挽救 web 世界真是不惜把自己的脸都打肿了……<!-- /react-text --><i class="icon-external" data-reactid="283"></i></a></p><p data-reactid="284">时至今日，我们终于迎来了 Service Worker 的曙光。简单来说，Service Worker 是一个可编程的 Web Worker，它就像一个位于浏览器与网络之间的客户端代理，可以拦截、处理、响应流经的 HTTP 请求；配合随之引入 Cache Storage API，你可以自由管理 HTTP 请求文件粒度的缓存，这使得 Service Worker 可以从缓存中向 web 应用提供资源，即使是在离线的环境下。</p><p data-reactid="285"><em data-reactid="286"><div data-reactid="287"><style data-reactid="288">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="289"><div class="medium-image-progressive-placeholder" style="padding-bottom:70.33333333333334%;" data-reactid="290"></div><div class="medium-image-progressive" data-reactid="291"><canvas data-reactid="292"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="293"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23e80f64d.jpg" data-reactid="294"/><noscript data-reactid="295"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23e80f64d.jpg" data-reactid="296"/></noscript></div></div></div><!-- react-text: 297 --> Service Worker 就像一个运行在客户端的代理<!-- /react-text --></em></p><p data-reactid="298">比如说，我们可以给网页 foo.html 注册这么一个 Service Worker，它将劫持由 foo.html 发起的一切 HTTP 请求，并统统返回未设置 Content-Type 的 Hello World!：</p><pre data-reactid="299"><code data-query="{}" data-lang="data-lang" data-reactid="300">// sw.js 
+self.onfetch = (e) =&gt; {
+  e.respondWith(new Response(&#x27;Hello World!&#x27;))
+}
+</code></pre><p data-reactid="301">Service Worker 第一次发布于 2014 年的 Google IO 上，目前已处于 W3C 工作草案的状态。其设计吸取了 Application Cache 的失败经验，作为 web 应用的开发者的你有着完全的控制能力；同时，它还借鉴了 Chrome 多年来在 Chrome Extension 上的设计经验（Chrome Background Pages 与 Chrome Event Pages），采用了基于「事件驱动」的唤醒机制，以大幅节省后台计算的能耗。比如上面的 fetch其实就是会唤醒 Service Worker 的事件之一。</p><div data-reactid="302"><style data-reactid="303">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="304"><div class="medium-image-progressive-placeholder" style="padding-bottom:70.33333333333334%;" data-reactid="305"></div><div class="medium-image-progressive" data-reactid="306"><canvas data-reactid="307"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="308"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23f4e9f46.jpg" data-reactid="309"/><noscript data-reactid="310"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23f4e9f46.jpg" data-reactid="311"/></noscript></div></div></div><!-- react-text: 312 --> *Service Worker 的生命周期*<!-- /react-text --><p data-reactid="313">除了类似 fetch 这样的功能事件外，Service Worker 还提供了一组生命周期事件，包括安装、激活等等。比如，在 Service Worker 的「安装」事件中，我们可以把 web 应用所需要的资源统统预先下载并缓存到 Cache Storage 中去：</p><pre data-reactid="314"><code data-query="{}" data-lang="data-lang" data-reactid="315">// sw.js
+self.oninstall = (e) =&gt; {
+  e.waitUntil(
+    caches.open(&#x27;installation&#x27;)
+      .then(cache =&gt;  cache.addAll([
+        &#x27;./&#x27;,
+        &#x27;./styles.css&#x27;,
+        &#x27;./script.js&#x27;
+      ]))
+  )
+});
+</code></pre><p data-reactid="316">这样，当用户离线，网络无法访问时，我们就可以从缓存中启动我们的 web 应用：</p><pre data-reactid="317"><code data-query="{}" data-lang="data-lang" data-reactid="318">//sw.js
+self.onfetch = (e) =&gt; {
+  const fetched = fetch(e.request)
+  const cached = caches.match(e.request)
+
+  e.respondWith(
+    fetched.catch(_ =&gt; cached)
+  )
+}
+</code></pre><p data-reactid="319"><!-- react-text: 320 -->可以看出，Service Worker 被设计为一个相对底层（low-level）、高度可编程、子概念众多，也因此异常灵活且强大的 API，故本文只能展示它的冰山一角。出于安全考虑，注册 Service Worker 要求你的 web 应用部署于 HTTPS 协议下，以免利用 Service Worker 的中间人攻击。笔者在今年 GDG 北京的 DevFest 上分享了 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/2016/11/20/sw-101-gdgdf/" data-reactid="321"><!-- react-text: 322 -->Service Worker 101<!-- /react-text --><i class="icon-external" data-reactid="323"></i></a><!-- react-text: 324 -->，涵盖了 Service Worker 譬如「网络优先」、「缓存优先」、「网络与缓存比赛」这些更复杂的缓存策略、学习资料、以及<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//github.com/Huxpro/sw-101-gdgdf" data-reactid="325"><!-- react-text: 326 -->示例代码<!-- /react-text --><i class="icon-external" data-reactid="327"></i></a><!-- react-text: 328 -->，可以供大家参考。<!-- /react-text --></p><p data-reactid="329"><em data-reactid="330"><div data-reactid="331"><style data-reactid="332">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="333"><div class="medium-image-progressive-placeholder" style="padding-bottom:70.33333333333334%;" data-reactid="334"></div><div class="medium-image-progressive" data-reactid="335"><canvas data-reactid="336"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="337"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23ffa6c6c.jpg" data-reactid="338"/><noscript data-reactid="339"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f23ffa6c6c.jpg" data-reactid="340"/></noscript></div></div></div><!-- react-text: 341 --> Service Worker 的一种缓存策略：让网络请求与读取缓存比赛<!-- /react-text --></em></p><p data-reactid="342"><!-- react-text: 343 -->你也可以尝试在支持 PWA 的浏览器中访问笔者的博客 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me" data-reactid="344"><!-- react-text: 345 -->Hux Blog<!-- /react-text --><i class="icon-external" data-reactid="346"></i></a><!-- react-text: 347 -->，感受 Service Worker 的实际效果：所有访问过的页面都会被缓存并允许在离线环境下继续访问，所有未访问过的页面则会在离线环境下展示一个自定义的离线页面。<!-- /react-text --></p><p data-reactid="348"><!-- react-text: 349 -->在笔者看来，<!-- /react-text --><strong data-reactid="350">Service Worker 对 PWA 的重要性相当于 XMLHTTPRequest 之于 Ajax，媒体查询（Media Query）之于响应式设计，是支撑 PWA 作为「下一代 web 应用模型」的最核心技术。</strong><!-- react-text: 351 -->由于 Service Worker 可以与包括 Indexed DB、Streams 在内的大部分 DOM 无关 API 进行交互，它的潜力简直无可限量。笔者几乎可以断言，Service Worker 将在未来十年里成为 web 客户端技术工程化的兵家必争之地，带来「离线优先（Offline-first）」的架构革命。<!-- /react-text --></p><h3 id="push-notification" data-reactid="352"><a href="#push-notification" aria-hidden="true" data-reactid="353"><span class="icon icon-link" data-reactid="354"></span></a><!-- react-text: 355 -->Push Notification<!-- /react-text --></h3><p data-reactid="356">PWA 推送通知中的「推送」与「通知」，其实使用的是两个不同但又相得益彰的 API：</p><p data-reactid="357"><a href="https://link.zhihu.com/?target=https%3A//notifications.spec.whatwg.org/" data-reactid="358"><!-- react-text: 359 -->Notification API<!-- /react-text --><i class="icon-external" data-reactid="360"></i></a><!-- react-text: 361 --> 相信大家并不陌生，它负责所有与通知本身相关的机制，比如通知的权限管理、向操作系统发起通知、通知的类型与音效，以及提供通知被点击或关闭时的回调等等，目前国内外的各大网站（尤其在桌面端）都有一定的使用。Notification API 最早应该是在 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.html5rocks.com/en/tutorials/notifications/quick/" data-reactid="362"><!-- react-text: 363 -->2010<!-- /react-text --><i class="icon-external" data-reactid="364"></i></a><!-- react-text: 365 --> 年前后由 Chromium 提出<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//www.chromium.org/developers/design-documents/desktop-notifications/api-specification" data-reactid="366"><!-- react-text: 367 -->草案<!-- /react-text --><i class="icon-external" data-reactid="368"></i></a><!-- react-text: 369 -->以 webkitNotifications 前缀方式实现；随着 2011 年进入标准化；2012 年在 Safari 6（Mac OSX 10.8+）上获得支持；2015 年 Notification API 成为 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.w3.org/TR/notifications/" data-reactid="370"><!-- react-text: 371 -->W3C Recommendation<!-- /react-text --><i class="icon-external" data-reactid="372"></i></a><!-- react-text: 373 -->；2016 年 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//blogs.windows.com/msedgedev/2016/05/16/web-notifications-microsoft-edge/%232VBm890EjvAvUcgE.97" data-reactid="374"><!-- react-text: 375 -->Edge 的支持<!-- /react-text --><i class="icon-external" data-reactid="376"></i></a><!-- react-text: 377 -->；Web Notifications 已经在桌面浏览器中获得了全面支持（Chrome、Edge、Firefox、Opera、Safari）的成就。<!-- /react-text --></p><p data-reactid="378"><a href="https://link.zhihu.com/?target=http%3A//w3c.github.io/push-api/" data-reactid="379"><!-- react-text: 380 -->Push API<!-- /react-text --><i class="icon-external" data-reactid="381"></i></a><!-- react-text: 382 --> 的出现则让推送服务具备了向 web 应用推送消息的能力，它定义了 web 应用如何向推送服务发起订阅、如何响应推送消息，以及 web 应用、应用服务器与推送服务之间的鉴权与加密机制；由于 Push API 并不依赖 web 应用与浏览器 UI 存活，所以即使是在 web 应用与浏览器未被用户打开的时候，也可以通过后台进程接受推送消息并调用 Notification API 向用户发出通知。值得一提的是，Mac OSX 10.9 Mavericks 与 Safari 7 在 2013 年就发布了自己的私有推送支持，基于 APNS 的 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.apple.com/notifications/safari-push-notifications/" data-reactid="383"><!-- react-text: 384 -->Safari Push Notifications<!-- /react-text --><i class="icon-external" data-reactid="385"></i></a><!-- react-text: 386 -->。<!-- /react-text --></p><p data-reactid="387">在 PWA 中，我们利用 Service Worker 的后台计算能力结合 Push API 对推送事件进行响应，并通过 Notification API 实现通知的发出与处理：</p><pre data-reactid="388"><code data-query="{}" data-lang="data-lang" data-reactid="389">// sw.js
+self.addEventListener(&#x27;push&#x27;, event =&gt; {
+  event.waitUntil(
+    // Process the event and display a notification.
+    self.registration.showNotification(&quot;Hey!&quot;)
+  );
+});
+
+self.addEventListener(&#x27;notificationclick&#x27;, event =&gt; {
+  // Do something with the event  
+  event.notification.close();
+});
+
+self.addEventListener(&#x27;notificationclose&#x27;, event =&gt; {
+  // Do something with the event  
+});
+</code></pre><p data-reactid="390"><!-- react-text: 391 -->对于 Push Notification，笔者的几次分享中一直都提的稍微少一些，一是因为 Push API 还处于 Editor Draft 的状态，二是目前浏览器与推送服务的互相支持都还不够成熟：Android 上的 Chrome（与其它基于 Blink 的浏览器）目前只支持基于 Google 私有的 GCM/FCM 的通知推送，只有 Firefox 已经实现了成在由 IETF 进行标准化的 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//tools.ietf.org/html/draft-ietf-webpush-protocol-12" data-reactid="392"><!-- react-text: 393 -->Web 推送协议（Web Push Protocol）<!-- /react-text --><i class="icon-external" data-reactid="394"></i></a><!-- react-text: 395 -->。<!-- /react-text --></p><p data-reactid="396"><!-- react-text: 397 -->不过，如果你已经在使用 Google 的云服务（比如 Firebase），并且主要面向的是海外用户，那么在 web 应用上支持基于 GCM/FCM 的推送通知并不是一件费力的事情，笔者推荐你阅读一下 Google Developers 的<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/fundamentals/engage-and-retain/push-notifications/" data-reactid="398"><!-- react-text: 399 -->系列文章<!-- /react-text --><i class="icon-external" data-reactid="400"></i></a><!-- react-text: 401 -->，很多国外公司已经玩起来了。<!-- /react-text --></p><h2 id="b从-hybrid-到-pwa，从封闭到开放b" data-reactid="402"><a href="#b%E4%BB%8E-hybrid-%E5%88%B0-pwa%EF%BC%8C%E4%BB%8E%E5%B0%81%E9%97%AD%E5%88%B0%E5%BC%80%E6%94%BEb" aria-hidden="true" data-reactid="403"><span class="icon icon-link" data-reactid="404"></span></a><b data-reactid="405">从 Hybrid 到 PWA，从封闭到开放</b></h2><p data-reactid="406"><!-- react-text: 407 -->2008 年，当移动时代来临，<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/pwa-qcon2016/%23/17" data-reactid="408"><!-- react-text: 409 -->唱衰移动 Web 的声音<!-- /react-text --><i class="icon-external" data-reactid="410"></i></a><!-- react-text: 411 -->开始出现，而浏览器的进化并不能跟上时，来自 Nitobi 的 Brian Leroux 等人创造了 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//cordova.apache.org/" data-reactid="412"><!-- react-text: 413 -->Phonegap<!-- /react-text --><i class="icon-external" data-reactid="414"></i></a><!-- react-text: 415 -->，希望它能以 Polyfill 的形式、弥补目前浏览器与移动设备间的「鸿沟」，从此开启了<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Progressive_web_app%23Hybrid_Apps" data-reactid="416"><!-- react-text: 417 -->混合应用（Hybrid Apps）<!-- /react-text --><i class="icon-external" data-reactid="418"></i></a><!-- react-text: 419 -->的时代。<!-- /react-text --></p><p data-reactid="420"><!-- react-text: 421 -->几年间，<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//www.adobe.com/products/air.html" data-reactid="422"><!-- react-text: 423 -->Adobe AIR<!-- /react-text --><i class="icon-external" data-reactid="424"></i></a><!-- react-text: 425 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//msdn.microsoft.com/en-us/library/windows/apps/br211385.aspx" data-reactid="426"><!-- react-text: 427 -->Windows Runtime Apps<!-- /react-text --><i class="icon-external" data-reactid="428"></i></a><!-- react-text: 429 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.chrome.com/extensions/apps" data-reactid="430"><!-- react-text: 431 -->Chrome Apps<!-- /react-text --><i class="icon-external" data-reactid="432"></i></a><!-- react-text: 433 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Archive/Firefox_OS/Firefox_OS_apps/Building_apps_for_Firefox_OS" data-reactid="434"><!-- react-text: 435 -->Firefox OS<!-- /react-text --><i class="icon-external" data-reactid="436"></i></a><!-- react-text: 437 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//www.openwebosproject.org/" data-reactid="438"><!-- react-text: 439 -->WebOS<!-- /react-text --><i class="icon-external" data-reactid="440"></i></a><!-- react-text: 441 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//cordova.apache.org/" data-reactid="442"><!-- react-text: 443 -->Cordova/Phonegap<!-- /react-text --><i class="icon-external" data-reactid="444"></i></a><!-- react-text: 445 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//electron.atom.io/" data-reactid="446"><!-- react-text: 447 -->Electron<!-- /react-text --><i class="icon-external" data-reactid="448"></i></a><!-- react-text: 449 --> 以及国内比如微信、淘宝，无数的 Hybrid 方案拔地而起，让 web 开发者可以在继续使用 web 客户端技术的同时，做到一些只有原生应用才能做到的事情，包括访问一些设备与操作系统 API，给用户带来更加 「Appy」 的体验，以及进入 App Store 等等。<!-- /react-text --></p><p data-reactid="450"><em data-reactid="451"><div data-reactid="452"><style data-reactid="453">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="454"><div class="medium-image-progressive-placeholder" style="padding-bottom:71.5%;" data-reactid="455"></div><div class="medium-image-progressive" data-reactid="456"><canvas data-reactid="457"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="458"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f24090347c.jpg" data-reactid="459"/><noscript data-reactid="460"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f24090347c.jpg" data-reactid="461"/></noscript></div></div></div><!-- react-text: 462 --> 众多的 Hybrid 方案<!-- /react-text --></em></p><p data-reactid="463">PWA 作为一个涵盖性术语，与过往的这些或多或少通过私有平台 API 增强 web 应用的尝试最大的不同，在于构成 PWA 的每一项基本技术，都已经或正在被 IETF、ECMA、W3C 或 WHATWG 标准化，不出意外的话，它们都将被纳入开放 web 标准，并在不远的将来得到所有浏览器与全平台的支持。我们终于可以逃出 App Store 封闭的秘密花园，重新回到属于 web 的那片开放自由的大地。</p><p data-reactid="464"><!-- react-text: 465 -->有趣的是，从上文中你也可以发现，组成 PWA 的各项技术的草案正是由上述各种私有方案背后的浏览器厂商或开发者直接贡献或间接影响的。可以说，PWA 的背后并不是某一家或两家公司，而是整个 web 社区与整个 web 规范。<!-- /react-text --><strong data-reactid="466">正是因为这种开放与去中心化的力量，使得万维网（World Wide Web）能够成为当今世界上跨平台能力最强、且几乎是唯一一个具备这种跨平台能力的应用平台。</strong></p><p data-reactid="467"><a href="https://link.zhihu.com/?target=http%3A//phonegap.com/blog/2012/05/09/phonegap-beliefs-goals-and-philosophy/" data-reactid="468"><!-- react-text: 469 -->「我们相信 Web，是因为相信它是解决设备差异化的终极方案；我们相信，当 Web 在今天做不到一件事的时候，是因为它还没来得及去实现，而不是因为他做不到。而 Phonegap，它的终极目的就是消失在 Web 标准的背后。」<!-- /react-text --><i class="icon-external" data-reactid="470"></i></a></p><p data-reactid="471"><!-- react-text: 472 -->在不丢失 web 的开放灵魂，在不需要依靠 Hybrid 把应用放在 App Store 的前提下，让 web 应用能够渐进式地跳脱出浏览器的标签，变成用户眼中的 App。这是 Alex Russell 在 2015 年提出 PWA 概念的<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/" data-reactid="473"><!-- react-text: 474 -->原委<!-- /react-text --><i class="icon-external" data-reactid="475"></i></a><!-- react-text: 476 -->。<!-- /react-text --></p><p data-reactid="477"><!-- react-text: 478 -->而又正因为 web 是一个整体，PWA 可以利用的技术远不止上述的几个而已：Ajax、响应式设计、JavaScript 框架、ECMAScript Next、CSS Next、Houdini、Indexed DB、Device APIs、Web Bluetooth、Web Socket、Web Payment、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//wicg.github.io/BackgroundSync/spec/" data-reactid="479"><!-- react-text: 480 -->孵化<!-- /react-text --><i class="icon-external" data-reactid="481"></i></a><!-- react-text: 482 -->中的 <!-- /react-text --><a href="/developers.google.com/web/updates/2015/12/background-sync" data-reactid="483">Background Sync API</a><!-- react-text: 484 -->、<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//streams.spec.whatwg.org/" data-reactid="485"><!-- react-text: 486 -->Streams<!-- /react-text --><i class="icon-external" data-reactid="487"></i></a><!-- react-text: 488 -->、WebVR……开放 Web 世界 27 年来的发展以及未来的一切，都与 PWA 天作之合。<!-- /react-text --></p><h2 id="b鱼与熊掌的兼得b" data-reactid="489"><a href="#b%E9%B1%BC%E4%B8%8E%E7%86%8A%E6%8E%8C%E7%9A%84%E5%85%BC%E5%BE%97b" aria-hidden="true" data-reactid="490"><span class="icon icon-link" data-reactid="491"></span></a><b data-reactid="492">鱼与熊掌的兼得</b></h2><p data-reactid="493">经过几年来的摸索，整个互联网行业仿佛在「Web 应用 vs. 原生应用」这个问题上达成了共识：</p><ul data-reactid="494"><li data-reactid="495"><!-- react-text: 496 -->web 应用是鱼：迭代快，获取用户成本低；跨平台强体验弱，开发成本低。<!-- /react-text --><strong data-reactid="497">适合拉新</strong><!-- react-text: 498 -->。- 原生应用是熊掌：迭代慢，获取用户成本高；跨平台弱体验强，开发成本高。<!-- /react-text --><strong data-reactid="499">适合保活</strong><!-- react-text: 500 -->。 要知道，虽然用户花在原生应用上的时间要明显多于 web 应用，但其中<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//marketingland.com/report-mobile-users-spend-80-percent-time-just-five-apps-116858" data-reactid="501"><!-- react-text: 502 -->有 80% 的时间是花在前五个应用中的<!-- /react-text --><i class="icon-external" data-reactid="503"></i></a><!-- react-text: 504 -->。<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//www.recode.net/2016/9/16/12933780/average-app-downloads-per-month-comscore" data-reactid="505"><!-- react-text: 506 -->调查显示，美国有一半的智能手机用户平均每月新 App 安装量为零<!-- /react-text --><i class="icon-external" data-reactid="507"></i></a><!-- react-text: 508 -->，而月均网站访问量却有 100 个，更别提 Google Play 上<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//youtu.be/EUthgV-U05w" data-reactid="509"><!-- react-text: 510 -->有 60% 的应用从未被人下载过了<!-- /react-text --><i class="icon-external" data-reactid="511"></i></a><!-- react-text: 512 -->。于是，整个行业的产品策略清一色地<!-- /react-text --><strong data-reactid="513">「拿鱼换熊掌」</strong><!-- react-text: 514 -->，比如笔者的老东家阿里旅行（飞猪旅行），web 应用布满阿里系各种渠道，提供「优秀的第一手体验」，等你用的开心了，再引诱你去下载安装原生应用。<!-- /react-text --></li></ul><p data-reactid="515"><em data-reactid="516"><div data-reactid="517"><style data-reactid="518">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="519"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.333333333333336%;" data-reactid="520"></div><div class="medium-image-progressive" data-reactid="521"><canvas data-reactid="522"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="523"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f24140fdd5.jpg" data-reactid="524"/><noscript data-reactid="525"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f24140fdd5.jpg" data-reactid="526"/></noscript></div></div></div><!-- react-text: 527 --> 原生应用、当代 Web 与 PWA 图片来源: Hux &amp; <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/events/pwaroadshow/" data-reactid="528"><!-- react-text: 529 -->Google<!-- /react-text --><i class="icon-external" data-reactid="530"></i></a></em></p><p data-reactid="531">但是，PWA 的出现，让鱼与熊掌兼得变成了可能 —— 它同时具备了 web 应用与原生应用的优点，有着自己独有的先进性：「浏览器 -&gt; 添加至主屏/安装 -&gt; 具备原生应用体验的 PWA -&gt; 推送通知 -&gt; 具备原生应用体验的 PWA」，PWA 自身就包含着从拉新到保活的闭环。</p><p data-reactid="532"><!-- react-text: 533 -->除此之外，PWA 还继承了 web 应用的另外两大优点：<!-- /react-text --><strong data-reactid="534">无需先付出几十兆的下载安装成本即可开始使用</strong><!-- react-text: 535 -->，以及<!-- /react-text --><strong data-reactid="536">不需要经过应用超市审核就可以发布新版本</strong><!-- react-text: 537 -->。所以，PWA 可以称得上是一种「流式应用（Streamable App）」与「常青应用（Evergreen App）」<!-- /react-text --></p><h2 id="b未来到来了吗b" data-reactid="538"><a href="#b%E6%9C%AA%E6%9D%A5%E5%88%B0%E6%9D%A5%E4%BA%86%E5%90%97b" aria-hidden="true" data-reactid="539"><span class="icon icon-link" data-reactid="540"></span></a><b data-reactid="541">未来到来了吗</b></h2><p data-reactid="542">在笔者分享 PWA 的经历中，最不愿意回答的两个问题莫过于「PWA 已经被广泛支持了吗？」以及「PWA 与 ABCDEFG 这些技术方案相比有什么优劣？」，但是这确实是两个逃不开的问题。</p><h3 id="pwa-的支持情况？" data-reactid="543"><a href="#pwa-%E7%9A%84%E6%94%AF%E6%8C%81%E6%83%85%E5%86%B5%EF%BC%9F" aria-hidden="true" data-reactid="544"><span class="icon icon-link" data-reactid="545"></span></a><!-- react-text: 546 -->PWA 的支持情况？<!-- /react-text --></h3><p data-reactid="547"><!-- react-text: 548 -->当我们说到 PWA 是否被支持时，其实我们在说的是 PWA 背后的几个关键技术都得到支持了没有。以浏览器内核来划分的话，Blink（Chrome、Oprea、Samsung Internet 等）与 Gecko（Firefox）都已经实现了 PWA 所需的所有关键技术（👏👏👏），并已经开始探寻更多的可能性。EdgeHTML（Edge）<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//blogs.windows.com/msedgedev/2016/07/08/the-progress-of-web-apps/" data-reactid="549"><!-- react-text: 550 -->简直积极得不能更积极了<!-- /react-text --><i class="icon-external" data-reactid="551"></i></a><!-- react-text: 552 -->，所有的特性都已经处于「正在开发中」的<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developer.microsoft.com/en-us/microsoft-edge/platform/status/" data-reactid="553"><!-- react-text: 554 -->状态<!-- /react-text --><i class="icon-external" data-reactid="555"></i></a><!-- react-text: 556 -->。最大的绊脚石仍然来自于 Webkit（Safari），尤其是在 iOS 上，上述的四个 API 都未得到支持，而且由于平台限制，第三方浏览器也无法在 iOS 上支持。（<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//www.microsoft.com/en-us/WindowsForBusiness/End-of-IE-support" data-reactid="557"><!-- react-text: 558 -->什么你说 IE？<!-- /react-text --><i class="icon-external" data-reactid="559"></i></a><!-- react-text: 560 -->）<!-- /react-text --></p><p data-reactid="561"><!-- react-text: 562 -->不过，也不要气馁，Webkit 不但在它 <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//trac.webkit.org/wiki/FiveYearPlanFall2015" data-reactid="563"><!-- react-text: 564 -->2015 年发布的五年计划<!-- /react-text --><i class="icon-external" data-reactid="565"></i></a><!-- react-text: 566 -->里提到了 Service Worker，更是已经在最近实现了 Service Worker 所<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//jakearchibald.github.io/isserviceworkerready/" data-reactid="567"><!-- react-text: 568 -->依赖<!-- /react-text --><i class="icon-external" data-reactid="569"></i></a><!-- react-text: 570 -->的 Request、Response 与 Fetch API，还把 Service Worker 与 Web App Manifest 纷纷<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//webkit.org/status/" data-reactid="571"><!-- react-text: 572 -->列入了「正在考虑」<!-- /react-text --><i class="icon-external" data-reactid="573"></i></a><!-- react-text: 574 -->的 API 中；要知道，Webkit 可是把 Web Components 中的 HTML Imports 直接<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//webkit.org/status/%23specification-web-components" data-reactid="575"><!-- react-text: 576 -->列到「不考虑」里去了<!-- /react-text --><i class="icon-external" data-reactid="577"></i></a><!-- react-text: 578 -->……（其实 Firefox 也是）<!-- /react-text --></p><p data-reactid="579"><!-- react-text: 580 -->更何况，由于 web 社区一直以来所追求的「渐进增强、优雅降级」，一个 PWA 当然可以在 iOS 环境正常执行。<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//cloudfour.com/thinks/why-does-the-washington-posts-progressive-web-app-increase-engagement-on-ios/" data-reactid="581"><!-- react-text: 582 -->事实上，华盛顿邮报将网站迁移到 PWA 之后发现，不止是 Android，在 iOS 上也获得了 5 倍的活跃度增长<!-- /react-text --><i class="icon-external" data-reactid="583"></i></a><!-- react-text: 584 -->，（无论是不是它们之前的网站写得太烂吧），就算 iOS 现在还不支持 PWA 也<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//cloudfour.com/thinks/ios-doesnt-support-progressive-web-apps-so-what/" data-reactid="585"><!-- react-text: 586 -->不会怎么样<!-- /react-text --><i class="icon-external" data-reactid="587"></i></a><!-- react-text: 588 -->，我们更是有理由相信 PWA 会很快在 iOS 上到来。<!-- /react-text --></p><h3 id="pwa-vs-others" data-reactid="589"><a href="#pwa-vs-others" aria-hidden="true" data-reactid="590"><span class="icon icon-link" data-reactid="591"></span></a><!-- react-text: 592 -->PWA vs. Others<!-- /react-text --></h3><p data-reactid="593">贺老（贺师俊）曾说过：「从纯 Web 到纯 Native，之间有许多可能的点」。当考虑移动应用的技术选型时，除了 Web 与原生应用，我们还有各种不同程度的 Hybrid，还有今年爆发的诸多 JS-to-Native 方案。</p><p data-reactid="594"><!-- react-text: 595 -->虽然我在上文中用了「复仇」这样的字眼，不过无论从技术还是商业的角度，我们都没必要把 web 或是 PWA 放到 Native 的对立面去看。它们当然存在竞争关系，但是更多的时候，web-only 与 app-only 的策略都是不完美的，当公司资源足够的时候，我们通常会选择同时开发两者。<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//cloudfour.com/thinks/progressive-web-apps-simply-make-sense/%3Futm_source%3Dmobilewebweekly%26utm_medium%3Demail%23fn-4857-1" data-reactid="596"><!-- react-text: 597 -->当然，无论与不与原生应用对比，PWA 让 web 应用变得体验更好这件事本身是毋庸置疑的。<!-- /react-text --><i class="icon-external" data-reactid="598"></i></a><!-- react-text: 599 -->「不谈场景聊技术都是扯淡」，<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//medium.com/%40owencm/the-surprising-tradeoff-at-the-center-of-question-whether-to-build-an-native-or-web-app-d2ad00c40fb2%23.ym83ct2ax" data-reactid="600"><!-- react-text: 601 -->我们仍然还是需要根据自己产品与团队的情况来决定对应的技术选型与平台策略，只是 PWA 让 web 应用在面对选型考验时更加强势了而已。<!-- /react-text --><i class="icon-external" data-reactid="602"></i></a></p><p data-reactid="603"><em data-reactid="604"><div data-reactid="605"><style data-reactid="606">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:600px;max-height:600pxpx;" data-reactid="607"><div class="medium-image-progressive-placeholder" style="padding-bottom:71.5%;" data-reactid="608"></div><div class="medium-image-progressive" data-reactid="609"><canvas data-reactid="610"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="611"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f241c704da.jpg" data-reactid="612"/><noscript data-reactid="613"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/11/589f241c704da.jpg" data-reactid="614"/></noscript></div></div></div><!-- react-text: 615 --> 众多的技术选型，以及笔者的一种猜测<!-- /react-text --></em></p><p data-reactid="616"><!-- react-text: 617 -->笔者不负责任得做一些猜测：虽然<!-- /react-text --><a href="http://zhihu.com/question/31316032/answer/75236718" data-reactid="618">重量级的 Hybrid 架构与基础设施</a><!-- react-text: 619 -->仍是目前不少场景下最优的解决方案；但是随着移动设备本身的硬件性能提升与新技术的成熟与普及，JS-to-Native 与以 PWA 为首的纯 web 应用，将分别从两个方向挤压 Hybrid 的生存空间，消化当前 Hybrid 架构主要解决的问题；前者将逐渐演化为类似 Xarmarin 这样针对跨平台原生应用开发的解决方案；后者将显著降低当前 Hybrid 架构的容器开发与部署成本，将 Hybrid 返璞归真为简单的 webview 调用。<!-- /react-text --></p><p data-reactid="620">这种猜测当然不是没有依据的瞎猜，比如前者可以参考阿里巴巴集团级别迁移 Weex 的战略与微信小程序的 roadmap；后者则可以参考当前 Cordova 与 Ionic 两大 Hybrid 社区对 PWA 的热烈反响。</p><h3 id="pwa-in-china" data-reactid="621"><a href="#pwa-in-china" aria-hidden="true" data-reactid="622"><span class="icon icon-link" data-reactid="623"></span></a><!-- react-text: 624 -->PWA in China<!-- /react-text --></h3><p data-reactid="625"><!-- react-text: 626 -->看看 Google 官方宣传较多的 PWA <!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/showcase/" data-reactid="627"><!-- react-text: 628 -->案例<!-- /react-text --><i class="icon-external" data-reactid="629"></i></a><!-- react-text: 630 -->就会发现，FlipKart、Housing.com 来自印度；Uber、华盛顿邮报来自北美；唯一来自中国的 AliExpress 主要开展的则是海外业务。<!-- /react-text --></p><p data-reactid="631"><!-- react-text: 632 -->由于中国的特殊性，笔者在<!-- /react-text --><a href="https://www.zhihu.com/question/46690207/answer/104851767" data-reactid="633">第一次</a><!-- react-text: 634 -->聊到 PWA 时难免表现出了一定程度的悲观：<!-- /react-text --></p><ul data-reactid="635"><li data-reactid="636"><!-- react-text: 637 -->国内较重视 iOS，而 iOS 目前还不支持 PWA。- 国内的 Android 实为「安卓」，不自带 Chrome 是一，可能还会有其他兼容问题。- 国内厂商可能并不会像三星那样对推动自家浏览器支持 PWA 那么感兴趣。- 依赖 GCM 推送的通知不可用，Web Push Protocol 还没有国内的推送服务实现。- 国内 webview 环境较为复杂（比如微信），黑科技比较多。 反观印度，由于 Google 服务健全、标配 Chrome 的 Android 手机市占率非常高，PWA 的用户达到率简直直逼 100%，也难免获得无数好评与支持了。<!-- /react-text --><strong data-reactid="638">笔者奢望着本文能对推动 PWA 的国内环境有一定的贡献。</strong><!-- react-text: 639 -->不过无论如何，PWA 在国内的春天可能的确会来得稍微晚一点了。<!-- /react-text --></li></ul><h2 id="b结语b" data-reactid="640"><a href="#b%E7%BB%93%E8%AF%ADb" aria-hidden="true" data-reactid="641"><span class="icon icon-link" data-reactid="642"></span></a><b data-reactid="643">结语</b></h2><p data-reactid="644"><!-- react-text: 645 -->「<!-- /react-text --><a href="https://link.zhihu.com/?target=https%3A//huangxuan.me/pwa-qcon2016/%23/99" data-reactid="646"><!-- react-text: 647 -->我们信仰 Web，不仅仅在于软件、软件平台与单纯的技术<!-- /react-text --><i class="icon-external" data-reactid="648"></i></a><!-- react-text: 649 -->，还在于<!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//phonegap.com/blog/2012/05/09/phonegap-beliefs-goals-and-philosophy/" data-reactid="650"><!-- react-text: 651 -->『任何人，在任何时间任何地点，都可以在万维网上发布任何信息，并被世界上的任何一个人所访问到。』而这才是 web 的最为革命之处，堪称我们人类，作为一个物种的一次进化。<!-- /react-text --><i class="icon-external" data-reactid="652"></i></a><!-- react-text: 653 -->」<!-- /react-text --></p><p data-reactid="654"><!-- react-text: 655 -->请不要让 web 再<!-- /react-text --><a href="https://zhuanlan.zhihu.com/p/22561084" data-reactid="656">继续离我们远去</a><!-- react-text: 657 -->，浏览器厂商们已经重新走到了一起，而下一棒将是交到我们 web 应用开发者的手上。<!-- /react-text --><a href="https://youtu.be/y1B2c3ZD9fk?t=1h14m48s" data-reactid="658">乔布斯曾相信 web 应用才移动应用的未来</a><!-- react-text: 659 -->，那就让我们用代码证明给这个世界看吧。<!-- /react-text --></p><p data-reactid="660"><strong data-reactid="661">让我们的用户，也像我们这般热爱 web 吧。</strong></p><p data-reactid="662">黄玄，于 12 月的北京。</p><p data-reactid="663"><em data-reactid="664"><!-- react-text: 665 -->注：在笔者撰文期间，Google 在 Google China Developers Days 上宣布了 <!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//developers.google.cn" data-reactid="666"><span class="invisible" data-reactid="667">http://</span><span class="visible" data-reactid="668">developers.google.cn</span><span class="invisible" data-reactid="669"></span><i class="icon-external" data-reactid="670"></i></a><!-- react-text: 671 --> 域名的启用，方便国内开发者访问。对于文中所有链向 <!-- /react-text --><a href="https://link.zhihu.com/?target=http%3A//developers.google.com" data-reactid="672"><span class="invisible" data-reactid="673">http://</span><span class="visible" data-reactid="674">developers.google.com</span><span class="invisible" data-reactid="675"></span><i class="icon-external" data-reactid="676"></i></a><!-- react-text: 677 --> 的参考文献，应该都可以在 cn 站点中找到。<!-- /react-text --></em></p></article></div><div class="gitment-container" data-reactid="678"></div><div class="paginator" data-reactid="679"><a title="同构博客已更新！" class="prev" href="/blog-update" data-reactid="680">Prev</a><a title="HTML -&gt; Markdown" class="next" href="/html-to-markdown-by-javascript" data-reactid="681">Next</a></div></div></main><footer data-reactid="682"><div class="copyright" data-reactid="683"><p data-reactid="684"><!-- react-text: 685 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="686">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

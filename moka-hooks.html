@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 利用Hook解决moka邮件通知 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="356569031"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">利用Hook解决moka邮件通知</h1><div class="post-info" data-reactid="12"><time datetime="2017-01-07T21:48:09+00:00" data-reactid="13">Jan 7, 2017 9:48 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><iframe frameborder="no" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=202373&amp;auto=1&amp;height=66" data-reactid="17"></iframe><p data-reactid="18">就在昨天，有位可爱的学妹说想订阅我的Blog，于是我放弃一天复习tcp的时间，捣鼓出文章更新，发送邮件通知的解决方案。</p><p data-reactid="19"><!-- react-text: 20 -->借用了部分Git Hook(钩子)的约定，如：采用脚本文件的形式(用户可以选择自己的脚本语言，<!-- /react-text --><code data-reactid="21">python/nodejs/ruby/bash...</code><!-- react-text: 22 -->)，<!-- /react-text --><code data-reactid="23">pre-action/post-action</code><!-- react-text: 24 -->的命名方式<!-- /react-text --></p><p data-reactid="25"><code data-reactid="26">moka</code><!-- react-text: 27 --> ≧1.2.3 支持hook，<!-- /react-text --><code data-reactid="28">moka init</code><!-- react-text: 29 -->后产生的文件夹目录如下<!-- /react-text --></p><pre data-reactid="30"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="31"><!-- react-text: 32 -->moka-blog/
+├── moka.config.json <!-- /react-text --><span class="hljs-comment" data-reactid="33"># moka配置，包括全局配置，如deploy，bak信息，主题选择</span><!-- react-text: 34 -->
+├── package.json     <!-- /react-text --><span class="hljs-comment" data-reactid="35"># 可以无视</span><!-- react-text: 36 -->
+├── <!-- /react-text --><span class="hljs-built_in" data-reactid="37">source</span><!-- react-text: 38 -->/          <!-- /react-text --><span class="hljs-comment" data-reactid="39"># moka g 会将该目录下非`_articles`文件夹放入static</span><!-- react-text: 40 -->
+│   ├── _articles/   <!-- /react-text --><span class="hljs-comment" data-reactid="41"># moka g 将`_articles`下的markdown文件解析到static中</span><!-- react-text: 42 -->
+│   └── ...
+├── static/          <!-- /react-text --><span class="hljs-comment" data-reactid="43"># moka g 产生的最终发布的目录，deploy便是发布该目录</span><!-- react-text: 44 -->
+│   └── ...   
+├── template/
+│   └── article.md   <!-- /react-text --><span class="hljs-comment" data-reactid="45"># moka n 命令产生新文章的模板</span><!-- react-text: 46 -->
+├── hooks/           <!-- /react-text --><span class="hljs-comment" data-reactid="47"># 钩子, 注意各个钩子的cwd还是`moka-blog`, 如果pre钩子exit code!=0，将会终止process</span><!-- react-text: 48 -->
+│   ├── pre-generate.sample
+│   ├── post-generate.sample
+│   ├── pre-bak.sample
+│   ├── post-bak.sample
+│   ├── pre-deploy.sample   <!-- /react-text --><span class="hljs-comment" data-reactid="49"># deploy之前调用，必须executable，去除`.sample`后缀</span><!-- react-text: 50 -->
+│   └── post-deploy.sample  <!-- /react-text --><span class="hljs-comment" data-reactid="51"># deploy之后调用</span><!-- react-text: 52 -->
+└── themes/          <!-- /react-text --><span class="hljs-comment" data-reactid="53"># moka g 将配置中选中对应的主题 `themeBuild`目录 拷贝到static</span><!-- react-text: 54 -->
+     └── moka/       <!-- /react-text --><span class="hljs-comment" data-reactid="55"># 主题文件夹，其中包含theme.config.json, 根据主题要求自行配置</span></code></pre><p data-reactid="56"><strong data-reactid="57">注意！ 必须去掉样例脚本的.smaple，并且保证脚本是可执行的文件，才能生效。</strong></p><p data-reactid="58"><strong data-reactid="59"><!-- react-text: 60 -->所有的pre Hook必须保证进程结束的<!-- /react-text --><code data-reactid="61">exit code==0</code><!-- react-text: 62 -->，也就是正常退出，不然后续的操作将会因此终断。<!-- /react-text --></strong></p><h2 id="文章更新，发送邮件的实现" data-reactid="63"><a href="#%E6%96%87%E7%AB%A0%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E7%9A%84%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="64"><span class="icon icon-link" data-reactid="65"></span></a><!-- react-text: 66 -->文章更新，发送邮件的实现<!-- /react-text --></h2><p data-reactid="67"><!-- react-text: 68 -->文章更新，发送邮件一共涉及到3个hook，分别是<!-- /react-text --><code data-reactid="69">pre-generate-&gt;post-generate-&gt;post-deploy</code></p><p data-reactid="70"><!-- react-text: 71 -->顾名思义，<!-- /react-text --><code data-reactid="72">pre-generate</code><!-- react-text: 73 -->是在产生<!-- /react-text --><code data-reactid="74">static/</code><!-- react-text: 75 -->文件夹，静态资源之前被调用；<!-- /react-text --><code data-reactid="76">post-generate</code><!-- react-text: 77 -->则是在产生完成之后被调用；<!-- /react-text --><code data-reactid="78">post-deploy</code><!-- react-text: 79 --> 在部署到远程服务器（一般为github）之后触发。<!-- /react-text --></p><p data-reactid="80">那么，分别在这三个时刻做什么工作才能完成文章更新发送邮件的功能呢？</p><ol data-reactid="81"><li data-reactid="82"><code data-reactid="83">pre-generate</code><!-- react-text: 84 -->: 将这时所有文章目录保存在一个临时文件<!-- /react-text --><code data-reactid="85">tmp_pre_generate</code><!-- react-text: 86 -->中<!-- /react-text --></li><li data-reactid="87"><code data-reactid="88">generate</code><!-- react-text: 89 -->: <!-- /react-text --><code data-reactid="90">static/</code><!-- react-text: 91 -->文件夹更新<!-- /react-text --></li><li data-reactid="92"><code data-reactid="93">post-generate</code><!-- react-text: 94 -->: 将这时所有文章目录读取，与文件<!-- /react-text --><code data-reactid="95">tmp_pre_generate</code><!-- react-text: 96 -->对比，得到新添加的文章，并保存在临时文件<!-- /react-text --><code data-reactid="97">tmp_post_generate</code><!-- react-text: 98 -->中<!-- /react-text --></li><li data-reactid="99"><code data-reactid="100">deploy</code><!-- react-text: 101 -->: 部署<!-- /react-text --><code data-reactid="102">static/</code><!-- react-text: 103 -->文件夹内容至远端服务器<!-- /react-text --></li><li data-reactid="104"><code data-reactid="105">post-deploy</code><!-- react-text: 106 -->: 判断是否存在<!-- /react-text --><code data-reactid="107">tmp_post_generate</code><!-- react-text: 108 -->，读取<!-- /react-text --><code data-reactid="109">tmp_post_generate</code><!-- react-text: 110 -->，并利用<!-- /react-text --><a href="https://github.com/moyuyc/ftp-smtp/" data-reactid="111"><code data-reactid="112">smtp</code></a><!-- react-text: 113 -->协议发送邮件（利用递归，同步发送邮件操作）, 并且将最新的文章时间与title保存至<!-- /react-text --><code data-reactid="114">tmp_post_deploy</code><!-- react-text: 115 -->，下次读取<!-- /react-text --><code data-reactid="116">tmp_post_deploy</code><!-- react-text: 117 -->，确保时间晚于上次最新的文章。<!-- /react-text --></li></ol><pre data-reactid="118"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="119"><span class="hljs-function" data-reactid="120"><span class="hljs-keyword" data-reactid="121">function</span><!-- react-text: 122 --> <!-- /react-text --><span class="hljs-title" data-reactid="123">sync</span><!-- react-text: 124 -->(<!-- /react-text --><span class="hljs-params" data-reactid="125">callables</span><!-- react-text: 126 -->) <!-- /react-text --></span><!-- react-text: 127 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="128">if</span><!-- react-text: 129 -->(callables.length==<!-- /react-text --><span class="hljs-number" data-reactid="130">0</span><!-- react-text: 131 -->) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="132">return</span><!-- react-text: 133 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="134">Promise</span><!-- react-text: 135 -->.resolve();
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="136">return</span><!-- react-text: 137 --> callables.shift()()
+        .then(<!-- /react-text --><span class="hljs-function" data-reactid="138"><span class="hljs-keyword" data-reactid="139">function</span><!-- react-text: 140 -->(<!-- /react-text --><span class="hljs-params" data-reactid="141">x</span><!-- react-text: 142 -->) <!-- /react-text --></span><!-- react-text: 143 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="144">return</span><!-- react-text: 145 --> sync(callables);
+        })
+}<!-- /react-text --></code></pre><h2 id="小结" data-reactid="146"><a href="#%E5%B0%8F%E7%BB%93" aria-hidden="true" data-reactid="147"><span class="icon icon-link" data-reactid="148"></span></a><!-- react-text: 149 -->小结<!-- /react-text --></h2><ol data-reactid="150"><li data-reactid="151"><!-- react-text: 152 -->在<!-- /react-text --><code data-reactid="153">osx shell</code><!-- react-text: 154 -->环境中，<!-- /react-text --><code data-reactid="155">#!/usr/bin/env node</code><!-- react-text: 156 -->该脚本头可以正常运行，但在<!-- /react-text --><code data-reactid="157">osx moka-desktop</code><!-- react-text: 158 -->中不能生效，改成<!-- /react-text --><code data-reactid="159">#!/usr/local/bin/node</code><!-- react-text: 160 -->即可<!-- /react-text --></li><li data-reactid="161">配合hooks，同学们还可以完成更多有趣的功能。</li></ol></article></div><div class="gitment-container" data-reactid="162"></div><div class="paginator" data-reactid="163"><a title="JavaScript正则填坑记" class="prev" href="/record-once-javascript-regexp-landfill" data-reactid="164">Prev</a><a title="React Native 意识流" class="next" href="/react-native-starter" data-reactid="165">Next</a></div></div></main><footer data-reactid="166"><div class="copyright" data-reactid="167"><p data-reactid="168"><!-- react-text: 169 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="170">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

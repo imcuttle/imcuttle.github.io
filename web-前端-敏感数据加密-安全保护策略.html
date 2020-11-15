@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Web 前端 敏感数据加密 &amp; 安全保护策略 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1322093785"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Web 前端 敏感数据加密 &amp; 安全保护策略</h1><div class="post-info" data-reactid="12"><time datetime="2020-06-25T13:41:02+00:00" data-reactid="13">Jun 25, 2020 1:41 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17">最近在公司搭建的对外的服务上，被安全部门检测出安全漏洞。主要分为两个方面的漏洞：</p><ol data-reactid="18"><li data-reactid="19">用户的邮箱等信息在接口中直接明文展示出来，甚至有些 密码 摘要也暴露出来了</li><li data-reactid="20"><!-- react-text: 21 -->附件上传 没有限制，同时对于 HTML 文件运行直接同域 <!-- /react-text --><code data-reactid="22">text/html</code><!-- react-text: 23 --> 访问<!-- /react-text --></li></ol><p data-reactid="24">下面介绍我是如何解决上面漏洞的</p><h2 id="解决手段" data-reactid="25"><a href="#%E8%A7%A3%E5%86%B3%E6%89%8B%E6%AE%B5" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->解决手段<!-- /react-text --></h2><h3 id="数据明文暴露" data-reactid="29"><a href="#%E6%95%B0%E6%8D%AE%E6%98%8E%E6%96%87%E6%9A%B4%E9%9C%B2" aria-hidden="true" data-reactid="30"><span class="icon icon-link" data-reactid="31"></span></a><!-- react-text: 32 -->数据明文暴露<!-- /react-text --></h3><p data-reactid="33"><!-- react-text: 34 -->对于数据明文暴露漏洞，现象如：对于 <!-- /react-text --><code data-reactid="35">/user?id=1</code><!-- react-text: 36 --> 接口，返回数据<!-- /react-text --></p><pre data-reactid="37"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="38"><!-- react-text: 39 -->{
+  <!-- /react-text --><span class="hljs-attr" data-reactid="40">status</span><!-- react-text: 41 -->: <!-- /react-text --><span class="hljs-string" data-reactid="42">&#x27;ok&#x27;</span><!-- react-text: 43 -->,
+  <!-- /react-text --><span class="hljs-attr" data-reactid="44">data</span><!-- react-text: 45 -->: {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="46">user</span><!-- react-text: 47 -->: {
+      <!-- /react-text --><span class="hljs-attr" data-reactid="48">name</span><!-- react-text: 49 -->: <!-- /react-text --><span class="hljs-string" data-reactid="50">&#x27;xxx&#x27;</span><!-- react-text: 51 -->,
+      <!-- /react-text --><span class="hljs-comment" data-reactid="52">// 邮箱属于个人敏感数据</span><!-- react-text: 53 -->
+      email: <!-- /react-text --><span class="hljs-string" data-reactid="54">&#x27;xxxx@xxx.com&#x27;</span><!-- react-text: 55 -->,
+    }
+  }
+}<!-- /react-text --></code></pre><p data-reactid="56"><!-- react-text: 57 -->对于 邮箱 等用户个人数据，需要隐藏，所以处理方式有： 1. 将邮箱脱敏处理，如 <!-- /react-text --><code data-reactid="58">imcuttle@abc.com</code><!-- react-text: 59 --> 脱敏为 <!-- /react-text --><code data-reactid="60">im***@abc.com</code><br data-reactid="61"/><!-- react-text: 62 -->但这种方式，可能对于有些需要明文展示用户信息的地方不友好 2. 对请求参数或者响应数据 做加密处理<!-- /react-text --><br data-reactid="63"/><!-- react-text: 64 -->如对于某请求响应数据如图 <!-- /react-text --><img src="https://i.loli.net/2020/06/26/3CT9fLDYgJka4Xc.png" alt="image.png" data-reactid="65"/><!-- react-text: 66 --> 而真真数据就藏在这串数据中，经过解密可以看到真正的数据，在这里我不深入介绍我是如何实现的，防止破解<!-- /react-text --></p><p data-reactid="67"><!-- react-text: 68 -->除此之外，我们看看<!-- /react-text --><a href="https://github.com/darknessomi/musicbox/wiki/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%96%B0%E7%99%BB%E5%BD%95API%E5%88%86%E6%9E%90" data-reactid="69">网易云音乐的 API</a><!-- react-text: 70 --> 是如何处理的： <!-- /react-text --><img src="https://i.loli.net/2020/06/26/3uUlrFn5zYRJQSy.png" alt="image.png" data-reactid="71"/><!-- react-text: 72 --> 网易云的请求参数进行了加密处理，大概思路如下： <!-- /react-text --><img src="https://i.loli.net/2020/06/26/6bUC1hmyVYp9R24.png" alt="image.png" data-reactid="73"/></p><p data-reactid="74">由于 对称加密算法对加密内容有最大字节限制，所以只能用于加密固定大小的密钥；而 非对称加密算法则没有该限制，所以用于加密正文内容。</p><p data-reactid="75"><!-- react-text: 76 -->通过 网易云音乐的例子，我们可以知道 <!-- /react-text --><strong data-reactid="77">前端是不可能杜绝黑客获取明文内容的</strong><!-- react-text: 78 -->，破解对于黑客来说只不过对 ROI 的均衡考量。<!-- /react-text --></p><p data-reactid="79">同时，我们还是可以通过如下手段加大破解难度：</p><ul data-reactid="80"><li data-reactid="81">debugger 拦截，打开控制台的时候进行 debugger 拦截</li><li data-reactid="82">console 覆盖，不能正常输出</li><li data-reactid="83">代码混淆（deadcode 添加，常量编码...）</li></ul><p data-reactid="84"><!-- react-text: 85 -->详见：<!-- /react-text --><a href="https://github.com/javascript-obfuscator/javascript-obfuscator" data-reactid="86">javascript-obfuscator</a></p><h3 id="任意文件上传漏洞" data-reactid="87"><a href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E" aria-hidden="true" data-reactid="88"><span class="icon icon-link" data-reactid="89"></span></a><!-- react-text: 90 -->任意文件上传漏洞<!-- /react-text --></h3><p data-reactid="91">这个问题，我们可以简单的设置服务端的运行上传文件白名单，如只允许上传图片；但这样可能导致体验降级。</p><p data-reactid="92">所以我的处理方式是，对于 HTML 资源，（同域）服务端不进行 Server，而是纯文本展示。</p></article></div><div class="gitment-container" data-reactid="93"></div><div class="paginator" data-reactid="94"><a title="软技能问答汇总" class="prev" href="/软技能问答汇总" data-reactid="95">Prev</a><a title="自研协同文档服务 - Dozo " class="next" href="/自研协同文档服务-dozo" data-reactid="96">Next</a></div></div></main><footer data-reactid="97"><div class="copyright" data-reactid="98"><p data-reactid="99"><!-- react-text: 100 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="101">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

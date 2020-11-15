@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 统计有效词数算法的几点思考 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1427330051"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">统计有效词数算法的几点思考</h1><div class="post-info" data-reactid="12"><time datetime="2019-10-16T07:23:09+00:00" data-reactid="13">Oct 16, 2019 7:23 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="背景" data-reactid="17"><a href="#%E8%83%8C%E6%99%AF" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->背景<!-- /react-text --></h2><p data-reactid="21">有一个需求，希望一个输入框的字数统计功能进行优化，优化成与 Microsoft word 一致的统计字数的逻辑。</p><h2 id="研究调查" data-reactid="22"><a href="#%E7%A0%94%E7%A9%B6%E8%B0%83%E6%9F%A5" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->研究调查<!-- /react-text --></h2><p data-reactid="26">Word 中的词数统计规则如下：</p><ol data-reactid="27"><li data-reactid="28"><!-- react-text: 29 -->连续的非空 ascii 字符认为是一个词：如 <!-- /react-text --><code data-reactid="30">hello world</code><!-- react-text: 31 --> 为 2 个词<!-- /react-text --></li><li data-reactid="32"><!-- react-text: 33 -->一个非 ascii 字符认为是一个词：如 <!-- /react-text --><code data-reactid="34">你好啊！</code><!-- react-text: 35 --> 为 4 个词<!-- /react-text --></li><li data-reactid="36">空格不认为是一个词，只是词的分隔符</li></ol><p data-reactid="37"><!-- react-text: 38 -->如 <!-- /react-text --><code data-reactid="39">你好！</code><!-- react-text: 40 --> 为 3 个词， <!-- /react-text --><code data-reactid="41">hello world~</code><!-- react-text: 42 --> 为 2 个词<!-- /react-text --></p><h2 id="算法实现" data-reactid="43"><a href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="44"><span class="icon icon-link" data-reactid="45"></span></a><!-- react-text: 46 -->算法实现<!-- /react-text --></h2><p data-reactid="47"><!-- react-text: 48 -->虽然算法最终结果是希望我们得到最后的词数，但是我们应该输出的是把一个字符串分割后的数组，如 <!-- /react-text --><code data-reactid="49">你好！</code><!-- react-text: 50 --> 应该分割为 <!-- /react-text --><code data-reactid="51">[&#x27; 你&#x27;, &#x27;好&#x27;, &#x27;！ &#x27;]</code><!-- react-text: 52 -->，这样不仅通过该数组得到词数，还可以通过该数组做字符串 slice 操作，同时没有空格字符的丢失。<!-- /react-text --></p><h3 id="流程形算法" data-reactid="53"><a href="#%E6%B5%81%E7%A8%8B%E5%BD%A2%E7%AE%97%E6%B3%95" aria-hidden="true" data-reactid="54"><span class="icon icon-link" data-reactid="55"></span></a><!-- react-text: 56 -->流程形算法<!-- /react-text --></h3><p data-reactid="57">我们很容易想到的一种思路是，遍历字符串，进行直线式的逻辑处理</p><pre data-reactid="58"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="59"><span class="hljs-function" data-reactid="60"><span class="hljs-keyword" data-reactid="61">function</span><!-- react-text: 62 --> <!-- /react-text --><span class="hljs-title" data-reactid="63">isWordString</span><!-- react-text: 64 -->(<!-- /react-text --><span class="hljs-params" data-reactid="65">str</span><!-- react-text: 66 -->) <!-- /react-text --></span><!-- react-text: 67 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="68">return</span><!-- react-text: 69 --> <!-- /react-text --><span class="hljs-regexp" data-reactid="70">/^[\x00-\xff]+$/</span><!-- react-text: 71 -->.test(str) &amp;&amp; !isSpaceString(str);
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="72"><span class="hljs-keyword" data-reactid="73">function</span><!-- react-text: 74 --> <!-- /react-text --><span class="hljs-title" data-reactid="75">isSpaceString</span><!-- react-text: 76 -->(<!-- /react-text --><span class="hljs-params" data-reactid="77">str</span><!-- react-text: 78 -->) <!-- /react-text --></span><!-- react-text: 79 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="80">return</span><!-- react-text: 81 --> <!-- /react-text --><span class="hljs-regexp" data-reactid="82">/^\s+$/</span><!-- react-text: 83 -->.test(str);
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="84"><span class="hljs-keyword" data-reactid="85">function</span><!-- react-text: 86 --> <!-- /react-text --><span class="hljs-title" data-reactid="87">wordChunks</span><!-- react-text: 88 -->(<!-- /react-text --><span class="hljs-params" data-reactid="89">string</span><!-- react-text: 90 -->) <!-- /react-text --></span><!-- react-text: 91 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="92">let</span><!-- react-text: 93 --> word = string.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="94">/^(\s*)([^]*)$/</span><!-- react-text: 95 -->, <!-- /react-text --><span class="hljs-string" data-reactid="96">&#x27;$1&#x27;</span><!-- react-text: 97 -->);
+    <!-- /react-text --><span class="hljs-comment" data-reactid="98">// Trim left</span><!-- react-text: 99 -->
+    string = string.replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="100">/^(\s*)([^]*)$/</span><!-- react-text: 101 -->, <!-- /react-text --><span class="hljs-string" data-reactid="102">&#x27;$2&#x27;</span><!-- react-text: 103 -->);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="104">let</span><!-- react-text: 105 --> chunks = [];
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="106">for</span><!-- react-text: 107 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="108">let</span><!-- react-text: 109 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="110">0</span><!-- react-text: 111 -->; i &lt; string.length; i++) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="112">const</span><!-- react-text: 113 --> ch = string[i];
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="114">const</span><!-- react-text: 115 --> nextCh = string[i + <!-- /react-text --><span class="hljs-number" data-reactid="116">1</span><!-- react-text: 117 -->];
+
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="118">if</span><!-- react-text: 119 --> (isSpaceString(ch)) {
+            word += ch;
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="120">else</span><!-- react-text: 121 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="122">if</span><!-- react-text: 123 --> (isWordString(ch)) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="124">if</span><!-- react-text: 125 --> (word) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="126">if</span><!-- react-text: 127 --> (isSpaceString(word[word.length - <!-- /react-text --><span class="hljs-number" data-reactid="128">1</span><!-- react-text: 129 -->]) &amp;&amp; !isSpaceString(word)) {
+                    chunks.push(word);
+                    word = <!-- /react-text --><span class="hljs-string" data-reactid="130">&#x27;&#x27;</span><!-- react-text: 131 -->;
+                }
+            }
+
+            word += ch;
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="132">else</span><!-- react-text: 133 --> {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="134">if</span><!-- react-text: 135 --> (nextCh &amp;&amp; isSpaceString(nextCh)) {
+                word += ch;
+            } <!-- /react-text --><span class="hljs-keyword" data-reactid="136">else</span><!-- react-text: 137 --> {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="138">if</span><!-- react-text: 139 --> (word &amp;&amp; isSpaceString(word)) {
+                    chunks.push(word + ch);
+                } <!-- /react-text --><span class="hljs-keyword" data-reactid="140">else</span><!-- react-text: 141 --> {
+                    word &amp;&amp; chunks.push(word);
+                    chunks.push(ch);
+                }
+                word = <!-- /react-text --><span class="hljs-string" data-reactid="142">&#x27;&#x27;</span><!-- react-text: 143 -->;
+            }
+        }
+    }
+
+    word &amp;&amp; chunks.push(word);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="144">return</span><!-- react-text: 145 --> chunks;
+}<!-- /react-text --></code></pre><p data-reactid="146">可以看到以上代码有很多的判断分支，维护起来也比较麻烦，像是想到哪里就写到哪里，漏了哪里补哪里的思路，维护成本高。</p><p data-reactid="147"><!-- react-text: 148 -->其实对于这种问题，我们可以把其使用<!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA" data-reactid="149">有限状态机</a><!-- react-text: 150 -->进行抽象<!-- /react-text --></p><h3 id="状态机思路" data-reactid="151"><a href="#%E7%8A%B6%E6%80%81%E6%9C%BA%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="152"><span class="icon icon-link" data-reactid="153"></span></a><!-- react-text: 154 -->状态机思路<!-- /react-text --></h3><p data-reactid="155"><!-- react-text: 156 -->如下图所示，分别有5个状态：<!-- /react-text --><code data-reactid="157">none/space/ascii-word/ready/end</code><!-- react-text: 158 -->, 其中<!-- /react-text --></p><ul data-reactid="159"><li data-reactid="160"><code data-reactid="161">none</code><!-- react-text: 162 -->: 初始状态，表示 word 为空<!-- /react-text --></li><li data-reactid="163"><code data-reactid="164">space</code><!-- react-text: 165 -->: 表示 word 只包含空格<!-- /react-text --></li><li data-reactid="166"><code data-reactid="167">ascii-word</code><!-- react-text: 168 -->: 表示 word 包含非空 ascii 字符，不包含汉字等其他字符，但可以包含空格<!-- /react-text --></li><li data-reactid="169"><code data-reactid="170">ready</code><!-- react-text: 171 -->: 表示 word 是一个独立的词，如 <!-- /react-text --><code data-reactid="172">&quot;你&quot;</code><!-- react-text: 173 --> 或者 <!-- /react-text --><code data-reactid="174">&quot;hello &quot;</code></li><li data-reactid="175"><code data-reactid="176">end</code><!-- react-text: 177 -->: 表示结束状态<!-- /react-text --></li></ul><p data-reactid="178"><!-- react-text: 179 -->其中通过不同的字符可以到达不同的状态，其中随着状态的变换，带着操作的执行，如 <!-- /react-text --><code data-reactid="180">append/push/reset</code><!-- react-text: 181 -->，其中图中右下角为操作动作的代码。<!-- /react-text --></p><p data-reactid="182"><img src="https://raw.githubusercontent.com/imcuttle/split-word/master/split-word.svg?sanitize=true" data-reactid="183"/></p><p data-reactid="184"><strong data-reactid="185">所以有了状态转换图后，实现算法起来就更加明确有底气了！，更加有据可依！</strong></p><p data-reactid="186"><!-- react-text: 187 -->在这里我使用<!-- /react-text --><a href="https://github.com/jakesgordon/javascript-state-machine" data-reactid="188">表驱动方式</a><!-- react-text: 189 -->来<!-- /react-text --><a href="https://github.com/imcuttle/split-word/blob/master/index.js" data-reactid="190">实现该状态机</a></p></article></div><div class="gitment-container" data-reactid="191"></div><div class="paginator" data-reactid="192"><a title="JS 中的装饰器模式" class="prev" href="/js-中的装饰器模式" data-reactid="193">Prev</a><a title="DIY 一个 CommonJS 运行环境吧" class="next" href="/diy-一个-commonjs-运行环境吧" data-reactid="194">Next</a></div></div></main><footer data-reactid="195"><div class="copyright" data-reactid="196"><p data-reactid="197"><!-- react-text: 198 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="199">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

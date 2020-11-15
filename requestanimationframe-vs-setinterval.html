@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> requestAnimationFrame Vs setInterval - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="809935906"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">requestAnimationFrame Vs setInterval</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-23T11:52:58+00:00" data-reactid="13">Apr 23, 2016 11:52 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="介绍" data-reactid="17"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->介绍<!-- /react-text --></h1><p data-reactid="21">大家对setInterval一定不陌生，但可能不太了解requestAnimationFrame requestAnimationFrame是HTML5新添的api，两者都能产生动画效果。</p><h1 id="区别" data-reactid="22"><a href="#%E5%8C%BA%E5%88%AB" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->区别<!-- /react-text --></h1><p data-reactid="26"><!-- react-text: 27 -->requestAnimationFrame 参数只有一个参数，是用来循环调用的方法， setInterval 有两个参数，第一个是方法，第二个是循环调用的时间。 <!-- /react-text --><strong data-reactid="28">但是，JavaScript是单线程的，也就是同一时间只能有一句JavaScript语句执行所以，setInterval的实现是通过事件驱动完成的，当时间到了之后，setInterval加入事件队列，等待JavaScript的青睐，所以这种计时是不准确的。</strong></p><h2 id="demo" data-reactid="29"><a href="#demo" aria-hidden="true" data-reactid="30"><span class="icon icon-link" data-reactid="31"></span></a><!-- react-text: 32 -->Demo<!-- /react-text --></h2><script data-reactid="33">function progress(t){t.style.width=&quot;0%&quot;,t.innerText=&quot;0%&quot;,setTimeout(function(){var e=parseInt(t.style.width);t.innerText=e+&quot;%&quot;,100!=e&amp;&amp;(t.style.width=e+1+&quot;%&quot;,setTimeout(arguments.callee,15))},15)}</script><p id="progress" style="width:0%;background-color:#00f;color:#fff;" data-reactid="34">0</p><button data-reactid="35">RUN</button><script data-reactid="36">progress(document.querySelector(&quot;#progress&quot;));</script><pre data-reactid="37"><code data-query="{}" data-lang="data-lang" data-reactid="38">function progress(p){
+    p.style.width=&#x27;0%&#x27;;
+    p.innerText=&#x27;0%&#x27;;
+    function run(){
+        var w = parseInt(p.style.width);
+        p.innerText = w +&#x27;%&#x27;;
+        if(w==100) return;
+        p.style.width = w+1+&#x27;%&#x27;;
+        requestAnimationFrame(arguments.callee)
+    }
+    requestAnimationFrame(run);
+}
+</code></pre><script data-reactid="39">function progress2(e){e.style.width=&quot;0%&quot;,e.innerText=&quot;0%&quot;;var n=setInterval(function(){var t=parseInt(e.style.width);e.innerText=t+&quot;%&quot;,100!=t?e.style.width=t+1+&quot;%&quot;:clearInterval(n)},15)}</script><p id="progress2" style="width:0%;background-color:#00f;color:#fff;" data-reactid="40">0</p><button data-reactid="41">RUN</button><script data-reactid="42">progress2(document.querySelector(&quot;#progress2&quot;));</script><pre data-reactid="43"><code data-query="{}" data-lang="data-lang" data-reactid="44">function progress2(p){
+    p.style.width=&#x27;0%&#x27;;
+    p.innerText=&#x27;0%&#x27;;
+    function run(){
+        var w = parseInt(p.style.width);
+        p.innerText = w +&#x27;%&#x27;;
+        if(w==100){
+            clearInterval(t); return;
+        }
+        p.style.width = w+1+&#x27;%&#x27;;
+    }
+    var t =setInterval(run,15);
+}
+</code></pre><p data-reactid="45"><!-- react-text: 46 -->可以看到，<!-- /react-text --><code data-reactid="47">requestAnimationFrame</code><!-- react-text: 48 -->代码量更少。<!-- /react-text --></p><h1 id="惊天秘密" data-reactid="49"><a href="#%E6%83%8A%E5%A4%A9%E7%A7%98%E5%AF%86" aria-hidden="true" data-reactid="50"><span class="icon icon-link" data-reactid="51"></span></a><!-- react-text: 52 -->惊天秘密<!-- /react-text --></h1><p data-reactid="53"><strong data-reactid="54"><!-- react-text: 55 -->深入理解，可以把<!-- /react-text --><code data-reactid="56">requestAnimationFrame(func)</code><!-- react-text: 57 -->等效为<!-- /react-text --><code data-reactid="58">setTimeout(func,15);</code></strong><!-- react-text: 59 --> 不信，你试下嘛。 当然，<!-- /react-text --><code data-reactid="60">requestAnimationFrame</code><!-- react-text: 61 -->在浏览器查看其它网页的一段时间后，便会自动停止动画。 在threejs中，就是用<!-- /react-text --><code data-reactid="62">requestAnimationFrame</code><!-- react-text: 63 -->来减少cpu负载的。 <!-- /react-text --><strong data-reactid="64">2016/5/15 更新</strong><!-- react-text: 65 --> <!-- /react-text --><code data-reactid="66">requestAnimationFrame</code><!-- react-text: 67 --> 中会默认传入一个相对的时间戳，<!-- /react-text --><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" data-reactid="68">详细看这里</a><!-- react-text: 69 -->； <!-- /react-text --><code data-reactid="70">setTimeout(func,15);</code><!-- react-text: 71 -->除了这种用法以外，还可以<!-- /react-text --><code data-reactid="72">setTimeout(func,15,args);</code><!-- react-text: 73 -->传入参数，当然<!-- /react-text --><code data-reactid="74">setInterval</code><!-- react-text: 75 -->也一样。<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="76"></div><div class="paginator" data-reactid="77"><a title="捣鼓出一个简陋的图片轮播效果" class="prev" href="/easy-img-viewer" data-reactid="78">Prev</a><a title="短暂的git捣鼓" class="next" href="/instant-git-test" data-reactid="79">Next</a></div></div></main><footer data-reactid="80"><div class="copyright" data-reactid="81"><p data-reactid="82"><!-- react-text: 83 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="84">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

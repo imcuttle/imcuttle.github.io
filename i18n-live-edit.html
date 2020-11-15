@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 国际化可视化编辑 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="277716471"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">国际化可视化编辑</h1><div class="post-info" data-reactid="12"><time datetime="2017-12-21T09:42:58+00:00" data-reactid="13">Dec 21, 2017 9:42 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="痛点" data-reactid="17"><a href="#%E7%97%9B%E7%82%B9" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->痛点<!-- /react-text --></h2><p data-reactid="21">前端技术栈：React + Mobx 国际化解决方案：通过一个全局的 translate 方法输入对应翻译译文的 key</p><p data-reactid="22">如：现在的中文的英文翻译字典数据有，</p><pre data-reactid="23"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="24"><span class="hljs-comment" data-reactid="25">// zh-CN</span><!-- react-text: 26 -->
+{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="27">cuttle</span><!-- react-text: 28 -->: <!-- /react-text --><span class="hljs-string" data-reactid="29">&#x27;墨鱼&#x27;</span><!-- react-text: 30 -->
+}
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="31">// en-US</span><!-- react-text: 32 -->
+{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="33">cuttle</span><!-- react-text: 34 -->: <!-- /react-text --><span class="hljs-string" data-reactid="35">&#x27;imcuttle&#x27;</span><!-- react-text: 36 -->
+}<!-- /react-text --></code></pre><p data-reactid="37"><!-- react-text: 38 -->依次在中英文环境下调用 <!-- /react-text --><code data-reactid="39">translate(&#x27;cuttle&#x27;)</code><!-- react-text: 40 --> 会分别返回 <!-- /react-text --><code data-reactid="41">&#x27;墨鱼&#x27;</code><!-- react-text: 42 --> <!-- /react-text --><code data-reactid="43">&#x27;imcuttle&#x27;</code><!-- react-text: 44 --> 字符串，所以如果需要修改中文环境中可见文本 <!-- /react-text --><code data-reactid="45">墨鱼</code><!-- react-text: 46 --> 的译文，则需要：<!-- /react-text --></p><ol data-reactid="47"><li data-reactid="48"><!-- react-text: 49 -->js 源码中找到 Key：<!-- /react-text --><code data-reactid="50">cuttle</code></li><li data-reactid="51"><!-- react-text: 52 -->在中英文字典数据文件中修改 <!-- /react-text --><code data-reactid="53">cuttle</code><!-- react-text: 54 --> 对应的 value<!-- /react-text --></li></ol><p data-reactid="55"><strong data-reactid="56">而我们会在步骤 1 花费比较多的时间！</strong></p><p data-reactid="57">其次：目前部分的国际化字典由前端来维护，添加 FE 的（无意义）工作量</p><h2 id="解决方案" data-reactid="58"><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" aria-hidden="true" data-reactid="59"><span class="icon icon-link" data-reactid="60"></span></a><!-- react-text: 61 -->解决方案<!-- /react-text --></h2><p data-reactid="62"><!-- react-text: 63 -->考虑一种可以在线编辑的模式，既方便前端修改，又方便 PM 对国际化文本进行修改；同时这种在线编辑模式的实现又需要兼容 <!-- /react-text --><code data-reactid="64">translate</code><!-- react-text: 65 --> API 的使用<!-- /react-text --></p><div data-reactid="66"><style data-reactid="67">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1193px;max-height:1193pxpx;" data-reactid="68"><div class="medium-image-progressive-placeholder" style="padding-bottom:38.64207879295893%;" data-reactid="69"></div><div class="medium-image-progressive" data-reactid="70"><canvas data-reactid="71"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="72"/><img class="medium-image-origin" src="https://i.loli.net/2017/12/21/5a3bb22977eed.jpg" data-reactid="73"/><noscript data-reactid="74"><img class="medium-image-origin" src="https://i.loli.net/2017/12/21/5a3bb22977eed.jpg" data-reactid="75"/></noscript></div></div></div><!-- react-text: 76 --> <!-- /react-text --><div data-reactid="77"><style data-reactid="78">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1069px;max-height:1069pxpx;" data-reactid="79"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.79513564078578%;" data-reactid="80"></div><div class="medium-image-progressive" data-reactid="81"><canvas data-reactid="82"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="83"/><img class="medium-image-origin" src="https://i.loli.net/2017/12/21/5a3bb24eb7359.jpg" data-reactid="84"/><noscript data-reactid="85"><img class="medium-image-origin" src="https://i.loli.net/2017/12/21/5a3bb24eb7359.jpg" data-reactid="86"/></noscript></div></div></div><h3 id="思路一：输出-react-element" data-reactid="87"><a href="#%E6%80%9D%E8%B7%AF%E4%B8%80%EF%BC%9A%E8%BE%93%E5%87%BA-react-element" aria-hidden="true" data-reactid="88"><span class="icon icon-link" data-reactid="89"></span></a><!-- react-text: 90 -->思路一：输出 React Element<!-- /react-text --></h3><pre data-reactid="91"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="92"><span class="hljs-function" data-reactid="93"><span class="hljs-keyword" data-reactid="94">function</span><!-- react-text: 95 --> <!-- /react-text --><span class="hljs-title" data-reactid="96">newTranslate</span><!-- react-text: 97 -->(<!-- /react-text --><span class="hljs-params" data-reactid="98">key</span><!-- react-text: 99 -->) <!-- /react-text --></span><!-- react-text: 100 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="101">const</span><!-- react-text: 102 --> raw = translate(key)
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="103">const</span><!-- react-text: 104 --> ele = <!-- /react-text --><span class="xml" data-reactid="105"><span class="hljs-tag" data-reactid="106"><!-- react-text: 107 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="108">i18n</span><!-- react-text: 109 -->&gt;<!-- /react-text --></span><!-- react-text: 110 -->{raw}<!-- /react-text --><span class="hljs-tag" data-reactid="111"><!-- react-text: 112 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="113">i18n</span><!-- react-text: 114 -->&gt;<!-- /react-text --></span></span><!-- react-text: 115 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="116">// ele.toString = function () {return raw}</span><!-- react-text: 117 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="118">// 不能扩展 toString 方法</span><!-- react-text: 119 -->
+    
+    
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="120">return</span><!-- react-text: 121 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="122">new</span><!-- react-text: 123 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="124">Proxy</span><!-- react-text: 125 -->(ele, {
+        get() {
+            <!-- /react-text --><span class="hljs-comment" data-reactid="126">// 拦截 toString</span><!-- react-text: 127 -->
+            ...
+        }
+    })
+}<!-- /react-text --></code></pre><p data-reactid="128">这种方式够简单明了，但是有一个致命的缺陷：破坏了原有的 DOM 结构</p><h3 id="思路二：输出带数据的特殊-object" data-reactid="129"><a href="#%E6%80%9D%E8%B7%AF%E4%BA%8C%EF%BC%9A%E8%BE%93%E5%87%BA%E5%B8%A6%E6%95%B0%E6%8D%AE%E7%9A%84%E7%89%B9%E6%AE%8A-object" aria-hidden="true" data-reactid="130"><span class="icon icon-link" data-reactid="131"></span></a><!-- react-text: 132 -->思路二：输出带数据的特殊 Object<!-- /react-text --></h3><pre data-reactid="133"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="134"><span class="hljs-function" data-reactid="135"><span class="hljs-keyword" data-reactid="136">function</span><!-- react-text: 137 --> <!-- /react-text --><span class="hljs-title" data-reactid="138">newTranslate</span><!-- react-text: 139 -->(<!-- /react-text --><span class="hljs-params" data-reactid="140">key</span><!-- react-text: 141 -->) <!-- /react-text --></span><!-- react-text: 142 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="143">const</span><!-- react-text: 144 --> rlt = <!-- /react-text --><span class="hljs-keyword" data-reactid="145">new</span><!-- react-text: 146 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="147">String</span><!-- react-text: 148 -->(key)
+    <!-- /react-text --><span class="hljs-comment" data-reactid="149">// typeof rlt === &#x27;object&#x27;</span><!-- react-text: 150 -->
+    rlt[<!-- /react-text --><span class="hljs-string" data-reactid="151">&#x27;__i18n__&#x27;</span><!-- react-text: 152 -->] = { raw, key }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="153">return</span><!-- react-text: 154 --> rlt
+}<!-- /react-text --></code></pre><p data-reactid="155">该方法不会破坏原有的 DOM 结构；同时需要拦截 React.createElement 方法</p><pre data-reactid="156"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="157"><span class="hljs-keyword" data-reactid="158">const</span><!-- react-text: 159 --> createElement = React.createElement
+<!-- /react-text --><span class="hljs-function" data-reactid="160"><span class="hljs-keyword" data-reactid="161">function</span><!-- react-text: 162 --> <!-- /react-text --><span class="hljs-title" data-reactid="163">newCreateElement</span><!-- react-text: 164 --> (<!-- /react-text --><span class="hljs-params" data-reactid="165">name, props, ...children</span><!-- react-text: 166 -->) <!-- /react-text --></span><!-- react-text: 167 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="168">// DOM Component</span><!-- react-text: 169 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="170">if</span><!-- react-text: 171 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="172">typeof</span><!-- react-text: 173 --> name === <!-- /react-text --><span class="hljs-string" data-reactid="174">&#x27;string&#x27;</span><!-- react-text: 175 -->) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="176">for</span><!-- react-text: 177 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="178">var</span><!-- react-text: 179 --> key <!-- /react-text --><span class="hljs-keyword" data-reactid="180">in</span><!-- react-text: 181 --> props) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="182">const</span><!-- react-text: 183 --> value = props[key]
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="184">if</span><!-- react-text: 185 --> (value <!-- /react-text --><span class="hljs-keyword" data-reactid="186">instanceof</span><!-- react-text: 187 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="188">String</span><!-- react-text: 189 --> &amp;&amp; value[<!-- /react-text --><span class="hljs-string" data-reactid="190">&#x27;__i18n__&#x27;</span><!-- react-text: 191 -->]) {
+                <!-- /react-text --><span class="hljs-comment" data-reactid="192">// 检查到经过 translate 处理</span><!-- react-text: 193 -->
+                <!-- /react-text --><span class="hljs-comment" data-reactid="194">// 记录 value[&#x27;__i18n__&#x27;] 中的 id</span><!-- react-text: 195 -->
+                ...
+            }
+        }
+        
+        children.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="196"><span class="hljs-params" data-reactid="197">child</span><!-- react-text: 198 --> =&gt;<!-- /react-text --></span><!-- react-text: 199 --> {
+            <!-- /react-text --><span class="hljs-comment" data-reactid="200">// 对 child 处理逻辑同上</span><!-- react-text: 201 -->
+        })
+        
+        <!-- /react-text --><span class="hljs-comment" data-reactid="202">// 之前检查到了有 translated </span><!-- react-text: 203 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="204">if</span><!-- react-text: 205 --> (validate) {
+            props.className =  props.className + <!-- /react-text --><span class="hljs-string" data-reactid="206">&#x27; i18n-badge&#x27;</span><!-- react-text: 207 -->
+            
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="208">const</span><!-- react-text: 209 --> onMouseEnter = props.onMouseEnter
+            props.onMouseEnter = <!-- /react-text --><span class="hljs-function" data-reactid="210"><span class="hljs-keyword" data-reactid="211">function</span><!-- react-text: 212 --> (<!-- /react-text --><span class="hljs-params" data-reactid="213"></span><!-- react-text: 214 -->) <!-- /react-text --></span><!-- react-text: 215 -->{
+                <!-- /react-text --><span class="hljs-comment" data-reactid="216">// ... 交互逻辑</span><!-- react-text: 217 -->
+                
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="218">return</span><!-- react-text: 219 --> onMouseEnter.apply(<!-- /react-text --><span class="hljs-keyword" data-reactid="220">this</span><!-- react-text: 221 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="222">arguments</span><!-- react-text: 223 -->)
+            }
+        }
+    }
+    
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="224">return</span><!-- react-text: 225 --> createElement(name, props, ...children)
+}<!-- /react-text --></code></pre><p data-reactid="226"><!-- react-text: 227 -->最后效果参考: <!-- /react-text --><a href="https://demo.crowdin.com/profile/demo" data-reactid="228">https://demo.crowdin.com/profile/demo</a></p><h2 id="提问环节" data-reactid="229"><a href="#%E6%8F%90%E9%97%AE%E7%8E%AF%E8%8A%82" aria-hidden="true" data-reactid="230"><span class="icon icon-link" data-reactid="231"></span></a><!-- react-text: 232 -->提问环节<!-- /react-text --></h2><ul data-reactid="233"><li data-reactid="234">前端页面修改结果，在不刷新页面的情况下，如何同步至页面？</li><li data-reactid="235"><!-- react-text: 236 -->怎么解决 <!-- /react-text --><code data-reactid="237">translate(&#x27;a&#x27;) + translate(&#x27;b&#x27;)</code><!-- react-text: 238 --> 的检测<!-- /react-text --></li></ul></article></div><div class="gitment-container" data-reactid="239"></div><div class="paginator" data-reactid="240"><a title="Javascript 项目常用的配置文件" class="prev" href="/some-configuration-files-of-nodejs-project" data-reactid="241">Prev</a><a title="《斯巴达克斯》剧评" class="next" href="/the-review-of-spartacus" data-reactid="242">Next</a></div></div></main><footer data-reactid="243"><div class="copyright" data-reactid="244"><p data-reactid="245"><!-- react-text: 246 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="247">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

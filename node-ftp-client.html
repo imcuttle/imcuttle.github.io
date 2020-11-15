@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「node网络编程」FTP客户端程序 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="984761485"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「node网络编程」FTP客户端程序</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-30T21:18:44+00:00" data-reactid="13">May 30, 2016 9:18 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->最近，在「计算机网络」的课堂上，老师讲到了应用层相关的协议，<!-- /react-text --><code data-reactid="23">FTP/HTTP/SMTP...</code><!-- react-text: 24 -->理论结合实践才能产生最大的效益，所以我便利用<!-- /react-text --><code data-reactid="25">nodejs</code><!-- react-text: 26 -->中的<!-- /react-text --><code data-reactid="27">net</code><!-- react-text: 28 -->包，进行了相关的网络编程。<!-- /react-text --></p><h1 id="知识介绍" data-reactid="29"><a href="#%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="30"><span class="icon icon-link" data-reactid="31"></span></a><!-- react-text: 32 -->知识介绍<!-- /react-text --></h1><div data-reactid="33"><style data-reactid="34">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1452px;max-height:1452pxpx;" data-reactid="35"><div class="medium-image-progressive-placeholder" style="padding-bottom:34.43526170798898%;" data-reactid="36"></div><div class="medium-image-progressive" data-reactid="37"><canvas data-reactid="38"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="39"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fh2Isz1kNHsZnFHywDXMroNr3GYY?imageslim" data-reactid="40"/><noscript data-reactid="41"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fh2Isz1kNHsZnFHywDXMroNr3GYY?imageslim" data-reactid="42"/></noscript></div></div></div><!-- react-text: 43 --> &gt; 如图,FTP协议使用了2个tcp连接，一个是控制连接（服务器端默认端口为21），一个是数据传输连接（服务器端默认端口为20），客户端也需要对应的使用两个不同的端口进行连接。 <!-- /react-text --><div data-reactid="44"><style data-reactid="45">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1133px;max-height:1133pxpx;" data-reactid="46"><div class="medium-image-progressive-placeholder" style="padding-bottom:79.34686672550751%;" data-reactid="47"></div><div class="medium-image-progressive" data-reactid="48"><canvas data-reactid="49"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="50"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhmMKeDvkx7dnFvjvVlhpILiVJK5?imageslim" data-reactid="51"/><noscript data-reactid="52"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhmMKeDvkx7dnFvjvVlhpILiVJK5?imageslim" data-reactid="53"/></noscript></div></div></div><!-- react-text: 54 --> &gt; 如图 &gt; 1. 在服务器21端口有新的连接到来后，服务器发送220码响应 &gt; 2. 客户端利用该连接，向服务器21端口发送`USER`命令 &gt; 3. 服务器响应331 &gt; 4. 客户端发送`PASS`命令 &gt; 5. 服务器响应230 &gt; 6. 客户端发送`PORT`命令（客户选择端口号发送，服务器20端口将会与客户端该端口建立tcp连接，这就是数据传输连接） &gt; 7. 服务器响应150 &gt; 8. 客户端发送`TYPE`命令（给服务器端口21，表示更改文件的类型） &gt; 9. 服务器响应200 &gt; 10. 客户端发送`STRU`命令（给服务器端口21，表示更改文件的数据的组织） &gt; 11. 服务器响应200 &gt; 12. 客户端发送`STOR`命令（给服务器端口21，表示发送文件至服务器） &gt; 13. 服务器响应250 &gt; 14. 利用6中建立的数据传输连接传输数据 &gt; 15. 服务器响应226 &gt; 16. 客户端发送`QUIT`命令（给服务器端口21，表示断开连接） &gt; 17. 服务器响应221<!-- /react-text --><p data-reactid="55"><a href="https://www.w3.org/Protocols/rfc959/4_FileTransfer.html" data-reactid="56">更多信息参考</a></p><h1 id="代码" data-reactid="57"><a href="#%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="58"><span class="icon icon-link" data-reactid="59"></span></a><!-- react-text: 60 -->代码<!-- /react-text --></h1><pre data-reactid="61"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="62"><span class="hljs-keyword" data-reactid="63">var</span><!-- react-text: 64 --> net = <!-- /react-text --><span class="hljs-built_in" data-reactid="65">require</span><!-- react-text: 66 -->(<!-- /react-text --><span class="hljs-string" data-reactid="67">&#x27;net&#x27;</span><!-- react-text: 68 -->);
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="69">var</span><!-- react-text: 70 --> socket = net.createConnection(<!-- /react-text --><span class="hljs-number" data-reactid="71">21</span><!-- react-text: 72 -->,<!-- /react-text --><span class="hljs-string" data-reactid="73">&#x27;172.21.59.162&#x27;</span><!-- react-text: 74 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="75">//new net.Stream();</span><!-- react-text: 76 -->
+
+socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="77">&#x27;connection&#x27;</span><!-- react-text: 78 -->,<!-- /react-text --><span class="hljs-function" data-reactid="79"><span class="hljs-keyword" data-reactid="80">function</span><!-- react-text: 81 --> (<!-- /react-text --><span class="hljs-params" data-reactid="82"></span><!-- react-text: 83 -->) <!-- /react-text --></span><!-- react-text: 84 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="85">console</span><!-- react-text: 86 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="87">&#x27;connected&#x27;</span><!-- react-text: 88 -->);
+});
+socket.on(<!-- /react-text --><span class="hljs-string" data-reactid="89">&#x27;end&#x27;</span><!-- react-text: 90 -->,<!-- /react-text --><span class="hljs-function" data-reactid="91"><span class="hljs-keyword" data-reactid="92">function</span><!-- react-text: 93 --> (<!-- /react-text --><span class="hljs-params" data-reactid="94"></span><!-- react-text: 95 -->) <!-- /react-text --></span><!-- react-text: 96 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="97">console</span><!-- react-text: 98 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="99">&#x27;disconnected&#x27;</span><!-- react-text: 100 -->);
+});
+
+process.stdin.pipe(socket).pipe(process.stdout);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="101">&#x27;USER anonymous\r\n&#x27;</span><!-- react-text: 102 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="103">&#x27;PASS guest\r\n&#x27;</span><!-- react-text: 104 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="105">&#x27;PWD\r\n&#x27;</span><!-- react-text: 106 -->);
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="107">&#x27;PORT 172,21,59,162,34,184\r\n&#x27;</span><!-- react-text: 108 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="109">//172,21,59,162:客户端IP  34,184:10进制表示端口，即34*256+184=8888</span><!-- react-text: 110 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="111">// socket.write(&#x27;LIST movie\r\n&#x27;);</span><!-- react-text: 112 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="113">//socket.write(&#x27;TYPE I\r\n&#x27;);</span><!-- react-text: 114 -->
+socket.write(<!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;RETR bootstrap.zip\r\n&#x27;</span><!-- react-text: 116 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="117">//下载服务器端文件</span><!-- react-text: 118 -->
+<!-- /react-text --><span class="hljs-comment" data-reactid="119">// socket.write(&#x27;LIST /FTP\r\n&#x27;);</span><!-- react-text: 120 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="121">const</span><!-- react-text: 122 --> client = net.createServer(<!-- /react-text --><span class="hljs-function" data-reactid="123"><span class="hljs-keyword" data-reactid="124">function</span><!-- react-text: 125 --> (<!-- /react-text --><span class="hljs-params" data-reactid="126">s</span><!-- react-text: 127 -->) <!-- /react-text --></span><!-- react-text: 128 -->{
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="129">console</span><!-- react-text: 130 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="131">&#x27;client new connect&#x27;</span><!-- react-text: 132 -->);
+    s.on(<!-- /react-text --><span class="hljs-string" data-reactid="133">&#x27;connect&#x27;</span><!-- react-text: 134 -->,()=&gt;{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="135">console</span><!-- react-text: 136 -->.info(<!-- /react-text --><span class="hljs-string" data-reactid="137">&#x27;client new connect&#x27;</span><!-- react-text: 138 -->);
+    });
+    s.pipe(<!-- /react-text --><span class="hljs-built_in" data-reactid="139">require</span><!-- react-text: 140 -->(<!-- /react-text --><span class="hljs-string" data-reactid="141">&#x27;fs&#x27;</span><!-- react-text: 142 -->).createWriteStream(<!-- /react-text --><span class="hljs-string" data-reactid="143">&#x27;ftpfile.zip&#x27;</span><!-- react-text: 144 -->));<!-- /react-text --><span class="hljs-comment" data-reactid="145">//保存服务器服务器数据</span><!-- react-text: 146 -->
+    s.on(<!-- /react-text --><span class="hljs-string" data-reactid="147">&#x27;error&#x27;</span><!-- react-text: 148 -->,<!-- /react-text --><span class="hljs-built_in" data-reactid="149">console</span><!-- react-text: 150 -->.error)
+}).listen(<!-- /react-text --><span class="hljs-number" data-reactid="151">8888</span><!-- react-text: 152 -->);<!-- /react-text --><span class="hljs-comment" data-reactid="153">//新的客户端端口</span></code></pre><h1 id="总结" data-reactid="154"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="155"><span class="icon icon-link" data-reactid="156"></span></a><!-- react-text: 157 -->总结<!-- /react-text --></h1><p data-reactid="158">学习了node的相关网络编程，理解FTP协议，自己造轮子。</p></article></div><div class="gitment-container" data-reactid="159"></div><div class="paginator" data-reactid="160"><a title="「node网络编程」SMTP客户端程序" class="prev" href="/node-smtp" data-reactid="161">Prev</a><a title="node+express+jade实现HTTP文件浏览器" class="next" href="/node-express-jade-http-file-explorer" data-reactid="162">Next</a></div></div></main><footer data-reactid="163"><div class="copyright" data-reactid="164"><p data-reactid="165"><!-- react-text: 166 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="167">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

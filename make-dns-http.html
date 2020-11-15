@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「思科模拟器」建立DNS+HTTP服务 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="695544939"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「思科模拟器」建立DNS+HTTP服务</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-06T19:23:10+00:00" data-reactid="13">Jun 6, 2016 7:23 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="引言" data-reactid="17"><a href="#%E5%BC%95%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->引言<!-- /react-text --></h1><p data-reactid="21">之前，我介绍了使用思科构建VLAN服务，下面我将介绍利用思科建立DNS/HTTP服务。</p><h1 id="操作流程" data-reactid="22"><a href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->操作流程<!-- /react-text --></h1><h2 id="dns服务搭建" data-reactid="26"><a href="#dns%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->DNS服务搭建<!-- /react-text --></h2><h3 id="网络布局" data-reactid="30"><a href="#%E7%BD%91%E7%BB%9C%E5%B8%83%E5%B1%80" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->网络布局<!-- /react-text --></h3><div data-reactid="34"><style data-reactid="35">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:646px;max-height:646pxpx;" data-reactid="36"><div class="medium-image-progressive-placeholder" style="padding-bottom:57.585139318885446%;" data-reactid="37"></div><div class="medium-image-progressive" data-reactid="38"><canvas data-reactid="39"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="40"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsaV6jseX-B4HeJkauxXcB7S-r8p?imageslim" data-reactid="41"/><noscript data-reactid="42"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FsaV6jseX-B4HeJkauxXcB7S-r8p?imageslim" data-reactid="43"/></noscript></div></div></div><!-- react-text: 44 --> 如图，构建网络<!-- /react-text --><h3 id="ip设置" data-reactid="45"><a href="#ip%E8%AE%BE%E7%BD%AE" aria-hidden="true" data-reactid="46"><span class="icon icon-link" data-reactid="47"></span></a><!-- react-text: 48 -->IP设置<!-- /react-text --></h3><p data-reactid="49">其中各结点ip如下表所示</p><table data-reactid="50"><thead data-reactid="51"><tr data-reactid="52"><th data-reactid="53">#</th><th data-reactid="54">IP</th><th data-reactid="55">默认网关</th><th data-reactid="56">DNS服务器</th></tr></thead><tbody data-reactid="57"><tr data-reactid="58"><td data-reactid="59">Client</td><td data-reactid="60">10.0.0.2</td><td data-reactid="61">10.0.0.1</td><td data-reactid="62">10.0.0.3</td></tr><tr data-reactid="63"><td data-reactid="64">Local DNS Server</td><td data-reactid="65">10.0.0.3</td><td data-reactid="66">10.0.0.1</td><td data-reactid="67">-</td></tr><tr data-reactid="68"><td data-reactid="69">Company Router Left</td><td data-reactid="70">10.0.0.1</td><td data-reactid="71">-</td><td data-reactid="72">-</td></tr><tr data-reactid="73"><td data-reactid="74">Company Router Right</td><td data-reactid="75">10.1.0.1</td><td data-reactid="76">-</td><td data-reactid="77">-</td></tr><tr data-reactid="78"><td data-reactid="79">Internet Router Left</td><td data-reactid="80">10.1.0.2</td><td data-reactid="81">-</td><td data-reactid="82">-</td></tr><tr data-reactid="83"><td data-reactid="84">Internet Router Right</td><td data-reactid="85">10.3.0.1</td><td data-reactid="86">-</td><td data-reactid="87">-</td></tr><tr data-reactid="88"><td data-reactid="89">Internet Router Down</td><td data-reactid="90">10.2.0.1</td><td data-reactid="91">-</td><td data-reactid="92">-</td></tr><tr data-reactid="93"><td data-reactid="94">Root DNS Server</td><td data-reactid="95">10.2.0.2</td><td data-reactid="96">10.2.0.1</td><td data-reactid="97">-</td></tr><tr data-reactid="98"><td data-reactid="99">Example Router Left</td><td data-reactid="100">10.3.0.2</td><td data-reactid="101">-</td><td data-reactid="102">-</td></tr><tr data-reactid="103"><td data-reactid="104">Example Router Right</td><td data-reactid="105">10.4.0.1</td><td data-reactid="106">-</td><td data-reactid="107">-</td></tr><tr data-reactid="108"><td data-reactid="109">Other Server</td><td data-reactid="110">10.4.0.2</td><td data-reactid="111">10.4.0.1</td><td data-reactid="112">-</td></tr><tr data-reactid="113"><td data-reactid="114">Yucong DNS Server</td><td data-reactid="115">10.4.0.3</td><td data-reactid="116">10.4.0.1</td><td data-reactid="117">-</td></tr></tbody></table><h3 id="dns解析表填写" data-reactid="118"><a href="#dns%E8%A7%A3%E6%9E%90%E8%A1%A8%E5%A1%AB%E5%86%99" aria-hidden="true" data-reactid="119"><span class="icon icon-link" data-reactid="120"></span></a><!-- react-text: 121 -->DNS解析表填写<!-- /react-text --></h3><p data-reactid="122"><!-- react-text: 123 -->Local DNS Server <!-- /react-text --><div data-reactid="124"><style data-reactid="125">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="126"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="127"></div><div class="medium-image-progressive" data-reactid="128"><canvas data-reactid="129"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="130"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fkt-jQADVkr4MA-lEivvCRYSwvn0?imageslim" data-reactid="131"/><noscript data-reactid="132"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fkt-jQADVkr4MA-lEivvCRYSwvn0?imageslim" data-reactid="133"/></noscript></div></div></div></p><p data-reactid="134"><!-- react-text: 135 -->Root DNS Server <!-- /react-text --><div data-reactid="136"><style data-reactid="137">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="138"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="139"></div><div class="medium-image-progressive" data-reactid="140"><canvas data-reactid="141"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="142"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fj0mOj4rXLbkGuhdW7ZJfc13beK3?imageslim" data-reactid="143"/><noscript data-reactid="144"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fj0mOj4rXLbkGuhdW7ZJfc13beK3?imageslim" data-reactid="145"/></noscript></div></div></div></p><p data-reactid="146"><!-- react-text: 147 -->Yucong DNS Server <!-- /react-text --><div data-reactid="148"><style data-reactid="149">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="150"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="151"></div><div class="medium-image-progressive" data-reactid="152"><canvas data-reactid="153"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="154"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpaM9412EqeSpp6_ew83Jr2ryyus?imageslim" data-reactid="155"/><noscript data-reactid="156"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpaM9412EqeSpp6_ew83Jr2ryyus?imageslim" data-reactid="157"/></noscript></div></div></div></p><h3 id="域名解析测试" data-reactid="158"><a href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E6%B5%8B%E8%AF%95" aria-hidden="true" data-reactid="159"><span class="icon icon-link" data-reactid="160"></span></a><!-- react-text: 161 -->域名解析测试<!-- /react-text --></h3><p data-reactid="162"><!-- react-text: 163 -->对Client进行Ping指令测试，结果如下图 <!-- /react-text --><div data-reactid="164"><style data-reactid="165">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="166"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="167"></div><div class="medium-image-progressive" data-reactid="168"><canvas data-reactid="169"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="170"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhHlF8CHB9qwi3Wl3sL8GnuIkVHr?imageslim" data-reactid="171"/><noscript data-reactid="172"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FhHlF8CHB9qwi3Wl3sL8GnuIkVHr?imageslim" data-reactid="173"/></noscript></div></div></div><!-- react-text: 174 --> 说明成功搭建DNS服务！<!-- /react-text --></p><h3 id="dns-cache查看" data-reactid="175"><a href="#dns-cache%E6%9F%A5%E7%9C%8B" aria-hidden="true" data-reactid="176"><span class="icon icon-link" data-reactid="177"></span></a><!-- react-text: 178 -->DNS Cache查看<!-- /react-text --></h3><div data-reactid="179"><style data-reactid="180">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="181"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="182"></div><div class="medium-image-progressive" data-reactid="183"><canvas data-reactid="184"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="185"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fjf4BFssoqrsGnpjBbiR3Lnw5JJO?imageslim" data-reactid="186"/><noscript data-reactid="187"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fjf4BFssoqrsGnpjBbiR3Lnw5JJO?imageslim" data-reactid="188"/></noscript></div></div></div><!-- react-text: 189 --> <!-- /react-text --><div data-reactid="190"><style data-reactid="191">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="192"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="193"></div><div class="medium-image-progressive" data-reactid="194"><canvas data-reactid="195"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="196"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpEuzGbDG-N99Ef9fd5QeKPSDCRh?imageslim" data-reactid="197"/><noscript data-reactid="198"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpEuzGbDG-N99Ef9fd5QeKPSDCRh?imageslim" data-reactid="199"/></noscript></div></div></div><!-- react-text: 200 --> 如上图，为Local DNS Server的DNS缓存，下次访问相同域名时，直接取出即可。<!-- /react-text --><h2 id="http服务搭建" data-reactid="201"><a href="#http%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA" aria-hidden="true" data-reactid="202"><span class="icon icon-link" data-reactid="203"></span></a><!-- react-text: 204 -->HTTP服务搭建<!-- /react-text --></h2><p data-reactid="205">在上面的基础上，完成HTTP服务器搭建</p><h3 id="开启服务" data-reactid="206"><a href="#%E5%BC%80%E5%90%AF%E6%9C%8D%E5%8A%A1" aria-hidden="true" data-reactid="207"><span class="icon icon-link" data-reactid="208"></span></a><!-- react-text: 209 -->开启服务<!-- /react-text --></h3><p data-reactid="210"><!-- react-text: 211 -->若我想以Other Server作为HTTP服务器，进行如下设置即可 <!-- /react-text --><div data-reactid="212"><style data-reactid="213">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="214"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="215"></div><div class="medium-image-progressive" data-reactid="216"><canvas data-reactid="217"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="218"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo44xaj3oT0z4aZWUsH4PgXumHyS?imageslim" data-reactid="219"/><noscript data-reactid="220"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fo44xaj3oT0z4aZWUsH4PgXumHyS?imageslim" data-reactid="221"/></noscript></div></div></div><!-- react-text: 222 --> <!-- /react-text --><div data-reactid="223"><style data-reactid="224">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="225"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="226"></div><div class="medium-image-progressive" data-reactid="227"><canvas data-reactid="228"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="229"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgjhfKiup0GXYNu2yigRg-adpg8D?imageslim" data-reactid="230"/><noscript data-reactid="231"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgjhfKiup0GXYNu2yigRg-adpg8D?imageslim" data-reactid="232"/></noscript></div></div></div></p><h3 id="网页测试" data-reactid="233"><a href="#%E7%BD%91%E9%A1%B5%E6%B5%8B%E8%AF%95" aria-hidden="true" data-reactid="234"><span class="icon icon-link" data-reactid="235"></span></a><!-- react-text: 236 -->网页测试<!-- /react-text --></h3><p data-reactid="237"><!-- react-text: 238 -->对Client打开Web Browser，输入<!-- /react-text --><code data-reactid="239">other.yucong.com</code><!-- react-text: 240 --> <!-- /react-text --><div data-reactid="241"><style data-reactid="242">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:653px;max-height:653pxpx;" data-reactid="243"><div class="medium-image-progressive-placeholder" style="padding-bottom:88.208269525268%;" data-reactid="244"></div><div class="medium-image-progressive" data-reactid="245"><canvas data-reactid="246"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="247"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm1K6NQGtDXHe6fiHdP3qmxOsXSd?imageslim" data-reactid="248"/><noscript data-reactid="249"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm1K6NQGtDXHe6fiHdP3qmxOsXSd?imageslim" data-reactid="250"/></noscript></div></div></div><!-- react-text: 251 --> 如图，正常访问！<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="252"></div><div class="paginator" data-reactid="253"><a title="「项目拾遗」HTTP文件浏览（静态文件+express4.x+md/code文件渲染）" class="prev" href="/express4x-file-explorer" data-reactid="254">Prev</a><a title="「项目拾遗」简单图形处理及图形绘制" class="next" href="/simple-imgprocessing" data-reactid="255">Next</a></div></div></main><footer data-reactid="256"><div class="copyright" data-reactid="257"><p data-reactid="258"><!-- react-text: 259 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="260">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

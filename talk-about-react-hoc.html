@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 谈一谈React高阶组件 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="37939393"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">谈一谈React高阶组件</h1><div class="post-info" data-reactid="12"><time datetime="2017-09-03T20:51:47+00:00" data-reactid="13">Sep 3, 2017 8:51 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="定义" data-reactid="17"><a href="#%E5%AE%9A%E4%B9%89" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->定义<!-- /react-text --></h2><p data-reactid="21">高阶组件（Higher Order Components, HOC）: 通过它，将一个组件包装成另一个组件</p><pre data-reactid="22"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="23"><span class="hljs-keyword" data-reactid="24">const</span><!-- react-text: 25 --> EnhancedComponent = higherOrderComponent(WrappedComponent);<!-- /react-text --></code></pre><h2 id="两种hoc方式" data-reactid="26"><a href="#%E4%B8%A4%E7%A7%8Dhoc%E6%96%B9%E5%BC%8F" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->两种HOC方式<!-- /react-text --></h2><h3 id="wrap方法" data-reactid="30"><a href="#wrap%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->wrap方法<!-- /react-text --></h3><p data-reactid="34"><!-- react-text: 35 -->如下：将 Pagination 进行一层 wrap，为了与 rd 接口对接上，同时去掉自动计算&quot;多余&quot;的 <!-- /react-text --><code data-reactid="36">totalPage</code></p><pre data-reactid="37"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="38"><span class="hljs-function" data-reactid="39"><span class="hljs-keyword" data-reactid="40">function</span><!-- react-text: 41 --> <!-- /react-text --><span class="hljs-title" data-reactid="42">myPagination</span><!-- react-text: 43 -->(<!-- /react-text --><span class="hljs-params" data-reactid="44">Pagination</span><!-- react-text: 45 -->) <!-- /react-text --></span><!-- react-text: 46 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="47">return</span><!-- react-text: 48 --> <!-- /react-text --><span class="hljs-class" data-reactid="49"><span class="hljs-keyword" data-reactid="50">class</span><!-- react-text: 51 --> <!-- /react-text --><span class="hljs-title" data-reactid="52">MyPagination</span><!-- react-text: 53 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="54">extends</span><!-- react-text: 55 --> <!-- /react-text --><span class="hljs-title" data-reactid="56">React</span><!-- react-text: 57 -->.<!-- /react-text --><span class="hljs-title" data-reactid="58">Component</span><!-- react-text: 59 --> <!-- /react-text --></span><!-- react-text: 60 -->{
+
+        render() {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="61">const</span><!-- react-text: 62 --> {pageNum, pageSize, total, children, ...rest} = <!-- /react-text --><span class="hljs-keyword" data-reactid="63">this</span><!-- react-text: 64 -->.props
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="65">return</span><!-- react-text: 66 --> (
+                <!-- /react-text --><span class="xml" data-reactid="67"><span class="hljs-tag" data-reactid="68"><!-- react-text: 69 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="70">Pagination</span><!-- react-text: 71 -->
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="72">currentPage</span><!-- react-text: 73 -->=<!-- /react-text --><span class="hljs-string" data-reactid="74">{parseInt(pageNum,</span><!-- react-text: 75 --> <!-- /react-text --><span class="hljs-attr" data-reactid="76">10</span><!-- react-text: 77 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="78">currentLine</span><!-- react-text: 79 -->=<!-- /react-text --><span class="hljs-string" data-reactid="80">{parseInt(pageSize,</span><!-- react-text: 81 --> <!-- /react-text --><span class="hljs-attr" data-reactid="82">10</span><!-- react-text: 83 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="84">totalNumber</span><!-- react-text: 85 -->=<!-- /react-text --><span class="hljs-string" data-reactid="86">{parseInt(total,</span><!-- react-text: 87 --> <!-- /react-text --><span class="hljs-attr" data-reactid="88">10</span><!-- react-text: 89 -->)}
+                    <!-- /react-text --><span class="hljs-attr" data-reactid="90">totalPage</span><!-- react-text: 91 -->=<!-- /react-text --><span class="hljs-string" data-reactid="92">{Math.ceil(parseInt(total,</span><!-- react-text: 93 --> <!-- /react-text --><span class="hljs-attr" data-reactid="94">10</span><!-- react-text: 95 -->) / <!-- /react-text --><span class="hljs-attr" data-reactid="96">parseInt</span><!-- react-text: 97 -->(<!-- /react-text --><span class="hljs-attr" data-reactid="98">pageSize</span><!-- react-text: 99 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="100">10</span><!-- react-text: 101 -->))}
+                    {<!-- /react-text --><span class="hljs-attr" data-reactid="102">...rest</span><!-- react-text: 103 -->}
+                &gt;<!-- /react-text --></span><!-- react-text: 104 -->
+                    {children}
+                <!-- /react-text --><span class="hljs-tag" data-reactid="105"><!-- react-text: 106 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="107">Pagination</span><!-- react-text: 108 -->&gt;<!-- /react-text --></span></span><!-- react-text: 109 -->
+            )
+        }
+    }
+}<!-- /react-text --></code></pre><h3 id="倒转继承方法" data-reactid="110"><a href="#%E5%80%92%E8%BD%AC%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="111"><span class="icon icon-link" data-reactid="112"></span></a><!-- react-text: 113 -->倒转继承方法<!-- /react-text --></h3><p data-reactid="114">如下，可以用于包装 style/useable 的 api，而且对外无影响（除了静态方法）</p><pre data-reactid="115"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="116"><span class="hljs-function" data-reactid="117"><span class="hljs-keyword" data-reactid="118">function</span><!-- react-text: 119 --> <!-- /react-text --><span class="hljs-title" data-reactid="120">styleUseable</span><!-- react-text: 121 -->(<!-- /react-text --><span class="hljs-params" data-reactid="122">WrappedComponent</span><!-- react-text: 123 -->) <!-- /react-text --></span><!-- react-text: 124 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="125">return</span><!-- react-text: 126 --> <!-- /react-text --><span class="hljs-class" data-reactid="127"><span class="hljs-keyword" data-reactid="128">class</span><!-- react-text: 129 --> <!-- /react-text --><span class="hljs-title" data-reactid="130">Enhancer</span><!-- react-text: 131 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="132">extends</span><!-- react-text: 133 --> <!-- /react-text --><span class="hljs-title" data-reactid="134">componentClass</span><!-- react-text: 135 --> <!-- /react-text --></span><!-- react-text: 136 -->{
+        componentWillMount(...args) {
+            styleInstance.use &amp;&amp; styleInstance.use();
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="137">if</span><!-- react-text: 138 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="139">super</span><!-- react-text: 140 -->.componentWillMount) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="141">super</span><!-- react-text: 142 -->.componentWillMount.apply(<!-- /react-text --><span class="hljs-keyword" data-reactid="143">this</span><!-- react-text: 144 -->, args)
+            }
+        }
+
+        componentWillUnmount(...args) {
+            styleInstance.unuse &amp;&amp; styleInstance.unuse();
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="145">if</span><!-- react-text: 146 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="147">super</span><!-- react-text: 148 -->.componentWillUnmount) {
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="149">super</span><!-- react-text: 150 -->.componentWillUnmount.apply(<!-- /react-text --><span class="hljs-keyword" data-reactid="151">this</span><!-- react-text: 152 -->, args)
+            }
+        }
+    }
+}<!-- /react-text --></code></pre><h2 id="实践" data-reactid="153"><a href="#%E5%AE%9E%E8%B7%B5" aria-hidden="true" data-reactid="154"><span class="icon icon-link" data-reactid="155"></span></a><!-- react-text: 156 -->实践<!-- /react-text --></h2><p data-reactid="157"><a href="https://m-cuttlefish.github.io/react-mhoc/page" data-reactid="158">React-Editable: 可视化编辑 React 数据</a></p><video src="http://obu9je6ng.bkt.clouddn.com/editable-preview.mp4" controls="" width="500" height="300" data-reactid="159"><p data-reactid="160">可以方便 “编辑” React 组件（包括 Props、State、甚至一些其他自定义数据） 其中对于 Props 数据的“可编辑”实现，是基于 wrap 方法的，其他数据则都是通过倒转继承的方法实现。 并且视图进行同步更新</p><h2 id="hoc带来的问题" data-reactid="161"><a href="#hoc%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98" aria-hidden="true" data-reactid="162"><span class="icon icon-link" data-reactid="163"></span></a><!-- react-text: 164 -->HOC带来的问题<!-- /react-text --></h2><ul data-reactid="165"><li data-reactid="166"><p data-reactid="167"><!-- react-text: 168 -->static方法需要手动copy 该问题2种方法都存在 <!-- /react-text --><a href="https://github.com/mridgway/hoist-non-react-statics" data-reactid="169">解决方法: hoist-non-react-statics</a></p></li><li data-reactid="170"><p data-reactid="171">refs不会传递 该问题只存在于wrap方法</p></li></ul><h2 id="对比两种方法" data-reactid="172"><a href="#%E5%AF%B9%E6%AF%94%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95" aria-hidden="true" data-reactid="173"><span class="icon icon-link" data-reactid="174"></span></a><!-- react-text: 175 -->对比两种方法<!-- /react-text --></h2><ol data-reactid="176"><li data-reactid="177">wrap 方法可以用于修改 WrappedComponent 的 props</li><li data-reactid="178">倒转继承方法可以嵌入自定义方法至WrappedComponent的方法中（包括生命周期）</li><li data-reactid="179">因为 refs 的问题存在，倒转继承方法可以更加容易“不被察觉地”工作</li><li data-reactid="180">倒转继承方法不能修改 WrappedComponent 的 props，因为 this.props 是 readonly</li></ol></video></article></div><div class="gitment-container" data-reactid="181"></div><div class="paginator" data-reactid="182"><a title="基于Mobx实现 数据 - Url 同步" class="prev" href="/mobx-url-sync-decorator" data-reactid="183">Prev</a><a title="doc-pipe - 管理/同步 树状文档本地/服务器文章 解决方案" class="next" href="/doc-pipe-boom" data-reactid="184">Next</a></div></div></main><footer data-reactid="185"><div class="copyright" data-reactid="186"><p data-reactid="187"><!-- react-text: 188 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="189">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

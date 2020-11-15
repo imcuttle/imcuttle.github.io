@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> walli - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1467974418"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">walli</h1><div class="post-info" data-reactid="12"><time datetime="2018-04-11T13:13:19+00:00" data-reactid="13">Apr 11, 2018 1:13 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><a href="https://github.com/imcuttle/walli" data-reactid="18">walli</a><!-- react-text: 19 -->一个可管理不可变的数据校验库<!-- /react-text --></p><h3 id="什么时候需要用到-walli" data-reactid="20"><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0-walli" aria-hidden="true" data-reactid="21"><span class="icon icon-link" data-reactid="22"></span></a><!-- react-text: 23 -->什么时候需要用到 walli<!-- /react-text --></h3><p data-reactid="24">书写工具包的时候，需要校对用户输入参数的（复杂数据结构）配置, 类似于webpack中的配置校对 和 react中的 prop types</p><h3 id="简单栗子" data-reactid="25"><a href="#%E7%AE%80%E5%8D%95%E6%A0%97%E5%AD%90" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->简单栗子<!-- /react-text --></h3><p data-reactid="29">如定义一个person的数据结构</p><ul data-reactid="30"><li data-reactid="31">typescript 定义</li></ul><pre data-reactid="32"><code class="hljs language-typescript" data-query="{}" data-lang="typescript" data-reactid="33"><span class="hljs-keyword" data-reactid="34">type</span><!-- react-text: 35 --> Person = {
+  name: <!-- /react-text --><span class="hljs-built_in" data-reactid="36">string</span><!-- react-text: 37 -->
+  age: <!-- /react-text --><span class="hljs-built_in" data-reactid="38">string</span><!-- react-text: 39 -->
+  gender: <!-- /react-text --><span class="hljs-string" data-reactid="40">&#x27;F&#x27;</span><!-- react-text: 41 --> | <!-- /react-text --><span class="hljs-string" data-reactid="42">&#x27;M&#x27;</span><!-- react-text: 43 -->
+  father?: Person
+  mother?: Person
+  children?: Person[]
+}<!-- /react-text --></code></pre><ul data-reactid="44"><li data-reactid="45">对应于walli定义</li></ul><pre data-reactid="46"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="47"><span class="hljs-keyword" data-reactid="48">import</span><!-- react-text: 49 --> {
+  string,
+  eq,
+  oneOf,
+  array,
+  integer,
+  arrayOf,
+  Verifiable
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="50">from</span><!-- react-text: 51 --> <!-- /react-text --><span class="hljs-string" data-reactid="52">&#x27;walli&#x27;</span><!-- react-text: 53 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="54">import</span><!-- react-text: 55 --> { util } <!-- /react-text --><span class="hljs-keyword" data-reactid="56">from</span><!-- react-text: 57 --> <!-- /react-text --><span class="hljs-string" data-reactid="58">&#x27;walli&#x27;</span><!-- react-text: 59 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="60">const</span><!-- react-text: 61 --> { createVerifiableClass, createFinalVerifiable, funcify } = util
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="62">const</span><!-- react-text: 63 --> person = createVerifiableClass({
+  getDisplayName() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="64">return</span><!-- react-text: 65 --> <!-- /react-text --><span class="hljs-string" data-reactid="66">&#x27;person&#x27;</span><!-- react-text: 67 -->
+  },
+  _check(req) {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="68">return</span><!-- react-text: 69 --> eq({
+      <!-- /react-text --><span class="hljs-attr" data-reactid="70">name</span><!-- react-text: 71 -->: string,
+      <!-- /react-text --><span class="hljs-attr" data-reactid="72">age</span><!-- react-text: 73 -->: integer,
+      <!-- /react-text --><span class="hljs-attr" data-reactid="74">gender</span><!-- react-text: 75 -->: oneOf([<!-- /react-text --><span class="hljs-string" data-reactid="76">&#x27;F&#x27;</span><!-- react-text: 77 -->, <!-- /react-text --><span class="hljs-string" data-reactid="78">&#x27;M&#x27;</span><!-- react-text: 79 -->]),
+      <!-- /react-text --><span class="hljs-attr" data-reactid="80">father</span><!-- react-text: 81 -->: person().optional,
+      <!-- /react-text --><span class="hljs-attr" data-reactid="82">mother</span><!-- react-text: 83 -->: person().optional,
+      <!-- /react-text --><span class="hljs-attr" data-reactid="84">children</span><!-- react-text: 85 -->: arrayOf(person()).optional
+    }).check(req)
+  }
+})
+
+person().ok({
+  <!-- /react-text --><span class="hljs-attr" data-reactid="86">name</span><!-- react-text: 87 -->: <!-- /react-text --><span class="hljs-string" data-reactid="88">&#x27;cy&#x27;</span><!-- react-text: 89 -->,
+  <!-- /react-text --><span class="hljs-attr" data-reactid="90">age</span><!-- react-text: 91 -->: <!-- /react-text --><span class="hljs-number" data-reactid="92">22</span><!-- react-text: 93 -->,
+  <!-- /react-text --><span class="hljs-attr" data-reactid="94">gender</span><!-- react-text: 95 -->: <!-- /react-text --><span class="hljs-string" data-reactid="96">&#x27;F&#x27;</span><!-- react-text: 97 -->
+}) === <!-- /react-text --><span class="hljs-literal" data-reactid="98">true</span><!-- react-text: 99 -->
+
+person().toUnlawfulString({
+  <!-- /react-text --><span class="hljs-comment" data-reactid="100">// ...</span><!-- react-text: 101 -->
+})
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="102">// createFinalVerifiable</span><!-- react-text: 103 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="104">const</span><!-- react-text: 105 --> finalPerson = createFinalVerifiable(person)
+<!-- /react-text --><span class="hljs-comment" data-reactid="106">// finalPerson.check(...)</span><!-- react-text: 107 -->
+
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="108">// Or using es6 syntax</span><!-- react-text: 109 -->
+<!-- /react-text --><span class="hljs-class" data-reactid="110"><span class="hljs-keyword" data-reactid="111">class</span><!-- react-text: 112 --> <!-- /react-text --><span class="hljs-title" data-reactid="113">Person</span><!-- react-text: 114 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="115">extends</span><!-- react-text: 116 --> <!-- /react-text --><span class="hljs-title" data-reactid="117">Verifiable</span><!-- react-text: 118 --> <!-- /react-text --></span><!-- react-text: 119 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="120">static</span><!-- react-text: 121 --> displayName = <!-- /react-text --><span class="hljs-string" data-reactid="122">&#x27;person&#x27;</span><!-- react-text: 123 -->
+  _check(req) {
+     <!-- /react-text --><span class="hljs-comment" data-reactid="124">// same code here</span><!-- react-text: 125 -->
+  }
+}
+<!-- /react-text --><span class="hljs-keyword" data-reactid="126">const</span><!-- react-text: 127 --> es6Person = funcify(Person)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="128">const</span><!-- react-text: 129 --> finalES6Person = createFinalVerifiable(es6Person)<!-- /react-text --></code></pre><h3 id="特技" data-reactid="130"><a href="#%E7%89%B9%E6%8A%80" aria-hidden="true" data-reactid="131"><span class="icon icon-link" data-reactid="132"></span></a><!-- react-text: 133 -->特技<!-- /react-text --></h3><p data-reactid="134"><!-- react-text: 135 -->walli 提供三个核心校验api: <!-- /react-text --><code data-reactid="136">check</code><!-- react-text: 137 --> <!-- /react-text --><code data-reactid="138">ok</code><!-- react-text: 139 --> <!-- /react-text --><code data-reactid="140">toUnlawfulString</code></p><ul data-reactid="141"><li data-reactid="142"><!-- react-text: 143 -->check 返回一个校验结果的数据结构 UnlawfulnessList，其中的 每一个 Unlawfulness 包括: 错误的 <!-- /react-text --><code data-reactid="144">paths</code><!-- react-text: 145 --> 路径，错误原因 <!-- /react-text --><code data-reactid="146">reasons</code></li><li data-reactid="147">ok 则直接返回是否校验正确</li><li data-reactid="148">toUnlawfulString 返回非法原因的字符串</li></ul><h3 id="为什么walli是可管理的呢" data-reactid="149"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88walli%E6%98%AF%E5%8F%AF%E7%AE%A1%E7%90%86%E7%9A%84%E5%91%A2" aria-hidden="true" data-reactid="150"><span class="icon icon-link" data-reactid="151"></span></a><!-- react-text: 152 -->为什么walli是可管理的呢<!-- /react-text --></h3><ol data-reactid="153"><li data-reactid="154">可以自定义自己的类型结构, 如上文中的 person.</li><li data-reactid="155"><!-- react-text: 156 -->可以自定义非法字符串<!-- /react-text --><a href="https://imcuttle.github.io/walli/classes/_reasons_reason_.reason.html#message" data-reactid="157">message</a></li><li data-reactid="158"><!-- react-text: 159 -->预设众多的<!-- /react-text --><a href="https://imcuttle.github.io/walli/globals.html" data-reactid="160">基础类型</a><!-- react-text: 161 --> （欢迎提pr提供更多）<!-- /react-text --></li></ol><p data-reactid="162"><a href="https://github.com/imcuttle/walli" data-reactid="163">github</a></p></article></div><div class="gitment-container" data-reactid="164"></div><div class="paginator" data-reactid="165"><a title="页面标注助手 - Markme" class="prev" href="/page-mark" data-reactid="166">Prev</a><a title="基于Mobx实现React双向绑定" class="next" href="/react-data-binding-based-on-mobx" data-reactid="167">Next</a></div></div></main><footer data-reactid="168"><div class="copyright" data-reactid="169"><p data-reactid="170"><!-- react-text: 171 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="172">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

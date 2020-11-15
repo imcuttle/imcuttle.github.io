@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「图像处理」图像的直方图均衡化 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1083685286"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「图像处理」图像的直方图均衡化</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-03T15:56:22+00:00" data-reactid="13">Jun 3, 2016 3:56 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="介绍" data-reactid="17"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->介绍<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->直方图均衡化：我们把一张图片对应的rgb像素点分成3个(对应rgb)256(0-255)等级，并且将等级绘制为直方图，我们把直方图变得分布均匀，这就是直方图均衡化。 <!-- /react-text --><div data-reactid="23"><style data-reactid="24">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:560px;max-height:560pxpx;" data-reactid="25"><div class="medium-image-progressive-placeholder" style="padding-bottom:75%;" data-reactid="26"></div><div class="medium-image-progressive" data-reactid="27"><canvas data-reactid="28"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="29"/><img class="medium-image-origin" src="http://img.my.csdn.net/uploads/201112/9/0_1323437843KrRS.gif" data-reactid="30"/><noscript data-reactid="31"><img class="medium-image-origin" src="http://img.my.csdn.net/uploads/201112/9/0_1323437843KrRS.gif" data-reactid="32"/></noscript></div></div></div><!-- react-text: 33 --> 这样的图片往往具有高对比度，我使用js语言实现了该算法。<!-- /react-text --></p><h1 id="代码解释" data-reactid="34"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="35"><span class="icon icon-link" data-reactid="36"></span></a><!-- react-text: 37 -->代码解释<!-- /react-text --></h1><pre data-reactid="38"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="39"><!-- react-text: 40 -->    average: <!-- /react-text --><span class="hljs-function" data-reactid="41"><span class="hljs-keyword" data-reactid="42">function</span><!-- react-text: 43 --> (<!-- /react-text --><span class="hljs-params" data-reactid="44">imgData</span><!-- react-text: 45 -->) <!-- /react-text --></span><!-- react-text: 46 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="47">// imgData : 图片数据</span><!-- react-text: 48 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="49">var</span><!-- react-text: 50 --> data = imgData.data, w = imgData.width, h = imgData.height;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="51">var</span><!-- react-text: 52 --> histogramR = [],
+            histogramG = [],
+            histogramB = [];
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="53">for</span><!-- react-text: 54 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="55">var</span><!-- react-text: 56 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="57">0</span><!-- react-text: 58 -->; i&lt;data.length; i+=<!-- /react-text --><span class="hljs-number" data-reactid="59">4</span><!-- react-text: 60 -->){
+            <!-- /react-text --><span class="hljs-comment" data-reactid="61">// 统计rgb等级数目</span><!-- react-text: 62 -->
+            histogramR[data[i]] = histogramR[data[i]]+<!-- /react-text --><span class="hljs-number" data-reactid="63">1</span><!-- react-text: 64 --> || <!-- /react-text --><span class="hljs-number" data-reactid="65">1</span><!-- react-text: 66 -->;
+            histogramG[data[i+<!-- /react-text --><span class="hljs-number" data-reactid="67">1</span><!-- react-text: 68 -->]] = histogramG[data[i+<!-- /react-text --><span class="hljs-number" data-reactid="69">1</span><!-- react-text: 70 -->]]+<!-- /react-text --><span class="hljs-number" data-reactid="71">1</span><!-- react-text: 72 --> || <!-- /react-text --><span class="hljs-number" data-reactid="73">1</span><!-- react-text: 74 -->;
+            histogramB[data[i+<!-- /react-text --><span class="hljs-number" data-reactid="75">2</span><!-- react-text: 76 -->]] = histogramB[data[i+<!-- /react-text --><span class="hljs-number" data-reactid="77">2</span><!-- react-text: 78 -->]]+<!-- /react-text --><span class="hljs-number" data-reactid="79">1</span><!-- react-text: 80 --> || <!-- /react-text --><span class="hljs-number" data-reactid="81">1</span><!-- react-text: 82 -->;
+        }
+        <!-- /react-text --><span class="hljs-comment" data-reactid="83">//直方图均衡化</span><!-- react-text: 84 -->
+        <!-- /react-text --><span class="hljs-function" data-reactid="85"><span class="hljs-keyword" data-reactid="86">function</span><!-- react-text: 87 --> <!-- /react-text --><span class="hljs-title" data-reactid="88">getRate</span><!-- react-text: 89 -->(<!-- /react-text --><span class="hljs-params" data-reactid="90">grayHis,total,index</span><!-- react-text: 91 -->) <!-- /react-text --></span><!-- react-text: 92 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="93">var</span><!-- react-text: 94 --> s = <!-- /react-text --><span class="hljs-number" data-reactid="95">0</span><!-- react-text: 96 -->;
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="97">for</span><!-- react-text: 98 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="99">var</span><!-- react-text: 100 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="101">0</span><!-- react-text: 102 -->;i&lt;index;i++){
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="103">var</span><!-- react-text: 104 --> v = grayHis[i]||<!-- /react-text --><span class="hljs-number" data-reactid="105">0</span><!-- react-text: 106 -->;
+                s+=(v/total);
+            }
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="107">return</span><!-- react-text: 108 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="109">Math</span><!-- react-text: 110 -->.floor(s*<!-- /react-text --><span class="hljs-number" data-reactid="111">255</span><!-- react-text: 112 -->);
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="113">var</span><!-- react-text: 114 --> total = w*h,
+            newHisR = [],
+            newHisG = [],
+            newHisB = [];
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="115">for</span><!-- react-text: 116 -->(i=<!-- /react-text --><span class="hljs-number" data-reactid="117">0</span><!-- react-text: 118 -->; i&lt;<!-- /react-text --><span class="hljs-number" data-reactid="119">256</span><!-- react-text: 120 -->; i++){<!-- /react-text --><span class="hljs-comment" data-reactid="121">//直方图均衡化</span><!-- react-text: 122 -->
+            newHisR[i] = getRate(histogramR,total,i);
+            newHisG[i] = getRate(histogramG,total,i);
+            newHisB[i] = getRate(histogramB,total,i);
+        }
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="123">console</span><!-- react-text: 124 -->.log([histogramR,histogramG,histogramB],[newHisR,newHisG,newHisB]);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="125">for</span><!-- react-text: 126 -->(i=<!-- /react-text --><span class="hljs-number" data-reactid="127">0</span><!-- react-text: 128 -->; i&lt;h; i++){
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="129">for</span><!-- react-text: 130 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="131">var</span><!-- react-text: 132 --> j=<!-- /react-text --><span class="hljs-number" data-reactid="133">0</span><!-- react-text: 134 -->; j&lt;w; j++){
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="135">var</span><!-- react-text: 136 --> v = (i*w+j)&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="137">2</span><!-- react-text: 138 -->;
+                data[v] = newHisR[data[v]];
+                data[v+<!-- /react-text --><span class="hljs-number" data-reactid="139">1</span><!-- react-text: 140 -->]=newHisG[data[v+<!-- /react-text --><span class="hljs-number" data-reactid="141">1</span><!-- react-text: 142 -->]];
+                data[v+<!-- /react-text --><span class="hljs-number" data-reactid="143">1</span><!-- react-text: 144 -->]=newHisB[data[v+<!-- /react-text --><span class="hljs-number" data-reactid="145">2</span><!-- react-text: 146 -->]];
+            }
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="147">return</span><!-- react-text: 148 --> imgData;
+    }<!-- /react-text --></code></pre><p data-reactid="149"><!-- react-text: 150 -->查看控制台，左边为原图局部数据，右边为执行算法后的数据，明显后者分布更加平稳。 <!-- /react-text --><img src="/images/aver1.png" alt="img" width="1019" height="949" data-reactid="151"/></p><p data-reactid="152"><!-- react-text: 153 -->直观的感觉如下 <!-- /react-text --><img src="/images/aver2.png" alt="img" width="647" height="308" data-reactid="154"/></p><h1 id="参考资料" data-reactid="155"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="156"><span class="icon icon-link" data-reactid="157"></span></a><!-- react-text: 158 -->参考资料<!-- /react-text --></h1><ul data-reactid="159"><li data-reactid="160"><a href="http://blog.csdn.net/jia20003/article/details/8119563" data-reactid="161">http://blog.csdn.net/jia20003/article/details/8119563</a></li><li data-reactid="162"><a href="http://hello-wangfeng.iteye.com/blog/1717150" data-reactid="163">http://hello-wangfeng.iteye.com/blog/1717150</a></li></ul></article></div><div class="gitment-container" data-reactid="164"></div><div class="paginator" data-reactid="165"><a title="「图像处理」图像的复原" class="prev" href="/img-recover" data-reactid="166">Prev</a><a title="「思科模拟器」构建虚拟局域网（VLAN）" class="next" href="/make-vlan" data-reactid="167">Next</a></div></div></main><footer data-reactid="168"><div class="copyright" data-reactid="169"><p data-reactid="170"><!-- react-text: 171 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="172">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

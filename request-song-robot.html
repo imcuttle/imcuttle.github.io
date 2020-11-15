@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 点歌机器人 (来自网易云音乐) - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1443507721"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">点歌机器人 (来自网易云音乐)</h1><div class="post-info" data-reactid="12"><time datetime="2016-09-05T21:20:00+00:00" data-reactid="13">Sep 5, 2016 9:20 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17">偶然的机会，发现了B站的点歌机器人，觉得挺好玩的就自己做了一个简易版点歌机器人，预览如下：</p><div data-reactid="18"><style data-reactid="19">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="20"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.90277777777777%;" data-reactid="21"></div><div class="medium-image-progressive" data-reactid="22"><canvas data-reactid="23"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="24"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjcQLjCVCd6CuaU2UII4ZpM1hhsE?imageslim" data-reactid="25"/><noscript data-reactid="26"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjcQLjCVCd6CuaU2UII4ZpM1hhsE?imageslim" data-reactid="27"/></noscript></div></div></div><!-- react-text: 28 -->## 功能<!-- /react-text --><ol data-reactid="29"><li data-reactid="30">使用websocket，支持多人同时点歌，发送弹幕聊天</li><li data-reactid="31">具有搜索suggestion，用户体验更佳</li><li data-reactid="32">点击mv视频右上角可以缩小放大，不影响用户其他操作</li><li data-reactid="33">具有mv的资源，优先播放mv</li><li data-reactid="34">对于未播放的已点歌曲，可以进行取消</li><li data-reactid="35">...</li></ol><h2 id="其他说明" data-reactid="36"><a href="#%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->其他说明<!-- /react-text --></h2><p data-reactid="40">由于是实时多人点歌，所以不能够跳过当前播放歌曲，也不能跳跃播放，Mv只能够重头开始播放，mp3能够根据线上其他用户的播放进度进行同步</p><p data-reactid="41"><strong data-reactid="42">音乐资源均来自网易云音乐，该程序仅用于个人学习，不得用于任何商业用途</strong></p><p data-reactid="43">关于网易云音乐的接口规则，我就不多说了，因为关于商业机密，可能吃官司的,有兴趣的可以私下找我</p><h2 id="技术沉淀" data-reactid="44"><a href="#%E6%8A%80%E6%9C%AF%E6%B2%89%E6%B7%80" aria-hidden="true" data-reactid="45"><span class="icon icon-link" data-reactid="46"></span></a><!-- react-text: 47 -->技术沉淀<!-- /react-text --></h2><div data-reactid="48"><style data-reactid="49">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1435px;max-height:1435pxpx;" data-reactid="50"><div class="medium-image-progressive-placeholder" style="padding-bottom:24.529616724738677%;" data-reactid="51"></div><div class="medium-image-progressive" data-reactid="52"><canvas data-reactid="53"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="54"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjewUWc85RsP7nJjQ3e4KGEgsKFO?imageslim" data-reactid="55"/><noscript data-reactid="56"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjewUWc85RsP7nJjQ3e4KGEgsKFO?imageslim" data-reactid="57"/></noscript></div></div></div><!-- react-text: 58 --> 如上图，网易云音乐的请求参数是做了加密处理的。 关于网易云音乐请求参数的加密方法，简单提下 ```js<!-- /react-text --><p data-reactid="59">aesRsaEncrypt: function (text) { var secKey = createSecretKey(16); return { params: aesEncrypt(aesEncrypt(text, nonce), secKey), encSecKey: rsaEncrypt(secKey, pubKey, modulus) } }</p><pre data-reactid="60"><code data-query="{}" data-lang="data-lang" data-reactid="61">&lt;img src=&quot;http://obu9je6ng.bkt.clouddn.com/Fn_ldGpK_PAxokq0ZfW2CaDTPW2O?imageslim&quot; alt=&quot;ClipboardImage&quot; width=&quot;553&quot; height=&quot;434&quot; /&gt;
+
+`secKey`为本地随机生成的密文，通过rsa非对称加密算法加密，然后网易服务器通过约定好的与`pubKey`对应的另一个因数进行解密，得到`secKey`, 然后通过两次aes逆运算就能得到`text`，也就是真实的参数了。  
+
+这样做的好处不言而喻，不法分子很难破解抓取到的请求数据  
+但服务器负担加重了，每次提供服务前，还得先去破解一番
+
+另外！网易还做了一点安全措施，调用接口得到音乐url是有时间限制的!!!
+
+&lt;img src=&quot;http://obu9je6ng.bkt.clouddn.com/Fq-T4HHbU4OH-Yjq2mkFu7o0aCov?imageslim&quot; alt=&quot;ClipboardImage&quot; width=&quot;1435&quot; height=&quot;342&quot; /&gt;
+
+所以，不能够在点歌的时候就把音乐url抓取下来保存，必须得有用户需要播放的时候再抓取url  
+而且云音乐的mvurl不支持跨域访问，所以我只好做个代理，转发视频数据流了，但这样做的不好就是mv播放不能跳跃播放（如最上方动图所示），不知有没有大牛知道如何解决这个问题
+
+```javascript
+
+let url = req.url
+let q = URL.parse(req.url, true).query
+if(url.startsWith(SUFFIX)) {
+    if(q.id!=0)
+        gs.getMvUrl(q.id)
+            .then(json =&gt; {
+                if(json.hurl || json.murl) {
+                    res.writeHead(200, {&#x27;Content-Type&#x27;: u.suffix2Type(&#x27;mp4&#x27;)});
+                    var s = gs.getStream(json.hurl || json.murl)
+                    s.on(&#x27;error&#x27;, (err) =&gt; {
+                        s.close &amp;&amp; s.close()
+                        console.error(err)
+                        res.end()
+                    })
+                    //传递MV视频数据流
+                    s.pipe(res)
+                } else {
+                    res.writeHead(500);
+                    res.end(&#x27;Error &#x27;+JSON.stringify(json))
+                }
+            })
+    else {
+        res.writeHead(500);
+        res.end(&#x27;Error&#x27;)
+    }
+    return
+}
+</code></pre><h2 id="源码与使用" data-reactid="62"><a href="#%E6%BA%90%E7%A0%81%E4%B8%8E%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="63"><span class="icon icon-link" data-reactid="64"></span></a><!-- react-text: 65 -->源码与使用<!-- /react-text --></h2><p data-reactid="66"><a href="https://github.com/moyuyc/request-song-robot" data-reactid="67">song-robot</a></p><pre data-reactid="68"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="69">npm i song-robot -g
+song-robot -p 9888
+open http://localhost:9888</code></pre><h2 id="参考资料" data-reactid="70"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="71"><span class="icon icon-link" data-reactid="72"></span></a><!-- react-text: 73 -->参考资料<!-- /react-text --></h2><p data-reactid="74"><!-- react-text: 75 -->referer <!-- /react-text --><a href="https://zh.wikipedia.org/zh/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80" data-reactid="76">https://zh.wikipedia.org/zh/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80</a></p><p data-reactid="77"><!-- react-text: 78 -->网易云api破解 <!-- /react-text --><a href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/#" data-reactid="79">http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/#</a></p><p data-reactid="80"><!-- react-text: 81 -->node crypto<!-- /react-text --><br data-reactid="82"/><a href="https://nodejs.org/api/crypto.html" data-reactid="83">https://nodejs.org/api/crypto.html</a></p><p data-reactid="84"><!-- react-text: 85 -->输入框光标变色<!-- /react-text --><br data-reactid="86"/><a href="http://jsfiddle.net/8k1k0awb/" data-reactid="87">http://jsfiddle.net/8k1k0awb/</a></p></article></div><div class="gitment-container" data-reactid="88"></div><div class="paginator" data-reactid="89"><a title="H5之「离线应用」" class="prev" href="/h5-offline-way" data-reactid="90">Prev</a><a title="探究SegumentFault Markdown编辑器" class="next" href="/segumentfault-markdown-editor-and-mo-editor" data-reactid="91">Next</a></div></div></main><footer data-reactid="92"><div class="copyright" data-reactid="93"><p data-reactid="94"><!-- react-text: 95 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="96">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

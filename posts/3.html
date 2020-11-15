@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1149921484"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><section class="container" data-reactid="9"><div class="search-bar" data-reactid="10"><input value="" placeholder="Search..." data-reactid="11"/></div><ul class="home post-list" data-reactid="12"><li class="post-list-item" data-reactid="13"><article class="post-block" data-reactid="14"><h2 class="post-title" data-reactid="15"><a title="基于Mobx实现React双向绑定" class="post-title-link" href="/react-data-binding-based-on-mobx" data-reactid="16">基于Mobx实现React双向绑定</a></h2><time class="post-info" datetime="2018-03-13T10:11:13+00:00" data-reactid="17">Mar 13, 2018</time><div class="post-content" data-reactid="18">
+
+单向绑定非常简单，就是把Model绑定到View，当我们用JavaScript代码更新Model时，View就会自动更新。
+
+有单向绑定，就有双向绑定。如果用户更新了View，Model的数据也自动被更新了，这种情况就是双向绑定。
+
+什么情况下用户可以更新View呢？填写表单就是一个最直接的例子。当用户填写表单时，View的状态就被更新了，如果此时MVVM框架可以自动更新Model的状态，那就</div><a class="read-more" href="/react-data-binding-based-on-mobx" data-reactid="19">...more</a></article></li><li class="post-list-item" data-reactid="20"><article class="post-block" data-reactid="21"><h2 class="post-title" data-reactid="22"><a title="view model 开发模式 （基于react + mobx）" class="post-title-link" href="/react-mobx-vm" data-reactid="23">view model 开发模式 （基于react + mobx）</a></h2><time class="post-info" datetime="2018-03-02T20:20:49+00:00" data-reactid="24">Mar 2, 2018</time><div class="post-content" data-reactid="25">
+
+## [React-Mobx-VM](https://github.com/be-fe/react-mobx-vm)
+
+纵观主流的react状态管理库，Redux、mobx-state-tree
+大致的开发app的流程是：先创建一个全局的唯一的store，全局store的数据包括一些子页面的page store 和一些全局的context（如user information），其中page s</div><a class="read-more" href="/react-mobx-vm" data-reactid="26">...more</a></article></li><li class="post-list-item" data-reactid="27"><article class="post-block" data-reactid="28"><h2 class="post-title" data-reactid="29"><a title="Telescope: 文件在线预览服务" class="post-title-link" href="/telescopejs" data-reactid="30">Telescope: 文件在线预览服务</a></h2><time class="post-info" datetime="2018-03-01T13:48:45+00:00" data-reactid="31">Mar 1, 2018</time><div class="post-content" data-reactid="32">
+
+[🔭 Telescope 望远镜](https://github.com/telescopejs/telescope/) 是一个开源的文件预览 Web 服务，目前提供 HTML、图片、pdf 三种格式的预览格式。你可以用 Telescope 来预览 github、gitlab 甚至是任何平台上的资源。
+
+## 代码样式
+Telescope 具有各式各样的样式和主题。
+
+&lt;img src=&quot;h</div><a class="read-more" href="/telescopejs" data-reactid="33">...more</a></article></li><li class="post-list-item" data-reactid="34"><article class="post-block" data-reactid="35"><h2 class="post-title" data-reactid="36"><a title="Javascript 项目常用的配置文件" class="post-title-link" href="/some-configuration-files-of-nodejs-project" data-reactid="37">Javascript 项目常用的配置文件</a></h2><time class="post-info" datetime="2018-01-06T13:43:43+00:00" data-reactid="38">Jan 6, 2018</time><div class="post-content" data-reactid="39">
+
+# 引子
+
+基本上 GitHub 上优秀的javascript项目上面有很多零零碎碎的文件。如图，以koa为例
+&lt;img src=&quot;https://i.loli.net/2018/01/06/5a5063addc5f0.jpg&quot; alt=&quot;&quot; width=&quot;992&quot; height=&quot;685&quot; /&gt;
+
+下文将一一说明这些个“奇怪”的文件是干什么的...
+
+
+# 持续集成篇
+
+持续集成（CI, C</div><a class="read-more" href="/some-configuration-files-of-nodejs-project" data-reactid="40">...more</a></article></li><li class="post-list-item" data-reactid="41"><article class="post-block" data-reactid="42"><h2 class="post-title" data-reactid="43"><a title="国际化可视化编辑" class="post-title-link" href="/i18n-live-edit" data-reactid="44">国际化可视化编辑</a></h2><time class="post-info" datetime="2017-12-21T09:42:58+00:00" data-reactid="45">Dec 21, 2017</time><div class="post-content" data-reactid="46">
+## 痛点
+前端技术栈：React + Mobx
+国际化解决方案：通过一个全局的 translate 方法输入对应翻译译文的 key
+
+如：现在的中文的英文翻译字典数据有，
+```js
+// zh-CN
+{
+    cuttle: &#x27;墨鱼&#x27;
+}
+
+// en-US
+{
+    cuttle: &#x27;imcuttle&#x27;
+}
+```
+依次在中英文环境下调用 `translate(&#x27;cuttle&#x27;)` 会</div><a class="read-more" href="/i18n-live-edit" data-reactid="47">...more</a></article></li><li class="post-list-item" data-reactid="48"><article class="post-block" data-reactid="49"><h2 class="post-title" data-reactid="50"><a title="《斯巴达克斯》剧评" class="post-title-link" href="/the-review-of-spartacus" data-reactid="51">《斯巴达克斯》剧评</a></h2><time class="post-info" datetime="2017-12-16T09:42:58+00:00" data-reactid="52">Dec 16, 2017</time><div class="post-content" data-reactid="53">
+
+:smile: 最近抱着寻找感官刺激的目的，追了一部10年-13年左右的美剧 —— 《斯巴达克斯》
+
+最印象深刻的是：很黄暴很血腥！
+
+我本是不喜欢看血腥场面的人，但《斯巴达克斯》中的血腥场面不是像《七宗罪》里面的“憋屈”的血腥，而是“赤裸裸，硬生生”的血腥，夹杂着战士的荣誉。
+
+本剧共有四季，但我却是从第二季开始入坑的，剧情上完全没什么影响。
+
+第一季：介绍罗马共和国统治下的一个地方奴隶主训</div><a class="read-more" href="/the-review-of-spartacus" data-reactid="54">...more</a></article></li><li class="post-list-item" data-reactid="55"><article class="post-block" data-reactid="56"><h2 class="post-title" data-reactid="57"><a title="从零开始写Babel插件" class="post-title-link" href="/how-to-write-babel-plugin-danger-remove-unused-import" data-reactid="58">从零开始写Babel插件</a></h2><time class="post-info" datetime="2017-11-30T09:42:58+00:00" data-reactid="59">Nov 30, 2017</time><div class="post-content" data-reactid="60">
+
+在现代Web前端开发中，离不开JavaScript es6/7，而 ES6/7 中最常用的语法翻译当属 Babel 了。
+
+这篇文章将带读者从零开始开发一个自定义的Babel插件。
+
+## Babel是什么
+
+Babel 使用 babylon 解析 JavaScript 代码，得到抽象语法树（Abstract Syntax Tree，后文简称 AST）。  
+同时也可以使用`babel-gen</div><a class="read-more" href="/how-to-write-babel-plugin-danger-remove-unused-import" data-reactid="61">...more</a></article></li><li class="post-list-item" data-reactid="62"><article class="post-block" data-reactid="63"><h2 class="post-title" data-reactid="64"><a title="优雅的文档生成器 —— Picidae" class="post-title-link" href="/graceful-document-maker-picidae" data-reactid="65">优雅的文档生成器 —— Picidae</a></h2><time class="post-info" datetime="2017-11-07T19:15:56+00:00" data-reactid="66">Nov 7, 2017</time><div class="post-content" data-reactid="67">
+
+无论你是博客发烧友，还是项目开发小组，或是造轮子达人。  
+只要你需要写文档（markdown），而且需要产生出一套漂亮的页面。那么Picidae再适合不过了...
+
+大家伙现在看到的页面就是出自Picidae之手。
+
+ &lt;img src=&quot;http://obu9je6ng.bkt.clouddn.com/FtlARXbtnGd-rVjYj00F6f_0Nhh-?imageslim&quot; alt=</div><a class="read-more" href="/graceful-document-maker-picidae" data-reactid="68">...more</a></article></li><li class="post-list-item" data-reactid="69"><article class="post-block" data-reactid="70"><h2 class="post-title" data-reactid="71"><a title="HTML5 富文本编辑！" class="post-title-link" href="/wow-picidae-transformer-react-render-support-live-edit" data-reactid="72">HTML5 富文本编辑！</a></h2><time class="post-info" datetime="2017-11-05T21:00:58+00:00" data-reactid="73">Nov 5, 2017</time><div class="post-content" data-reactid="74">
+
+## 首先看一个实例！
+
+[`react-code-editor`](https://github.com/m-cuttlefish/react-code-editor)  
+如下代码：
+
+```css
+.stage {
+  border: 1px dashed #333;
+  padding: 10px;  
+}
+```
+````react
+import React from &#x27;react&#x27;</div><a class="read-more" href="/wow-picidae-transformer-react-render-support-live-edit" data-reactid="75">...more</a></article></li><li class="post-list-item" data-reactid="76"><article class="post-block" data-reactid="77"><h2 class="post-title" data-reactid="78"><a title="Babel插件开发" class="post-title-link" href="/dev-babel-plugin" data-reactid="79">Babel插件开发</a></h2><time class="post-info" datetime="2017-10-22T20:00:58+00:00" data-reactid="80">Oct 22, 2017</time><div class="post-content" data-reactid="81">
+
+Babel是什么我就不多介绍了，不懂的同学百度或者谷歌一下。
+
+Babel的插件工作原理就是将ast(语法分析树)，按照ast的规则，进行转换。
+
+[AST Expolorer](http://astexplorer.net/#/Z1exs6BWMq) 提供是一个线上AST预览的环境，包括Javascript、css...语言的AST预览
+
+其中babel的ast词法语法分析树的产生是来自开源</div><a class="read-more" href="/dev-babel-plugin" data-reactid="82">...more</a></article></li></ul><div class="paginator" data-reactid="83"><a class="prev" href="/posts/2" data-reactid="84">Prev</a><a class="next" href="/posts/4" data-reactid="85">Next</a></div></section></main><footer data-reactid="86"><div class="copyright" data-reactid="87"><p data-reactid="88"><!-- react-text: 89 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="90">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

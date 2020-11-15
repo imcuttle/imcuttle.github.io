@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> DIY 一个 CommonJS 运行环境吧 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-684255010"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">DIY 一个 CommonJS 运行环境吧</h1><div class="post-info" data-reactid="12"><time datetime="2019-07-03T07:03:11+00:00" data-reactid="13">Jul 3, 2019 7:03 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17">在进入主题之前，我们先看一个 React PropTypes 定义的问题。</p><h2 id="问题背景" data-reactid="18"><a href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF" aria-hidden="true" data-reactid="19"><span class="icon icon-link" data-reactid="20"></span></a><!-- react-text: 21 -->问题背景<!-- /react-text --></h2><p data-reactid="22">在写 React PropTypes 定义的时候，比如如下 Button 组件：</p><pre data-reactid="23"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="24"><span class="hljs-keyword" data-reactid="25">import</span><!-- react-text: 26 --> {ICON_SIZE_LIST} <!-- /react-text --><span class="hljs-keyword" data-reactid="27">from</span><!-- react-text: 28 --> <!-- /react-text --><span class="hljs-string" data-reactid="29">&#x27;comps/Icon&#x27;</span><!-- react-text: 30 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="31">export</span><!-- react-text: 32 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="33">const</span><!-- react-text: 34 --> BUTTON_TYPE_LIST = [<!-- /react-text --><span class="hljs-string" data-reactid="35">&#x27;default&#x27;</span><!-- react-text: 36 -->, <!-- /react-text --><span class="hljs-string" data-reactid="37">&#x27;primary&#x27;</span><!-- react-text: 38 -->, <!-- /react-text --><span class="hljs-string" data-reactid="39">&#x27;normal&#x27;</span><!-- react-text: 40 -->, <!-- /react-text --><span class="hljs-string" data-reactid="41">&#x27;success&#x27;</span><!-- react-text: 42 -->, <!-- /react-text --><span class="hljs-string" data-reactid="43">&#x27;danger&#x27;</span><!-- react-text: 44 -->, <!-- /react-text --><span class="hljs-string" data-reactid="45">&#x27;pale&#x27;</span><!-- react-text: 46 -->, <!-- /react-text --><span class="hljs-string" data-reactid="47">&#x27;bare&#x27;</span><!-- react-text: 48 -->, <!-- /react-text --><span class="hljs-string" data-reactid="49">&#x27;link&#x27;</span><!-- react-text: 50 -->]
+<!-- /react-text --><span class="hljs-keyword" data-reactid="51">export</span><!-- react-text: 52 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="53">const</span><!-- react-text: 54 --> BUTTON_SIZE_LIST = [<!-- /react-text --><span class="hljs-string" data-reactid="55">&#x27;default&#x27;</span><!-- react-text: 56 -->, <!-- /react-text --><span class="hljs-string" data-reactid="57">&#x27;small&#x27;</span><!-- react-text: 58 -->, <!-- /react-text --><span class="hljs-string" data-reactid="59">&#x27;large&#x27;</span><!-- react-text: 60 -->, <!-- /react-text --><span class="hljs-string" data-reactid="61">&#x27;x-small&#x27;</span><!-- react-text: 62 -->]
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="63">export</span><!-- react-text: 64 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="65">default</span><!-- react-text: 66 --> <!-- /react-text --><span class="hljs-class" data-reactid="67"><span class="hljs-keyword" data-reactid="68">class</span><!-- react-text: 69 --> <!-- /react-text --><span class="hljs-title" data-reactid="70">Button</span><!-- react-text: 71 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="72">extends</span><!-- react-text: 73 --> <!-- /react-text --><span class="hljs-title" data-reactid="74">React</span><!-- react-text: 75 -->.<!-- /react-text --><span class="hljs-title" data-reactid="76">Component</span><!-- react-text: 77 --> <!-- /react-text --></span><!-- react-text: 78 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="79">static</span><!-- react-text: 80 --> propTypes = {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="81">/**
+         * 按钮类型类型 &#x27;default&#x27; | &#x27;primary&#x27; | &#x27;success&#x27; | &#x27;danger&#x27; | &#x27;normal&#x27; | &#x27;pale&#x27;
+         */</span><!-- react-text: 82 -->
+        type: PropTypes.oneOf(BUTTON_TYPE_LIST),
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="83">/**
+         * 尺寸 &#x27;default&#x27; | &#x27;small&#x27; | &#x27;x-small&#x27; | &#x27;large&#x27;
+         * 实际没有large，因为规范上没有定义
+         */</span><!-- react-text: 84 -->
+        size: PropTypes.oneOf(BUTTON_SIZE_LIST),
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="85">/**
+         * 图标前缀，仅限于已经收录于 Icon 的 font 类型图标
+         */</span><!-- react-text: 86 -->
+        icon: PropTypes.string,
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="87">/**
+         * 指定前缀图标的尺寸，即 Icon 的 prop.size
+         */</span><!-- react-text: 88 -->
+        iconSize: PropTypes.oneOf(ICON_SIZE_LIST),
+        <!-- /react-text --><span class="hljs-comment" data-reactid="89">// ...</span><!-- react-text: 90 -->
+    }
+}<!-- /react-text --></code></pre><p data-reactid="91"><!-- react-text: 92 -->定义 Button 的 propTypes 包括一些需要计算的参数，如 <!-- /react-text --><code data-reactid="93">ICON_SIZE_LIST</code><!-- react-text: 94 --> 来自外部。 这时候如果使用 <!-- /react-text --><a href="https://github.com/reactjs/react-docgen" data-reactid="95">react-docgen</a><!-- react-text: 96 --> 来静态分析代码，对于 <!-- /react-text --><code data-reactid="97">ICON_SIZE_LIST</code><!-- react-text: 98 --> 将不能解析出其真实值。也就是说使用静态代码分析对于 computed value 不能很好的处理。<!-- /react-text --></p><p data-reactid="99">那么对于上述的问题有什么比较优雅的解决方式呢？</p><h2 id="问题解决思路" data-reactid="100"><a href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="101"><span class="icon icon-link" data-reactid="102"></span></a><!-- react-text: 103 -->问题解决思路<!-- /react-text --></h2><p data-reactid="104"><!-- react-text: 105 -->对于 computed value，需要执行脚本才能正确地获取值。那么如何才能在 Node.js 中执行上述 React 代码？ 有过 SSR（服务端渲染）开发经验的同学，对于这个问题应该不陌生，一般的解决方式是：在 Node.js 环境中 <!-- /react-text --><code data-reactid="106">require(&#x27;babel-register&#x27;)</code><!-- react-text: 107 -->，然后直接 <!-- /react-text --><code data-reactid="108">require</code><!-- react-text: 109 --> 前端模块代码，然后在书写前端代码时候，需要注意判断是 Node.js 环境还是 Browser 环境，如<!-- /react-text --></p><pre data-reactid="110"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="111"><span class="hljs-keyword" data-reactid="112">if</span><!-- react-text: 113 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="114">typeof</span><!-- react-text: 115 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="116">document</span><!-- react-text: 117 --> !== <!-- /react-text --><span class="hljs-string" data-reactid="118">&#x27;undefined&#x27;</span><!-- react-text: 119 -->) {
+  <!-- /react-text --><span class="hljs-comment" data-reactid="120">// Browser</span><!-- react-text: 121 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="122">else</span><!-- react-text: 123 --> {
+  <!-- /react-text --><span class="hljs-comment" data-reactid="124">// Node.js</span><!-- react-text: 125 -->
+}<!-- /react-text --></code></pre><p data-reactid="126"><!-- react-text: 127 -->这种解决方式有可能带来问题，如在前端代码中执行 node.js 端 api，如 <!-- /react-text --><code data-reactid="128">require(&#x27;fs&#x27;).writeFileSync(...)</code><!-- react-text: 129 -->，正常在 Webpack 环境（target 为 web）下执行是不被允许的，但这时候在 Node.js 环境下执行却被运行，所以可能带来一些危险操作。<!-- /react-text --></p><p data-reactid="130">所以考虑模拟实现一个 CommonJS 环境，如 Webpack，可以用来自定义 global 和 require 的规则，甚至进行代码转化。同时避免污染 Node.js 的 CommonJS 环境</p><h3 id="commonjs-环境实现思路" data-reactid="131"><a href="#commonjs-%E7%8E%AF%E5%A2%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF" aria-hidden="true" data-reactid="132"><span class="icon icon-link" data-reactid="133"></span></a><!-- react-text: 134 -->CommonJS 环境实现思路<!-- /react-text --></h3><p data-reactid="135"><!-- react-text: 136 -->在实现 CommonJS 环境前，先需要了解一下 <!-- /react-text --><a href="https://javascript.ruanyifeng.com/nodejs/module.html" data-reactid="137">CommonJS 是什么</a></p><p data-reactid="138">CommonJS 最为核心的为 Module 类</p><pre data-reactid="139"><code class="hljs language-ts" data-query="{}" data-lang="ts" data-reactid="140"><span class="hljs-keyword" data-reactid="141">class</span><!-- react-text: 142 --> Module {
+  <!-- /react-text --><span class="hljs-comment" data-reactid="143">// 是否加载完成</span><!-- react-text: 144 -->
+  loaded: <!-- /react-text --><span class="hljs-built_in" data-reactid="145">boolean</span><!-- react-text: 146 -->
+  <!-- /react-text --><span class="hljs-comment" data-reactid="147">// 缓存的 exports </span><!-- react-text: 148 -->
+  exports: <!-- /react-text --><span class="hljs-built_in" data-reactid="149">any</span><!-- react-text: 150 -->
+  <!-- /react-text --><span class="hljs-comment" data-reactid="151">// Module 直接依赖的 Module</span><!-- react-text: 152 -->
+  children: Module[]
+  <!-- /react-text --><span class="hljs-comment" data-reactid="153">// Module 的父亲</span><!-- react-text: 154 -->
+  parent: Module
+}<!-- /react-text --></code></pre><p data-reactid="155">其中 CommonJS 环境有如下参数变量</p><pre data-reactid="156"><code class="hljs language-ts" data-query="{}" data-lang="ts" data-reactid="157"><span class="hljs-keyword" data-reactid="158">namespace</span><!-- react-text: 159 --> CommonJS&lt;T&gt; {
+   <!-- /react-text --><span class="hljs-built_in" data-reactid="160">require</span><!-- react-text: 161 -->: <!-- /react-text --><span class="hljs-function" data-reactid="162"><!-- react-text: 163 -->(<!-- /react-text --><span class="hljs-params" data-reactid="164">id</span><!-- react-text: 165 -->) =&gt;<!-- /react-text --></span><!-- react-text: 166 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="167">any</span><!-- react-text: 168 --> &amp; {cache: <!-- /react-text --><span class="hljs-built_in" data-reactid="169">Object</span><!-- react-text: 170 -->&lt;<!-- /react-text --><span class="hljs-built_in" data-reactid="171">string</span><!-- react-text: 172 -->, Module&gt;, main: Module, resolve: <!-- /react-text --><span class="hljs-built_in" data-reactid="173">Function</span><!-- react-text: 174 -->, extensions: {}}
+   <!-- /react-text --><span class="hljs-comment" data-reactid="175">// 当前 Module 对象</span><!-- react-text: 176 -->
+   <!-- /react-text --><span class="hljs-keyword" data-reactid="177">module</span><!-- react-text: 178 -->: Module
+   // 文件名
+   __filename: string
+   // 文件目录
+   __dirname: string
+   // 全局环境变量
+   global: T
+} &amp; T<!-- /react-text --></code></pre><p data-reactid="179"><!-- react-text: 180 -->所以 CommonJS 需要实现的重点对象为：<!-- /react-text --><code data-reactid="181">require</code><!-- react-text: 182 --> / <!-- /react-text --><code data-reactid="183">module</code><!-- react-text: 184 --> / <!-- /react-text --><code data-reactid="185">global</code><!-- react-text: 186 -->，以及模块加载的机制实现。在这里使用 <!-- /react-text --><a href="https://nodejs.org/api/vm.html" data-reactid="187">vm</a><!-- react-text: 188 --> 模块创建沙盒环境。<!-- /react-text --></p><h4 id="vm-使用实例" data-reactid="189"><a href="#vm-%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B" aria-hidden="true" data-reactid="190"><span class="icon icon-link" data-reactid="191"></span></a><!-- react-text: 192 -->vm 使用实例<!-- /react-text --></h4><ol data-reactid="193"><li data-reactid="194">使用 vm.Script 创建执行脚本 script</li><li data-reactid="195">执行 script.runInContext(context)</li></ol><pre data-reactid="196"><code data-query="{}" data-lang="data-lang" data-reactid="197">const vm = require(&#x27;vm&#x27;);
+
+const sandbox = {
+  animal: &#x27;cat&#x27;,
+  count: 2
+};
+
+const script = new vm.Script(&#x27;count += 1; name = &quot;kitty&quot;;&#x27;);
+
+const context = vm.createContext(sandbox);
+for (let i = 0; i &lt; 10; ++i) {
+  script.runInContext(context);
+}
+
+console.log(sandbox);
+// { animal: &#x27;cat&#x27;, count: 12, name: &#x27;kitty&#x27; }
+</code></pre><h4 id="require-模块加载流程" data-reactid="198"><a href="#require-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B" aria-hidden="true" data-reactid="199"><span class="icon icon-link" data-reactid="200"></span></a><!-- react-text: 201 -->require 模块加载流程<!-- /react-text --></h4><pre data-reactid="202"><code data-query="{}" data-lang="data-lang" data-reactid="203">输入 moduleName
+     |
+     |
+id = require.resolve(moduleName)
+     |
+     |
+判断加载模块是否存在在 require.cache  —————————————&gt;  return require.cache[id]
+     |                                  存在
+     | 不存在
+     |
+创建 newModule，写入 require.cache
+     |
+     |
+在沙盒环境执行，注入 `require/module/global/...`
+     |
+     |
+newModule.exports = module.exports
+newModule.loaded = true
+     |
+     |
+return module.exports
+</code></pre><h4 id="环形依赖的特殊性" data-reactid="204"><a href="#%E7%8E%AF%E5%BD%A2%E4%BE%9D%E8%B5%96%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7" aria-hidden="true" data-reactid="205"><span class="icon icon-link" data-reactid="206"></span></a><!-- react-text: 207 -->环形依赖的特殊性<!-- /react-text --></h4><p data-reactid="208">我们来看一个环形依赖具体的例子</p><ul data-reactid="209"><li data-reactid="210"><code data-reactid="211">a.js</code></li></ul><pre data-reactid="212"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="213"><span class="hljs-built_in" data-reactid="214">console</span><!-- react-text: 215 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="216">&#x27;a.js exports entry&#x27;</span><!-- react-text: 217 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="218">module</span><!-- react-text: 219 -->.exports)
+<!-- /react-text --><span class="hljs-built_in" data-reactid="220">module</span><!-- react-text: 221 -->.exports = {
+  <!-- /react-text --><span class="hljs-attr" data-reactid="222">b</span><!-- react-text: 223 -->: <!-- /react-text --><span class="hljs-built_in" data-reactid="224">require</span><!-- react-text: 225 -->(<!-- /react-text --><span class="hljs-string" data-reactid="226">&#x27;./b&#x27;</span><!-- react-text: 227 -->),
+  <!-- /react-text --><span class="hljs-attr" data-reactid="228">a</span><!-- react-text: 229 -->: <!-- /react-text --><span class="hljs-string" data-reactid="230">&#x27;a&#x27;</span><!-- react-text: 231 -->
+}
+<!-- /react-text --><span class="hljs-built_in" data-reactid="232">console</span><!-- react-text: 233 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="234">&#x27;a.js exports&#x27;</span><!-- react-text: 235 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="236">module</span><!-- react-text: 237 -->.exports)<!-- /react-text --></code></pre><ul data-reactid="238"><li data-reactid="239"><code data-reactid="240">b.js</code></li></ul><pre data-reactid="241"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="242"><span class="hljs-built_in" data-reactid="243">console</span><!-- react-text: 244 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="245">&#x27;b.js exports entry&#x27;</span><!-- react-text: 246 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="247">module</span><!-- react-text: 248 -->.exports)
+<!-- /react-text --><span class="hljs-built_in" data-reactid="249">module</span><!-- react-text: 250 -->.exports = {
+  <!-- /react-text --><span class="hljs-attr" data-reactid="251">a</span><!-- react-text: 252 -->: <!-- /react-text --><span class="hljs-built_in" data-reactid="253">require</span><!-- react-text: 254 -->(<!-- /react-text --><span class="hljs-string" data-reactid="255">&#x27;./a&#x27;</span><!-- react-text: 256 -->),
+  <!-- /react-text --><span class="hljs-attr" data-reactid="257">b</span><!-- react-text: 258 -->: <!-- /react-text --><span class="hljs-string" data-reactid="259">&#x27;b&#x27;</span><!-- react-text: 260 -->
+}
+<!-- /react-text --><span class="hljs-built_in" data-reactid="261">console</span><!-- react-text: 262 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="263">&#x27;b.js exports&#x27;</span><!-- react-text: 264 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="265">module</span><!-- react-text: 266 -->.exports)<!-- /react-text --></code></pre><p data-reactid="267"><!-- react-text: 268 -->执行 <!-- /react-text --><code data-reactid="269">node a.js</code><!-- react-text: 270 --> 和 <!-- /react-text --><code data-reactid="271">node b.js</code><!-- react-text: 272 --> 分别 log 如何呢？<!-- /react-text --></p><ul data-reactid="273"><li data-reactid="274"><code data-reactid="275">node a.js</code></li></ul><pre data-reactid="276"><code data-query="{}" data-lang="data-lang" data-reactid="277">a.js exports entry {}
+b.js exports entry {}
+b.js exports { a: {}, b: &#x27;b&#x27; }
+a.js exports { b: { a: {}, b: &#x27;b&#x27; }, a: &#x27;a&#x27; }
+</code></pre><ul data-reactid="278"><li data-reactid="279"><code data-reactid="280">node b.js</code></li></ul><pre data-reactid="281"><code data-query="{}" data-lang="data-lang" data-reactid="282">b.js exports entry {}
+a.js exports entry {}
+a.js exports { b: {}, a: &#x27;a&#x27; }
+b.js exports { a: { b: {}, a: &#x27;a&#x27; }, b: &#x27;b&#x27; }
+</code></pre><p data-reactid="283">可以看到，对于环形依赖，可能导致某固定 Module exports 数据不同。</p><p data-reactid="284"><!-- react-text: 285 -->具体代码实现参看 <!-- /react-text --><a href="https://github.com/imcuttle/my-runner" data-reactid="286">my-runner</a><br data-reactid="287"/><!-- react-text: 288 -->它具有类似 <!-- /react-text --><a href="https://jestjs.io/docs/en/configuration" data-reactid="289">Jest</a><!-- react-text: 290 --> 的配置，可见 Jest 的原理其实也是使用 vm 模拟了 CommonJS 环境。<!-- /react-text --></p><h2 id="应用场景" data-reactid="291"><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF" aria-hidden="true" data-reactid="292"><span class="icon icon-link" data-reactid="293"></span></a><!-- react-text: 294 -->应用场景<!-- /react-text --></h2><p data-reactid="295"><!-- react-text: 296 -->自定义 CommonJS 环境除了解决上述说明的背景问题以外，还有很多的应用场景，如： 1. SSR（Node.js 端执行前端代码，得到 View，使用 transform 转换代码，不需要载入 <!-- /react-text --><code data-reactid="297">babel-register</code><!-- react-text: 298 -->） 2. 测试（自定义 Module Name，进而 Mock Module） 3. 前端内容骨架生成 （Node.js 端执行前端代码，得到 View）<!-- /react-text --></p><h2 id="相关资料" data-reactid="299"><a href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="300"><span class="icon icon-link" data-reactid="301"></span></a><!-- react-text: 302 -->相关资料<!-- /react-text --></h2><ul data-reactid="303"><li data-reactid="304"><a href="https://github.com/imcuttle/my-runner" data-reactid="305">my-runner</a><!-- react-text: 306 --> - CommonJS 模拟环境<!-- /react-text --></li><li data-reactid="307"><a href="https://www.npmjs.com/package/resolve" data-reactid="308">resolve</a><!-- react-text: 309 --> - implements the node <!-- /react-text --><code data-reactid="310">require.resolve()</code><!-- react-text: 311 --> algorithm<!-- /react-text --></li></ul></article></div><div class="gitment-container" data-reactid="312"></div><div class="paginator" data-reactid="313"><a title="统计有效词数算法的几点思考" class="prev" href="/统计有效词数算法的几点思考" data-reactid="314">Prev</a><a title="Node.js 前后端分离开发新思路" class="next" href="/node-js-前后端分离开发新思路" data-reactid="315">Next</a></div></div></main><footer data-reactid="316"><div class="copyright" data-reactid="317"><p data-reactid="318"><!-- react-text: 319 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="320">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

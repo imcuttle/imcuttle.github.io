@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> node+express+jade实现HTTP文件浏览器 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="152859822"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">node+express+jade实现HTTP文件浏览器</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-28T14:39:25+00:00" data-reactid="13">May 28, 2016 2:39 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21">我们有时候会有一个这样的需求，就是共享本地电脑的文件夹，方便在其他地方查看。 那么，我们可以用现成的FTP协议，但是ftp协议约束太高，界面丑陋，而且功能不能扩展， 所以，借着学习node的契机，我实践动手做了这个http文件浏览器。</p><h1 id="预览" data-reactid="22"><a href="#%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->预览<!-- /react-text --></h1><div data-reactid="26"><style data-reactid="27">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1845px;max-height:1845pxpx;" data-reactid="28"><div class="medium-image-progressive-placeholder" style="padding-bottom:22.710027100271002%;" data-reactid="29"></div><div class="medium-image-progressive" data-reactid="30"><canvas data-reactid="31"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="32"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fl8Rrj10iMlOgfPj6gij0qmoiIKd?imageslim" data-reactid="33"/><noscript data-reactid="34"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fl8Rrj10iMlOgfPj6gij0qmoiIKd?imageslim" data-reactid="35"/></noscript></div></div></div><!-- react-text: 36 --> <!-- /react-text --><div data-reactid="37"><style data-reactid="38">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1232px;max-height:1232pxpx;" data-reactid="39"><div class="medium-image-progressive-placeholder" style="padding-bottom:23.53896103896104%;" data-reactid="40"></div><div class="medium-image-progressive" data-reactid="41"><canvas data-reactid="42"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="43"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjRzFW2Sf8NZmtl6DataBXsCjHnF?imageslim" data-reactid="44"/><noscript data-reactid="45"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FjRzFW2Sf8NZmtl6DataBXsCjHnF?imageslim" data-reactid="46"/></noscript></div></div></div><!-- react-text: 47 --> <!-- /react-text --><div data-reactid="48"><style data-reactid="49">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1233px;max-height:1233pxpx;" data-reactid="50"><div class="medium-image-progressive-placeholder" style="padding-bottom:70.72181670721817%;" data-reactid="51"></div><div class="medium-image-progressive" data-reactid="52"><canvas data-reactid="53"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="54"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fj9QAb-KZfPuLC-PuEyq6Enn0p3j?imageslim" data-reactid="55"/><noscript data-reactid="56"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fj9QAb-KZfPuLC-PuEyq6Enn0p3j?imageslim" data-reactid="57"/></noscript></div></div></div><!-- react-text: 58 --> # 功能 * 支持图片，视频，音乐在线欣赏 * 支持文件夹压缩下载（管道流下载） # 实现<!-- /react-text --><pre data-reactid="59"><code data-query="{}" data-lang="data-lang" data-reactid="60">1. 安装`express`
+    npm install -g express
+2. 快速创建应用
+    express http_file_explorer
+
+    之后就可以看到快速创建的http_file_explorer应用
+3. 在`app.js`入口文件中
+
+```javascript
+    app.configure(function(){
+      app.set(&#x27;views&#x27;, __dirname + &#x27;/views&#x27;);
+      app.set(&#x27;view engine&#x27;, &#x27;jade&#x27;);
+      app.use(express.bodyParser());
+      app.use(express.methodOverride());
+      //* 下面两个的顺序不能错，不然public文件夹中的资源请求也会被routes.index处理
+      app.use(express.static(__dirname + &#x27;/public&#x27;));
+      app.use(app.router);
+    });
+    ...
+    app.get(&#x27;/*&#x27;, routes.index);//对所有url进行处理
+```
+
+4. 关于`routes/index.js`
+
+```javascript
+    var fs = require(&#x27;fs&#x27;);
+    // 实现Promise标准的库，使得代码更优雅
+    var Q = require(&#x27;q&#x27;);
+    // 解析url信息
+    var url = require(&#x27;url&#x27;);
+    // 压缩功能使用的包
+    var archiver = require(&#x27;archiver&#x27;);
+    // 读取root，得到需要共享的文件夹路径
+    var root = fs.readFileSync(&#x27;./root&#x27;).toString();
+    exports.index = function(req, res){
+        // 解析url，得到参数等信息
+        var arg = url.parse(req.url,true),
+            query = arg.query;
+        // 将url路径解码，不然中文文件名出错
+        var r = decodeURIComponent(arg.pathname);
+        r=r===&#x27;/&#x27;?&#x27;&#x27;:r;
+        console.info(r,query);
+        if(!query.compress){//是否压缩下载？
+            var state = fs.statSync(root+r);
+            if(state.isDirectory())
+                loadDir(root+r,r, req, res);
+            else
+                loadFile(root+r,r,query.raw,res);
+        }else{
+            loadZip(root+r,r,req,res);
+        }
+    };
+```
+
+5. 使用Promise，实现文件夹的同步读取
+可以参考&lt;a target=&#x27;_blank&#x27; href=&#x27;http://moyuyc.github.io/2016/05/01/%E3%80%8CECMAScript6%E3%80%8DPromise%E4%BB%8B%E7%BB%8D%E4%B8%8Enodejs%E5%AE%9E%E8%B7%B5%E8%BF%90%E7%94%A8(q.js)&#x27; &gt;Promise介绍与nodejs实践运用(q.js)&lt;/a&gt;
+
+```javascript
+    var statPr = function (root,file) {
+      var deferred = Q.defer();
+      fs.stat(root+&#x27;/&#x27;+file,function (err, stats) {
+        if(err) deferred.reject(err);
+        else {
+            stats.name = file;
+            stats.type = stats.isDirectory()?&#x27;文件夹&#x27;:&#x27;文件&#x27;;
+            deferred.resolve(stats, root);
+        }
+      });
+      return deferred.promise;
+    };
+    function loadDir(root,rela,req,res) {
+      fs.readdir(root,function (err,files) {
+        if(err) throw err;
+        Q.allSettled(files.map((x,i,a)=&gt;{return statPr(r,x);}))
+    　　.then(function (results) {
+    　　var values=[];
+    　　results.forEach(x=&gt;{
+    　　    if(x.state===&#x27;fulfilled&#x27;){
+        　　values.push(x.value);
+    　　    }else
+　　      　　console.error(x.reason);
+    　　});
+　　  　　res.render(&#x27;file&#x27;,Object.extend(o,
+       　　 {
+        　　title:&#x27;HTTP文件查看&#x27;,
+        　　dirname:rela,
+        　　files : values.map(x=&gt; {
+          　　  return {
+            　　type: x.type,
+            　　name: x.name,
+            　　time: x.mtime.format(),
+            　　size: x.size.toSize()
+            　　};
+        　　})
+        　　})
+    　　);
+    　　},console.error)
+      });
+    }
+```
+
+6. 关于`Jade`
+`Jade`是一个html模板，具有简洁的特点。
+关于`Jade`语法，参考[Jade 模板引擎使用](https://cnodejs.org/topic/5368adc5cf738dd6090060f2)
+
+7. 关于压缩实现
+在这我是用了`archiver`模块，其实还有很多的压缩解压缩模块，[参看更多](http://www.tuicool.com/articles/ZrQBjan)
+
+```javascript
+    var archiver = require(&#x27;archiver&#x27;);
+    function loadZip(file,rela,req,res) {
+        var state = fs.statSync(file);
+        var filename = rela.substring(rela.lastIndexOf(&#x27;/&#x27;)+1);
+        var archive = archiver(&#x27;zip&#x27;);
+        archive.on(&#x27;error&#x27;, function(err){throw err;});
+        archive.pipe(res);
+        if(state.isDirectory()) archive.directory(file,filename);
+        else archive.file(file,{name:filename});
+        archive.finalize();
+    }
+```
+更多文档资料可以查看[archiver](https://github.com/ctalkington/node-archiver)
+8. 关于管道流
+下载文件传统的方法如下：
+```javascript
+fs.readFile(path,function(err,data){
+    if(err) throw err;
+    res.end(data);
+})
+```
+传统方式将数据全部读取完毕后，才产生响应，第一，服务器需要花费较大内存保存数据，第二，不能及时(相对)响应。
+然后，我们可以改进为以下方法
+```javascript
+var stream = fs.createReadStream(path);
+stream.on(&#x27;data&#x27;,function(data){
+    res.write(data);
+});
+stream.on(&#x27;end&#x27;,function(){
+    res.end();
+})
+```
+这种方法，乍一看，好像解决了传统方法的问题，但是！对于本地文件，可读流是快速的，相比于网络传输的数据，可写流的慢速的，
+所以服务器端的缓冲器将会很快被填满，然后继续讲数据写入内存中，还是会出现传统方法的第一个问题。
+就此问题，我们可以采用下面的方法解决
+
+```javascript
+    var stream = fs.createReadStream(path);
+    stream.on(&#x27;data&#x27;,function(data){
+        if(!res.write(data)){//无法将数据写入缓冲区
+            stream.pause();//暂停发送数据
+        }
+    });
+    // 缓冲器已经没数据了！
+    stream.on(&#x27;drain&#x27;,function(){
+        stream.resume();//恢复
+    })
+    stream.on(&#x27;end&#x27;,function(){
+        res.end();
+    })
+```
+
+也就是说，发送方将缓冲区填满后，就停止发送数据了，然后接收方将缓冲区数据完全读取走后，发送方恢复发送数据
+最后，`stream.pipe()`就是基于这种方法实现的，所以我们可以直接使用管道流
+
+```javascript
+    //可读流结束发送数据后，可写流写完数据后自动结束关闭
+    fs.createReadStream(path).pipe(res);
+```
+
+可以将数据流想象成水流，管道流就是一根水管，一端进水，另一端出水，也就是一端为可读数据流，另一端为可写数据流，而缓冲区就是水管的容量。
+github上的文件下载就是使用管道流实现的吧？
+</code></pre><h1 id="下载" data-reactid="61"><a href="#%E4%B8%8B%E8%BD%BD" aria-hidden="true" data-reactid="62"><span class="icon icon-link" data-reactid="63"></span></a><!-- react-text: 64 -->下载<!-- /react-text --></h1><p data-reactid="65"><a href="https://github.com/moyuyc" data-reactid="66">github地址</a></p></article></div><div class="gitment-container" data-reactid="67"></div><div class="paginator" data-reactid="68"><a title="「node网络编程」FTP客户端程序" class="prev" href="/node-ftp-client" data-reactid="69">Prev</a><a title="解决外网访问nodejs服务器（nginx反向代理）" class="next" href="/nginx-reverse-proxy" data-reactid="70">Next</a></div></div></main><footer data-reactid="71"><div class="copyright" data-reactid="72"><p data-reactid="73"><!-- react-text: 74 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="75">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

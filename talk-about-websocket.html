@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「项目拾遗」谈谈websocket - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1918610374"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「项目拾遗」谈谈websocket</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-30T10:40:26+00:00" data-reactid="13">Apr 30, 2016 10:40 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->在2015年寒假期间，我完成了考友无忧项目的考友互动板块模块，主要是基于websocket实现的公共聊天室/一对一好友聊天/实时消息推送，基于websql实现的历史聊天纪录存取。 <!-- /react-text --><em data-reactid="23"><!-- react-text: 24 -->项目地址 <!-- /react-text --><a href="http://moyuyc.xyz/autoexam/" data-reactid="25">http://moyuyc.xyz/autoexam/</a></em><!-- react-text: 26 --> 测试用户 moyumoyu，密码 moyumoyu<!-- /react-text --></p><h1 id="关于websocket" data-reactid="27"><a href="#%E5%85%B3%E4%BA%8Ewebsocket" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->关于websocket<!-- /react-text --></h1><p data-reactid="31"><!-- react-text: 32 -->通过websocket，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。 websocket数据传输不是采用的http协议，而是自己定义的协议。具有传输数据量少的特点。 chrome控制台中可以查看到这一次握手动作 <!-- /react-text --><div data-reactid="33"><style data-reactid="34">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1077px;max-height:1077pxpx;" data-reactid="35"><div class="medium-image-progressive-placeholder" style="padding-bottom:19.127205199628598%;" data-reactid="36"></div><div class="medium-image-progressive" data-reactid="37"><canvas data-reactid="38"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="39"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnzzOxFxWO3ml_rhjA3NjPJuMrDw?imageslim" data-reactid="40"/><noscript data-reactid="41"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnzzOxFxWO3ml_rhjA3NjPJuMrDw?imageslim" data-reactid="42"/></noscript></div></div></div></p><h1 id="预览" data-reactid="43"><a href="#%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="44"><span class="icon icon-link" data-reactid="45"></span></a><!-- react-text: 46 -->预览<!-- /react-text --></h1><ol data-reactid="47"><li data-reactid="48"><!-- react-text: 49 -->实时好友聊天 <!-- /react-text --><div data-reactid="50"><style data-reactid="51">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1191px;max-height:1191pxpx;" data-reactid="52"><div class="medium-image-progressive-placeholder" style="padding-bottom:69.1855583543241%;" data-reactid="53"></div><div class="medium-image-progressive" data-reactid="54"><canvas data-reactid="55"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="56"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqwbKy8OiMXzzRWhgsGueOHt1nem?imageslim" data-reactid="57"/><noscript data-reactid="58"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqwbKy8OiMXzzRWhgsGueOHt1nem?imageslim" data-reactid="59"/></noscript></div></div></div></li><li data-reactid="60"><!-- react-text: 61 -->实时消息推送 <!-- /react-text --><div data-reactid="62"><style data-reactid="63">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:422px;max-height:422pxpx;" data-reactid="64"><div class="medium-image-progressive-placeholder" style="padding-bottom:67.77251184834124%;" data-reactid="65"></div><div class="medium-image-progressive" data-reactid="66"><canvas data-reactid="67"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="68"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FoEmG9UGsrhr_ZlRC1VGjhYPReKV?imageslim" data-reactid="69"/><noscript data-reactid="70"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FoEmG9UGsrhr_ZlRC1VGjhYPReKV?imageslim" data-reactid="71"/></noscript></div></div></div></li></ol><h1 id="实现" data-reactid="72"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="73"><span class="icon icon-link" data-reactid="74"></span></a><!-- react-text: 75 -->实现<!-- /react-text --></h1><h2 id="前端" data-reactid="76"><a href="#%E5%89%8D%E7%AB%AF" aria-hidden="true" data-reactid="77"><span class="icon icon-link" data-reactid="78"></span></a><!-- react-text: 79 -->前端<!-- /react-text --></h2><ul data-reactid="80"><li data-reactid="81">利用jQuery封装的 websocket 接口</li></ul><pre data-reactid="82"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="83"><!-- react-text: 84 -->(<!-- /react-text --><span class="hljs-function" data-reactid="85"><span class="hljs-keyword" data-reactid="86">function</span><!-- react-text: 87 -->(<!-- /react-text --><span class="hljs-params" data-reactid="88">$</span><!-- react-text: 89 -->) <!-- /react-text --></span><!-- react-text: 90 -->{
+    $.websocket = <!-- /react-text --><span class="hljs-function" data-reactid="91"><span class="hljs-keyword" data-reactid="92">function</span><!-- react-text: 93 -->(<!-- /react-text --><span class="hljs-params" data-reactid="94">options</span><!-- react-text: 95 -->) <!-- /react-text --></span><!-- react-text: 96 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="97">var</span><!-- react-text: 98 --> defaults = {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="99">domain</span><!-- react-text: 100 -->: top.location.hostname,
+            <!-- /react-text --><span class="hljs-attr" data-reactid="101">port</span><!-- react-text: 102 -->:<!-- /react-text --><span class="hljs-number" data-reactid="103">80</span><!-- react-text: 104 -->,
+            <!-- /react-text --><span class="hljs-attr" data-reactid="105">path</span><!-- react-text: 106 -->: <!-- /react-text --><span class="hljs-string" data-reactid="107">&quot;&quot;</span><!-- react-text: 108 -->
+        };
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="109">var</span><!-- react-text: 110 --> opts = $.extend(defaults,options);
+        <!-- /react-text --><span class="hljs-comment" data-reactid="111">// 注意：必须为绝对url，websocket不支持同源策略。</span><!-- react-text: 112 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="113">var</span><!-- react-text: 114 --> szServer = (top.location.protocol == <!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;http:&#x27;</span><!-- react-text: 116 --> ? <!-- /react-text --><span class="hljs-string" data-reactid="117">&quot;ws://&quot;</span><!-- react-text: 118 --> : <!-- /react-text --><span class="hljs-string" data-reactid="119">&quot;wss://&quot;</span><!-- react-text: 120 -->)
+                        + opts.domain + <!-- /react-text --><span class="hljs-string" data-reactid="121">&quot;:&quot;</span><!-- react-text: 122 --> + opts.port + <!-- /react-text --><span class="hljs-string" data-reactid="123">&quot;/&quot;</span><!-- react-text: 124 --> + opts.path ;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="125">var</span><!-- react-text: 126 --> socket = <!-- /react-text --><span class="hljs-literal" data-reactid="127">null</span><!-- react-text: 128 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="129">var</span><!-- react-text: 130 --> bOpen = <!-- /react-text --><span class="hljs-literal" data-reactid="131">false</span><!-- react-text: 132 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="133">var</span><!-- react-text: 134 --> t1 = <!-- /react-text --><span class="hljs-number" data-reactid="135">0</span><!-- react-text: 136 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="137">var</span><!-- react-text: 138 --> t2 = <!-- /react-text --><span class="hljs-number" data-reactid="139">0</span><!-- react-text: 140 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="141">var</span><!-- react-text: 142 --> messageevent = {
+            <!-- /react-text --><span class="hljs-attr" data-reactid="143">onInit</span><!-- react-text: 144 -->:<!-- /react-text --><span class="hljs-function" data-reactid="145"><span class="hljs-keyword" data-reactid="146">function</span><!-- react-text: 147 -->(<!-- /react-text --><span class="hljs-params" data-reactid="148"></span><!-- react-text: 149 -->)<!-- /react-text --></span><!-- react-text: 150 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="151">if</span><!-- react-text: 152 -->(!(<!-- /react-text --><span class="hljs-string" data-reactid="153">&quot;WebSocket&quot;</span><!-- react-text: 154 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="155">in</span><!-- react-text: 156 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="157">window</span><!-- react-text: 158 -->) &amp;&amp; !(<!-- /react-text --><span class="hljs-string" data-reactid="159">&quot;MozWebSocket&quot;</span><!-- react-text: 160 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="161">in</span><!-- react-text: 162 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="163">window</span><!-- react-text: 164 -->)){
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="165">if</span><!-- react-text: 166 -->(!<!-- /react-text --><span class="hljs-built_in" data-reactid="167">Boolean</span><!-- react-text: 168 -->($.cookie(<!-- /react-text --><span class="hljs-string" data-reactid="169">&#x27;session&#x27;</span><!-- react-text: 170 -->))) {
+                        $.moyuAlert(<!-- /react-text --><span class="hljs-string" data-reactid="171">&#x27;您的浏览器不支持websocket，将不能使用好友功能。&#x27;</span><!-- react-text: 172 -->);
+                        $.cookie(<!-- /react-text --><span class="hljs-string" data-reactid="173">&#x27;session&#x27;</span><!-- react-text: 174 -->, <!-- /react-text --><span class="hljs-literal" data-reactid="175">true</span><!-- react-text: 176 -->);
+                    }
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="177">return</span><!-- react-text: 178 --> <!-- /react-text --><span class="hljs-literal" data-reactid="179">false</span><!-- react-text: 180 -->;
+                }
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="181">if</span><!-- react-text: 182 -->((<!-- /react-text --><span class="hljs-string" data-reactid="183">&quot;MozWebSocket&quot;</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="185">in</span><!-- react-text: 186 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="187">window</span><!-- react-text: 188 -->)){
+                    socket = <!-- /react-text --><span class="hljs-keyword" data-reactid="189">new</span><!-- react-text: 190 --> MozWebSocket(szServer);
+                }<!-- /react-text --><span class="hljs-keyword" data-reactid="191">else</span><!-- react-text: 192 -->{
+                    socket = <!-- /react-text --><span class="hljs-keyword" data-reactid="193">new</span><!-- react-text: 194 --> WebSocket(szServer);
+                }
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="195">if</span><!-- react-text: 196 -->(opts.onInit){
+                    opts.onInit();
+                }
+                <!-- /react-text --><span class="hljs-comment" data-reactid="197">// 成功建立连接时触发</span><!-- react-text: 198 -->
+                socket.onopen = messageevent.onOpen;
+                <!-- /react-text --><span class="hljs-comment" data-reactid="199">// 接受到服务器的数据触发</span><!-- react-text: 200 -->
+                socket.onmessage = messageevent.onReceive;
+                <!-- /react-text --><span class="hljs-comment" data-reactid="201">// 发生错误时触发</span><!-- react-text: 202 -->
+                socket.onerror = messageevent.onError;
+                <!-- /react-text --><span class="hljs-comment" data-reactid="203">// 连接关闭时触发</span><!-- react-text: 204 -->
+                socket.onclose = messageevent.onClose;
+            },
+            <!-- /react-text --><span class="hljs-attr" data-reactid="205">onOpen</span><!-- react-text: 206 -->:<!-- /react-text --><span class="hljs-function" data-reactid="207"><span class="hljs-keyword" data-reactid="208">function</span><!-- react-text: 209 -->(<!-- /react-text --><span class="hljs-params" data-reactid="210">event</span><!-- react-text: 211 -->)<!-- /react-text --></span><!-- react-text: 212 -->{
+                bOpen = <!-- /react-text --><span class="hljs-literal" data-reactid="213">true</span><!-- react-text: 214 -->;
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="215">if</span><!-- react-text: 216 -->(opts.onOpen){
+                    opts.onOpen(event);
+                }
+            },
+            <!-- /react-text --><span class="hljs-attr" data-reactid="217">onSend</span><!-- react-text: 218 -->:<!-- /react-text --><span class="hljs-function" data-reactid="219"><span class="hljs-keyword" data-reactid="220">function</span><!-- react-text: 221 -->(<!-- /react-text --><span class="hljs-params" data-reactid="222">msg</span><!-- react-text: 223 -->)<!-- /react-text --></span><!-- react-text: 224 -->{
+                t1 = <!-- /react-text --><span class="hljs-keyword" data-reactid="225">new</span><!-- react-text: 226 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="227">Date</span><!-- react-text: 228 -->().getTime();
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="229">if</span><!-- react-text: 230 -->(opts.onSend){
+                    opts.onSend(msg);
+                }
+                <!-- /react-text --><span class="hljs-comment" data-reactid="231">// 发送数据至服务器</span><!-- react-text: 232 -->
+                socket.send(msg);
+            },
+            <!-- /react-text --><span class="hljs-attr" data-reactid="233">onReceive</span><!-- react-text: 234 -->:<!-- /react-text --><span class="hljs-function" data-reactid="235"><span class="hljs-keyword" data-reactid="236">function</span><!-- react-text: 237 -->(<!-- /react-text --><span class="hljs-params" data-reactid="238">msg</span><!-- react-text: 239 -->)<!-- /react-text --></span><!-- react-text: 240 -->{
+                t2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="241">new</span><!-- react-text: 242 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="243">Date</span><!-- react-text: 244 -->().getTime();
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="245">if</span><!-- react-text: 246 -->(opts.onReceive){
+                    opts.onReceive(msg.data,t2 - t1);
+                }
+            },
+            <!-- /react-text --><span class="hljs-attr" data-reactid="247">onError</span><!-- react-text: 248 -->:<!-- /react-text --><span class="hljs-function" data-reactid="249"><span class="hljs-keyword" data-reactid="250">function</span><!-- react-text: 251 -->(<!-- /react-text --><span class="hljs-params" data-reactid="252">event</span><!-- react-text: 253 -->)<!-- /react-text --></span><!-- react-text: 254 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="255">if</span><!-- react-text: 256 -->(opts.onError){
+                    opts.onError(event);
+                }
+            },
+            <!-- /react-text --><span class="hljs-attr" data-reactid="257">onClose</span><!-- react-text: 258 -->:<!-- /react-text --><span class="hljs-function" data-reactid="259"><span class="hljs-keyword" data-reactid="260">function</span><!-- react-text: 261 -->(<!-- /react-text --><span class="hljs-params" data-reactid="262">event</span><!-- react-text: 263 -->)<!-- /react-text --></span><!-- react-text: 264 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="265">if</span><!-- react-text: 266 -->(opts.onClose){
+                    opts.onClose(event);
+                }
+                <!-- /react-text --><span class="hljs-comment" data-reactid="267">// 关闭连接</span><!-- react-text: 268 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="269">if</span><!-- react-text: 270 -->(socket.close() != <!-- /react-text --><span class="hljs-literal" data-reactid="271">null</span><!-- react-text: 272 -->){
+                    socket = <!-- /react-text --><span class="hljs-literal" data-reactid="273">null</span><!-- react-text: 274 -->;
+                }
+            }
+        }
+        messageevent.onInit();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="275">this</span><!-- react-text: 276 -->.send = <!-- /react-text --><span class="hljs-function" data-reactid="277"><span class="hljs-keyword" data-reactid="278">function</span><!-- react-text: 279 -->(<!-- /react-text --><span class="hljs-params" data-reactid="280">pData</span><!-- react-text: 281 -->)<!-- /react-text --></span><!-- react-text: 282 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="283">if</span><!-- react-text: 284 -->(bOpen == <!-- /react-text --><span class="hljs-literal" data-reactid="285">false</span><!-- react-text: 286 -->){
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="287">return</span><!-- react-text: 288 --> <!-- /react-text --><span class="hljs-literal" data-reactid="289">false</span><!-- react-text: 290 -->;
+            }
+            messageevent.onSend(pData);
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="291">return</span><!-- react-text: 292 --> <!-- /react-text --><span class="hljs-literal" data-reactid="293">true</span><!-- react-text: 294 -->;
+        }
+        <!-- /react-text --><span class="hljs-comment" data-reactid="295">//</span><!-- react-text: 296 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="297">this</span><!-- react-text: 298 -->.close = <!-- /react-text --><span class="hljs-function" data-reactid="299"><span class="hljs-keyword" data-reactid="300">function</span><!-- react-text: 301 -->(<!-- /react-text --><span class="hljs-params" data-reactid="302"></span><!-- react-text: 303 -->)<!-- /react-text --></span><!-- react-text: 304 -->{
+            messageevent.onClose();
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="305">this</span><!-- react-text: 306 -->.bOpen=bOpen;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="307">return</span><!-- react-text: 308 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="309">this</span><!-- react-text: 310 -->;
+    };
+})(jQuery);<!-- /react-text --></code></pre><ul data-reactid="311"><li data-reactid="312"><!-- react-text: 313 -->利用封装好的 <!-- /react-text --><code data-reactid="314">jquery.websocket</code><!-- react-text: 315 --> 建立websocket对象，建立与服务器的长连接<!-- /react-text --></li></ul><pre data-reactid="316"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="317"><!-- react-text: 318 -->ws = $.websocket({
+        <!-- /react-text --><span class="hljs-comment" data-reactid="319">// 服务器的连接的url</span><!-- react-text: 320 -->
+    path: <!-- /react-text --><span class="hljs-string" data-reactid="321">&#x27;autoexam/websocket/chat?tag=&#x27;</span><!-- react-text: 322 -->+<!-- /react-text --><span class="hljs-built_in" data-reactid="323">window</span><!-- react-text: 324 -->.axTag,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="325">onReceive</span><!-- react-text: 326 -->: <!-- /react-text --><span class="hljs-function" data-reactid="327"><span class="hljs-keyword" data-reactid="328">function</span><!-- react-text: 329 --> (<!-- /react-text --><span class="hljs-params" data-reactid="330">data, time</span><!-- react-text: 331 -->) <!-- /react-text --></span><!-- react-text: 332 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="333">/**
+         * data : 服务器来的数据
+         * time : 接受数据的时间戳
+         */</span><!-- react-text: 334 -->
+    },
+    <!-- /react-text --><span class="hljs-attr" data-reactid="335">onClose</span><!-- react-text: 336 -->: <!-- /react-text --><span class="hljs-function" data-reactid="337"><span class="hljs-keyword" data-reactid="338">function</span><!-- react-text: 339 --> (<!-- /react-text --><span class="hljs-params" data-reactid="340"></span><!-- react-text: 341 -->) <!-- /react-text --></span><!-- react-text: 342 -->{}
+});<!-- /react-text --></code></pre><ul data-reactid="343"><li data-reactid="344">发送数据至服务器和关闭连接</li></ul><pre data-reactid="345"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="346"><!-- react-text: 347 -->ws.send(<!-- /react-text --><span class="hljs-built_in" data-reactid="348">JSON</span><!-- react-text: 349 -->.stringify({
+    <!-- /react-text --><span class="hljs-attr" data-reactid="350">to</span><!-- react-text: 351 -->:<!-- /react-text --><span class="hljs-string" data-reactid="352">&#x27;&#x27;</span><!-- react-text: 353 -->, <!-- /react-text --><span class="hljs-comment" data-reactid="354">//&#x27;common&#x27;-&gt;公共聊天室; 用户名-&gt;好友聊天</span><!-- react-text: 355 -->
+    content: um.getContent() <!-- /react-text --><span class="hljs-comment" data-reactid="356">// 发送的内容</span><!-- react-text: 357 -->
+}));
+ws.close();<!-- /react-text --></code></pre><h2 id="后端-java" data-reactid="358"><a href="#%E5%90%8E%E7%AB%AF-java" aria-hidden="true" data-reactid="359"><span class="icon icon-link" data-reactid="360"></span></a><!-- react-text: 361 -->后端 (Java)<!-- /react-text --></h2><h3 id="基本数据集" data-reactid="362"><a href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E9%9B%86" aria-hidden="true" data-reactid="363"><span class="icon icon-link" data-reactid="364"></span></a><!-- react-text: 365 -->基本数据集<!-- /react-text --></h3><pre data-reactid="366"><code class="hljs language-java" data-query="{}" data-lang="java" data-reactid="367"><span class="hljs-meta" data-reactid="368">@ServerEndpoint</span><!-- react-text: 369 -->(value = <!-- /react-text --><span class="hljs-string" data-reactid="370">&quot;/websocket/chat&quot;</span><!-- react-text: 371 -->,configurator=GetHttpSessionConfigurator.class)<!-- /react-text --><span class="hljs-comment" data-reactid="372">//configurator是为了得到HttpSession</span><!-- react-text: 373 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="374">public</span><!-- react-text: 375 --> <!-- /react-text --><span class="hljs-class" data-reactid="376"><span class="hljs-keyword" data-reactid="377">class</span><!-- react-text: 378 --> <!-- /react-text --><span class="hljs-title" data-reactid="379">ChatServer</span><!-- react-text: 380 --> <!-- /react-text --></span><!-- react-text: 381 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="382">// 当前存在的所有websocket连接(被封装在ChatServer对象中)</span><!-- react-text: 383 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="384">public</span><!-- react-text: 385 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="386">static</span><!-- react-text: 387 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="388">final</span><!-- react-text: 389 --> Map&lt;String,List&lt;ChatServer&gt;&gt; connections = Collections.synchronizedMap(<!-- /react-text --><span class="hljs-keyword" data-reactid="390">new</span><!-- react-text: 391 --> HashMap&lt;&gt;());
+
+    <!-- /react-text --><span class="hljs-comment" data-reactid="392">// 下面4个Map对象是为了实现</span><!-- react-text: 393 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="394">// 发送添加好友请求/被拒绝添加好友/被通过添加好友/发送消息接受 接受人当时不在线。</span><!-- react-text: 395 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="396">// 当下次这4个Map中的key上线时，再发送相关的信息。 ...比较拗口</span><!-- react-text: 397 -->
+
+    <!-- /react-text --><span class="hljs-comment" data-reactid="398">// 暂时存放添加好友请求(未被处理)的Map，key-&gt;待接受人，value-&gt;发送请求人集合</span><!-- react-text: 399 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="400">public</span><!-- react-text: 401 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="402">static</span><!-- react-text: 403 --> Map&lt;String,Set&lt;String&gt;&gt; rev_sender = <!-- /react-text --><span class="hljs-keyword" data-reactid="404">new</span><!-- react-text: 405 --> ConcurrentHashMap();
+    <!-- /react-text --><span class="hljs-comment" data-reactid="406">// 暂时存放添加好友求被拒绝的Map，key-&gt;被拒绝人(发添加请求人)，value-&gt;拒绝人集合</span><!-- react-text: 407 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="408">public</span><!-- react-text: 409 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="410">static</span><!-- react-text: 411 --> Map&lt;String,Set&lt;String&gt;&gt; ignore_rev_sender = <!-- /react-text --><span class="hljs-keyword" data-reactid="412">new</span><!-- react-text: 413 --> ConcurrentHashMap();
+    <!-- /react-text --><span class="hljs-comment" data-reactid="414">// 暂时存放添加好友求被允许的Map，key-&gt;被允许人(发添加请求人)，value-&gt;允许人集合</span><!-- react-text: 415 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="416">public</span><!-- react-text: 417 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="418">static</span><!-- react-text: 419 --> Map&lt;String,Set&lt;String&gt;&gt; pass_rev_sender= <!-- /react-text --><span class="hljs-keyword" data-reactid="420">new</span><!-- react-text: 421 --> ConcurrentHashMap();
+    <!-- /react-text --><span class="hljs-comment" data-reactid="422">// 暂时存放好友聊天内容的Map，key-&gt;接受消息人，value-&gt;消息内容(包括时间/内容/发送人)</span><!-- react-text: 423 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="424">public</span><!-- react-text: 425 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="426">static</span><!-- react-text: 427 --> Map&lt;String,List&lt;JSONObject&gt;&gt; remain_msgs = <!-- /react-text --><span class="hljs-keyword" data-reactid="428">new</span><!-- react-text: 429 --> ConcurrentHashMap();
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="430">private</span><!-- react-text: 431 --> String name;
+    <!-- /react-text --><span class="hljs-comment" data-reactid="432">// websocket会话对象</span><!-- react-text: 433 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="434">public</span><!-- react-text: 435 --> Session session;
+    <!-- /react-text --><span class="hljs-comment" data-reactid="436">// httpsession会话对象</span><!-- react-text: 437 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="438">public</span><!-- react-text: 439 --> HttpSession httpSession;
+
+}<!-- /react-text --></code></pre><h3 id="细节考虑" data-reactid="440"><a href="#%E7%BB%86%E8%8A%82%E8%80%83%E8%99%91" aria-hidden="true" data-reactid="441"><span class="icon icon-link" data-reactid="442"></span></a><!-- react-text: 443 -->细节考虑<!-- /react-text --></h3><ol data-reactid="444"><li data-reactid="445">为了防止服务器重启/关闭导致数据丢失，所以在服务器关闭时触发的事件中，将必要的数据写入文件中；在服务器启动时触发的事件中，再将数据写回内存。</li></ol><pre data-reactid="446"><code class="hljs language-java" data-query="{}" data-lang="java" data-reactid="447"><span class="hljs-function" data-reactid="448"><span class="hljs-keyword" data-reactid="449">public</span><!-- react-text: 450 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="451">static</span><!-- react-text: 452 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="453">void</span><!-- react-text: 454 --> <!-- /react-text --><span class="hljs-title" data-reactid="455">writeData</span><span class="hljs-params" data-reactid="456">(String path)</span><!-- react-text: 457 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="458">throws</span><!-- react-text: 459 --> IOException <!-- /react-text --></span><!-- react-text: 460 -->{
+    ObjectOutputStream oos = <!-- /react-text --><span class="hljs-keyword" data-reactid="461">new</span><!-- react-text: 462 --> ObjectOutputStream(<!-- /react-text --><span class="hljs-keyword" data-reactid="463">new</span><!-- react-text: 464 --> FileOutputStream(path));
+    oos.writeObject(rev_sender);
+    oos.writeObject(ignore_rev_sender);
+    oos.writeObject(pass_rev_sender);
+    <!-- /react-text --><span class="hljs-comment" data-reactid="465">// 因为JSONObject类没有implements Serializable，所以只好将JSONObject转换为String对象写入文件</span><!-- react-text: 466 -->
+    Map&lt;String,List&lt;Object&gt;&gt; new_remain_msgs = <!-- /react-text --><span class="hljs-keyword" data-reactid="467">new</span><!-- react-text: 468 --> ConcurrentHashMap&lt;&gt;();
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="469">for</span><!-- react-text: 470 -->(String key:remain_msgs.keySet()){
+        List&lt;JSONObject&gt; l = remain_msgs.get(key);
+        List newl = <!-- /react-text --><span class="hljs-keyword" data-reactid="471">new</span><!-- react-text: 472 --> LinkedList&lt;&gt;();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="473">for</span><!-- react-text: 474 -->(JSONObject jo:l)
+            newl.add(jo.toString());
+        new_remain_msgs.put(key,newl);
+    }
+    oos.writeObject(new_remain_msgs);
+
+    oos.flush();
+    oos.close();
+}
+<!-- /react-text --><span class="hljs-function" data-reactid="475"><span class="hljs-keyword" data-reactid="476">public</span><!-- react-text: 477 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="478">static</span><!-- react-text: 479 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="480">void</span><!-- react-text: 481 --> <!-- /react-text --><span class="hljs-title" data-reactid="482">loadData</span><span class="hljs-params" data-reactid="483">(String path)</span><!-- react-text: 484 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="485">throws</span><!-- react-text: 486 --> IOException, ClassNotFoundException <!-- /react-text --></span><!-- react-text: 487 -->{
+    ObjectInputStream ois = <!-- /react-text --><span class="hljs-keyword" data-reactid="488">new</span><!-- react-text: 489 --> ObjectInputStream(<!-- /react-text --><span class="hljs-keyword" data-reactid="490">new</span><!-- react-text: 491 --> FileInputStream(path));
+    rev_sender = (Map&lt;String, Set&lt;String&gt;&gt;) ois.readObject();
+    ignore_rev_sender = (Map&lt;String, Set&lt;String&gt;&gt;) ois.readObject();
+    pass_rev_sender = (Map&lt;String, Set&lt;String&gt;&gt;) ois.readObject();
+    Map&lt;String,List&gt; new_remain_msgs = (Map&lt;String, List&gt;) ois.readObject();
+    ois.close();
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="492">for</span><!-- react-text: 493 -->(String key : new_remain_msgs.keySet()){
+        List newl = new_remain_msgs.get(key);
+        List&lt;JSONObject&gt; l = <!-- /react-text --><span class="hljs-keyword" data-reactid="494">new</span><!-- react-text: 495 --> LinkedList&lt;&gt;();
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="496">for</span><!-- react-text: 497 -->(Object o:newl)
+            l.add(JSONObject.fromObject(o));
+        remain_msgs.put(key,l);
+    }
+}<!-- /react-text --></code></pre><ol start="2" data-reactid="498"><li data-reactid="499"><p data-reactid="500"><!-- react-text: 501 -->用户在未进入考友互动模块时，应该也能实时地接受相关的添加好友请求，新的消息请求。 <!-- /react-text --><div data-reactid="502"><style data-reactid="503">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1572px;max-height:1572pxpx;" data-reactid="504"><div class="medium-image-progressive-placeholder" style="padding-bottom:55.279898218829516%;" data-reactid="505"></div><div class="medium-image-progressive" data-reactid="506"><canvas data-reactid="507"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="508"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpumBNDxUXAbs0Segq64KtgrQBk5?imageslim" data-reactid="509"/><noscript data-reactid="510"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpumBNDxUXAbs0Segq64KtgrQBk5?imageslim" data-reactid="511"/></noscript></div></div></div><!-- react-text: 512 --> 首先，在其他非聊天界面，设置 window.axTag=&quot;login&quot;; 而在聊天界面中设置 window.axTag=&#x27;chat&#x27;; 回到上面的建立websocket连接的代码 path: &#x27;autoexam/websocket/chat?tag=&#x27;+window.axTag 这下就明白了，通过连接的url串传递是当前用户在哪类页面，然后进行不同的数据传输。<!-- /react-text --></p></li><li data-reactid="513"><p data-reactid="514">...</p></li></ol><h1 id="小结与源码地址" data-reactid="515"><a href="#%E5%B0%8F%E7%BB%93%E4%B8%8E%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9D%80" aria-hidden="true" data-reactid="516"><span class="icon icon-link" data-reactid="517"></span></a><!-- react-text: 518 -->小结与源码地址<!-- /react-text --></h1><p data-reactid="519"><!-- react-text: 520 -->该在线考试交友系统是我独自花费了较大心血完成的项目， 我也从中获取了许多，包括技术细节上的，项目规划上的。 再推荐下该项目 <!-- /react-text --><a href="http://moyuyc.xyz/autoexam" data-reactid="521">http://moyuyc.xyz/autoexam</a><!-- react-text: 522 --> 还可以 <!-- /react-text --><a href="https://github.com/moyuyc/autoexam_system" data-reactid="523">Fork It</a><!-- react-text: 524 --> 最后做下功能总结 1. 发送邮件 2. 考卷Word导出 3. 图像上传切割与旋转 4. 聊天图片可放缩 5. 聊天历史记录 6. 新消息提示与跳转 7. 后台题库excel批量导入 8. ...<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="525"></div><div class="paginator" data-reactid="526"><a title="「ECMAScript6」Promise介绍与nodejs实践运用(q.js)" class="prev" href="/about-promise-and-qjs" data-reactid="527">Prev</a><a title="谈谈JavaScript之数组对象深拷贝" class="next" href="/talk-about-javascript-object-and-array-deepclone" data-reactid="528">Next</a></div></div></main><footer data-reactid="529"><div class="copyright" data-reactid="530"><p data-reactid="531"><!-- react-text: 532 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="533">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

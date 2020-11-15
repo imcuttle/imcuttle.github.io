@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Telescope: 文件在线预览服务 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-340037088"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Telescope: 文件在线预览服务</h1><div class="post-info" data-reactid="12"><time datetime="2018-03-01T13:48:45+00:00" data-reactid="13">Mar 1, 2018 1:48 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><a href="https://github.com/telescopejs/telescope/" data-reactid="18">🔭 Telescope 望远镜</a><!-- react-text: 19 --> 是一个开源的文件预览 Web 服务，目前提供 HTML、图片、pdf 三种格式的预览格式。你可以用 Telescope 来预览 github、gitlab 甚至是任何平台上的资源。<!-- /react-text --></p><h2 id="代码样式" data-reactid="20"><a href="#%E4%BB%A3%E7%A0%81%E6%A0%B7%E5%BC%8F" aria-hidden="true" data-reactid="21"><span class="icon icon-link" data-reactid="22"></span></a><!-- react-text: 23 -->代码样式<!-- /react-text --></h2><p data-reactid="24">Telescope 具有各式各样的样式和主题。</p><div data-reactid="25"><style data-reactid="26">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="27"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="28"></div><div class="medium-image-progressive" data-reactid="29"><canvas data-reactid="30"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="31"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97944ad0767.jpg" data-reactid="32"/><noscript data-reactid="33"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97944ad0767.jpg" data-reactid="34"/></noscript></div></div></div><!-- react-text: 35 --> <!-- /react-text --><div data-reactid="36"><style data-reactid="37">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="38"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="39"></div><div class="medium-image-progressive" data-reactid="40"><canvas data-reactid="41"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="42"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979b62ec67f.jpg" data-reactid="43"/><noscript data-reactid="44"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979b62ec67f.jpg" data-reactid="45"/></noscript></div></div></div><!-- react-text: 46 --> <!-- /react-text --><div data-reactid="47"><style data-reactid="48">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="49"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="50"></div><div class="medium-image-progressive" data-reactid="51"><canvas data-reactid="52"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="53"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979b97affe8.jpg" data-reactid="54"/><noscript data-reactid="55"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979b97affe8.jpg" data-reactid="56"/></noscript></div></div></div><!-- react-text: 57 --> <!-- /react-text --><div data-reactid="58"><style data-reactid="59">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="60"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="61"></div><div class="medium-image-progressive" data-reactid="62"><canvas data-reactid="63"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="64"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bb2822ea.jpg" data-reactid="65"/><noscript data-reactid="66"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bb2822ea.jpg" data-reactid="67"/></noscript></div></div></div><!-- react-text: 68 --> <!-- /react-text --><div data-reactid="69"><style data-reactid="70">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="71"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="72"></div><div class="medium-image-progressive" data-reactid="73"><canvas data-reactid="74"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="75"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bce058bc.jpg" data-reactid="76"/><noscript data-reactid="77"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bce058bc.jpg" data-reactid="78"/></noscript></div></div></div><!-- react-text: 79 --> <!-- /react-text --><div data-reactid="80"><style data-reactid="81">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:428px;max-height:428pxpx;" data-reactid="82"><div class="medium-image-progressive-placeholder" style="padding-bottom:164.4859813084112%;" data-reactid="83"></div><div class="medium-image-progressive" data-reactid="84"><canvas data-reactid="85"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="86"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bfec9834.jpg" data-reactid="87"/><noscript data-reactid="88"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a979bfec9834.jpg" data-reactid="89"/></noscript></div></div></div><p data-reactid="90"><!-- react-text: 91 -->上图展示的是代码块的样式，包含的样式集合<!-- /react-text --><a href="https://telescopejs.github.io/?debug=true" data-reactid="92">在这</a></p><h2 id="主题" data-reactid="93"><a href="#%E4%B8%BB%E9%A2%98" aria-hidden="true" data-reactid="94"><span class="icon icon-link" data-reactid="95"></span></a><!-- react-text: 96 -->主题<!-- /react-text --></h2><p data-reactid="97"><!-- react-text: 98 -->目前仅支持 <!-- /react-text --><a href="https://telescopejs.github.io/?debug=true&amp;q=picidaejs/picidaejs&amp;style=github" data-reactid="99">github</a><!-- react-text: 100 --> 和 <!-- /react-text --><a href="https://telescopejs.github.io/?debug=true&amp;q=picidaejs/picidaejs&amp;style=bootstrap3" data-reactid="101">bootstrap3</a></p><ul data-reactid="102"><li data-reactid="103"><!-- react-text: 104 -->Github <!-- /react-text --><div data-reactid="105"><style data-reactid="106">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:800px;max-height:800pxpx;" data-reactid="107"><div class="medium-image-progressive-placeholder" style="padding-bottom:251.125%;" data-reactid="108"></div><div class="medium-image-progressive" data-reactid="109"><canvas data-reactid="110"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="111"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a4ebf15d4.jpg" data-reactid="112"/><noscript data-reactid="113"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a4ebf15d4.jpg" data-reactid="114"/></noscript></div></div></div></li><li data-reactid="115"><!-- react-text: 116 -->Bootstrap3 <!-- /react-text --><div data-reactid="117"><style data-reactid="118">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:800px;max-height:800pxpx;" data-reactid="119"><div class="medium-image-progressive-placeholder" style="padding-bottom:225.875%;" data-reactid="120"></div><div class="medium-image-progressive" data-reactid="121"><canvas data-reactid="122"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="123"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a4ff92be1.jpg" data-reactid="124"/><noscript data-reactid="125"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a4ff92be1.jpg" data-reactid="126"/></noscript></div></div></div></li></ul><h2 id="多种输出格式" data-reactid="127"><a href="#%E5%A4%9A%E7%A7%8D%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F" aria-hidden="true" data-reactid="128"><span class="icon icon-link" data-reactid="129"></span></a><!-- react-text: 130 -->多种输出格式<!-- /react-text --></h2><ol data-reactid="131"><li data-reactid="132"><a href="http://23.106.151.229:8002/" data-reactid="133">HTML</a></li><li data-reactid="134"><a href="http://23.106.151.229:8002/img" data-reactid="135">图片</a></li><li data-reactid="136"><a href="http://23.106.151.229:8002/pdf" data-reactid="137">PDF</a></li></ol><h2 id="代码行数支持" data-reactid="138"><a href="#%E4%BB%A3%E7%A0%81%E8%A1%8C%E6%95%B0%E6%94%AF%E6%8C%81" aria-hidden="true" data-reactid="139"><span class="icon icon-link" data-reactid="140"></span></a><!-- react-text: 141 -->代码行数支持<!-- /react-text --></h2><p data-reactid="142"><a href="http://23.106.151.229:8002/img/telescopejs/telescope/master/src/core/utils/helper.js?range=%5B1,6%5D" data-reactid="143">例子</a></p><div data-reactid="144"><style data-reactid="145">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:199px;max-height:199pxpx;" data-reactid="146"><div class="medium-image-progressive-placeholder" style="padding-bottom:67.33668341708542%;" data-reactid="147"></div><div class="medium-image-progressive" data-reactid="148"><canvas data-reactid="149"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="150"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a5e916f16.jpg" data-reactid="151"/><noscript data-reactid="152"><img class="medium-image-origin" src="https://i.loli.net/2018/03/01/5a97a5e916f16.jpg" data-reactid="153"/></noscript></div></div></div><h2 id="客户端和服务端" data-reactid="154"><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF" aria-hidden="true" data-reactid="155"><span class="icon icon-link" data-reactid="156"></span></a><!-- react-text: 157 -->客户端和服务端<!-- /react-text --></h2><ul data-reactid="158"><li data-reactid="159"><a href="https://telescopejs.github.io/?q=facebook/react" data-reactid="160">客户端</a></li><li data-reactid="161"><a href="http://23.106.151.229:8002/?q=facebook/react" data-reactid="162">服务端</a></li></ul><p data-reactid="163"><a href="https://github.com/telescopejs/telescope" data-reactid="164">Github</a></p></article></div><div class="gitment-container" data-reactid="165"></div><div class="paginator" data-reactid="166"><a title="view model 开发模式 （基于react + mobx）" class="prev" href="/react-mobx-vm" data-reactid="167">Prev</a><a title="Javascript 项目常用的配置文件" class="next" href="/some-configuration-files-of-nodejs-project" data-reactid="168">Next</a></div></div></main><footer data-reactid="169"><div class="copyright" data-reactid="170"><p data-reactid="171"><!-- react-text: 172 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="173">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

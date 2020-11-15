@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Javascript 项目常用的配置文件 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1472793791"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Javascript 项目常用的配置文件</h1><div class="post-info" data-reactid="12"><time datetime="2018-01-06T13:43:43+00:00" data-reactid="13">Jan 6, 2018 1:43 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="引子" data-reactid="17"><a href="#%E5%BC%95%E5%AD%90" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->引子<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->基本上 GitHub 上优秀的javascript项目上面有很多零零碎碎的文件。如图，以koa为例 <!-- /react-text --><div data-reactid="23"><style data-reactid="24">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:992px;max-height:992pxpx;" data-reactid="25"><div class="medium-image-progressive-placeholder" style="padding-bottom:69.05241935483872%;" data-reactid="26"></div><div class="medium-image-progressive" data-reactid="27"><canvas data-reactid="28"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="29"/><img class="medium-image-origin" src="https://i.loli.net/2018/01/06/5a5063addc5f0.jpg" data-reactid="30"/><noscript data-reactid="31"><img class="medium-image-origin" src="https://i.loli.net/2018/01/06/5a5063addc5f0.jpg" data-reactid="32"/></noscript></div></div></div></p><p data-reactid="33">下文将一一说明这些个“奇怪”的文件是干什么的...</p><h1 id="持续集成篇" data-reactid="34"><a href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E7%AF%87" aria-hidden="true" data-reactid="35"><span class="icon icon-link" data-reactid="36"></span></a><!-- react-text: 37 -->持续集成篇<!-- /react-text --></h1><p data-reactid="38"><!-- react-text: 39 -->持续集成（CI, Continuous integration），是将我们的代码规范化流程化。<!-- /react-text --><br data-reactid="40"/><!-- react-text: 41 -->相比于系统集成，CI希望每一次微小的代码修改，都会进行一次集成（可能包括构建，测试，发布等阶段），这样极大地加强了项目工程的可控性。<!-- /react-text --></p><p data-reactid="42"><!-- react-text: 43 -->从 GitLab 8.0 开始，GitLab CI 就已经集成在 GitLab 中<!-- /react-text --><sup data-reactid="44">[1]</sup><!-- react-text: 45 -->。那么 GitHub 中对于CI的支持如何呢？GitHub 可以采用任意第三方的 CI 服务，下面主要介绍其中的一种：travis-ci<!-- /react-text --></p><h2 id="travis-ci-travisyml" data-reactid="46"><a href="#travis-ci-travisyml" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->travis-ci (<!-- /react-text --><code data-reactid="50">.travis.yml</code><!-- react-text: 51 -->)<!-- /react-text --></h2><p data-reactid="52"><!-- react-text: 53 -->官网：<!-- /react-text --><a href="https://travis-ci.org/" data-reactid="54">https://travis-ci.org/</a><br data-reactid="55"/><!-- react-text: 56 -->该平台也是本人经常使用的 CI 平台，需要在项目跟目录下添加文件 <!-- /react-text --><code data-reactid="57">.travis.yml</code><!-- react-text: 58 -->，如：<!-- /react-text --></p><pre data-reactid="59"><code class="hljs language-yaml" data-query="{}" data-lang="yaml" data-reactid="60"><span class="hljs-attr" data-reactid="61">language:</span><!-- react-text: 62 --> <!-- /react-text --><span class="hljs-string" data-reactid="63">node_js</span><!-- react-text: 64 -->
+<!-- /react-text --><span class="hljs-attr" data-reactid="65">node_js:</span><!-- react-text: 66 --> <!-- /react-text --><span class="hljs-string" data-reactid="67">stable</span><!-- react-text: 68 -->
+
+<!-- /react-text --><span class="hljs-attr" data-reactid="69">install:</span><!-- react-text: 70 -->
+<!-- /react-text --><span class="hljs-bullet" data-reactid="71">  -</span><!-- react-text: 72 --> <!-- /react-text --><span class="hljs-string" data-reactid="73">npm</span><!-- react-text: 74 --> <!-- /react-text --><span class="hljs-string" data-reactid="75">install</span><!-- react-text: 76 -->
+<!-- /react-text --><span class="hljs-attr" data-reactid="77">script:</span><!-- react-text: 78 -->
+<!-- /react-text --><span class="hljs-bullet" data-reactid="79">  -</span><!-- react-text: 80 --> <!-- /react-text --><span class="hljs-string" data-reactid="81">npm</span><!-- react-text: 82 --> <!-- /react-text --><span class="hljs-string" data-reactid="83">test</span></code></pre><p data-reactid="84"><!-- react-text: 85 -->便是一个简单的配置文件参考，travis-ci 有下面几个生命周期，顺序如下：<!-- /react-text --><sup data-reactid="86">[2]</sup><!-- react-text: 87 --> 1. <!-- /react-text --><code data-reactid="88">before_install</code><!-- react-text: 89 --> 2. <!-- /react-text --><code data-reactid="90">install</code><!-- react-text: 91 --> 3. <!-- /react-text --><code data-reactid="92">before_script</code><!-- react-text: 93 --> 4. <!-- /react-text --><code data-reactid="94">script</code><!-- react-text: 95 --> 5. <!-- /react-text --><code data-reactid="96">after_success</code><!-- react-text: 97 --> 或者 <!-- /react-text --><code data-reactid="98">after_failure</code><!-- react-text: 99 --> 6. <!-- /react-text --><code data-reactid="100">before_deploy</code><!-- react-text: 101 --> 7. <!-- /react-text --><code data-reactid="102">deploy</code><!-- react-text: 103 --> 8. <!-- /react-text --><code data-reactid="104">after_deploy</code><!-- react-text: 105 --> 9. <!-- /react-text --><code data-reactid="106">after_script</code></p><p data-reactid="107"><!-- react-text: 108 -->同时 travis-ci 还提供了一大批的 Provider，以方便我们来书写一些常用的部署动作<!-- /react-text --><sup data-reactid="109">[3]</sup></p><p data-reactid="110">配置好了之后，同时在travis-ci认证提供之后，并且给对应的repo赋予权限，那么我们的每次commit都会触发按照上面的执行过程，在travis-ci提供的集群上执行。</p><h2 id="其他-ci-平台" data-reactid="111"><a href="#%E5%85%B6%E4%BB%96-ci-%E5%B9%B3%E5%8F%B0" aria-hidden="true" data-reactid="112"><span class="icon icon-link" data-reactid="113"></span></a><!-- react-text: 114 -->其他 CI 平台<!-- /react-text --></h2><p data-reactid="115"><!-- react-text: 116 -->除了 travis-ci，市面上还有其他很多 CI 平台，如：react 项目中使用的 <!-- /react-text --><a href="https://www.appveyor.com/" data-reactid="117">appveyor</a><!-- react-text: 118 --> 和 <!-- /react-text --><a href="https://circleci.com/" data-reactid="119">CircleCi</a><!-- react-text: 120 --> 等等。至于这些平台的对比则不是该文章的讨论范畴了。<!-- /react-text --></p><h1 id="代码规范篇" data-reactid="121"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E7%AF%87" aria-hidden="true" data-reactid="122"><span class="icon icon-link" data-reactid="123"></span></a><!-- react-text: 124 -->代码规范篇<!-- /react-text --></h1><p data-reactid="125">代码规范又是另一个话题了，但是目的都是为了提高代码的可控性，减少 bug 率。</p><h2 id="eslint-eslintrc-eslintignore" data-reactid="126"><a href="#eslint-eslintrc-eslintignore" aria-hidden="true" data-reactid="127"><span class="icon icon-link" data-reactid="128"></span></a><!-- react-text: 129 -->ESLint (<!-- /react-text --><code data-reactid="130">.eslintrc.*</code><!-- react-text: 131 -->, <!-- /react-text --><code data-reactid="132">.eslintignore</code><!-- react-text: 133 -->)<!-- /react-text --></h2><p data-reactid="134">利用 ESLint 提供的若干规则，造出一份适合于自己或团队的代码规范配置，同时 .eslintignore 用 glob file 规则去忽略文件</p><h2 id="prettier-prettierrc-prettierignore" data-reactid="135"><a href="#prettier-prettierrc-prettierignore" aria-hidden="true" data-reactid="136"><span class="icon icon-link" data-reactid="137"></span></a><!-- react-text: 138 -->Prettier (<!-- /react-text --><code data-reactid="139">.prettierrc</code><!-- react-text: 140 -->, <!-- /react-text --><code data-reactid="141">.prettierignore</code><!-- react-text: 142 -->)<!-- /react-text --></h2><p data-reactid="143"><a href="https://github.com/prettier/prettier" data-reactid="144">Prettier</a><!-- react-text: 145 --> 只是用来纯粹美化代码。<!-- /react-text --></p><h1 id="工具篇" data-reactid="146"><a href="#%E5%B7%A5%E5%85%B7%E7%AF%87" aria-hidden="true" data-reactid="147"><span class="icon icon-link" data-reactid="148"></span></a><!-- react-text: 149 -->工具篇<!-- /react-text --></h1><h2 id="codecov-codecovyml" data-reactid="150"><a href="#codecov-codecovyml" aria-hidden="true" data-reactid="151"><span class="icon icon-link" data-reactid="152"></span></a><!-- react-text: 153 -->CodeCov (<!-- /react-text --><code data-reactid="154">.codecov.yml</code><!-- react-text: 155 -->)<!-- /react-text --></h2><p data-reactid="156">一个好的工程，离不开一系列的测试，CodeCov 则是用来报告测试中代码覆盖率的工具</p><h2 id="babel-babelrc-babelignore" data-reactid="157"><a href="#babel-babelrc-babelignore" aria-hidden="true" data-reactid="158"><span class="icon icon-link" data-reactid="159"></span></a><!-- react-text: 160 -->Babel (<!-- /react-text --><code data-reactid="161">.babelrc</code><!-- react-text: 162 -->, <!-- /react-text --><code data-reactid="163">.babelignore</code><!-- react-text: 164 -->)<!-- /react-text --></h2><h2 id="npm-npmrc" data-reactid="165"><a href="#npm-npmrc" aria-hidden="true" data-reactid="166"><span class="icon icon-link" data-reactid="167"></span></a><!-- react-text: 168 -->NPM (<!-- /react-text --><code data-reactid="169">.npmrc</code><!-- react-text: 170 -->)<!-- /react-text --></h2><p data-reactid="171">这俩兄弟不多做解释了，前端都知道~</p><h1 id="其他" data-reactid="172"><a href="#%E5%85%B6%E4%BB%96" aria-hidden="true" data-reactid="173"><span class="icon icon-link" data-reactid="174"></span></a><!-- react-text: 175 -->其他<!-- /react-text --></h1><h2 id="editorconfig" data-reactid="176"><a href="#editorconfig" aria-hidden="true" data-reactid="177"><span class="icon icon-link" data-reactid="178"></span></a><code data-reactid="179">.editorconfig</code></h2><p data-reactid="180"><a href="http://editorconfig.org/" data-reactid="181">http://editorconfig.org/</a><br data-reactid="182"/><!-- react-text: 183 -->我们在不同编辑器，不同系统平台编写同一项目代码时，常常会遇到代码格式不统一的问题，该文件则是用来抹去这种差异！<!-- /react-text --></p><h1 id="结" data-reactid="184"><a href="#%E7%BB%93" aria-hidden="true" data-reactid="185"><span class="icon icon-link" data-reactid="186"></span></a><!-- react-text: 187 -->结<!-- /react-text --></h1><p data-reactid="188">以上便是比较常用的一些javascript项目的配置文件说明，后续还会不断添加，欢迎大家伙指正添加。</p><h1 id="参考" data-reactid="189"><a href="#%E5%8F%82%E8%80%83" aria-hidden="true" data-reactid="190"><span class="icon icon-link" data-reactid="191"></span></a><!-- react-text: 192 -->参考<!-- /react-text --></h1><ul data-reactid="193"><li data-reactid="194"><!-- react-text: 195 -->[1] <!-- /react-text --><a href="https://scarletsky.github.io/2016/07/29/use-gitlab-ci-for-continuous-integration/" data-reactid="196">用 GitLab CI 进行持续集成</a></li><li data-reactid="197"><!-- react-text: 198 -->[2] <!-- /react-text --><a href="https://docs.travis-ci.com/user/customizing-the-build/" data-reactid="199">travis-ci: Customizing the Build</a></li><li data-reactid="200"><!-- react-text: 201 -->[3] <!-- /react-text --><a href="https://docs.travis-ci.com/user/deployment/" data-reactid="202">travis-ci: Deployment</a></li></ul></article></div><div class="gitment-container" data-reactid="203"></div><div class="paginator" data-reactid="204"><a title="Telescope: 文件在线预览服务" class="prev" href="/telescopejs" data-reactid="205">Prev</a><a title="国际化可视化编辑" class="next" href="/i18n-live-edit" data-reactid="206">Next</a></div></div></main><footer data-reactid="207"><div class="copyright" data-reactid="208"><p data-reactid="209"><!-- react-text: 210 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="211">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

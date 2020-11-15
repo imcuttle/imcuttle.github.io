@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 页面标注助手 - Markme - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-901573676"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">页面标注助手 - Markme</h1><div class="post-info" data-reactid="12"><time datetime="2018-05-06T22:11:15+00:00" data-reactid="13">May 6, 2018 10:11 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="抛出问题" data-reactid="17"><a href="#%E6%8A%9B%E5%87%BA%E9%97%AE%E9%A2%98" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->抛出问题<!-- /react-text --></h2><ul data-reactid="21"><li data-reactid="22">情景A 小明在网上查找资料时（如百度百科、wiki），觉得网页上的一些话（错误或是重点）需要记录下来，于是使用截图的方式记录下来。</li></ul><p data-reactid="23">截图虽然比较方便，但是不方便还原及随后的查阅。</p><ul data-reactid="24"><li data-reactid="25">情景B 小红和小蓝想对网上的一篇文章一起讨论学习。于是他们事先各自完成自己的任务，最后把总结文章互相分享出来。</li></ul><p data-reactid="26">上面的情景有统一问题是：需要共享自己在同一个网页上的数据。 其实类似的问题情景还有许多；比如我们前端工程师做的UI还原，UE图的共享等等。</p><p data-reactid="27"><!-- react-text: 28 -->针对上面类似的问题，做了一版产物雏形（还有很多需要完善的地方）- <!-- /react-text --><a href="https://github.com/big-wheel/iioo/blob/master/packages/markme/Readme.md" data-reactid="29">markme</a></p><h2 id="markme" data-reactid="30"><a href="#markme" aria-hidden="true" data-reactid="31"><span class="icon icon-link" data-reactid="32"></span></a><!-- react-text: 33 -->Markme<!-- /react-text --></h2><p data-reactid="34"><img src="https://github.com/big-wheel/iioo/raw/master/packages/markme/snapshot.gif" alt="markme snapshot" data-reactid="35"/></p><p data-reactid="36">如图是 markme 在 wiki 页面上的效果，可以使用鼠标左键选中的方式来对页面文本进行标注，书写备注。</p><h3 id="markme-leancloud" data-reactid="37"><a href="#markme-leancloud" aria-hidden="true" data-reactid="38"><span class="icon icon-link" data-reactid="39"></span></a><!-- react-text: 40 -->Markme leancloud<!-- /react-text --></h3><p data-reactid="41">leancloud 是一个国内的云存储服务平台，利用该平台的数据存储能力，可以把我们在页面上的标注数据存储。</p><p data-reactid="42"><a href="https://github.com/big-wheel/iioo/tree/master/packages/markme-leancloud" data-reactid="43">markme-leancloud</a><!-- react-text: 44 --> 便是对 markme 和 leancloud 功能的整合。<!-- /react-text --></p><p data-reactid="45"><!-- react-text: 46 -->同时搭配<!-- /react-text --><a href="https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag?hl=zh-CN" data-reactid="47">暴力猴</a><!-- react-text: 48 -->(使用暴力猴可以在指定的页面注入额外的js代码)，可以对任意网页进行页面标注。<!-- /react-text --><a href="https://gist.github.com/imcuttle/c345279c6b7a690a5722a8506ba8f1a9" data-reactid="49">脚本点这</a></p><h2 id="产物实现原理" data-reactid="50"><a href="#%E4%BA%A7%E7%89%A9%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86" aria-hidden="true" data-reactid="51"><span class="icon icon-link" data-reactid="52"></span></a><!-- react-text: 53 -->产物实现原理<!-- /react-text --></h2><p data-reactid="54"><img src="/4458f225f743897aaaa51b613e7e38f0.svg" data-image-loader="0" data-reactid="55"/></p><h2 id="问题" data-reactid="56"><a href="#%E9%97%AE%E9%A2%98" aria-hidden="true" data-reactid="57"><span class="icon icon-link" data-reactid="58"></span></a><!-- react-text: 59 -->问题<!-- /react-text --></h2><ul data-reactid="60"><li data-reactid="61">页面数据更新后，页面标注？</li></ul><p data-reactid="62"><!-- react-text: 63 -->添加 <!-- /react-text --><code data-reactid="64">content</code><!-- react-text: 65 --> 属性，定位成功后，对比 <!-- /react-text --><code data-reactid="66">content</code><!-- react-text: 67 --> 是否一致？<!-- /react-text --></p><ul data-reactid="68"><li data-reactid="69">交互：click 触发可能会触发其他操作，应该如何优化？(hover like title)</li></ul><h2 id="提升" data-reactid="70"><a href="#%E6%8F%90%E5%8D%87" aria-hidden="true" data-reactid="71"><span class="icon icon-link" data-reactid="72"></span></a><!-- react-text: 73 -->提升<!-- /react-text --></h2><p data-reactid="74">当然还是有可以提升的地方，如：</p><ul data-reactid="75"><li data-reactid="76">书写 Chrome 插件</li><li data-reactid="77">协同编辑（使用leancloud API）</li><li data-reactid="78">更多样的交互</li></ul></article></div><div class="gitment-container" data-reactid="79"></div><div class="paginator" data-reactid="80"><a title="时光里的宝藏（个人项目合集）" class="prev" href="/my-projects" data-reactid="81">Prev</a><a title="walli" class="next" href="/walli-born" data-reactid="82">Next</a></div></div></main><footer data-reactid="83"><div class="copyright" data-reactid="84"><p data-reactid="85"><!-- react-text: 86 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="87">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

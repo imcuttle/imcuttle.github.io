@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「项目拾遗」HTTP文件浏览（静态文件+express4.x+md/code文件渲染） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="17442208"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「项目拾遗」HTTP文件浏览（静态文件+express4.x+md/code文件渲染）</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-10T00:00:51+00:00" data-reactid="13">Jun 10, 2016 12:00 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="问题暴露" data-reactid="17"><a href="#%E9%97%AE%E9%A2%98%E6%9A%B4%E9%9C%B2" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->问题暴露<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->之前做的<!-- /react-text --><a href="http://moyuyc.github.io/2016/05/28/node-express-jade%E5%AE%9E%E7%8E%B0HTTP%E6%96%87%E4%BB%B6%E6%B5%8F%E8%A7%88%E5%99%A8/" data-reactid="23">HTTP浏览</a><!-- react-text: 24 -->是使用express2.x版本做的...，因为参考书比较旧了。 1. <!-- /react-text --><code data-reactid="25">express2.x</code><!-- react-text: 26 -->中没有<!-- /react-text --><code data-reactid="27">express4.x</code><!-- react-text: 28 -->中的<!-- /react-text --><code data-reactid="29">res.sendFile()</code><!-- react-text: 30 -->方法，之前发送文件是使用的<!-- /react-text --><code data-reactid="31">stream.pipe()</code><!-- react-text: 32 -->方法，导致不支持继续下载，而且用户不能知道下载进度，在线音乐视频播放也不能选择时间跳跃欣赏。<!-- /react-text --><code data-reactid="33">res.sendFile()</code><!-- react-text: 34 -->方法可以将本地文件以静态资源发送给用户，所有问题迎刃而解。 2. 旧版本不支持<!-- /react-text --><code data-reactid="35">java/c/cpp/js/css/html</code><!-- react-text: 36 -->等代码文件和<!-- /react-text --><code data-reactid="37">md/markdown</code><!-- react-text: 38 -->文件在线查看，所以进行改进。 3. 利用<!-- /react-text --><code data-reactid="39">Bootstrap responsive utils</code><!-- react-text: 40 -->和<!-- /react-text --><code data-reactid="41">Bootstrap grid system</code><!-- react-text: 42 -->进行响应式布局。 4. 监控<!-- /react-text --><code data-reactid="43">root.txt</code><!-- react-text: 44 -->文件，改变root后无需重启服务器。 5. 去除对<!-- /react-text --><code data-reactid="45">q.js</code><!-- react-text: 46 -->依赖，使用原生<!-- /react-text --><code data-reactid="47">Promise</code></p><h1 id="效果预览" data-reactid="48"><a href="#%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="49"><span class="icon icon-link" data-reactid="50"></span></a><!-- react-text: 51 -->效果预览<!-- /react-text --></h1><ul data-reactid="52"><li data-reactid="53"><code data-reactid="54">json</code><!-- react-text: 55 -->文件查看 <!-- /react-text --><div data-reactid="56"><style data-reactid="57">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:989px;max-height:989pxpx;" data-reactid="58"><div class="medium-image-progressive-placeholder" style="padding-bottom:60.364004044489384%;" data-reactid="59"></div><div class="medium-image-progressive" data-reactid="60"><canvas data-reactid="61"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="62"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnOfRikfqt_hiOB-pvRJkRglHOrG?imageslim" data-reactid="63"/><noscript data-reactid="64"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FnOfRikfqt_hiOB-pvRJkRglHOrG?imageslim" data-reactid="65"/></noscript></div></div></div></li><li data-reactid="66"><code data-reactid="67">md</code><!-- react-text: 68 -->文件查看 <!-- /react-text --><div data-reactid="69"><style data-reactid="70">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1420px;max-height:1420pxpx;" data-reactid="71"><div class="medium-image-progressive-placeholder" style="padding-bottom:47.53521126760563%;" data-reactid="72"></div><div class="medium-image-progressive" data-reactid="73"><canvas data-reactid="74"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="75"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm8FxD4yT4EN6cWR2PcGhzJRKA6s?imageslim" data-reactid="76"/><noscript data-reactid="77"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fm8FxD4yT4EN6cWR2PcGhzJRKA6s?imageslim" data-reactid="78"/></noscript></div></div></div></li><li data-reactid="79"><code data-reactid="80">html</code><!-- react-text: 81 -->文件查看 <!-- /react-text --><div data-reactid="82"><style data-reactid="83">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1601px;max-height:1601pxpx;" data-reactid="84"><div class="medium-image-progressive-placeholder" style="padding-bottom:42.03622735790131%;" data-reactid="85"></div><div class="medium-image-progressive" data-reactid="86"><canvas data-reactid="87"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="88"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fn4xKf6bLySUZs2uNfQr6yo1GtOu?imageslim" data-reactid="89"/><noscript data-reactid="90"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/Fn4xKf6bLySUZs2uNfQr6yo1GtOu?imageslim" data-reactid="91"/></noscript></div></div></div></li></ul><h1 id="代码改进" data-reactid="92"><a href="#%E4%BB%A3%E7%A0%81%E6%94%B9%E8%BF%9B" aria-hidden="true" data-reactid="93"><span class="icon icon-link" data-reactid="94"></span></a><!-- react-text: 95 -->代码改进<!-- /react-text --></h1><h2 id="roottxt文件监控" data-reactid="96"><a href="#roottxt%E6%96%87%E4%BB%B6%E7%9B%91%E6%8E%A7" aria-hidden="true" data-reactid="97"><span class="icon icon-link" data-reactid="98"></span></a><code data-reactid="99">root.txt</code><!-- react-text: 100 -->文件监控<!-- /react-text --></h2><pre data-reactid="101"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="102"><span class="hljs-comment" data-reactid="103">//全局对象</span><!-- react-text: 104 -->
+global.root = fs.readFileSync(<!-- /react-text --><span class="hljs-string" data-reactid="105">&#x27;./root.txt&#x27;</span><!-- react-text: 106 -->).toString().split(<!-- /react-text --><span class="hljs-regexp" data-reactid="107">/\s+/</span><!-- react-text: 108 -->)[<!-- /react-text --><span class="hljs-number" data-reactid="109">0</span><!-- react-text: 110 -->];
+fs.watchFile(<!-- /react-text --><span class="hljs-string" data-reactid="111">&#x27;./root.txt&#x27;</span><!-- react-text: 112 -->,<!-- /react-text --><span class="hljs-function" data-reactid="113"><span class="hljs-keyword" data-reactid="114">function</span><!-- react-text: 115 --> (<!-- /react-text --><span class="hljs-params" data-reactid="116"></span><!-- react-text: 117 -->) <!-- /react-text --></span><!-- react-text: 118 -->{
+  <!-- /react-text --><span class="hljs-comment" data-reactid="119">//root.txt 文件修改后触发</span><!-- react-text: 120 -->
+  global.root = fs.readFileSync(<!-- /react-text --><span class="hljs-string" data-reactid="121">&#x27;./root.txt&#x27;</span><!-- react-text: 122 -->).toString().split(<!-- /react-text --><span class="hljs-regexp" data-reactid="123">/\s+/</span><!-- react-text: 124 -->)[<!-- /react-text --><span class="hljs-number" data-reactid="125">0</span><!-- react-text: 126 -->];
+});<!-- /react-text --></code></pre><h2 id="原生promise" data-reactid="127"><a href="#%E5%8E%9F%E7%94%9Fpromise" aria-hidden="true" data-reactid="128"><span class="icon icon-link" data-reactid="129"></span></a><!-- react-text: 130 -->原生<!-- /react-text --><code data-reactid="131">Promise</code></h2><pre data-reactid="132"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="133"><span class="hljs-keyword" data-reactid="134">var</span><!-- react-text: 135 --> statP = <!-- /react-text --><span class="hljs-function" data-reactid="136"><span class="hljs-keyword" data-reactid="137">function</span><!-- react-text: 138 -->(<!-- /react-text --><span class="hljs-params" data-reactid="139">root,file</span><!-- react-text: 140 -->)<!-- /react-text --></span><!-- react-text: 141 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="142">return</span><!-- react-text: 143 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="144">new</span><!-- react-text: 145 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="146">Promise</span><!-- react-text: 147 -->(<!-- /react-text --><span class="hljs-function" data-reactid="148"><span class="hljs-keyword" data-reactid="149">function</span><!-- react-text: 150 -->(<!-- /react-text --><span class="hljs-params" data-reactid="151">resolve</span><!-- react-text: 152 -->)<!-- /react-text --></span><!-- react-text: 153 -->{
+	  fs.stat(root+<!-- /react-text --><span class="hljs-string" data-reactid="154">&#x27;/&#x27;</span><!-- react-text: 155 -->+file,<!-- /react-text --><span class="hljs-function" data-reactid="156"><span class="hljs-keyword" data-reactid="157">function</span><!-- react-text: 158 --> (<!-- /react-text --><span class="hljs-params" data-reactid="159">err, stats</span><!-- react-text: 160 -->) <!-- /react-text --></span><!-- react-text: 161 -->{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="162">var</span><!-- react-text: 163 --> t = {};
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="164">if</span><!-- react-text: 165 -->(err){
+			t.reason=err;
+			resolve(t);
+		}
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="166">else</span><!-- react-text: 167 --> {
+		   t.state=<!-- /react-text --><span class="hljs-string" data-reactid="168">&#x27;ok&#x27;</span><!-- react-text: 169 -->;
+	       stats.name = file;
+	       stats.type = stats.isDirectory()?<!-- /react-text --><span class="hljs-string" data-reactid="170">&#x27;文件夹&#x27;</span><!-- react-text: 171 -->:<!-- /react-text --><span class="hljs-string" data-reactid="172">&#x27;文件&#x27;</span><!-- react-text: 173 -->;
+		   t.value=stats;
+	       resolve(t);
+	    }
+	  });
+	})
+};
+<!-- /react-text --><span class="hljs-built_in" data-reactid="174">Promise</span><!-- react-text: 175 -->.all(files.map(<!-- /react-text --><span class="hljs-function" data-reactid="176"><!-- react-text: 177 -->(<!-- /react-text --><span class="hljs-params" data-reactid="178">x,i,a</span><!-- react-text: 179 -->)=&gt;<!-- /react-text --></span><!-- react-text: 180 -->{<!-- /react-text --><span class="hljs-keyword" data-reactid="181">return</span><!-- react-text: 182 --> statP(r,x);}))
+    .then(<!-- /react-text --><span class="hljs-function" data-reactid="183"><span class="hljs-keyword" data-reactid="184">function</span><!-- react-text: 185 --> (<!-- /react-text --><span class="hljs-params" data-reactid="186">results</span><!-- react-text: 187 -->) <!-- /react-text --></span><!-- react-text: 188 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="189">var</span><!-- react-text: 190 --> values = [];
+        results.forEach(<!-- /react-text --><span class="hljs-function" data-reactid="191"><span class="hljs-params" data-reactid="192">x</span><!-- react-text: 193 -->=&gt;<!-- /react-text --></span><!-- react-text: 194 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="195">if</span><!-- react-text: 196 -->(x.state===<!-- /react-text --><span class="hljs-string" data-reactid="197">&#x27;ok&#x27;</span><!-- react-text: 198 -->){
+                values.push(x.value);
+            }<!-- /react-text --><span class="hljs-keyword" data-reactid="199">else</span><!-- react-text: 200 -->
+                <!-- /react-text --><span class="hljs-built_in" data-reactid="201">console</span><!-- react-text: 202 -->.error(x.reason);
+        });
+        <!-- /react-text --><span class="hljs-comment" data-reactid="203">//...render</span><!-- react-text: 204 -->
+    },<!-- /react-text --><span class="hljs-built_in" data-reactid="205">console</span><!-- react-text: 206 -->.error);<!-- /react-text --></code></pre><h2 id="sendfile方法使用" data-reactid="207"><a href="#sendfile%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="208"><span class="icon icon-link" data-reactid="209"></span></a><code data-reactid="210">sendFile</code><!-- react-text: 211 -->方法使用<!-- /react-text --></h2><pre data-reactid="212"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="213"><span class="hljs-comment" data-reactid="214">// noraw为url上的noraw参数值</span><!-- react-text: 215 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="216">if</span><!-- react-text: 217 -->(!!noraw){
+    <!-- /react-text --><span class="hljs-comment" data-reactid="218">// f为文件名</span><!-- react-text: 219 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="220">if</span><!-- react-text: 221 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="222">/\.(avi|mp4|mkv|rmvb|mpg|rm|wma)$/i</span><!-- react-text: 223 -->)){
+        res.render(<!-- /react-text --><span class="hljs-string" data-reactid="224">&#x27;video&#x27;</span><!-- react-text: 225 -->,o);
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="226">else</span><!-- react-text: 227 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="228">if</span><!-- react-text: 229 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="230">/\.(jpg|png|bmp|jpeg|gif)$/i</span><!-- react-text: 231 -->)){
+        res.render(<!-- /react-text --><span class="hljs-string" data-reactid="232">&#x27;img&#x27;</span><!-- react-text: 233 -->,o);
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="234">else</span><!-- react-text: 235 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="236">if</span><!-- react-text: 237 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="238">/\.(mp3|wma|aac)$/i</span><!-- react-text: 239 -->)){
+        res.render(<!-- /react-text --><span class="hljs-string" data-reactid="240">&#x27;audio&#x27;</span><!-- react-text: 241 -->,o);
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="242">else</span><!-- react-text: 243 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="244">if</span><!-- react-text: 245 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="246">/\.(md|markdown)$/i</span><!-- react-text: 247 -->)){
+        fs.readFile(file,(error,data) =&gt; {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="248">if</span><!-- react-text: 249 -->(error) <!-- /react-text --><span class="hljs-keyword" data-reactid="250">throw</span><!-- react-text: 251 --> error;
+            o.content = data.toString();
+            res.render(<!-- /react-text --><span class="hljs-string" data-reactid="252">&#x27;md&#x27;</span><!-- react-text: 253 -->,o);
+        });
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="254">else</span><!-- react-text: 255 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="256">if</span><!-- react-text: 257 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="258">/\.(java|c|cpp|js|css|jsp|php|json|txt)$/i</span><!-- react-text: 259 -->)){
+        fs.readFile(file,(error,data) =&gt; {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="260">if</span><!-- react-text: 261 -->(error) <!-- /react-text --><span class="hljs-keyword" data-reactid="262">throw</span><!-- react-text: 263 --> error;
+            <!-- /react-text --><span class="hljs-comment" data-reactid="264">// 在服务器渲染高亮代码方法被淘汰，因为对大文件调用下面方法十分耗时间，</span><!-- react-text: 265 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="266">// 而node为单线程，所以其他用户请求也会被阻塞，而且本用户也要等待很久。</span><!-- react-text: 267 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="268">// 所以选择在浏览器端解析。</span><!-- react-text: 269 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="270">// console.time(&#x27;hl&#x27;);</span><!-- react-text: 271 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="272">// o.content=hl.highlightAuto(data.toString()).value;</span><!-- react-text: 273 -->
+            <!-- /react-text --><span class="hljs-comment" data-reactid="274">// console.timeEnd(&#x27;hl&#x27;);</span><!-- react-text: 275 -->
+            o.content = data.toString();
+            res.render(<!-- /react-text --><span class="hljs-string" data-reactid="276">&#x27;code&#x27;</span><!-- react-text: 277 -->,o);
+        });
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="278">else</span><!-- react-text: 279 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="280">if</span><!-- react-text: 281 -->(f.match(<!-- /react-text --><span class="hljs-regexp" data-reactid="282">/\.(html|htm)$/i</span><!-- react-text: 283 -->)){
+        fs.readFile(file,(error,data) =&gt; {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="284">if</span><!-- react-text: 285 -->(error) <!-- /react-text --><span class="hljs-keyword" data-reactid="286">throw</span><!-- react-text: 287 --> error;
+            o.content = data.toString();
+            res.render(<!-- /react-text --><span class="hljs-string" data-reactid="288">&#x27;html&#x27;</span><!-- react-text: 289 -->,o);
+        });
+    }<!-- /react-text --><span class="hljs-keyword" data-reactid="290">else</span><!-- react-text: 291 -->{
+        <!-- /react-text --><span class="hljs-comment" data-reactid="292">// rela 为相对路径，root 为文件根目录</span><!-- react-text: 293 -->
+        res.sendFile(rela,{<!-- /react-text --><span class="hljs-attr" data-reactid="294">root</span><!-- react-text: 295 -->:global.root});
+    }
+}<!-- /react-text --><span class="hljs-keyword" data-reactid="296">else</span><!-- react-text: 297 -->{
+    res.sendFile(rela,{<!-- /react-text --><span class="hljs-attr" data-reactid="298">root</span><!-- react-text: 299 -->:global.root});
+}<!-- /react-text --></code></pre><h2 id="layoutjade" data-reactid="300"><a href="#layoutjade" aria-hidden="true" data-reactid="301"><span class="icon icon-link" data-reactid="302"></span></a><code data-reactid="303">layout.jade</code></h2><pre data-reactid="304"><code class="hljs language-jade" data-query="{}" data-lang="jade" data-reactid="305"><!-- react-text: 306 -->doctype
+html(<!-- /react-text --><span class="hljs-attribute" data-reactid="307">lang</span><!-- react-text: 308 -->=<!-- /react-text --><span class="hljs-string" data-reactid="309">&quot;zh&quot;</span><!-- react-text: 310 -->)
+  head
+    title= title
+    meta(<!-- /react-text --><span class="hljs-attribute" data-reactid="311">name</span><!-- react-text: 312 -->=<!-- /react-text --><span class="hljs-string" data-reactid="313">&quot;renderer&quot;</span><!-- react-text: 314 -->,content=&quot;webkit&quot;)
+    meta(<!-- /react-text --><span class="hljs-attribute" data-reactid="315">http-equiv</span><!-- react-text: 316 -->=<!-- /react-text --><span class="hljs-string" data-reactid="317">&quot;X-UA-Compatible&quot;</span><!-- react-text: 318 -->,content=&quot;IE=edge&quot;)
+    meta(<!-- /react-text --><span class="hljs-attribute" data-reactid="319">name</span><!-- react-text: 320 -->=<!-- /react-text --><span class="hljs-string" data-reactid="321">&quot;viewport&quot;</span><!-- react-text: 322 --> <!-- /react-text --><span class="hljs-attribute" data-reactid="323">content</span><!-- react-text: 324 -->=<!-- /react-text --><span class="hljs-string" data-reactid="325">&quot;width=device-width, initial-scale=1&quot;</span><!-- react-text: 326 -->)
+    link(<!-- /react-text --><span class="hljs-attribute" data-reactid="327">rel</span><!-- react-text: 328 -->=<!-- /react-text --><span class="hljs-string" data-reactid="329">&#x27;stylesheet&#x27;</span><!-- react-text: 330 -->, <!-- /react-text --><span class="hljs-attribute" data-reactid="331">href</span><!-- react-text: 332 -->=<!-- /react-text --><span class="hljs-string" data-reactid="333">&#x27;/stylesheets/bootstrap.min.css&#x27;</span><!-- react-text: 334 -->)
+    link(<!-- /react-text --><span class="hljs-attribute" data-reactid="335">rel</span><!-- react-text: 336 -->=<!-- /react-text --><span class="hljs-string" data-reactid="337">&#x27;stylesheet&#x27;</span><!-- react-text: 338 -->, <!-- /react-text --><span class="hljs-attribute" data-reactid="339">href</span><!-- react-text: 340 -->=<!-- /react-text --><span class="hljs-string" data-reactid="341">&#x27;/stylesheets/style.css&#x27;</span><!-- react-text: 342 -->)
+    link(<!-- /react-text --><span class="hljs-attribute" data-reactid="343">rel</span><!-- react-text: 344 -->=<!-- /react-text --><span class="hljs-string" data-reactid="345">&#x27;stylesheet&#x27;</span><!-- react-text: 346 -->, <!-- /react-text --><span class="hljs-attribute" data-reactid="347">href</span><!-- react-text: 348 -->=<!-- /react-text --><span class="hljs-string" data-reactid="349">&#x27;/stylesheets/hljs-github.min.css&#x27;</span><!-- react-text: 350 -->)
+    link(<!-- /react-text --><span class="hljs-attribute" data-reactid="351">rel</span><!-- react-text: 352 -->=<!-- /react-text --><span class="hljs-string" data-reactid="353">&#x27;stylesheet&#x27;</span><!-- react-text: 354 -->, <!-- /react-text --><span class="hljs-attribute" data-reactid="355">href</span><!-- react-text: 356 -->=<!-- /react-text --><span class="hljs-string" data-reactid="357">&#x27;/stylesheets/pilcrow.css&#x27;</span><!-- react-text: 358 -->)
+    link(<!-- /react-text --><span class="hljs-attribute" data-reactid="359">rel</span><!-- react-text: 360 -->=<!-- /react-text --><span class="hljs-string" data-reactid="361">&#x27;stylesheet&#x27;</span><!-- react-text: 362 -->, <!-- /react-text --><span class="hljs-attribute" data-reactid="363">href</span><!-- react-text: 364 -->=<!-- /react-text --><span class="hljs-string" data-reactid="365">&#x27;/stylesheets/github-markdown.css&#x27;</span><!-- react-text: 366 -->)
+  body
+    block content<!-- /react-text --></code></pre><h2 id="codejade" data-reactid="367"><a href="#codejade" aria-hidden="true" data-reactid="368"><span class="icon icon-link" data-reactid="369"></span></a><code data-reactid="370">code.jade</code></h2><pre data-reactid="371"><code class="hljs language-jade" data-query="{}" data-lang="jade" data-reactid="372"><span class="hljs-keyword" data-reactid="373">extends </span><!-- react-text: 374 -->layout
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="375">block </span><!-- react-text: 376 -->content
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="377">script(src=&quot;http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js&quot;)
+</span><!-- react-text: 378 -->    <!-- /react-text --><span class="hljs-keyword" data-reactid="379">div.container-fluid
+</span><!-- react-text: 380 -->        h1=title
+        include <!-- /react-text --><span class="hljs-keyword" data-reactid="381">btns
+</span><!-- react-text: 382 -->        <!-- /react-text --><span class="hljs-keyword" data-reactid="383">div.markdown-body
+</span><!-- react-text: 384 -->            pre
+                code!=content
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="385">script </span><!-- react-text: 386 -->hljs.initHighlightingOnLoad()<!-- /react-text --><span class="hljs-comment" data-reactid="387">;//自动寻找&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;进行解析</span><!-- react-text: 388 -->
+        footer
+            p<!-- /react-text --><span class="hljs-meta" data-reactid="389">.text</span><!-- react-text: 390 -->-center<!-- /react-text --><span class="hljs-meta" data-reactid="391">.text</span><!-- react-text: 392 -->-info Running on node with Express, <!-- /react-text --><span class="hljs-keyword" data-reactid="393">Jade. </span><span class="hljs-keyword" data-reactid="394">By </span><!-- react-text: 395 -->Moyu.<!-- /react-text --></code></pre><h2 id="mdjade" data-reactid="396"><a href="#mdjade" aria-hidden="true" data-reactid="397"><span class="icon icon-link" data-reactid="398"></span></a><code data-reactid="399">md.jade</code></h2><pre data-reactid="400"><code class="hljs language-jade" data-query="{}" data-lang="jade" data-reactid="401"><span class="hljs-comment" data-reactid="402">//</span><!-- react-text: 403 -->
+   Created by Yc on <!-- /react-text --><span class="hljs-number" data-reactid="404">2016</span><!-- react-text: 405 -->/<!-- /react-text --><span class="hljs-number" data-reactid="406">6</span><!-- react-text: 407 -->/<!-- /react-text --><span class="hljs-number" data-reactid="408">9.</span><!-- react-text: 409 -->
+extends layout
+
+block content
+    script(src=<!-- /react-text --><span class="hljs-string" data-reactid="410">&quot;http://cdn.bootcss.com/marked/0.3.5/marked.min.js&quot;</span><!-- react-text: 411 -->)
+    script(src=<!-- /react-text --><span class="hljs-string" data-reactid="412">&quot;http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js&quot;</span><!-- react-text: 413 -->)
+    <!-- /react-text --><span class="hljs-keywords" data-reactid="414">div</span><!-- react-text: 415 -->.container-fluid
+        h1=title
+        include btns
+        <!-- /react-text --><span class="hljs-keywords" data-reactid="416">div</span><!-- react-text: 417 -->.row
+            <!-- /react-text --><span class="hljs-keywords" data-reactid="418">div</span><!-- react-text: 419 -->.col-lg<!-- /react-text --><span class="hljs-number" data-reactid="420">-6.</span><span class="hljs-symbol" data-reactid="421">visible</span><!-- react-text: 422 -->-lg
+                h2 解析前
+                <!-- /react-text --><span class="hljs-keywords" data-reactid="423">div</span><!-- react-text: 424 -->.markdown-body
+                    pre
+                        code(<!-- /react-text --><span class="hljs-symbol" data-reactid="425">id</span><!-- react-text: 426 -->=<!-- /react-text --><span class="hljs-string" data-reactid="427">&#x27;markdown-raw&#x27;</span><!-- react-text: 428 -->)=content <!-- /react-text --><span class="hljs-comment" data-reactid="429">//&quot;=&quot;会被转义(如 &lt; : &amp;lt;),&quot;!=&quot;不会</span><!-- react-text: 430 -->
+            <!-- /react-text --><span class="hljs-keywords" data-reactid="431">div</span><!-- react-text: 432 -->.col-lg<!-- /react-text --><span class="hljs-number" data-reactid="433">-6</span><!-- react-text: 434 -->
+                h2 解析后
+                <!-- /react-text --><span class="hljs-keywords" data-reactid="435">div</span><!-- react-text: 436 -->.markdown-body(<!-- /react-text --><span class="hljs-symbol" data-reactid="437">id</span><!-- react-text: 438 -->=<!-- /react-text --><span class="hljs-string" data-reactid="439">&#x27;markdown-show&#x27;</span><!-- react-text: 440 -->)
+        script(src=<!-- /react-text --><span class="hljs-string" data-reactid="441">&quot;/javascripts/md.js&quot;</span><!-- react-text: 442 -->)
+        <!-- /react-text --><span class="hljs-comment" data-reactid="443">//renderer 来自md.js</span><!-- react-text: 444 -->
+        script document.getElementById(<!-- /react-text --><span class="hljs-string" data-reactid="445">&#x27;markdown-show&#x27;</span><!-- react-text: 446 -->).innerHTML = marked(document.getElementById(<!-- /react-text --><span class="hljs-string" data-reactid="447">&#x27;markdown-raw&#x27;</span><!-- react-text: 448 -->).innerText,{renderer:renderer});
+        footer
+            p.text-center.text-info Running on node <!-- /react-text --><span class="hljs-keywords" data-reactid="449">with</span><!-- react-text: 450 --> Express, Jade. By Moyu.<!-- /react-text --></code></pre><h2 id="mdjs" data-reactid="451"><a href="#mdjs" aria-hidden="true" data-reactid="452"><span class="icon icon-link" data-reactid="453"></span></a><code data-reactid="454">md.js</code></h2><pre data-reactid="455"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="456"><!-- react-text: 457 -->~<!-- /react-text --><span class="hljs-function" data-reactid="458"><span class="hljs-keyword" data-reactid="459">function</span><!-- react-text: 460 -->(<!-- /react-text --><span class="hljs-params" data-reactid="461"></span><!-- react-text: 462 -->)<!-- /react-text --></span><!-- react-text: 463 -->{
+    marked.setOptions({
+        <!-- /react-text --><span class="hljs-attr" data-reactid="464">highlight</span><!-- react-text: 465 -->: <!-- /react-text --><span class="hljs-function" data-reactid="466"><span class="hljs-keyword" data-reactid="467">function</span><!-- react-text: 468 --> (<!-- /react-text --><span class="hljs-params" data-reactid="469">code</span><!-- react-text: 470 -->) <!-- /react-text --></span><!-- react-text: 471 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="472">return</span><!-- react-text: 473 --> hljs.highlightAuto(code).value;
+        }
+    });
+    renderer = <!-- /react-text --><span class="hljs-keyword" data-reactid="474">new</span><!-- react-text: 475 --> marked.Renderer();
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="476">var</span><!-- react-text: 477 --> map = {};
+    <!-- /react-text --><span class="hljs-comment" data-reactid="478">//重写默认&#x27;#&#x27;,&#x27;##&#x27;... 格式的转换方法</span><!-- react-text: 479 -->
+    renderer.heading = <!-- /react-text --><span class="hljs-function" data-reactid="480"><span class="hljs-keyword" data-reactid="481">function</span><!-- react-text: 482 --> (<!-- /react-text --><span class="hljs-params" data-reactid="483">text, level</span><!-- react-text: 484 -->) <!-- /react-text --></span><!-- react-text: 485 -->{<!-- /react-text --><span class="hljs-comment" data-reactid="486">//level 表示层级，如#为1，##为2</span><!-- react-text: 487 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="488">var</span><!-- react-text: 489 --> escapedText = text.toLowerCase();
+        <!-- /react-text --><span class="hljs-comment" data-reactid="490">// 防止出现重复的锚点</span><!-- react-text: 491 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="492">if</span><!-- react-text: 493 -->(!!map[text])
+            escapedText+=<!-- /react-text --><span class="hljs-string" data-reactid="494">&#x27;-&#x27;</span><!-- react-text: 495 -->+map[text]++;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="496">else</span><!-- react-text: 497 -->
+            map[text]=<!-- /react-text --><span class="hljs-number" data-reactid="498">1</span><!-- react-text: 499 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="500">return</span><!-- react-text: 501 --> <!-- /react-text --><span class="hljs-string" data-reactid="502">&#x27;&lt;h&#x27;</span><!-- react-text: 503 --> + level + <!-- /react-text --><span class="hljs-string" data-reactid="504">&#x27;&gt;&lt;a name=&quot;&#x27;</span><!-- react-text: 505 --> +
+            escapedText +
+            <!-- /react-text --><span class="hljs-string" data-reactid="506">&#x27;&quot; class=&quot;anchor&quot; href=&quot;#&#x27;</span><!-- react-text: 507 --> +
+            escapedText +
+            <!-- /react-text --><span class="hljs-string" data-reactid="508">&#x27;&quot;&gt;&lt;span class=&quot;header-link&quot;&gt;&lt;/span&gt;&lt;/a&gt;&#x27;</span><!-- react-text: 509 --> +
+            text + <!-- /react-text --><span class="hljs-string" data-reactid="510">&#x27;&lt;/h&#x27;</span><!-- react-text: 511 --> + level + <!-- /react-text --><span class="hljs-string" data-reactid="512">&#x27;&gt;&#x27;</span><!-- react-text: 513 -->;
+    };
+}();<!-- /react-text --></code></pre><h1 id="问题归纳" data-reactid="514"><a href="#%E9%97%AE%E9%A2%98%E5%BD%92%E7%BA%B3" aria-hidden="true" data-reactid="515"><span class="icon icon-link" data-reactid="516"></span></a><!-- react-text: 517 -->问题归纳<!-- /react-text --></h1><p data-reactid="518"><strong data-reactid="519">通过url的noraw控制展示方式，对SEO不友好</strong><!-- react-text: 520 --> GitHub的解决方法是，在raw文件提供独立的三级域名<!-- /react-text --><code data-reactid="521">raw.githubusercontent.com/{username}/{repo}/{branch}/{file}</code></p><p data-reactid="522">后期希望更加完善这个web应用吧，比如在线查看压缩文件等功能。</p><h1 id="代码地址" data-reactid="523"><a href="#%E4%BB%A3%E7%A0%81%E5%9C%B0%E5%9D%80" aria-hidden="true" data-reactid="524"><span class="icon icon-link" data-reactid="525"></span></a><!-- react-text: 526 -->代码地址<!-- /react-text --></h1><p data-reactid="527"><a href="https://github.com/moyuyc/http-file-explorer-express4.x" data-reactid="528">http-file-explorer-express4.x</a></p><h1 id="参考资料" data-reactid="529"><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-hidden="true" data-reactid="530"><span class="icon icon-link" data-reactid="531"></span></a><!-- react-text: 532 -->参考资料<!-- /react-text --></h1><ul data-reactid="533"><li data-reactid="534"><a href="https://github.com/mixu/markdown-styles" data-reactid="535">markdown-styles</a><!-- react-text: 536 -->: 提供高大上的CSS样式。<!-- /react-text --></li><li data-reactid="537"><a href="https://github.com/chjj/marked" data-reactid="538">marked</a><!-- react-text: 539 -->: 提供强大的markdown格式转化API。<!-- /react-text --></li><li data-reactid="540"><a href="https://github.com/isagalaev/highlight.js" data-reactid="541">highlight.js</a><!-- react-text: 542 -->: 提供强大的code格式转化为具有class样式的标签，方便用户自定义样式。<!-- /react-text --></li><li data-reactid="543"><a href="http://www.expressjs.com.cn/4x/api.html#res.sendFile" data-reactid="544">express4.x</a><!-- react-text: 545 -->: express4.x详细API文档。<!-- /react-text --></li></ul></article></div><div class="gitment-container" data-reactid="546"></div><div class="paginator" data-reactid="547"><a title="图书销售系统（书窝）" class="prev" href="/bookshop" data-reactid="548">Prev</a><a title="「思科模拟器」建立DNS+HTTP服务" class="next" href="/make-dns-http" data-reactid="549">Next</a></div></div></main><footer data-reactid="550"><div class="copyright" data-reactid="551"><p data-reactid="552"><!-- react-text: 553 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="554">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

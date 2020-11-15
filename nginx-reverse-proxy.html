@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 解决外网访问nodejs服务器（nginx反向代理） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-732898395"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">解决外网访问nodejs服务器（nginx反向代理）</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-25T17:22:21+00:00" data-reactid="13">May 25, 2016 5:22 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21">之前说了我做的在线实时画板与你画我猜游戏，但是把程序放到服务器node运行后，却发现内网正常访问，外网却不能访问。 于是搜索查找，得到解决方法，做此记录。</p><h1 id="解决" data-reactid="22"><a href="#%E8%A7%A3%E5%86%B3" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->解决<!-- /react-text --></h1><h2 id="下载nginx" data-reactid="26"><a href="#%E4%B8%8B%E8%BD%BDnginx" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->下载nginx<!-- /react-text --></h2><p data-reactid="30">nginx大致相当于一个转发器，通过url进行转发到正确处理的端口。</p><h2 id="配置nginx" data-reactid="31"><a href="#%E9%85%8D%E7%BD%AEnginx" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->配置nginx<!-- /react-text --></h2><p data-reactid="35"><code data-reactid="36">conf/nginx.conf</code><!-- react-text: 37 --> 添加如下<!-- /react-text --></p><pre data-reactid="38"><code data-query="{}" data-lang="data-lang" data-reactid="39"> include myconf/*.conf;  # 将myconf文件夹中*.conf 内容包含
+</code></pre><p data-reactid="40"><!-- react-text: 41 -->在<!-- /react-text --><code data-reactid="42">conf/myconf</code><!-- react-text: 43 --> 中添加如下文件 <!-- /react-text --><code data-reactid="44">conf4000.conf</code></p><pre data-reactid="45"><code data-query="{}" data-lang="data-lang" data-reactid="46">upstream web4000 {
+    server localhost:4000;
+}
+ 
+server {
+    listen   80; #监听的端口
+
+    server_name  paintgame.moyuyc.xyz; #匹配的域名或者ip
+ 
+    location / {
+        proxy_pass http://web4000; #转发到哪里？
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade; # 支持websocket
+        proxy_set_header Connection &quot;upgrade&quot;; # 支持websocket
+    }
+
+}
+</code></pre><p data-reactid="47"><!-- react-text: 48 -->最后运行nginx即可，当然同时也需要运行node服务器 关于<!-- /react-text --><code data-reactid="49">websocket</code><!-- react-text: 50 -->与<!-- /react-text --><code data-reactid="51">upgrade</code><!-- react-text: 52 --> <!-- /react-text --><a href="https://www.zhihu.com/question/20215561" data-reactid="53">参看这里</a></p><h1 id="其他问题" data-reactid="54"><a href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98" aria-hidden="true" data-reactid="55"><span class="icon icon-link" data-reactid="56"></span></a><!-- react-text: 57 -->其他问题<!-- /react-text --></h1><ol data-reactid="58"><li data-reactid="59"><!-- react-text: 60 -->用了<!-- /react-text --><code data-reactid="61">nginx</code><!-- react-text: 62 -->后，打开<!-- /react-text --><code data-reactid="63">[paint.moyuyc.xyz](http://paint.moyuyc.xyz/)</code><!-- react-text: 64 --> 特别慢，<!-- /react-text --><code data-reactid="65">[paintgame.moyuyc.xyz](http://paintgame.moyuyc.xyz/)</code><!-- react-text: 66 --> 却挺正常的，<!-- /react-text --></li><li data-reactid="67"><!-- react-text: 68 -->而且基于<!-- /react-text --><code data-reactid="69">websocket</code><!-- react-text: 70 --> 基于tcp长连接，经常会自己断开连接.<!-- /react-text --></li></ol></article></div><div class="gitment-container" data-reactid="71"></div><div class="paginator" data-reactid="72"><a title="node+express+jade实现HTTP文件浏览器" class="prev" href="/node-express-jade-http-file-explorer" data-reactid="73">Prev</a><a title="基于socket.io实现的简易你画我猜" class="next" href="/you-paint-i-guess-by-socketio" data-reactid="74">Next</a></div></div></main><footer data-reactid="75"><div class="copyright" data-reactid="76"><p data-reactid="77"><!-- react-text: 78 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="79">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

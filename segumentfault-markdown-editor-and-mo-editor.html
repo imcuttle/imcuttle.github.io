@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 探究SegumentFault Markdown编辑器 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-2133941449"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">探究SegumentFault Markdown编辑器</h1><div class="post-info" data-reactid="12"><time datetime="2016-08-13T21:41:57+00:00" data-reactid="13">Aug 13, 2016 9:41 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><a href="https://segmentfault.com/" data-reactid="18">SegumentFault</a><!-- react-text: 19 --> 中的Markdown编辑器用户体验不错，比如<!-- /react-text --></p><ol data-reactid="20"><li data-reactid="21">高亮提示并显示你当前正在编辑的文本</li><li data-reactid="22">支持剪贴板图片直接粘贴上传，插入图片十分方便</li><li data-reactid="23">自动保存</li></ol><p data-reactid="24"><!-- react-text: 25 -->为了探究sf实现的原理，在sf中我提出了下面的问题 【<!-- /react-text --><a href="https://segmentfault.com/q/1010000006166048" data-reactid="26">segmentfault的实时markdown编辑修改位置定位是怎么做到的，而且效率还不低</a><!-- react-text: 27 -->】<!-- /react-text --></p><p data-reactid="28"><!-- react-text: 29 -->根据采纳答案提供的信息，我搜索到了这段谷歌开源代码 <!-- /react-text --><a href="https://code.google.com/p/google-diff-match-patch/" data-reactid="30">google-diff-match-patch</a></p><p data-reactid="31">根据官方的介绍，我们能用这个称为diff-match-path的开源库，进行diff(差异)/match(配对)/patch(补全)， 但我们只需要diff功能即可</p><p data-reactid="32"><!-- react-text: 33 -->在官方给出的<!-- /react-text --><a href="https://neil.fraser.name/software/diff_match_patch/svn/trunk/demos/demo_diff.html" data-reactid="34">diff demo</a><!-- react-text: 35 -->中, 通过源码可以很清晰的了解diff的使用<!-- /react-text --></p><p data-reactid="36">大体就是，对比两个字符串，找到两个字符串的不同，包括多余的，相同的，缺失的。</p><p data-reactid="37"><!-- react-text: 38 -->算法思想贪心，参考如下<!-- /react-text --><br data-reactid="39"/><a href="http://simplygenius.net/Article/DiffTutorial1" data-reactid="40">英文原版</a><br data-reactid="41"/><a href="http://yaowhat.com/2014/07/21/entry-version-diff-1.html" data-reactid="42">翻译</a></p><h2 id="我的工作" data-reactid="43"><a href="#%E6%88%91%E7%9A%84%E5%B7%A5%E4%BD%9C" aria-hidden="true" data-reactid="44"><span class="icon icon-link" data-reactid="45"></span></a><!-- react-text: 46 -->我的工作<!-- /react-text --></h2><p data-reactid="47">既然知道了sf的实时编辑高亮是基于diff的，那我也基于这个工具实现个markdown编辑器吧。 用了如下第三方库 1. ace.js (一个漂亮的编辑器) 2. marked.js (一个markdown文本转html库) 3. highlight.js (将code文本高亮展示) 4. diff_match_patch.js</p><p data-reactid="48"><!-- react-text: 49 -->效果图 <!-- /react-text --><div data-reactid="50"><style data-reactid="51">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1438px;max-height:1438pxpx;" data-reactid="52"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.834492350486784%;" data-reactid="53"></div><div class="medium-image-progressive" data-reactid="54"><canvas data-reactid="55"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="56"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtLU4iWnXe9aqXR2cYkJ-55l167u?imageslim" data-reactid="57"/><noscript data-reactid="58"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtLU4iWnXe9aqXR2cYkJ-55l167u?imageslim" data-reactid="59"/></noscript></div></div></div></p><p data-reactid="60">具有如下功能： 1. markdown编辑，实时预览 2. 高亮提示并显示你当前正在编辑的文本 3. 支持剪贴板图片直接粘贴上传，插入图片十分方便 4. 自动保存</p><p data-reactid="61">编辑器部分快捷键说明 1. cmd/ctrl + K : 33种编辑器主题供选择 2. cmd/ctrl + B : 编辑器字体放大 3. cmd/ctrl + M : 编辑器字体缩小 4. cmd/ctrl + U : 自动保存功能开关 5. cmd/ctrl + S : 保存</p><p data-reactid="62"><!-- react-text: 63 -->其他交互说明： 1. 编辑器左下角提示保存信息，右下角提示字数 <!-- /react-text --><div data-reactid="64"><style data-reactid="65">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1435px;max-height:1435pxpx;" data-reactid="66"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.87108013937283%;" data-reactid="67"></div><div class="medium-image-progressive" data-reactid="68"><canvas data-reactid="69"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="70"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FklqPf-mbderllJaGFfBamL_3lle?imageslim" data-reactid="71"/><noscript data-reactid="72"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FklqPf-mbderllJaGFfBamL_3lle?imageslim" data-reactid="73"/></noscript></div></div></div><!-- react-text: 74 --> 2. 中部可拖动调节大小 <!-- /react-text --><div data-reactid="75"><style data-reactid="76">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="77"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.625%;" data-reactid="78"></div><div class="medium-image-progressive" data-reactid="79"><canvas data-reactid="80"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="81"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FroCfvrfeAz_b8oPCyiZrxXGHRmd?imageslim" data-reactid="82"/><noscript data-reactid="83"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FroCfvrfeAz_b8oPCyiZrxXGHRmd?imageslim" data-reactid="84"/></noscript></div></div></div><!-- react-text: 85 --> 3. 预览可直接复制代码 <!-- /react-text --><div data-reactid="86"><style data-reactid="87">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1438px;max-height:1438pxpx;" data-reactid="88"><div class="medium-image-progressive-placeholder" style="padding-bottom:50.69541029207232%;" data-reactid="89"></div><div class="medium-image-progressive" data-reactid="90"><canvas data-reactid="91"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="92"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtRJ93mBtmKC0_LnGaSyuZfABdXN?imageslim" data-reactid="93"/><noscript data-reactid="94"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FtRJ93mBtmKC0_LnGaSyuZfABdXN?imageslim" data-reactid="95"/></noscript></div></div></div></p><h2 id="怎么安装使用？" data-reactid="96"><a href="#%E6%80%8E%E4%B9%88%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%EF%BC%9F" aria-hidden="true" data-reactid="97"><span class="icon icon-link" data-reactid="98"></span></a><!-- react-text: 99 -->怎么安装使用？<!-- /react-text --></h2><p data-reactid="100"><!-- react-text: 101 -->代码地址<!-- /react-text --><br data-reactid="102"/><a href="https://github.com/moyuyc/markdown-editor" data-reactid="103">markdown-editor</a></p><pre data-reactid="104"><code class="hljs language-sh" data-query="{}" data-lang="sh" data-reactid="105"><!-- react-text: 106 -->git <!-- /react-text --><span class="hljs-built_in" data-reactid="107">clone</span><!-- react-text: 108 --> https://github.com/moyuyc/markdown-editor.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="109">cd</span><!-- react-text: 110 --> markdown-editor
+npm install
+npm start
+open http://localhost:9999<!-- /react-text --></code></pre><p data-reactid="111">别忘了给个Star！</p></article></div><div class="gitment-container" data-reactid="112"></div><div class="paginator" data-reactid="113"><a title="点歌机器人 (来自网易云音乐)" class="prev" href="/request-song-robot" data-reactid="114">Prev</a><a title="为你的博客添加搜索功能吧!" class="next" href="/search-function-for-blog" data-reactid="115">Next</a></div></div></main><footer data-reactid="116"><div class="copyright" data-reactid="117"><p data-reactid="118"><!-- react-text: 119 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="120">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 分片上传与断点续传解决方案 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-194264436"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">分片上传与断点续传解决方案</h1><div class="post-info" data-reactid="12"><time datetime="2016-09-14T20:31:47+00:00" data-reactid="13">Sep 14, 2016 8:31 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><!-- react-text: 18 -->上传文件，基本上是每一个网站应用都会具备的一个功能。对于一个网络存储应用，对于上传功能要求更是迫切。<!-- /react-text --><br data-reactid="19"/><!-- react-text: 20 -->如今市面上成熟上传插件，如<!-- /react-text --><code data-reactid="21">WebUploader</code><!-- react-text: 22 -->，&quot;体积太大&quot;，不适合于移动端上传；再加上作为一位程序员的&quot;操守&quot;，当然还是更喜欢自己造轮子。<!-- /react-text --></p><p data-reactid="23"><!-- react-text: 24 -->于是花了一天半时间，<!-- /react-text --><code data-reactid="25">MoUploader</code><!-- react-text: 26 -->应运而生。为什么叫<!-- /react-text --><code data-reactid="27">MoUploader</code><!-- react-text: 28 -->呢？<!-- /react-text --><br data-reactid="29"/><code data-reactid="30">Mo</code><!-- react-text: 31 -->表示<!-- /react-text --><code data-reactid="32">Mobile</code><!-- react-text: 33 -->(其实更是因为我的绰号moyu)<!-- /react-text --></p><h2 id="关于实现原理" data-reactid="34"><a href="#%E5%85%B3%E4%BA%8E%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86" aria-hidden="true" data-reactid="35"><span class="icon icon-link" data-reactid="36"></span></a><!-- react-text: 37 -->关于实现原理<!-- /react-text --></h2><ul data-reactid="38"><li data-reactid="39"><p data-reactid="40">首先需要明确，上传这东西不仅仅是只需要前端就能完成的很好的，需要前端后端统一数据格式，从而实现断点续传。（所以，该文适合于全栈工程师，至少是想成为）</p></li><li data-reactid="41"><p data-reactid="42"><!-- react-text: 43 -->还有，为什么需要分片，不分片能实现断点续传吗？分片是为了充分利用网络带宽，加快上传速度；不分片也是能够实现断点续传的。详细参考 <!-- /react-text --><a href="http://fex.baidu.com/blog/2014/04/html5-uploader/" data-reactid="44">HTML5文件上传组件深度剖析</a><!-- react-text: 45 -->.<!-- /react-text --><br data-reactid="46"/><!-- react-text: 47 -->分片上传与断点续传之间没有很直接的关系.<!-- /react-text --></p><p data-reactid="48">好了，进入正题 - 实现断点续传的前提是需要服务器记录某文件的上传进度，那么根据什么判断是不是同一个文件呢？可以利用文件内容求md5码，如果文件过大，求取md5码也是一个很长的过程，所以对于大文件，只能针对某一段数据进行计算，加上服务器对cookie用户信息的判断，得到相对唯一的key</p><pre data-reactid="49"><code data-query="{}" data-lang="data-lang" data-reactid="50">- 在前端页面，需要将文件按照一定大小进行分片，一次请求只发送这一小片数据，所以我们可以同时发起多个请求。但一次同时请求的连接数不宜过多，服务器负载过重
+
+对于文件分片操作，H5具有十分强大的File API，直接利用File对象的slice方法即可得到Blob对象.  
+至于同时传输数据的连接数控制逻辑，就需要花点脑子思考了
+
+- 前端把数据顺利得传给服务器了，服务器只需要按照数据中给的开始字节位置，与读取到的文件片段数据，写入文件即可
+</code></pre><p data-reactid="51"><!-- react-text: 52 -->更多信息就看源码吧！<!-- /react-text --><a href="https://github.com/moyuyc/moUploader" data-reactid="53">MoUploader</a></p></li></ul><h2 id="功能实现" data-reactid="54"><a href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="55"><span class="icon icon-link" data-reactid="56"></span></a><!-- react-text: 57 -->功能实现<!-- /react-text --></h2><ul data-reactid="58"><li data-reactid="59">文件结构</li></ul><pre data-reactid="60"><code data-query="{}" data-lang="data-lang" data-reactid="61">file-upload/
+├── bower_components/ # bower包
+├── db.js   # 数据操作接口
+├── demo.html
+├── md5.json # 数据
+├── mouploader.js # 源码
+├── README.md 
+└── server.js # demo.html服务, 建立在3000端口
+
+1 directories, 8 files.
+</code></pre><p data-reactid="62"><!-- react-text: 63 -->(打印文件目录树使用的是自己写的<!-- /react-text --><a href="https://github.com/moyuyc/directory-tree" data-reactid="64">print-dir</a><!-- react-text: 65 -->)<!-- /react-text --></p><ul data-reactid="66"><li data-reactid="67"><p data-reactid="68">怎么使用</p><ol data-reactid="69"><li data-reactid="70"><p data-reactid="71">引入script，amd/cmd/...，</p></li><li data-reactid="72"><p data-reactid="73">使用MoUploader</p><pre data-reactid="74"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="75"><!-- react-text: 76 -->input.onchange = <!-- /react-text --><span class="hljs-function" data-reactid="77"><span class="hljs-keyword" data-reactid="78">function</span><!-- react-text: 79 --> (<!-- /react-text --><span class="hljs-params" data-reactid="80">e</span><!-- react-text: 81 -->) <!-- /react-text --></span><!-- react-text: 82 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="83">var</span><!-- react-text: 84 --> self = <!-- /react-text --><span class="hljs-keyword" data-reactid="85">this</span><!-- react-text: 86 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="87">var</span><!-- react-text: 88 --> moUploader = MoUploader({ 
+        <!-- /react-text --><span class="hljs-attr" data-reactid="89">files</span><!-- react-text: 90 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="91">this</span><!-- react-text: 92 -->.files,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="93">uploadUrl</span><!-- react-text: 94 -->: <!-- /react-text --><span class="hljs-string" data-reactid="95">&#x27;/upload&#x27;</span><!-- react-text: 96 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="97">request</span><!-- react-text: 98 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="99">false</span><!-- react-text: 100 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="101">onBeforeUpload</span><!-- react-text: 102 -->: <!-- /react-text --><span class="hljs-function" data-reactid="103"><span class="hljs-keyword" data-reactid="104">function</span><!-- react-text: 105 --> (<!-- /react-text --><span class="hljs-params" data-reactid="106">index</span><!-- react-text: 107 -->) <!-- /react-text --></span><!-- react-text: 108 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="109">if</span><!-- react-text: 110 -->(index&gt;=<!-- /react-text --><span class="hljs-number" data-reactid="111">0</span><!-- react-text: 112 -->) {
+                self.files[index].progress = appendUploading(self.files[index], index)
+            }
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="113">onOverAllProgress</span><!-- react-text: 114 -->: <!-- /react-text --><span class="hljs-function" data-reactid="115"><span class="hljs-keyword" data-reactid="116">function</span><!-- react-text: 117 --> (<!-- /react-text --><span class="hljs-params" data-reactid="118">index, loaded, total</span><!-- react-text: 119 -->) <!-- /react-text --></span><!-- react-text: 120 -->{
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="121">console</span><!-- react-text: 122 -->.log(loaded / total)
+            <!-- /react-text --><span class="hljs-comment" data-reactid="123">//setProgress(loaded / total, self.files[index].progress)</span><!-- react-text: 124 -->
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="125">onLoad</span><!-- react-text: 126 -->: <!-- /react-text --><span class="hljs-function" data-reactid="127"><span class="hljs-keyword" data-reactid="128">function</span><!-- react-text: 129 --> (<!-- /react-text --><span class="hljs-params" data-reactid="130">index, chunkIndex, chunksNum</span><!-- react-text: 131 -->) <!-- /react-text --></span><!-- react-text: 132 -->{
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="133">console</span><!-- react-text: 134 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="135">&#x27;onLoad&#x27;</span><!-- react-text: 136 -->, <!-- /react-text --><span class="hljs-keyword" data-reactid="137">this</span><!-- react-text: 138 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="139">arguments</span><!-- react-text: 140 -->)
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="141">onAbort</span><!-- react-text: 142 -->: <!-- /react-text --><span class="hljs-function" data-reactid="143"><span class="hljs-keyword" data-reactid="144">function</span><!-- react-text: 145 --> (<!-- /react-text --><span class="hljs-params" data-reactid="146">index, chunkIndex, chunksNum</span><!-- react-text: 147 -->) <!-- /react-text --></span><!-- react-text: 148 -->{
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="149">console</span><!-- react-text: 150 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="151">&#x27;onAbort&#x27;</span><!-- react-text: 152 -->, <!-- /react-text --><span class="hljs-keyword" data-reactid="153">this</span><!-- react-text: 154 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="155">arguments</span><!-- react-text: 156 -->)
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="157">onError</span><!-- react-text: 158 -->: <!-- /react-text --><span class="hljs-function" data-reactid="159"><span class="hljs-keyword" data-reactid="160">function</span><!-- react-text: 161 --> (<!-- /react-text --><span class="hljs-params" data-reactid="162">index, chunkIndex, chunksNum</span><!-- react-text: 163 -->) <!-- /react-text --></span><!-- react-text: 164 -->{
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="165">console</span><!-- react-text: 166 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="167">&#x27;onError&#x27;</span><!-- react-text: 168 -->, <!-- /react-text --><span class="hljs-keyword" data-reactid="169">this</span><!-- react-text: 170 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="171">arguments</span><!-- react-text: 172 -->)
+        },
+        <!-- /react-text --><span class="hljs-attr" data-reactid="173">onContinue</span><!-- react-text: 174 -->: <!-- /react-text --><span class="hljs-function" data-reactid="175"><span class="hljs-keyword" data-reactid="176">function</span><!-- react-text: 177 --> (<!-- /react-text --><span class="hljs-params" data-reactid="178">file, md5, index</span><!-- react-text: 179 -->) <!-- /react-text --></span><!-- react-text: 180 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="181">return</span><!-- react-text: 182 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="183">new</span><!-- react-text: 184 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="185">Promise</span><!-- react-text: 186 -->(<!-- /react-text --><span class="hljs-function" data-reactid="187"><span class="hljs-keyword" data-reactid="188">function</span><!-- react-text: 189 -->(<!-- /react-text --><span class="hljs-params" data-reactid="190">reslove, reject</span><!-- react-text: 191 -->) <!-- /react-text --></span><!-- react-text: 192 -->{
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="193">var</span><!-- react-text: 194 --> xhr = <!-- /react-text --><span class="hljs-keyword" data-reactid="195">new</span><!-- react-text: 196 --> XMLHttpRequest()
+                xhr.open(<!-- /react-text --><span class="hljs-string" data-reactid="197">&#x27;GET&#x27;</span><!-- react-text: 198 -->, <!-- /react-text --><span class="hljs-string" data-reactid="199">&#x27;/getFile?md5=&#x27;</span><!-- react-text: 200 -->+md5, <!-- /react-text --><span class="hljs-literal" data-reactid="201">true</span><!-- react-text: 202 -->);
+                xhr.send(<!-- /react-text --><span class="hljs-literal" data-reactid="203">null</span><!-- react-text: 204 -->);
+                xhr.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="205">&#x27;readystatechange&#x27;</span><!-- react-text: 206 -->, <!-- /react-text --><span class="hljs-function" data-reactid="207"><span class="hljs-keyword" data-reactid="208">function</span><!-- react-text: 209 --> (<!-- /react-text --><span class="hljs-params" data-reactid="210"></span><!-- react-text: 211 -->) <!-- /react-text --></span><!-- react-text: 212 -->{
+                    <!-- /react-text --><span class="hljs-keyword" data-reactid="213">if</span><!-- react-text: 214 -->(xhr.readyState === <!-- /react-text --><span class="hljs-number" data-reactid="215">4</span><!-- react-text: 216 --> &amp;&amp; xhr.status === <!-- /react-text --><span class="hljs-number" data-reactid="217">200</span><!-- react-text: 218 -->) {
+                        <!-- /react-text --><span class="hljs-keyword" data-reactid="219">var</span><!-- react-text: 220 --> json = <!-- /react-text --><span class="hljs-built_in" data-reactid="221">JSON</span><!-- react-text: 222 -->.parse(xhr.responseText);
+                        log(json)
+                        reslove(json.pos)
+                    }
+                })
+            })
+        }
+    })
+    
+    <!-- /react-text --><span class="hljs-comment" data-reactid="223">// pause or continue upload</span><!-- react-text: 224 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="225">// if index &lt; 0, will run for all files</span><!-- react-text: 226 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="227">// moUploader.pause(index);</span><!-- react-text: 228 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="229">// moUploader.continue(index);    </span><!-- react-text: 230 -->
+}<!-- /react-text --></code></pre></li><li data-reactid="231"><p data-reactid="232">配置选项</p><pre data-reactid="233"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="234"><span class="hljs-keyword" data-reactid="235">var</span><!-- react-text: 236 --> default_ops = {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="237">// chunk Size: byte</span><!-- react-text: 238 -->
+    chunkSize: (<!-- /react-text --><span class="hljs-number" data-reactid="239">1</span><!-- react-text: 240 -->&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="241">20</span><!-- react-text: 242 -->) * <!-- /react-text --><span class="hljs-number" data-reactid="243">5</span><!-- react-text: 244 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="245">// Number: request Number.</span><!-- react-text: 246 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="247">// Array: files requests.</span><!-- react-text: 248 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="249">// Boolean: open or close Slice, if false, chunkSize don&#x27;t work.</span><!-- react-text: 250 -->
+    request: <!-- /react-text --><span class="hljs-number" data-reactid="251">3</span><!-- react-text: 252 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="253">files</span><!-- react-text: 254 -->: [],
+    <!-- /react-text --><span class="hljs-attr" data-reactid="255">uploadUrl</span><!-- react-text: 256 -->: <!-- /react-text --><span class="hljs-string" data-reactid="257">&#x27;/&#x27;</span><!-- react-text: 258 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="259">// function: get uploaded pos.</span><!-- react-text: 260 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="261">// arguments: file, md5, index.</span><!-- react-text: 262 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="263">// need return a promise object which will return uploaded pos.</span><!-- react-text: 264 -->
+    onContinue: <!-- /react-text --><span class="hljs-literal" data-reactid="265">null</span><!-- react-text: 266 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="267">// if false, md5 will be setted by filename.</span><!-- react-text: 268 -->
+    md5: <!-- /react-text --><span class="hljs-literal" data-reactid="269">true</span><!-- react-text: 270 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="271">// md5Size: slice file 0 - md5Size for calculate md5</span><!-- react-text: 272 -->
+    md5Size: (<!-- /react-text --><span class="hljs-number" data-reactid="273">1</span><!-- react-text: 274 -->&lt;&lt;<!-- /react-text --><span class="hljs-number" data-reactid="275">20</span><!-- react-text: 276 -->) * <!-- /react-text --><span class="hljs-number" data-reactid="277">50</span><!-- react-text: 278 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="279">// called when before upload.</span><!-- react-text: 280 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="281">// arguments: file index or -1 (will begin upload)</span><!-- react-text: 282 -->
+    onBeforeUpload: <!-- /react-text --><span class="hljs-literal" data-reactid="283">null</span><!-- react-text: 284 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="285">// function: uploading progress listener.</span><!-- react-text: 286 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="287">// *only listen one request.*</span><!-- react-text: 288 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="289">// arguments: index, chunkIndex, chunksNum, loaded, total.</span><!-- react-text: 290 -->
+    onProgress: <!-- /react-text --><span class="hljs-literal" data-reactid="291">null</span><!-- react-text: 292 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="293">// function: overall uploading progress listener.</span><!-- react-text: 294 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="295">// arguments: index, loaded, total</span><!-- react-text: 296 -->
+    onOverAllProgress: <!-- /react-text --><span class="hljs-literal" data-reactid="297">null</span><!-- react-text: 298 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="299">// function: called when one request is ended.</span><!-- react-text: 300 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="301">// arguments: index, chunkIndex, chunksNum</span><!-- react-text: 302 -->
+    onLoad: <!-- /react-text --><span class="hljs-literal" data-reactid="303">null</span><!-- react-text: 304 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="305">// function: called when one request is aborted.</span><!-- react-text: 306 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="307">// arguments: index, chunkIndex, chunksNum</span><!-- react-text: 308 -->
+    onAbort: <!-- /react-text --><span class="hljs-literal" data-reactid="309">null</span><!-- react-text: 310 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="311">// function: called when one request happens error.</span><!-- react-text: 312 -->
+    <!-- /react-text --><span class="hljs-comment" data-reactid="313">// arguments: index, chunkIndex, chunksNum</span><!-- react-text: 314 -->
+    onError: <!-- /react-text --><span class="hljs-literal" data-reactid="315">null</span><!-- react-text: 316 -->
+}<!-- /react-text --></code></pre></li><li data-reactid="317"><p data-reactid="318">服务器数据处理 (Node.js)</p><p data-reactid="319">数据分段写入文件</p><pre data-reactid="320"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="321"><span class="hljs-function" data-reactid="322"><span class="hljs-keyword" data-reactid="323">function</span><!-- react-text: 324 --> <!-- /react-text --><span class="hljs-title" data-reactid="325">writeBuffer</span><!-- react-text: 326 -->(<!-- /react-text --><span class="hljs-params" data-reactid="327">bf, path, pos</span><!-- react-text: 328 -->) <!-- /react-text --></span><!-- react-text: 329 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="330">var</span><!-- react-text: 331 --> fd = fs.openSync(path, <!-- /react-text --><span class="hljs-string" data-reactid="332">&#x27;a+&#x27;</span><!-- react-text: 333 -->);
+    fs.writeSync(fd, bf, <!-- /react-text --><span class="hljs-number" data-reactid="334">0</span><!-- react-text: 335 -->, bf.length, <!-- /react-text --><span class="hljs-built_in" data-reactid="336">Number</span><!-- react-text: 337 -->(pos) || <!-- /react-text --><span class="hljs-number" data-reactid="338">0</span><!-- react-text: 339 -->)
+    <!-- /react-text --><span class="hljs-built_in" data-reactid="340">console</span><!-- react-text: 341 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="342"><!-- react-text: 343 -->`write buffer, pos: <!-- /react-text --><span class="hljs-subst" data-reactid="344">${pos}</span><!-- react-text: 345 -->, path: <!-- /react-text --><span class="hljs-subst" data-reactid="346">${path}</span><!-- react-text: 347 -->, length: <!-- /react-text --><span class="hljs-subst" data-reactid="348">${bf.length}</span><!-- react-text: 349 -->`<!-- /react-text --></span><!-- react-text: 350 -->)
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="351"><span class="hljs-keyword" data-reactid="352">function</span><!-- react-text: 353 --> <!-- /react-text --><span class="hljs-title" data-reactid="354">store</span><!-- react-text: 355 -->(<!-- /react-text --><span class="hljs-params" data-reactid="356">param, chunks</span><!-- react-text: 357 -->) <!-- /react-text --></span><!-- react-text: 358 -->{
+    param.chunks = param.chunks || <!-- /react-text --><span class="hljs-number" data-reactid="359">1</span><!-- react-text: 360 -->
+    param.chunk = param.chunk || <!-- /react-text --><span class="hljs-number" data-reactid="361">0</span><!-- react-text: 362 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="363">var</span><!-- react-text: 364 --> p = path.join(<!-- /react-text --><span class="hljs-string" data-reactid="365">&#x27;./upload&#x27;</span><!-- react-text: 366 -->, param.name)
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="367">var</span><!-- react-text: 368 --> bf = Buffer.concat(chunks);
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="369">var</span><!-- react-text: 370 --> json = db.get(param.md5);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="371">if</span><!-- react-text: 372 -->(json) {
+        json.pos = <!-- /react-text --><span class="hljs-built_in" data-reactid="373">parseInt</span><!-- react-text: 374 -->(json.pos!=<!-- /react-text --><span class="hljs-literal" data-reactid="375">null</span><!-- react-text: 376 -->?json.pos : <!-- /react-text --><span class="hljs-number" data-reactid="377">0</span><!-- react-text: 378 -->)
+        json.size = <!-- /react-text --><span class="hljs-built_in" data-reactid="379">parseInt</span><!-- react-text: 380 -->(json.size!=<!-- /react-text --><span class="hljs-literal" data-reactid="381">null</span><!-- react-text: 382 -->?json.size : <!-- /react-text --><span class="hljs-number" data-reactid="383">0</span><!-- react-text: 384 -->)
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="385">if</span><!-- react-text: 386 -->(!json || (json.pos+json.size) &lt;= param.pos) {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="387">// 新的数据pos比数据库中大，更新数据</span><!-- react-text: 388 -->
+        param.size = bf.length
+        db.set(param.md5, param)
+        db.save();
+        writeBuffer(bf, p, param.pos || <!-- /react-text --><span class="hljs-number" data-reactid="389">0</span><!-- react-text: 390 -->)
+    }
+}
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="391">var</span><!-- react-text: 392 --> multiparty = <!-- /react-text --><span class="hljs-built_in" data-reactid="393">require</span><!-- react-text: 394 -->(<!-- /react-text --><span class="hljs-string" data-reactid="395">&#x27;multiparty&#x27;</span><!-- react-text: 396 -->)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="397">var</span><!-- react-text: 398 --> form = <!-- /react-text --><span class="hljs-keyword" data-reactid="399">new</span><!-- react-text: 400 --> multiparty.Form({
+    <!-- /react-text --><span class="hljs-attr" data-reactid="401">autoFields</span><!-- react-text: 402 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="403">true</span><!-- react-text: 404 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="405">autoFiles</span><!-- react-text: 406 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="407">false</span><!-- react-text: 408 -->,
+});
+
+form.on(<!-- /react-text --><span class="hljs-string" data-reactid="409">&#x27;part&#x27;</span><!-- react-text: 410 -->, (part) =&gt; {
+    form.on(<!-- /react-text --><span class="hljs-string" data-reactid="411">&#x27;aborted&#x27;</span><!-- react-text: 412 -->, () =&gt; {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="413">//意外退出或者暂停都会保存数据</span><!-- react-text: 414 -->
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="415">console</span><!-- react-text: 416 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="417">&#x27;aborted&#x27;</span><!-- react-text: 418 -->);
+        store(param, chunks)
+    })
+
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="419">var</span><!-- react-text: 420 --> chunks = []
+    part.on(<!-- /react-text --><span class="hljs-string" data-reactid="421">&#x27;data&#x27;</span><!-- react-text: 422 -->, (data) =&gt; {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="423">if</span><!-- react-text: 424 -->(part.filename) {
+            chunks.push(data)
+        }
+    }).on(<!-- /react-text --><span class="hljs-string" data-reactid="425">&#x27;end&#x27;</span><!-- react-text: 426 -->, () =&gt; {
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="427">console</span><!-- react-text: 428 -->.log(<!-- /react-text --><span class="hljs-string" data-reactid="429">&#x27;end&#x27;</span><!-- react-text: 430 -->)
+        store(param, chunks)
+    })
+
+});
+form.on(<!-- /react-text --><span class="hljs-string" data-reactid="431">&#x27;field&#x27;</span><!-- react-text: 432 -->, (name, value) =&gt; {
+    param[name] = value;
+});<!-- /react-text --></code></pre></li></ol></li></ul></article></div><div class="gitment-container" data-reactid="433"></div><div class="paginator" data-reactid="434"><a title="linux C一周学习" class="prev" href="/linuxc-learning-one-week" data-reactid="435">Prev</a><a title="H5之「离线应用」" class="next" href="/h5-offline-way" data-reactid="436">Next</a></div></div></main><footer data-reactid="437"><div class="copyright" data-reactid="438"><p data-reactid="439"><!-- react-text: 440 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="441">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

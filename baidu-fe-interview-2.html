@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 百度前端二面总结（已过） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-2125738478"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">百度前端二面总结（已过）</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-04T13:39:59+00:00" data-reactid="13">May 4, 2016 1:39 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21">昨天，进行了百度第二次前端面试，结果今天中午就通知我过了，准备本周五进行三面，百度的办事效率还挺高的哈。 写这篇文章为了记录和总结一下，已经回顾自己的不足，以及展望下后面的计划。</p><h1 id="开始前夕" data-reactid="22"><a href="#%E5%BC%80%E5%A7%8B%E5%89%8D%E5%A4%95" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->开始前夕<!-- /react-text --></h1><p data-reactid="26">我听取了一面面试官的建议，花了一周时间捣鼓了一个静态博客，所以我就在简历上加上了我的博客地址，然后发了一份新的简历给二面面试官。 二面面试官比一面面试官「活跃」些，互动也多了些。</p><h1 id="视频开始" data-reactid="27"><a href="#%E8%A7%86%E9%A2%91%E5%BC%80%E5%A7%8B" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->视频开始<!-- /react-text --></h1><p data-reactid="31">中午二点，正式开始视频面试，出乎我意料之外的是，面试官居然也露出了庐山真面目。 一开始面试官就吐英语了！听得我一愣一愣的（可能在文字聊天的时候我一直有发okok，让面试官误以为我英语不错），还好没听明白的地方，面试官会翻译。 简单做了一下自我介绍后，面试官便进入了自己的节奏，说明这次面试主要是测试我的编码能力，需要共享我的电脑桌面，看我敲代码。 当时内心还是有点慌的，「怎么跟网上的二面面经不太一样啊！」，于是便开始了出题编码环节。</p><h1 id="第一题" data-reactid="32"><a href="#%E7%AC%AC%E4%B8%80%E9%A2%98" aria-hidden="true" data-reactid="33"><span class="icon icon-link" data-reactid="34"></span></a><!-- react-text: 35 -->第一题<!-- /react-text --></h1><pre data-reactid="36"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="37"><span class="hljs-comment" data-reactid="38">/*
+ 用 javascript 语言,手工实现 repeat 函数.两个参数:
+ 1.要重复的原始字符串
+ 2.需要重复的次数
+
+ 例如:
+ repeat (&#x27;a&#x27;, 3) =&gt; &#x27;aaa&#x27;
+
+ */</span><!-- react-text: 39 -->
+
+<!-- /react-text --><span class="hljs-function" data-reactid="40"><span class="hljs-keyword" data-reactid="41">function</span><!-- react-text: 42 --> <!-- /react-text --><span class="hljs-title" data-reactid="43">repeat</span><!-- react-text: 44 --> (<!-- /react-text --><span class="hljs-params" data-reactid="45">str, count</span><!-- react-text: 46 -->) <!-- /react-text --></span><!-- react-text: 47 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="48">// your code here</span><!-- react-text: 49 -->
+}<!-- /react-text --></code></pre><p data-reactid="50">恩恩，第一题不难，头脑中首先冒出两种方法</p><pre data-reactid="51"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="52"><span class="hljs-function" data-reactid="53"><span class="hljs-keyword" data-reactid="54">function</span><!-- react-text: 55 --> <!-- /react-text --><span class="hljs-title" data-reactid="56">repeat</span><!-- react-text: 57 --> (<!-- /react-text --><span class="hljs-params" data-reactid="58">str, count</span><!-- react-text: 59 -->) <!-- /react-text --></span><!-- react-text: 60 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="61">if</span><!-- react-text: 62 -->(str != <!-- /react-text --><span class="hljs-literal" data-reactid="63">undefined</span><!-- react-text: 64 --> &amp;&amp; count!= <!-- /react-text --><span class="hljs-literal" data-reactid="65">undefined</span><!-- react-text: 66 --> &amp;&amp; count&gt;<!-- /react-text --><span class="hljs-number" data-reactid="67">0</span><!-- react-text: 68 --> &amp;&amp; !<!-- /react-text --><span class="hljs-built_in" data-reactid="69">isNaN</span><!-- react-text: 70 -->(count)) {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="71">// 1</span><!-- react-text: 72 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="73">var</span><!-- react-text: 74 --> s =<!-- /react-text --><span class="hljs-string" data-reactid="75">&#x27;&#x27;</span><!-- react-text: 76 -->;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="77">for</span><!-- react-text: 78 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="79">var</span><!-- react-text: 80 --> i=<!-- /react-text --><span class="hljs-number" data-reactid="81">0</span><!-- react-text: 82 -->;i&lt;count;i++){
+            s+=str;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="83">return</span><!-- react-text: 84 --> s;
+
+        <!-- /react-text --><span class="hljs-comment" data-reactid="85">//2</span><!-- react-text: 86 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="87">var</span><!-- react-text: 88 --> arr = <!-- /react-text --><span class="hljs-keyword" data-reactid="89">new</span><!-- react-text: 90 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="91">Array</span><!-- react-text: 92 -->(count + <!-- /react-text --><span class="hljs-number" data-reactid="93">1</span><!-- react-text: 94 -->);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="95">return</span><!-- react-text: 96 --> arr.join(str);
+    }
+}<!-- /react-text --></code></pre><p data-reactid="97">但是，面试官肯定要深问啊，要求我用递归来实现。 当时比较紧张...,思路不是很清晰...,有点乱。 开始是用下面的递归方法：</p><pre data-reactid="98"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="99"><span class="hljs-function" data-reactid="100"><span class="hljs-keyword" data-reactid="101">function</span><!-- react-text: 102 --> <!-- /react-text --><span class="hljs-title" data-reactid="103">repeat</span><!-- react-text: 104 -->(<!-- /react-text --><span class="hljs-params" data-reactid="105">str ,count</span><!-- react-text: 106 -->) <!-- /react-text --></span><!-- react-text: 107 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="108">var</span><!-- react-text: 109 --> s = <!-- /react-text --><span class="hljs-string" data-reactid="110">&#x27;&#x27;</span><!-- react-text: 111 -->;
+    rep(str,count);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="112">return</span><!-- react-text: 113 --> s;
+    <!-- /react-text --><span class="hljs-function" data-reactid="114"><span class="hljs-keyword" data-reactid="115">function</span><!-- react-text: 116 --> <!-- /react-text --><span class="hljs-title" data-reactid="117">rep</span><!-- react-text: 118 -->(<!-- /react-text --><span class="hljs-params" data-reactid="119">str,count</span><!-- react-text: 120 -->) <!-- /react-text --></span><!-- react-text: 121 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="122">if</span><!-- react-text: 123 -->(count&lt;=<!-- /react-text --><span class="hljs-number" data-reactid="124">0</span><!-- react-text: 125 -->) <!-- /react-text --><span class="hljs-keyword" data-reactid="126">return</span><!-- react-text: 127 -->;
+        s+=str;
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="128">arguments</span><!-- react-text: 129 -->.callee(str,--count);
+    }
+}<!-- /react-text --></code></pre><p data-reactid="130"><!-- react-text: 131 -->面试官还是不满意！让我改进，不用&quot;全局变量&quot; <!-- /react-text --><code data-reactid="132">s</code><!-- react-text: 133 -->，于是修改代码为下：<!-- /react-text --></p><pre data-reactid="134"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="135"><span class="hljs-function" data-reactid="136"><span class="hljs-keyword" data-reactid="137">function</span><!-- react-text: 138 --> <!-- /react-text --><span class="hljs-title" data-reactid="139">repeat</span><!-- react-text: 140 -->(<!-- /react-text --><span class="hljs-params" data-reactid="141">str ,count</span><!-- react-text: 142 -->) <!-- /react-text --></span><!-- react-text: 143 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="144">return</span><!-- react-text: 145 --> rep(<!-- /react-text --><span class="hljs-string" data-reactid="146">&#x27;&#x27;</span><!-- react-text: 147 -->,str,count);
+    <!-- /react-text --><span class="hljs-function" data-reactid="148"><span class="hljs-keyword" data-reactid="149">function</span><!-- react-text: 150 --> <!-- /react-text --><span class="hljs-title" data-reactid="151">rep</span><!-- react-text: 152 -->(<!-- /react-text --><span class="hljs-params" data-reactid="153">s,str,count</span><!-- react-text: 154 -->) <!-- /react-text --></span><!-- react-text: 155 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="156">if</span><!-- react-text: 157 -->(count&lt;=<!-- /react-text --><span class="hljs-number" data-reactid="158">0</span><!-- react-text: 159 -->) <!-- /react-text --><span class="hljs-keyword" data-reactid="160">return</span><!-- react-text: 161 --> str;
+        s+=str;
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="162">return</span><!-- react-text: 163 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="164">arguments</span><!-- react-text: 165 -->.callee(s,str,--count);
+    }
+}<!-- /react-text --></code></pre><h1 id="第二题" data-reactid="166"><a href="#%E7%AC%AC%E4%BA%8C%E9%A2%98" aria-hidden="true" data-reactid="167"><span class="icon icon-link" data-reactid="168"></span></a><!-- react-text: 169 -->第二题<!-- /react-text --></h1><pre data-reactid="170"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="171"><span class="hljs-comment" data-reactid="172">/*
+ 使用 原生javacript 实现事件代理
+
+ 例子:
+
+ delegate (  containerElement, &#x27;click&#x27;, &#x27;remove-item&#x27;, onClick )
+ 会绑定一个事件代理到 containerElement 这个元素, 即是说, 所有在 containerElement 这个容器下的所有 .remove-item 在click事件出现时都会触发 onClick 这个回调
+
+ */</span><!-- react-text: 173 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="174"><span class="hljs-keyword" data-reactid="175">function</span><!-- react-text: 176 --> <!-- /react-text --><span class="hljs-title" data-reactid="177">delegate</span><!-- react-text: 178 -->(<!-- /react-text --><span class="hljs-params" data-reactid="179">parentElem, eventType, className, callback</span><!-- react-text: 180 -->) <!-- /react-text --></span><!-- react-text: 181 -->{
+
+}<!-- /react-text --></code></pre><p data-reactid="182">第二题也是比较常规的事件委托题目，想了一会儿，还好是想出来了。</p><pre data-reactid="183"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="184"><span class="hljs-function" data-reactid="185"><span class="hljs-keyword" data-reactid="186">function</span><!-- react-text: 187 --> <!-- /react-text --><span class="hljs-title" data-reactid="188">delegate</span><!-- react-text: 189 -->(<!-- /react-text --><span class="hljs-params" data-reactid="190">parentElem, eventType, className, callback</span><!-- react-text: 191 -->) <!-- /react-text --></span><!-- react-text: 192 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="193">if</span><!-- react-text: 194 -->(parentElem.attachEvent)
+        parentElem.attachEvent(<!-- /react-text --><span class="hljs-string" data-reactid="195">&#x27;on&#x27;</span><!-- react-text: 196 -->+eventType,<!-- /react-text --><span class="hljs-function" data-reactid="197"><span class="hljs-keyword" data-reactid="198">function</span><!-- react-text: 199 --> (<!-- /react-text --><span class="hljs-params" data-reactid="200">e</span><!-- react-text: 201 -->) <!-- /react-text --></span><!-- react-text: 202 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="203">if</span><!-- react-text: 204 -->(e.srcElement.classList.contains(className)){
+                callback(e);
+            }
+        });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="205">else</span><!-- react-text: 206 -->{
+        parentElem.addEventListener(eventType,<!-- /react-text --><span class="hljs-function" data-reactid="207"><span class="hljs-keyword" data-reactid="208">function</span><!-- react-text: 209 --> (<!-- /react-text --><span class="hljs-params" data-reactid="210">e</span><!-- react-text: 211 -->) <!-- /react-text --></span><!-- react-text: 212 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="213">if</span><!-- react-text: 214 -->(e.target.classList.contains(className)){
+                callback(e);
+            }
+        });
+    }
+}<!-- /react-text --></code></pre><p data-reactid="215">写完后，面试官继续问：有没有方法可以让事件响应更快速点。 额，想了一分钟吧，面试官看我没声音，就直接到第三题了。`</p><pre data-reactid="216"><code data-query="{}" data-lang="data-lang" data-reactid="217">其实，后面仔细想了下，觉得可以将`addEventListener`方法中的第三个参数设置为`true`，也就是按照事件捕获方式响应，
+DOM事件流首先要捕获事件（由父结点到子节点），然后是事件冒泡（由子节点到父结点）。
+`addEventListener`方法第三个参数默认为`false`，表示事件冒泡处理事件，所以我觉得设置为`true`，应该能够更快的响应事件。
+</code></pre><h1 id="第三题" data-reactid="218"><a href="#%E7%AC%AC%E4%B8%89%E9%A2%98" aria-hidden="true" data-reactid="219"><span class="icon icon-link" data-reactid="220"></span></a><!-- react-text: 221 -->第三题<!-- /react-text --></h1><p data-reactid="222"><!-- react-text: 223 -->开放题，考察我学习新知识的能力和方法，让我做出一个跟React中第三个Demo一样的效果（使用React）。 <!-- /react-text --><a href="http://facebook.github.io/react/" data-reactid="224">http://facebook.github.io/react/</a><!-- react-text: 225 --> ...当时我已经是比较懵逼了，就查看源码呗，看下官网上实现这个Demo的源码在哪，然后导入库文件，复制代码试试看咯。 但是当时突然就网络不好了，github上不去了，结果面试官还主动帮我下库文件，600多KB，结果发给我的数据居然是1KB/s，所以最后这道题不了了之。 时间差不多了，就结束了。<!-- /react-text --></p><h1 id="总结" data-reactid="226"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="227"><span class="icon icon-link" data-reactid="228"></span></a><!-- react-text: 229 -->总结<!-- /react-text --></h1><p data-reactid="230"><!-- react-text: 231 -->最后我才知道一共有四道题目（恩，第四题也不知道是个什么东西）。 从腾讯一面被刷到百度的二面通过，等待三面，真是验证了一句话「机会是留给有准备的人的。」 还有，<!-- /react-text --><strong data-reactid="232">紧张只会给自己添乱子！</strong><!-- react-text: 233 --> 最后我希望三面也能顺风顺水吧。 如果拿到实习offer后，希望在实习的时候也能拿出以往的「折腾、捣鼓」精神，能够顺利转正。<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="234"></div><div class="paginator" data-reactid="235"><a title="「项目拾遗」几个计算机图形学的前端程序" class="prev" href="/some-fegl-programs" data-reactid="236">Prev</a><a title="「转」为什么V8 JavaScript引擎这么快" class="next" href="/why-v8-so-fast" data-reactid="237">Next</a></div></div></main><footer data-reactid="238"><div class="copyright" data-reactid="239"><p data-reactid="240"><!-- react-text: 241 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="242">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

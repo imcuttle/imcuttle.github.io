@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「ECMAScript6」Promise介绍与nodejs实践运用(q.js) - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1101861746"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「ECMAScript6」Promise介绍与nodejs实践运用(q.js)</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-01T09:56:42+00:00" data-reactid="13">May 1, 2016 9:56 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><img src="/img.png" data-image-loader="0" data-reactid="17"/><!-- react-text: 18 --> <!-- /react-text --><img src="/img.png" data-image-loader="1" data-reactid="19"/><h1 id="介绍" data-reactid="20"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="21"><span class="icon icon-link" data-reactid="22"></span></a><!-- react-text: 23 -->介绍<!-- /react-text --></h1><p data-reactid="24"><!-- react-text: 25 -->看了网上许多介绍 <!-- /react-text --><code data-reactid="26">Promise</code><!-- react-text: 27 --> 的文章，终于知道 <!-- /react-text --><code data-reactid="28">Promise</code><!-- react-text: 29 --> 是什么，干什么的了。 首先需要指出的是，<!-- /react-text --><strong data-reactid="30">promise是es6提出的新标准之一</strong><!-- react-text: 31 -->，那么提出这个标准是用来做什么的呢？<!-- /react-text --></p><p data-reactid="32"><!-- react-text: 33 -->写过js代码的童鞋一定知道，异步回调函数是js的一大特点，那么异步回调函数带来的问题是什么呢？会造成函数嵌套过多，不宜于后期代码的维护，许多的<!-- /react-text --><code data-reactid="34">({})</code><!-- react-text: 35 -->也容易把我们搞得晕头转向。那么promise便是用来解决该问题。 那么es6提出这个标准，那么就得有人按照这个标准来实现吧，于是百家争鸣，出现许多库(以便在非浏览器环境下使用)，在这我介绍 <!-- /react-text --><code data-reactid="36">q.js</code><!-- react-text: 37 -->. <!-- /react-text --><a href="https://github.com/kriskowal/q" data-reactid="38"><code data-reactid="39">q.js</code><!-- react-text: 40 --> github地址<!-- /react-text --></a></p><h1 id="使用" data-reactid="41"><a href="#%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="42"><span class="icon icon-link" data-reactid="43"></span></a><!-- react-text: 44 -->使用<!-- /react-text --></h1><ul data-reactid="45"><li data-reactid="46"><!-- react-text: 47 -->安装<!-- /react-text --><code data-reactid="48">q.js</code><!-- react-text: 49 --> npm install q<!-- /react-text --></li><li data-reactid="50">使用</li></ul><ol data-reactid="51"><li data-reactid="52"><!-- react-text: 53 -->使用<!-- /react-text --><code data-reactid="54">Q.nfcall</code></li></ol><pre data-reactid="55"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="56"><span class="hljs-keyword" data-reactid="57">var</span><!-- react-text: 58 --> fs = <!-- /react-text --><span class="hljs-built_in" data-reactid="59">require</span><!-- react-text: 60 -->(<!-- /react-text --><span class="hljs-string" data-reactid="61">&#x27;fs&#x27;</span><!-- react-text: 62 -->),
+    Q   = <!-- /react-text --><span class="hljs-built_in" data-reactid="63">require</span><!-- react-text: 64 -->(<!-- /react-text --><span class="hljs-string" data-reactid="65">&#x27;q&#x27;</span><!-- react-text: 66 -->);
+<!-- /react-text --><span class="hljs-keyword" data-reactid="67">var</span><!-- react-text: 68 --> promise = Q.nfcall(fs.readFile,<!-- /react-text --><span class="hljs-string" data-reactid="69">&#x27;run.js&#x27;</span><!-- react-text: 70 -->);
+promise.then(<!-- /react-text --><span class="hljs-function" data-reactid="71"><span class="hljs-keyword" data-reactid="72">function</span><!-- react-text: 73 -->(<!-- /react-text --><span class="hljs-params" data-reactid="74">data</span><!-- react-text: 75 -->)<!-- /react-text --></span><!-- react-text: 76 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="77">console</span><!-- react-text: 78 -->.log(data);
+    },<!-- /react-text --><span class="hljs-function" data-reactid="79"><span class="hljs-keyword" data-reactid="80">function</span><!-- react-text: 81 -->(<!-- /react-text --><span class="hljs-params" data-reactid="82">err</span><!-- react-text: 83 -->)<!-- /react-text --></span><!-- react-text: 84 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="85">console</span><!-- react-text: 86 -->.err(err);
+    });<!-- /react-text --></code></pre><pre data-reactid="87"><code data-query="{}" data-lang="data-lang" data-reactid="88">或者可以简写为下面
+    promise.then(console.log,console.err);
+</code></pre><ol start="2" data-reactid="89"><li data-reactid="90"><!-- react-text: 91 -->使用<!-- /react-text --><code data-reactid="92">Q.deferd</code></li></ol><pre data-reactid="93"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="94"><span class="hljs-keyword" data-reactid="95">var</span><!-- react-text: 96 --> preadFile = <!-- /react-text --><span class="hljs-function" data-reactid="97"><span class="hljs-keyword" data-reactid="98">function</span><!-- react-text: 99 -->(<!-- /react-text --><span class="hljs-params" data-reactid="100">file</span><!-- react-text: 101 -->)<!-- /react-text --></span><!-- react-text: 102 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="103">var</span><!-- react-text: 104 --> deferred = Q.defer();
+    fs.readFile(file,  <!-- /react-text --><span class="hljs-function" data-reactid="105"><span class="hljs-keyword" data-reactid="106">function</span><!-- react-text: 107 --> (<!-- /react-text --><span class="hljs-params" data-reactid="108">error, text</span><!-- react-text: 109 -->) <!-- /react-text --></span><!-- react-text: 110 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="111">if</span><!-- react-text: 112 --> (error) {
+            deferred.reject(<!-- /react-text --><span class="hljs-keyword" data-reactid="113">new</span><!-- react-text: 114 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="115">Error</span><!-- react-text: 116 -->(error));
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="117">else</span><!-- react-text: 118 --> {
+            deferred.resolve(text);
+        }
+    });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="119">return</span><!-- react-text: 120 --> deferred.promise;
+};
+preadFile(<!-- /react-text --><span class="hljs-string" data-reactid="121">&#x27;run.js&#x27;</span><!-- react-text: 122 -->).then(<!-- /react-text --><span class="hljs-built_in" data-reactid="123">console</span><!-- react-text: 124 -->.log,<!-- /react-text --><span class="hljs-built_in" data-reactid="125">console</span><!-- react-text: 126 -->.err);<!-- /react-text --></code></pre><ol start="3" data-reactid="127"><li data-reactid="128"><!-- react-text: 129 -->还可以用<!-- /react-text --><code data-reactid="130">Q.all</code><!-- react-text: 131 -->实现<!-- /react-text --><strong data-reactid="132">同步方式</strong></li></ol><pre data-reactid="133"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="134"><span class="hljs-keyword" data-reactid="135">var</span><!-- react-text: 136 --> promise = Q.all([Q.nfcall(fs.readFile,<!-- /react-text --><span class="hljs-string" data-reactid="137">&#x27;run.js&#x27;</span><!-- react-text: 138 -->),preadFile(<!-- /react-text --><span class="hljs-string" data-reactid="139">&#x27;event.js&#x27;</span><!-- react-text: 140 -->),preadFile(<!-- /react-text --><span class="hljs-string" data-reactid="141">&#x27;nofound.js&#x27;</span><!-- react-text: 142 -->)]);
+promise.then(<!-- /react-text --><span class="hljs-function" data-reactid="143"><span class="hljs-keyword" data-reactid="144">function</span><!-- react-text: 145 -->(<!-- /react-text --><span class="hljs-params" data-reactid="146">data</span><!-- react-text: 147 -->)<!-- /react-text --></span><!-- react-text: 148 -->{<!-- /react-text --><span class="hljs-built_in" data-reactid="149">console</span><!-- react-text: 150 -->.log(data.toString())},<!-- /react-text --><span class="hljs-built_in" data-reactid="151">console</span><!-- react-text: 152 -->.error);<!-- /react-text --></code></pre><pre data-reactid="153"><code data-query="{}" data-lang="data-lang" data-reactid="154">因为`nofound.js`不存在所以会抛出异常，其他文件即使存在也不会正确执行.
+</code></pre><ol start="4" data-reactid="155"><li data-reactid="156"><!-- react-text: 157 -->多层嵌套<!-- /react-text --><strong data-reactid="158">异步方式</strong></li></ol><pre data-reactid="159"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="160"><span class="hljs-keyword" data-reactid="161">var</span><!-- react-text: 162 --> preadFile = <!-- /react-text --><span class="hljs-function" data-reactid="163"><span class="hljs-keyword" data-reactid="164">function</span><!-- react-text: 165 -->(<!-- /react-text --><span class="hljs-params" data-reactid="166">file</span><!-- react-text: 167 -->)<!-- /react-text --></span><!-- react-text: 168 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="169">var</span><!-- react-text: 170 --> deferred = Q.defer();
+    fs.readFile(file,  <!-- /react-text --><span class="hljs-function" data-reactid="171"><span class="hljs-keyword" data-reactid="172">function</span><!-- react-text: 173 --> (<!-- /react-text --><span class="hljs-params" data-reactid="174">error, text</span><!-- react-text: 175 -->) <!-- /react-text --></span><!-- react-text: 176 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="177">if</span><!-- react-text: 178 --> (error) {
+            deferred.reject(<!-- /react-text --><span class="hljs-keyword" data-reactid="179">new</span><!-- react-text: 180 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="181">Error</span><!-- react-text: 182 -->(error));
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="183">else</span><!-- react-text: 184 --> {
+            deferred.resolve({<!-- /react-text --><span class="hljs-attr" data-reactid="185">data</span><!-- react-text: 186 -->:text,<!-- /react-text --><span class="hljs-attr" data-reactid="187">file</span><!-- react-text: 188 -->:file});
+        }
+    });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="189">return</span><!-- react-text: 190 --> deferred.promise;
+};
+
+preadFile(<!-- /react-text --><span class="hljs-string" data-reactid="191">&#x27;run.js&#x27;</span><!-- react-text: 192 -->)
+    .then(<!-- /react-text --><span class="hljs-function" data-reactid="193"><span class="hljs-keyword" data-reactid="194">function</span><!-- react-text: 195 --> (<!-- /react-text --><span class="hljs-params" data-reactid="196">d</span><!-- react-text: 197 -->) <!-- /react-text --></span><!-- react-text: 198 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="199">console</span><!-- react-text: 200 -->.log(d);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="201">return</span><!-- react-text: 202 --> d.file+<!-- /react-text --><span class="hljs-string" data-reactid="203">&#x27;xx&#x27;</span><!-- react-text: 204 -->;
+    })
+    .then(preadFile)  <!-- /react-text --><span class="hljs-comment" data-reactid="205">//上面return d.file 传递到preadFile中</span><!-- react-text: 206 -->
+    .then(<!-- /react-text --><span class="hljs-function" data-reactid="207"><span class="hljs-keyword" data-reactid="208">function</span><!-- react-text: 209 --> (<!-- /react-text --><span class="hljs-params" data-reactid="210">d</span><!-- react-text: 211 -->) <!-- /react-text --></span><!-- react-text: 212 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="213">console</span><!-- react-text: 214 -->.log(d);
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="215">return</span><!-- react-text: 216 --> d.file;
+    })
+    .catch(<!-- /react-text --><span class="hljs-function" data-reactid="217"><span class="hljs-keyword" data-reactid="218">function</span><!-- react-text: 219 --> (<!-- /react-text --><span class="hljs-params" data-reactid="220">e</span><!-- react-text: 221 -->) <!-- /react-text --></span><!-- react-text: 222 -->{
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="223">console</span><!-- react-text: 224 -->.log(e);
+    }).done(<!-- /react-text --><span class="hljs-function" data-reactid="225"><span class="hljs-keyword" data-reactid="226">function</span><!-- react-text: 227 --> (<!-- /react-text --><span class="hljs-params" data-reactid="228">e</span><!-- react-text: 229 -->) <!-- /react-text --></span><!-- react-text: 230 -->{<!-- /react-text --><span class="hljs-comment" data-reactid="231">//最后一个then return的参数</span><!-- react-text: 232 -->
+        <!-- /react-text --><span class="hljs-built_in" data-reactid="233">console</span><!-- react-text: 234 -->.log(e);
+    });<!-- /react-text --></code></pre><pre data-reactid="235"><code data-query="{}" data-lang="data-lang" data-reactid="236">上面的代码`run.js`将会正确输出，但是因为不存在`run.jsxx`文件所以会捕获错误，但不影响`run.js`的输出。
+</code></pre><h1 id="尾声" data-reactid="237"><a href="#%E5%B0%BE%E5%A3%B0" aria-hidden="true" data-reactid="238"><span class="icon icon-link" data-reactid="239"></span></a><!-- react-text: 240 -->尾声<!-- /react-text --></h1><p data-reactid="241"><!-- react-text: 242 -->更多的用法参考<!-- /react-text --><a href="https://github.com/kriskowal/q" data-reactid="243"><code data-reactid="244">q.js</code><!-- react-text: 245 --> github地址<!-- /react-text --></a><!-- react-text: 246 --> 原来我以前一直使用的 <!-- /react-text --><code data-reactid="247">$.ajax({}).fail().done()</code><!-- react-text: 248 --> 正是promise方式的一种。<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="249"></div><div class="paginator" data-reactid="250"><a title="「转」为什么V8 JavaScript引擎这么快" class="prev" href="/why-v8-so-fast" data-reactid="251">Prev</a><a title="「项目拾遗」谈谈websocket" class="next" href="/talk-about-websocket" data-reactid="252">Next</a></div></div></main><footer data-reactid="253"><div class="copyright" data-reactid="254"><p data-reactid="255"><!-- react-text: 256 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="257">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

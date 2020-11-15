@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 同构博客已更新！ - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1026257334"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">同构博客已更新！</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-12T19:18:46+00:00" data-reactid="13">Feb 12, 2017 7:18 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><!-- react-text: 18 -->学生时代最后一个学期的前夕（明天就回学校了）。完成了<!-- /react-text --><a href="http://blog.moyuyc.xyz" data-reactid="19">个人博客</a><!-- react-text: 20 -->的“换血”，页面风格没什么大的改版，<!-- /react-text --><strong data-reactid="21">重点是在后端数据接口的开发设计，和前端代码的重构，加上了 react 动态加载多说评论系统（使用 redux 分离数据逻辑处理代码），也加上了服务器渲染，都是为了 SEO 和首屏渲染！</strong></p><p data-reactid="22"><strong data-reactid="23"><!-- react-text: 24 -->地址: <!-- /react-text --><a href="http://blog.moyuyc.xyz" data-reactid="25">http://blog.moyuyc.xyz</a></strong></p><p data-reactid="26"><strong data-reactid="27"><!-- react-text: 28 -->仓库地址: <!-- /react-text --><a href="https://github.com/moyuyc/isomorphic-blog" data-reactid="29">isomorphic-blog</a></strong></p><p data-reactid="30">感谢陈老板的服务器！</p><p data-reactid="31">总结下开发过程中学习到的东西或者坑！</p><h2 id="学习的总结" data-reactid="32"><a href="#%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="33"><span class="icon icon-link" data-reactid="34"></span></a><!-- react-text: 35 -->学习的总结<!-- /react-text --></h2><h3 id="node模块寻找" data-reactid="36"><a href="#node%E6%A8%A1%E5%9D%97%E5%AF%BB%E6%89%BE" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->node模块寻找<!-- /react-text --></h3><p data-reactid="40">对于该项目，前后端都需要 node package，所以对于项目包的管理是否重要！</p><p data-reactid="41">如下文件结构</p><pre data-reactid="42"><code data-query="{}" data-lang="data-lang" data-reactid="43">blog/
+├── backend/
+│   ├── a.js
+│   └── node_modules/ # module =&gt; express
+├── frontend/
+│   ├── b.js
+│   └── node_modules/ # module =&gt; react
+├── outter.js
+└── node_modules/  # module =&gt; jquery
+</code></pre><ul data-reactid="44"><li data-reactid="45">outter.js</li></ul><pre data-reactid="46"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="47"><span class="hljs-built_in" data-reactid="48">require</span><!-- react-text: 49 -->(<!-- /react-text --><span class="hljs-string" data-reactid="50">&#x27;express&#x27;</span><!-- react-text: 51 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="52">// Error: Cannot find module</span><!-- react-text: 53 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="54">require</span><!-- react-text: 55 -->(<!-- /react-text --><span class="hljs-string" data-reactid="56">&#x27;react&#x27;</span><!-- react-text: 57 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="58">// Error: Cannot find module</span><!-- react-text: 59 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="60">require</span><!-- react-text: 61 -->(<!-- /react-text --><span class="hljs-string" data-reactid="62">&#x27;jquery&#x27;</span><!-- react-text: 63 -->);<!-- /react-text --></code></pre><ul data-reactid="64"><li data-reactid="65">backend/a.js</li></ul><pre data-reactid="66"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="67"><span class="hljs-built_in" data-reactid="68">require</span><!-- react-text: 69 -->(<!-- /react-text --><span class="hljs-string" data-reactid="70">&#x27;express&#x27;</span><!-- react-text: 71 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="72">require</span><!-- react-text: 73 -->(<!-- /react-text --><span class="hljs-string" data-reactid="74">&#x27;react&#x27;</span><!-- react-text: 75 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="76">// Error: Cannot find module</span><!-- react-text: 77 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="78">require</span><!-- react-text: 79 -->(<!-- /react-text --><span class="hljs-string" data-reactid="80">&#x27;jquery&#x27;</span><!-- react-text: 81 -->);<!-- /react-text --></code></pre><ul data-reactid="82"><li data-reactid="83">frontend/b.js</li></ul><pre data-reactid="84"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="85"><span class="hljs-built_in" data-reactid="86">require</span><!-- react-text: 87 -->(<!-- /react-text --><span class="hljs-string" data-reactid="88">&#x27;express&#x27;</span><!-- react-text: 89 -->);
+<!-- /react-text --><span class="hljs-comment" data-reactid="90">// Error: Cannot find module</span><!-- react-text: 91 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="92">require</span><!-- react-text: 93 -->(<!-- /react-text --><span class="hljs-string" data-reactid="94">&#x27;react&#x27;</span><!-- react-text: 95 -->);
+<!-- /react-text --><span class="hljs-built_in" data-reactid="96">require</span><!-- react-text: 97 -->(<!-- /react-text --><span class="hljs-string" data-reactid="98">&#x27;jquery&#x27;</span><!-- react-text: 99 -->);<!-- /react-text --></code></pre><p data-reactid="100"><!-- react-text: 101 -->如上各文件的引入包的情况，可知 node 加载非绝对路径或者相对路径的包，是首先加载该文件同级目录 <!-- /react-text --><code data-reactid="102">node_modules/</code><!-- react-text: 103 --> 寻找，然后依次向父级目录延伸，直到 <!-- /react-text --><code data-reactid="104">/</code><!-- react-text: 105 --> 根目录。<!-- /react-text --></p><p data-reactid="106"><em data-reactid="107"><!-- react-text: 108 -->其他文件 <!-- /react-text --><code data-reactid="109">.babelrc/.gitignore/.npmignore</code><!-- react-text: 110 --> 加载方式都是一样的！<!-- /react-text --></em></p><p data-reactid="111">所以我们只需要在项目最外层 install package，书写 .babelrc ...</p><p data-reactid="112"><!-- react-text: 113 -->同时一些 <!-- /react-text --><code data-reactid="114">npm script</code><!-- react-text: 115 --> 只需要写在项目最外层即可。 只需要在最外层 <!-- /react-text --><code data-reactid="116">npm i cross-env --save</code></p><pre data-reactid="117"><code data-query="{}" data-lang="data-lang" data-reactid="118">&quot;start&quot;: &quot;cross-env NODE_ENV=production node backend/index.js&quot;
+&quot;dev&quot;: &quot;cross-env NODE_ENV=development node backend/index.js&quot;
+&quot;dev:front&quot;: &quot;cross-env NODE_ENV=development node frontend/index.js&quot;
+</code></pre><h3 id="node模块缓存清除" data-reactid="119"><a href="#node%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E6%B8%85%E9%99%A4" aria-hidden="true" data-reactid="120"><span class="icon icon-link" data-reactid="121"></span></a><!-- react-text: 122 -->node模块缓存清除<!-- /react-text --></h3><p data-reactid="123">由于文章是用 markdown 文件形式存储的，如果每次请求文章内容都需要读取文件的话，简直日狗，电脑硬盘也吃不消。</p><p data-reactid="124">所以我在服务器启动之前，就进行 markdown 文件遍历解析，保存至内存中，同时监听 markdown 文件夹变化，发生变化就动态更新内存数据。</p><p data-reactid="125"><em data-reactid="126">插一句！TODO: 感觉可以起个进程单独处理文件遍历解析的工作，用 IPC 进行 JSON 数据（不带 function）传输即可，充分利用多核！</em></p><p data-reactid="127">这样每次请求只需要读取内存就 OK，速度也比较快。</p><p data-reactid="128">同时还监听了配置文件的变化，变化则需要重新加载，那么就需要清除之前的缓存了。</p><pre data-reactid="129"><code data-query="{}" data-lang="data-lang" data-reactid="130">const clearCache = (modulepath) =&gt; delete require.cache[require.resolve(modulepath)]
+</code></pre><p data-reactid="131"><!-- react-text: 132 -->如上代码，<!-- /react-text --><code data-reactid="133">require.resolve</code><!-- react-text: 134 --> 和 <!-- /react-text --><code data-reactid="135">path.resolve</code><!-- react-text: 136 --> 方法基本一致，都是基于 <!-- /react-text --><code data-reactid="137">process.cwd()</code><!-- react-text: 138 --> 当前环境路径，解析 <!-- /react-text --><code data-reactid="139">..</code><!-- react-text: 140 --> <!-- /react-text --><code data-reactid="141">.</code><!-- react-text: 142 --> 得到绝对路径。<!-- /react-text --></p><p data-reactid="143"><em data-reactid="144"><!-- react-text: 145 -->再插一句！<!-- /react-text --><code data-reactid="146">require(&quot;../path&quot;)</code><!-- react-text: 147 --> 中的路径，不是基于 <!-- /react-text --><code data-reactid="148">process.cwd()</code><!-- react-text: 149 --> 的，而是 <!-- /react-text --><code data-reactid="150">__dirname</code></em></p><h3 id="配置文件-json--yaml" data-reactid="151"><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-json--yaml" aria-hidden="true" data-reactid="152"><span class="icon icon-link" data-reactid="153"></span></a><!-- react-text: 154 -->配置文件 json =&gt; yaml<!-- /react-text --></h3><p data-reactid="155">配置文件升级成 yaml 格式，yaml 真是方便！json 格式太僵硬了！</p><div data-reactid="156"><style data-reactid="157">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1003px;max-height:1003pxpx;" data-reactid="158"><div class="medium-image-progressive-placeholder" style="padding-bottom:40.07976071784646%;" data-reactid="159"></div><div class="medium-image-progressive" data-reactid="160"><canvas data-reactid="161"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="162"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="163"/><noscript data-reactid="164"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="165"/></noscript></div></div></div><h3 id="一些轮子" data-reactid="166"><a href="#%E4%B8%80%E4%BA%9B%E8%BD%AE%E5%AD%90" aria-hidden="true" data-reactid="167"><span class="icon icon-link" data-reactid="168"></span></a><!-- react-text: 169 -->一些轮子<!-- /react-text --></h3><ol data-reactid="170"><li data-reactid="171"><p data-reactid="172"><!-- react-text: 173 -->根据 react-router 自动生成 sitemap ，一切为了 搜！索！ <!-- /react-text --><a href="https://github.com/moyuyc/react-router-sitemap-builder" data-reactid="174">react-router-sitemap-builder</a></p></li><li data-reactid="175"><p data-reactid="176"><!-- react-text: 177 -->更好的阅读体验！解析 markdown &amp; HTML 图像文本，读取 URL 图片数据得到大小，替换文本！ <!-- /react-text --><div data-reactid="178"><style data-reactid="179">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1003px;max-height:1003pxpx;" data-reactid="180"><div class="medium-image-progressive-placeholder" style="padding-bottom:40.07976071784646%;" data-reactid="181"></div><div class="medium-image-progressive" data-reactid="182"><canvas data-reactid="183"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="184"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="185"/><noscript data-reactid="186"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="187"/></noscript></div></div></div><!-- react-text: 188 --> =&gt; =&gt; =&gt; <!-- /react-text --><div data-reactid="189"><style data-reactid="190">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1003px;max-height:1003pxpx;" data-reactid="191"><div class="medium-image-progressive-placeholder" style="padding-bottom:40.07976071784646%;" data-reactid="192"></div><div class="medium-image-progressive" data-reactid="193"><canvas data-reactid="194"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="195"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="196"/><noscript data-reactid="197"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FgyP1Ozhv0F8pA14FosHGobvpP_v?imageslim" data-reactid="198"/></noscript></div></div></div><!-- react-text: 199 --> <!-- /react-text --><a href="https://github.com/moyuyc/node-markdown-image-size" data-reactid="200">markdown-image-size</a></p></li><li data-reactid="201"><p data-reactid="202">react+多说踩坑！</p></li></ol><div data-reactid="203"><style data-reactid="204">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:842px;max-height:842pxpx;" data-reactid="205"><div class="medium-image-progressive-placeholder" style="padding-bottom:68.52731591448931%;" data-reactid="206"></div><div class="medium-image-progressive" data-reactid="207"><canvas data-reactid="208"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="209"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmY9Gu9I9nPbZE-40BgH8NRMd8tu?imageslim" data-reactid="210"/><noscript data-reactid="211"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FmY9Gu9I9nPbZE-40BgH8NRMd8tu?imageslim" data-reactid="212"/></noscript></div></div></div><p data-reactid="213">...不知怎么说，总之就是设置各种参数判断是不是脚本加载完成...</p><p data-reactid="214"><!-- react-text: 215 -->具体看代码吧 <!-- /react-text --><a href="https://github.com/moyuyc/isomorphic-blog/blob/master/frontend/src/components/DuoshuoComment/index.js" data-reactid="216">react-duoshuo-comment</a></p><p data-reactid="217">又水了一篇...</p><h2 id="其他的一些" data-reactid="218"><a href="#%E5%85%B6%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B" aria-hidden="true" data-reactid="219"><span class="icon icon-link" data-reactid="220"></span></a><!-- react-text: 221 -->其他的一些<!-- /react-text --></h2><ul data-reactid="222"><li data-reactid="223"><p data-reactid="224"><!-- react-text: 225 -->发布流程<!-- /react-text --><br data-reactid="226"/><!-- react-text: 227 -->在本地书写完 markdown 后 =&gt; git push 至 github =&gt; curl url =&gt; 服务器触发 git pull 更新文章 =&gt; 文件监听变化 =&gt; 更新数据 =&gt; 发布成功！<!-- /react-text --></p></li><li data-reactid="228"><p data-reactid="229"><!-- react-text: 230 -->SEO<!-- /react-text --><br data-reactid="231"/><!-- react-text: 232 -->谷歌真是技术杠杠的，没几天就可以搜到我的站点了，百度还是没有（都已提交网站和 sitemap.txt/robots.txt） <!-- /react-text --><div data-reactid="233"><style data-reactid="234">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:580px;max-height:580pxpx;" data-reactid="235"><div class="medium-image-progressive-placeholder" style="padding-bottom:108.27586206896551%;" data-reactid="236"></div><div class="medium-image-progressive" data-reactid="237"><canvas data-reactid="238"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="239"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FocOlJ-S5EvxL2Qrc00zWNif6kyy?imageslim" data-reactid="240"/><noscript data-reactid="241"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FocOlJ-S5EvxL2Qrc00zWNif6kyy?imageslim" data-reactid="242"/></noscript></div></div></div></p></li></ul></article></div><div class="gitment-container" data-reactid="243"></div><div class="paginator" data-reactid="244"><a title="node.js 同步请求" class="prev" href="/sync-request-in-nodejs" data-reactid="245">Prev</a><a title="Progressive Web App" class="next" href="/repost-progressive-web-app" data-reactid="246">Next</a></div></div></main><footer data-reactid="247"><div class="copyright" data-reactid="248"><p data-reactid="249"><!-- react-text: 250 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="251">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

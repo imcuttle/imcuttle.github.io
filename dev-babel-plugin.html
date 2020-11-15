@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Babel插件开发 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1925928800"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">Babel插件开发</h1><div class="post-info" data-reactid="12"><time datetime="2017-10-22T20:00:58+00:00" data-reactid="13">Oct 22, 2017 8:00 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17">Babel是什么我就不多介绍了，不懂的同学百度或者谷歌一下。</p><p data-reactid="18">Babel的插件工作原理就是将ast(语法分析树)，按照ast的规则，进行转换。</p><p data-reactid="19"><a href="http://astexplorer.net/#/Z1exs6BWMq" data-reactid="20">AST Expolorer</a><!-- react-text: 21 --> 提供是一个线上AST预览的环境，包括Javascript、css...语言的AST预览<!-- /react-text --></p><p data-reactid="22"><!-- react-text: 23 -->其中babel的ast词法语法分析树的产生是来自开源项目 <!-- /react-text --><a href="https://www.npmjs.com/package/babylon" data-reactid="24">babylon</a><!-- react-text: 25 -->.<!-- /react-text --></p><p data-reactid="26">...后面有空，比较有兴致的时候再来完善 💨</p><h2 id="开发实践" data-reactid="27"><a href="#%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->开发实践<!-- /react-text --></h2><ul data-reactid="31"><li data-reactid="32"><a href="https://github.com/imcuttle/babel-plugin-tiny-import" data-reactid="33">babel-plugin-tiny-import</a></li></ul><h2 id="参考学习" data-reactid="34"><a href="#%E5%8F%82%E8%80%83%E5%AD%A6%E4%B9%A0" aria-hidden="true" data-reactid="35"><span class="icon icon-link" data-reactid="36"></span></a><!-- react-text: 37 -->参考学习<!-- /react-text --></h2><p data-reactid="38"><a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md#toc-babel-traverse" data-reactid="39">Babel 插件手册</a></p></article></div><div class="gitment-container" data-reactid="40"></div><div class="paginator" data-reactid="41"><a title="HTML5 富文本编辑！" class="prev" href="/wow-picidae-transformer-react-render-support-live-edit" data-reactid="42">Prev</a><a title="妈妈再也不用担心RD部署环境，影响FE开发了" class="next" href="/birdv3-standup" data-reactid="43">Next</a></div></div></main><footer data-reactid="44"><div class="copyright" data-reactid="45"><p data-reactid="46"><!-- react-text: 47 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="48">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

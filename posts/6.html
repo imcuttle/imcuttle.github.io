@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1326590582"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><section class="container" data-reactid="9"><div class="search-bar" data-reactid="10"><input value="" placeholder="Search..." data-reactid="11"/></div><ul class="home post-list" data-reactid="12"><li class="post-list-item" data-reactid="13"><article class="post-block" data-reactid="14"><h2 class="post-title" data-reactid="15"><a title="Mobx VS Redux（React状态控制）" class="post-title-link" href="/mobx-vs-redux-with-react" data-reactid="16">Mobx VS Redux（React状态控制）</a></h2><time class="post-info" datetime="2017-02-26T16:45:45+00:00" data-reactid="17">Feb 26, 2017</time><div class="post-content" data-reactid="18">
+
+
+&gt; 我人就是闲不下来 - -  
+&gt; 辛辛苦苦上了一周班，周末又捣鼓起 React+Mobx 一套了
+
+&gt; 下周要开始疯狂踩 React Native 的坑了，公司要我着手开发 app 了，心塞（mmp，拿着农民工的钱，干着“打天下”的事，本人还不是专业的 - -）
+
+&gt; 还有，最近有童鞋反映我的文章看不懂，不照顾基础不好的童鞋，希望我想阮一峰大神一样循循善诱、由浅入深。（这可苦了我一个理科</div><a class="read-more" href="/mobx-vs-redux-with-react" data-reactid="19">...more</a></article></li><li class="post-list-item" data-reactid="20"><article class="post-block" data-reactid="21"><h2 class="post-title" data-reactid="22"><a title="node.js 同步请求" class="post-title-link" href="/sync-request-in-nodejs" data-reactid="23">node.js 同步请求</a></h2><time class="post-info" datetime="2017-02-17T21:07:34+00:00" data-reactid="24">Feb 17, 2017</time><div class="post-content" data-reactid="25">
+
+
+node.js 以异步方式、事件队列为标准，基本每一套与网络、IO 相关的 API 都会设计成异步的。
+
+如，一段很平常的请求代码，用 node.js 只能用异步方式。
+
+```javascript
+const https = require(&#x27;https&#x27;);
+
+https.get(&quot;https://nodejs.org/api/https.html&quot;, res =&gt; res.pipe(p</div><a class="read-more" href="/sync-request-in-nodejs" data-reactid="26">...more</a></article></li><li class="post-list-item" data-reactid="27"><article class="post-block" data-reactid="28"><h2 class="post-title" data-reactid="29"><a title="同构博客已更新！" class="post-title-link" href="/blog-update" data-reactid="30">同构博客已更新！</a></h2><time class="post-info" datetime="2017-02-12T19:18:46+00:00" data-reactid="31">Feb 12, 2017</time><div class="post-content" data-reactid="32">
+
+学生时代最后一个学期的前夕（明天就回学校了）。完成了[个人博客](http://blog.moyuyc.xyz)的“换血”，页面风格没什么大的改版，**重点是在后端数据接口的开发设计，和前端代码的重构，加上了 react 动态加载多说评论系统（使用 redux 分离数据逻辑处理代码），也加上了服务器渲染，都是为了 SEO 和首屏渲染！**
+
+**地址: [http://blog.moyuyc.</div><a class="read-more" href="/blog-update" data-reactid="33">...more</a></article></li><li class="post-list-item" data-reactid="34"><article class="post-block" data-reactid="35"><h2 class="post-title" data-reactid="36"><a title="Progressive Web App" class="post-title-link" href="/repost-progressive-web-app" data-reactid="37">Progressive Web App</a></h2><time class="post-info" datetime="2017-02-10T19:35:48+00:00" data-reactid="38">Feb 10, 2017</time><div class="post-content" data-reactid="39">
+
+转自：[知乎](https://zhuanlan.zhihu.com/p/25167289?utm_source=wechat_timeline&amp;utm_medium=social&amp;from=timeline&amp;isappinstalled=1)
+
+ html =&gt; markdown 来自 [html-markdown](https://github.com/moyuyc/html-markdo</div><a class="read-more" href="/repost-progressive-web-app" data-reactid="40">...more</a></article></li><li class="post-list-item" data-reactid="41"><article class="post-block" data-reactid="42"><h2 class="post-title" data-reactid="43"><a title="HTML -&gt; Markdown" class="post-title-link" href="/html-to-markdown-by-javascript" data-reactid="44">HTML -&gt; Markdown</a></h2><time class="post-info" datetime="2017-02-07T10:42:55+00:00" data-reactid="45">Feb 7, 2017</time><div class="post-content" data-reactid="46">
+
+## 情景重现
+
+有时候，我们看到网上比较好的文章，我们油然会想去转载，但是呈现在浏览器上文章的格式为 HTML，我们书写文章的格式又为 Markdown，所以我便想实现 HTML 到 Markdown 的转换。
+
+**注：对于一些文章排版较为复杂的 HTML 标签（如 table），暂时直接输出 HTML**
+
+## 使用
+
+还是从 npm 开始，支持三种方式（URL/file/命令参数）的</div><a class="read-more" href="/html-to-markdown-by-javascript" data-reactid="47">...more</a></article></li><li class="post-list-item" data-reactid="48"><article class="post-block" data-reactid="49"><h2 class="post-title" data-reactid="50"><a title="（译）进阶Bash Script指南（一）" class="post-title-link" href="/advanced-bash-scripting-guide-1" data-reactid="51">（译）进阶Bash Script指南（一）</a></h2><time class="post-info" datetime="2017-01-24T20:42:54+00:00" data-reactid="52">Jan 24, 2017</time><div class="post-content" data-reactid="53">
+
+原文：[Advanced Bash-Scripting Guide](http://www.tldp.org/LDP/abs/abs-guide.pdf)
+
+部分[学习代码](https://github.com/moyuyc/advanced-bash-scripting-learning)
+
+只做部分翻译，一些个人遗漏的点。
+
+
+### 关于脚本头
+
+Bash 中头部 `#!` ，如果没有</div><a class="read-more" href="/advanced-bash-scripting-guide-1" data-reactid="54">...more</a></article></li><li class="post-list-item" data-reactid="55"><article class="post-block" data-reactid="56"><h2 class="post-title" data-reactid="57"><a title="刷脸签到系统回顾" class="post-title-link" href="/njnu-stuents-faces-recognition" data-reactid="58">刷脸签到系统回顾</a></h2><time class="post-info" datetime="2017-01-19T19:09:14+00:00" data-reactid="59">Jan 19, 2017</time><div class="post-content" data-reactid="60">
+
+[毕设 👉 南师大刷脸签到系统 👉  face.moyuyc.xyz](https://face.moyuyc.xyz)
+&lt;img src=&quot;https://ooo.0o0.ooo/2017/01/18/587eea50913fd.jpg&quot; alt=&quot;&quot; width=&quot;1200&quot; height=&quot;627&quot; /&gt;
+
+源码：[graduation-project](https://github</div><a class="read-more" href="/njnu-stuents-faces-recognition" data-reactid="61">...more</a></article></li><li class="post-list-item" data-reactid="62"><article class="post-block" data-reactid="63"><h2 class="post-title" data-reactid="64"><a title="一些好玩或喜欢的东西" class="post-title-link" href="/funny-something-summary" data-reactid="65">一些好玩或喜欢的东西</a></h2><time class="post-info" datetime="2017-01-15T13:39:19+00:00" data-reactid="66">Jan 15, 2017</time><div class="post-content" data-reactid="67">
+
+长时间记录一些好玩或喜欢的东西
+
+### Links
+
+1. [UI超棒，AI俄罗斯方块动画！有时间自己玩玩！](http://thomas-yang.me/#color=977355)
+2. [在线画图UML...](https://www.processon.com/diagrams)
+
+### Pictures
+
+&lt;img src=&quot;http://ww3.sinaimg.cn/mw690</div><a class="read-more" href="/funny-something-summary" data-reactid="68">...more</a></article></li><li class="post-list-item" data-reactid="69"><article class="post-block" data-reactid="70"><h2 class="post-title" data-reactid="71"><a title="JavaScript正则填坑记" class="post-title-link" href="/record-once-javascript-regexp-landfill" data-reactid="72">JavaScript正则填坑记</a></h2><time class="post-info" datetime="2017-01-12T18:43:02+00:00" data-reactid="73">Jan 12, 2017</time><div class="post-content" data-reactid="74">
+
+
+## 问题重现
+
+不知道各位旁友在`webpack`的使用中，有没有碰到下面的问题情景：
+1. 在使用了`css Module`的情况下，同时又希望用一些`global`的布局，其实在`css Module`中直接用
+```
+:global(.title) {
+    color: green;
+}
+```
+也是可以实现的，但是如果需要引入第三方css，如`Animate.css`，如果对每</div><a class="read-more" href="/record-once-javascript-regexp-landfill" data-reactid="75">...more</a></article></li><li class="post-list-item" data-reactid="76"><article class="post-block" data-reactid="77"><h2 class="post-title" data-reactid="78"><a title="利用Hook解决moka邮件通知" class="post-title-link" href="/moka-hooks" data-reactid="79">利用Hook解决moka邮件通知</a></h2><time class="post-info" datetime="2017-01-07T21:48:09+00:00" data-reactid="80">Jan 7, 2017</time><div class="post-content" data-reactid="81">
+
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=202373&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
+
+ 就在昨天，有位可爱的学妹说想订阅我的Blog，于是</div><a class="read-more" href="/moka-hooks" data-reactid="82">...more</a></article></li></ul><div class="paginator" data-reactid="83"><a class="prev" href="/posts/5" data-reactid="84">Prev</a><a class="next" href="/posts/7" data-reactid="85">Next</a></div></section></main><footer data-reactid="86"><div class="copyright" data-reactid="87"><p data-reactid="88"><!-- react-text: 89 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="90">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

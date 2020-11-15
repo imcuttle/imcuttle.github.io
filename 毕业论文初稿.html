@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 毕业论文初稿 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="621626691"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">毕业论文初稿</h1><div class="post-info" data-reactid="12"><time datetime="2017-05-01T00:31:12+00:00" data-reactid="13">May 1, 2017 12:31 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="绪论" data-reactid="17"><a href="#%E7%BB%AA%E8%AE%BA" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->绪论<!-- /react-text --></h1><h2 id="研究背景和意义" data-reactid="21"><a href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E6%84%8F%E4%B9%89" aria-hidden="true" data-reactid="22"><span class="icon icon-link" data-reactid="23"></span></a><!-- react-text: 24 -->研究背景和意义<!-- /react-text --></h2><p data-reactid="25">相信有不少人有过丢失邀请函、替换或借用身份牌参会的经历。可对于部分高端会议或国家级会展活动来说，确认参会人员的身份十分关键，传统的签到模式无疑给了盗用身份参会者钻空子的机会。但是随着人脸识别技术水平的不断提升，其应用领域越来越广，效率也越来越高。使得人脸识别能够很有效的解决签到问题。</p><h2 id="国内外研究现状" data-reactid="26"><a href="#%E5%9B%BD%E5%86%85%E5%A4%96%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->国内外研究现状<!-- /react-text --></h2><p data-reactid="30">国内目前主要是三种力量，一个是清华大学的苏光大教授，他是中国的人脸识别之父。第二个是中科院的自动化所的李教授，他早年在微软的亚洲研究院当中获得了非常高的成就，后来到了中科院的自动化所，专攻人脸识别。第三支就是香港中文大学的汤晓鸥教授的团队，每年会进行学术界的比赛，他是高记录的保持者。 国外著名的研究机构有美国MIT的Media lab,AI lab,CMU的Human-Computer Interface Institute，Microsoft Research,英国的Department of Engineering in University of Cambridge等。 当前人脸识别技术所存在的主要问题 1. 人脸图像的获取过程中的不确定性（如光的方向，以及光的强度等）。 2. 人脸模式的多样性（如胡须，眼镜，发型等）。 3. 人脸塑性变形的不确定性（如表情等）。 4. 所涉及的领域知识的综合性</p><h2 id="本课题研究内容" data-reactid="31"><a href="#%E6%9C%AC%E8%AF%BE%E9%A2%98%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->本课题研究内容<!-- /react-text --></h2><p data-reactid="35">人脸识别问题可以定义成 : 输入 (查询) 场景中 的静止图像或者视频 ,使用人脸数据库识别或验证 场景中的一个人或者多个人[12] . 基于静止图像的人 脸识别通常是指输入 (查询) 一幅静止的图像 ,使用 人脸数据库进行识别或验证图像中的人脸. 而基于 视频的人脸识别是指输入 (查询) 一段视频 ,使用人 脸数据库进行识别或验证视频中的人脸. 如不考虑 视频的时间连续信息 ,问题也可以变成采用多幅图 像(时间上不一定连续) 作为输入(查询) 进行识别或 验证. 对静止图像中人脸的定位可参见文献[2] , 对视频中人脸的定位和分割可参见文献[13]</p><h2 id="本文内容组织结构" data-reactid="36"><a href="#%E6%9C%AC%E6%96%87%E5%86%85%E5%AE%B9%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->本文内容组织结构<!-- /react-text --></h2><p data-reactid="40">本文主要讲述刷脸签到系统的设计与实现，全文共分为五章。</p><ol data-reactid="41"><li data-reactid="42">第一章 绪论，介绍了研究背景、国内外研究现状和本文研究内容。</li><li data-reactid="43">第二章 涉及技术，介绍了该系统所涉及的所有领域的技术介绍。</li><li data-reactid="44">第三章 设计与实现，解释了该系统的设计结构与部分主要算法的流程。</li><li data-reactid="45">第四章 总结与感谢，总结了本文的主要工作内容和个人感悟，以及一些感谢语。</li></ol><h1 id="涉及技术介绍" data-reactid="46"><a href="#%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->涉及技术介绍<!-- /react-text --></h1><h2 id="系统技术栈" data-reactid="50"><a href="#%E7%B3%BB%E7%BB%9F%E6%8A%80%E6%9C%AF%E6%A0%88" aria-hidden="true" data-reactid="51"><span class="icon icon-link" data-reactid="52"></span></a><!-- react-text: 53 -->系统技术栈<!-- /react-text --></h2><div data-reactid="54"><style data-reactid="55">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:900px;max-height:900pxpx;" data-reactid="56"><div class="medium-image-progressive-placeholder" style="padding-bottom:55.111111111111114%;" data-reactid="57"></div><div class="medium-image-progressive" data-reactid="58"><canvas data-reactid="59"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="60"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/21/58826eb274d3a.jpg" data-reactid="61"/><noscript data-reactid="62"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/21/58826eb274d3a.jpg" data-reactid="63"/></noscript></div></div></div><h2 id="前端涉及技术" data-reactid="64"><a href="#%E5%89%8D%E7%AB%AF%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="65"><span class="icon icon-link" data-reactid="66"></span></a><!-- react-text: 67 -->前端涉及技术<!-- /react-text --></h2><ol data-reactid="68"><li data-reactid="69"><!-- react-text: 70 -->单页Web应用（single page web application，SPA），就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由 JavaScript 来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。 <!-- /react-text --><div data-reactid="71"><style data-reactid="72">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:550px;max-height:550pxpx;" data-reactid="73"><div class="medium-image-progressive-placeholder" style="padding-bottom:110.72727272727272%;" data-reactid="74"></div><div class="medium-image-progressive" data-reactid="75"><canvas data-reactid="76"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="77"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884d672c4710.jpg" data-reactid="78"/><noscript data-reactid="79"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884d672c4710.jpg" data-reactid="80"/></noscript></div></div></div></li><li data-reactid="81"><!-- react-text: 82 -->使用主流 <!-- /react-text --><a href="https://webpack.github.io/" data-reactid="83">Webpack</a><!-- react-text: 84 --> 构建，进行前端模块自动化管理。 <!-- /react-text --><div data-reactid="85"><style data-reactid="86">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:2598px;max-height:2598pxpx;" data-reactid="87"><div class="medium-image-progressive-placeholder" style="padding-bottom:50%;" data-reactid="88"></div><div class="medium-image-progressive" data-reactid="89"><canvas data-reactid="90"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="91"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884d5ba0680b.jpg" data-reactid="92"/><noscript data-reactid="93"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884d5ba0680b.jpg" data-reactid="94"/></noscript></div></div></div></li><li data-reactid="95"><!-- react-text: 96 -->使用Facebook提出的 <!-- /react-text --><a href="https://facebook.github.io/react/" data-reactid="97">React</a><!-- react-text: 98 --> 进行作为 View， 将 HTML DOM 进行上层抽象，提出 Virtual DOM 概念，一套理念，实现了Server render, Web UI, mobile UI 的统一。 Learn Once, Write Anywhere <!-- /react-text --><div data-reactid="99"><style data-reactid="100">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:623px;max-height:623pxpx;" data-reactid="101"><div class="medium-image-progressive-placeholder" style="padding-bottom:63.56340288924559%;" data-reactid="102"></div><div class="medium-image-progressive" data-reactid="103"><canvas data-reactid="104"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="105"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" data-reactid="106"/><noscript data-reactid="107"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884d71e7ed1d.jpg" data-reactid="108"/></noscript></div></div></div></li><li data-reactid="109"><a href="https://github.com/reactjs/redux" data-reactid="110">Redux</a><!-- react-text: 111 -->，随着 JavaScript 单页应用开发日趋复杂，JavaScript 需要管理比任何时候都要多的 state (状态)，state 在什么时候，由于什么原因，如何变化已然不受控制。 当系统变得错综复杂的时候，想重现问题或者添加新功能就会变得举步维艰, Redux则是为了解决该痛点而产生。<!-- /react-text --></li><li data-reactid="112"><a href="https://github.com/ReactTraining/react-router" data-reactid="113">React Router</a><!-- react-text: 114 --> 是一个基于 React 之上的强大路由库，它可以让你向应用中快速地添加视图和数据流，既保证了单页应用的畅快，同时保持页面与 URL 间的同步。 <!-- /react-text --><div data-reactid="115"><style data-reactid="116">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:622px;max-height:622pxpx;" data-reactid="117"><div class="medium-image-progressive-placeholder" style="padding-bottom:54.82315112540193%;" data-reactid="118"></div><div class="medium-image-progressive" data-reactid="119"><canvas data-reactid="120"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="121"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884d88d62dd5.jpg" data-reactid="122"/><noscript data-reactid="123"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884d88d62dd5.jpg" data-reactid="124"/></noscript></div></div></div></li><li data-reactid="125"><!-- react-text: 126 -->*<!-- /react-text --><a href="https://babeljs.io/" data-reactid="127">Babel</a><!-- react-text: 128 --> =&gt; 使用 JavaScript 实现的编译器，正如官网所说的那样 Use next generation JavaScript, today. ，可以利用 Babel 书写最新的 JavasScript 语法标准，如 ECMAScript 6 ，搭配 Webpack 使用更佳。<!-- /react-text --></li><li data-reactid="129"><!-- react-text: 130 -->*<!-- /react-text --><a href="http://es6-features.org/" data-reactid="131">ECMAScript6</a><!-- react-text: 132 --> =&gt; 2015 年提出的JavaScript标准，目标是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现。ES 6 具有一系列简明的语法糖，更佳的书写体验。但为了保证浏览器, Node 环境兼容性，往往配合 Babel 书写。<!-- /react-text --></li><li data-reactid="133">*less =&gt; 一种 CSS 预处理语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。</li><li data-reactid="134">使用 HTML5 的 getUserMedia 方法，调用计算机音频视频等硬件设备。为了安全问题，Chrome 只能在本地地址上调用该方法，外网地址则只能在通过证书检测的 HTTPS 服务中调用。</li></ol><h2 id="后端涉及技术" data-reactid="135"><a href="#%E5%90%8E%E7%AB%AF%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="136"><span class="icon icon-link" data-reactid="137"></span></a><!-- react-text: 138 -->后端涉及技术<!-- /react-text --></h2><ol data-reactid="139"><li data-reactid="140"><!-- react-text: 141 -->采用 <!-- /react-text --><a href="https://nodejs.org/" data-reactid="142">nodeJs</a><!-- react-text: 143 --> 作为后端，采用 JavaScript 脚本语言开发。 nodeJs 具有异步事件驱动、非阻塞（non-blocking）IO 特性，采用 Google 的 V8 引擎来执行代码。<!-- /react-text --></li><li data-reactid="144">Node.js以单线程运行，使用非阻塞I/O调用，这样既可以支持数以万计的并发连接，又不会因多线程本身的特点而带来麻烦。众多请求只使用单线程的设计意味着可以用于创建高并发应用程序。Node.js应用程序的设计目标是任何需要操作I/O的函数都使用回调函数。 这种设计的缺点是，如果不使用cluster、StrongLoop Process Manager或pm2等模块，Node.js就难以处理多核或多线程等情况。</li><li data-reactid="145"><!-- react-text: 146 -->isomorphic render（同构渲染）=&gt; 指的是前后端使用同一份代码。前端通过 Webpack 实现 CommonJs 的模块规范（Node亦是 CommonJs ）+ React 提出的 JSX ，使得 NodeJs 通过解析请求的 URL，适配 react-router 中的前端路由规则，得到 routing Props，还可以 dispatch(action) 同步或异步（一般是 isomorphic-fetch ），又或是直接读取数据，从而更新 store ，最后 nodeJs 通过 store 中的 state 渲染 JSX ，产生静态的 HTML，从而实现了前后端的同构渲染。 <!-- /react-text --><div data-reactid="147"><style data-reactid="148">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:640px;max-height:640pxpx;" data-reactid="149"><div class="medium-image-progressive-placeholder" style="padding-bottom:62.5%;" data-reactid="150"></div><div class="medium-image-progressive" data-reactid="151"><canvas data-reactid="152"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="153"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884dc559b020.jpg" data-reactid="154"/><noscript data-reactid="155"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884dc559b020.jpg" data-reactid="156"/></noscript></div></div></div><!-- react-text: 157 --> <!-- /react-text --><div data-reactid="158"><style data-reactid="159">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:610px;max-height:610pxpx;" data-reactid="160"><div class="medium-image-progressive-placeholder" style="padding-bottom:67.54098360655738%;" data-reactid="161"></div><div class="medium-image-progressive" data-reactid="162"><canvas data-reactid="163"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="164"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/29/588d9b8393522.jpg" data-reactid="165"/><noscript data-reactid="166"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/29/588d9b8393522.jpg" data-reactid="167"/></noscript></div></div></div></li><li data-reactid="168"><a href="https://nodejs.org/api/addons.html" data-reactid="169">nodeJs C++ Addons</a><!-- react-text: 170 -->，nodeJs 就是使用C++语言实现的，图像处理最强大的库 opencv 便是用 C++ 实现的，这就不得不需要 nodeJs 与 C++ 之前通信，通过 nodeJs 调用 opencv 的方法，<!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="171">node-opencv</a><!-- react-text: 172 --> 便是利用 <!-- /react-text --><a href="https://github.com/nodejs/nan" data-reactid="173">nan</a><!-- react-text: 174 --> （解决平台间兼容性问题，将异步事件驱动封装）与 <!-- /react-text --><a href="https://github.com/v8/v8" data-reactid="175">v8</a><!-- react-text: 176 --> （javascript 对应的数据类型与 C++映射） ，通过 <!-- /react-text --><a href="https://github.com/nodejs/node-gyp" data-reactid="177">node-gyp</a><!-- react-text: 178 --> 工具，将 C++ 打包成 一个动态链接库 *.node，通过 require 即可调用。<!-- /react-text --></li><li data-reactid="179"><a href="https://github.com/mysqljs/mysql" data-reactid="180">node-mysql</a><!-- react-text: 181 --> ，由于 NodeJs 具有 non-blocking IO 与异步事件驱动的特性，所以很适合于 IO 密集型高并发业务，而访问数据库正是常用的 IO 操作。<!-- /react-text --></li><li data-reactid="182">NPM（全称Node Package Manager，即node包管理器），是Node预设的，通过国内 taobao 镜像可以加快下载速度。</li><li data-reactid="183"><a href="http://expressjs.com/zh-cn/" data-reactid="184">Express</a><!-- react-text: 185 -->（Node.js Web 应用程序框架），很方便的定义 restful api.<!-- /react-text --></li><li data-reactid="186"><!-- react-text: 187 -->Spider，网络爬虫，通过转发客户端的 HTTP 或 HTTPs 请求，得到远程服务器的响应数据，然后再一次转发至客户端中，也就是代理的意思 <!-- /react-text --><div data-reactid="188"><style data-reactid="189">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:699px;max-height:699pxpx;" data-reactid="190"><div class="medium-image-progressive-placeholder" style="padding-bottom:20.88698140200286%;" data-reactid="191"></div><div class="medium-image-progressive" data-reactid="192"><canvas data-reactid="193"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="194"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/21/5882d1cb76d12.jpg" data-reactid="195"/><noscript data-reactid="196"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/21/5882d1cb76d12.jpg" data-reactid="197"/></noscript></div></div></div><!-- react-text: 198 --> 关于<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="199">南师大的一些 API</a><!-- react-text: 200 --> ，已经有前人用 Python 写过了，爬取教务系统数据，然后我只需要爬取对应的网站即可。<!-- /react-text --></li><li data-reactid="201">nginx，使用 C++ 实现的 Web 服务器，通过简单的配置就可以反向代理至正确的端口和应用层协议。</li><li data-reactid="202">由于浏览器安全性的考虑，对于外网地址使用摄像头需要在安全的HTTPs协议下，因此需要付费或免费地得到认可的证书，通过 nginx 配置，反向代理至 Node 进程即可。</li></ol><h2 id="其他涉及技术" data-reactid="203"><a href="#%E5%85%B6%E4%BB%96%E6%B6%89%E5%8F%8A%E6%8A%80%E6%9C%AF" aria-hidden="true" data-reactid="204"><span class="icon icon-link" data-reactid="205"></span></a><!-- react-text: 206 -->其他涉及技术<!-- /react-text --></h2><ol data-reactid="207"><li data-reactid="208">git 是用于 Linux 内核开发的版本控制工具。与 CVS、Subversion 一类的集中式版本控制工具不同，它采用了分布式版本库的作法，不需要服务器端软件，就可以运作版本控制，使得源代码的发布和交流极其方便。 git 的速度很快，这对于诸如 Linux 内核这样的大项目来说自然很重要。git 最为出色的是它的合并追踪（merge tracing）能力。</li><li data-reactid="209">GitHub 是一个通过 Git 进行版本控制的软件源代码托管服务，是全球最大的代码存放网站和开源社区。</li><li data-reactid="210">特征脸（Eigenface）是指用于机器视觉领域中的人脸识别问题的一组特征向量。这些特征向量是从高维矢量空间的人脸图像的协方差矩阵计算而来。一组特征脸 可以通过在一大组描述不同人脸的图像上进行主成分分析（PCA）获得。任意一张人脸图像都可以被认为是这些标准脸的组合。另外，由于人脸是通过一系列向量（每个特征脸一个比例值）而不是数字图像进行保存，可以节省很多存储空间。</li><li data-reactid="211">主成分分析（Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。</li><li data-reactid="212">OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV用C++语言编写，它的主要接口也是C++语言。</li></ol><h1 id="系统设计与实现" data-reactid="213"><a href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="214"><span class="icon icon-link" data-reactid="215"></span></a><!-- react-text: 216 -->系统设计与实现<!-- /react-text --></h1><h2 id="系统模块" data-reactid="217"><a href="#%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97" aria-hidden="true" data-reactid="218"><span class="icon icon-link" data-reactid="219"></span></a><!-- react-text: 220 -->系统模块<!-- /react-text --></h2><div data-reactid="221"><style data-reactid="222">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:770px;max-height:770pxpx;" data-reactid="223"><div class="medium-image-progressive-placeholder" style="padding-bottom:52.07792207792208%;" data-reactid="224"></div><div class="medium-image-progressive" data-reactid="225"><canvas data-reactid="226"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="227"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848833b7414.jpg" data-reactid="228"/><noscript data-reactid="229"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848833b7414.jpg" data-reactid="230"/></noscript></div></div></div><h2 id="文件结构" data-reactid="231"><a href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84" aria-hidden="true" data-reactid="232"><span class="icon icon-link" data-reactid="233"></span></a><!-- react-text: 234 -->文件结构<!-- /react-text --></h2><p data-reactid="235">顶层文件结构如下</p><pre data-reactid="236"><code data-query="{}" data-lang="data-lang" data-reactid="237">Graduation-Project/
+├── desktop/
+├── gp-image-download/
+├── gp-njnu-photos-app/
+└── gp-njnu-photos-backend/
+</code></pre><p data-reactid="238"><code data-reactid="239">desktop/</code><!-- react-text: 240 --> 中放的是将站点打包成 PC Desktop 的 Logo，<!-- /react-text --><code data-reactid="241">logo.icns</code><!-- react-text: 242 --> 用在 osx 系统中，<!-- /react-text --><code data-reactid="243">logo.png</code><!-- react-text: 244 --> 则用于 linux 与 windows 系统中，打包成的 PC Desktop 默认也是放在该文件夹下。<!-- /react-text --></p><pre data-reactid="245"><code data-query="{}" data-lang="data-lang" data-reactid="246">desktop/
+└── logos/
+    ├── logo.icns
+    ├── logo.ico
+    └── logo.png 
+</code></pre><p data-reactid="247"><code data-reactid="248">gp-image-download/</code><!-- react-text: 249 --> 文件夹里面放的是将教务系统的学生图片下载至该文件夹中，其中的 <!-- /react-text --><code data-reactid="250">data/</code><!-- react-text: 251 --> 文件夹放的是各年入学的学生的学号（部分学号不正确），数据是 <!-- /react-text --><code data-reactid="252">get-all-id.js</code><!-- react-text: 253 --> 脚本得到，具体工作细节在后面会说到。保证获取到各年的学生学号集后，通过 <!-- /react-text --><code data-reactid="254">download.sh</code><!-- react-text: 255 --> Bash 脚本即可进行下载；下载的图片放在 <!-- /react-text --><code data-reactid="256">images/</code><!-- react-text: 257 --> 中。<!-- /react-text --></p><pre data-reactid="258"><code data-query="{}" data-lang="data-lang" data-reactid="259">gp-image-download/
+├── data/
+│   └── ...
+├── download.sh
+├── get-all-id.js
+├── images/
+│   └── ...
+└── lib/
+    └── get-all-id.js
+</code></pre><p data-reactid="260"><code data-reactid="261">gp-njnu-photos-app/</code><!-- react-text: 262 --> 放的是前端代码，<!-- /react-text --><code data-reactid="263">app/</code><!-- react-text: 264 --> 是开发用的源码，<!-- /react-text --><code data-reactid="265">build/</code><!-- react-text: 266 --> 是用 Webpack 打包的压缩后的发布资源，包括 <!-- /react-text --><code data-reactid="267">css/js/html/image...</code></p><pre data-reactid="268"><code data-query="{}" data-lang="data-lang" data-reactid="269">gp-njnu-photos-app/
+├── app/
+│   └── ...
+├── build/
+│   └── ...
+├── index.js
+├── package.json
+├── webpack-assets.json
+└── webpack.config.js
+</code></pre><p data-reactid="270"><code data-reactid="271">gp-njnu-photos-backend/</code><!-- react-text: 272 --> 放的是后端的全部代码。<!-- /react-text --></p><pre data-reactid="273"><code data-query="{}" data-lang="data-lang" data-reactid="274">gp-njnu-photos-backend/
+├── cpptest/
+│   └── ...
+├── test/
+│   └── ...
+├── data/
+│   └── ...
+├── database/
+│   └── ...
+├── lib/
+│   └── ...
+├── opencv/
+│   └── ...
+├── pretreat/
+│   └── ...
+├── routes/
+│   └── ...
+├── ssl/
+│   └── ...
+├── index.js
+├── package.json
+├── provider.js
+└── server.js
+</code></pre><ul data-reactid="275"><li data-reactid="276"><code data-reactid="277">cpptest/</code><!-- react-text: 278 --> c++ opencv 的一些测试<!-- /react-text --></li><li data-reactid="279"><code data-reactid="280">test/</code><!-- react-text: 281 --> nodejs 调用 opencv 接口的例子<!-- /react-text --></li><li data-reactid="282"><code data-reactid="283">data/</code><!-- react-text: 284 --> 放些人脸 xml 模板数据，服务器运行时生成的缓存数据，预处理后的学生照片，上一次保存的训练数据。<!-- /react-text --></li><li data-reactid="285"><code data-reactid="286">database/</code><!-- react-text: 287 --> 访问 mysql 的 JS 接口<!-- /react-text --></li><li data-reactid="288"><code data-reactid="289">lib/</code><!-- react-text: 290 --> 一些通用的 JS 方法，比如爬虫接口，图片上传接口...<!-- /react-text --></li><li data-reactid="291"><code data-reactid="292">opencv/</code><!-- react-text: 293 --> 搭建 nodejs 与 C++ 桥梁的源码与产生的链接库<!-- /react-text --></li><li data-reactid="294"><code data-reactid="295">pretreat</code><!-- react-text: 296 --> 一些预处理接口，如人脸检测，图片灰化处理，样本数据的训练...<!-- /react-text --></li><li data-reactid="297"><code data-reactid="298">routes</code><!-- react-text: 299 --> express 的路由控制文件<!-- /react-text --></li><li data-reactid="300"><code data-reactid="301">ssl</code><!-- react-text: 302 --> HTTPs 证书与密钥<!-- /react-text --></li><li data-reactid="303"><code data-reactid="304">server.js</code><!-- react-text: 305 --> HTTP 服务入口<!-- /react-text --></li><li data-reactid="306"><code data-reactid="307">index.js</code><!-- react-text: 308 --> 在调用 <!-- /react-text --><code data-reactid="309">server.js</code><!-- react-text: 310 --> 之前，获取前端数据，使得后端能够处理静态资源（image/css/...），为前后端公用一套代码提供解决方案。（一般在线上环境使用）<!-- /react-text --></li><li data-reactid="311"><code data-reactid="312">provider.js</code><!-- react-text: 313 --> 创建子进程 <!-- /react-text --><code data-reactid="314">server.js</code><!-- react-text: 315 -->，同时监听后端开发目录代码的改动，一旦改动便杀死上一个子进程，并且再次创建子进程 <!-- /react-text --><code data-reactid="316">server.js</code><!-- react-text: 317 -->，可以实现后端代码的<!-- /react-text --><strong data-reactid="318"><em data-reactid="319">热更新</em></strong><!-- react-text: 320 -->。（一般在开发环境使用）<!-- /react-text --></li></ul><h2 id="实现" data-reactid="321"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="322"><span class="icon icon-link" data-reactid="323"></span></a><!-- react-text: 324 -->实现<!-- /react-text --></h2><h3 id="学生照片下载" data-reactid="325"><a href="#%E5%AD%A6%E7%94%9F%E7%85%A7%E7%89%87%E4%B8%8B%E8%BD%BD" aria-hidden="true" data-reactid="326"><span class="icon icon-link" data-reactid="327"></span></a><!-- react-text: 328 -->学生照片下载<!-- /react-text --></h3><p data-reactid="329"><!-- react-text: 330 -->下载证件照就需要图片的 URL，在<!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/03/%E5%88%A9%E7%94%A8Python%E7%88%AC%E5%8F%96%E5%AD%A6%E6%A0%A1%E7%BD%91%E7%AB%99%E4%B8%8A%E7%9A%84%E8%AF%81%E4%BB%B6%E7%85%A7%EF%BC%88%E5%9B%9B%EF%BC%89/" data-reactid="331">利用Python爬取学校网站上的证件照</a><!-- react-text: 332 -->一文中，说到了教务处的学生证 URL 规则是 <!-- /react-text --><code data-reactid="333">http://${hostname}/jwgl/photos/rx${year}/${studentno}.jpg</code><!-- react-text: 334 --> ，<!-- /react-text --><code data-reactid="335">hostname</code><!-- react-text: 336 -->就是教务系统的主机地址，<!-- /react-text --><code data-reactid="337">year</code><!-- react-text: 338 -->就是入年份，<!-- /react-text --><code data-reactid="339">studentno</code><!-- react-text: 340 -->是学生学号，比如某学生学号是<!-- /react-text --><code data-reactid="341">19140429</code><!-- react-text: 342 -->，其中学号的3-4位表示入学年份，表示学生是 2014 年入学，那么他的学生证 URL 就是 <!-- /react-text --><code data-reactid="343">http://223.2.10.123/jwgl/photos/rx2014/19140429</code><!-- react-text: 344 -->；<!-- /react-text --></p><p data-reactid="345"><!-- react-text: 346 -->知道了学生照的 URL 规则后，那么怎么得到各个学年入学的学生学号集合呢？ 如果用穷举法，学号一共有 8 位，每位有 0-9 10 种可能，那么得到每一年的学生照片就需要 LOOP 10^8 次，这种级别的时间复杂度是不可接受的。于是通过查阅，搜索找到了 <!-- /react-text --><a href="http://blog.chaiziyi.com.cn/2016/06/13/%E5%88%A9%E7%94%A8Python%E8%BF%87%E6%BB%A4%E6%9C%89%E7%94%A8%E6%A0%A1%E5%9B%AD%E7%BD%91%E8%B4%A6%E5%8F%B7/" data-reactid="347">获取南师大学号</a><!-- react-text: 348 -->，里面提到了获取学号的接口<!-- /react-text --><code data-reactid="349">http://urp.njnu.edu.cn/authorizeUsers.portal?limit=100&amp;term=191301</code><!-- react-text: 350 -->，<!-- /react-text --><code data-reactid="351">term</code><!-- react-text: 352 --> 表示搜索关键字，可以是 <!-- /react-text --><code data-reactid="353">1913/191301/...</code><!-- react-text: 354 --> 将会返回学号中含有其字符串的数据，limit则是数据数最大限制，通过这个接口便可以得到学号集合<!-- /react-text --></p><p data-reactid="355"><!-- react-text: 356 -->最后便是学生照片下载的代码书写了。 采用的是 Bash Script 书写，具有较强的易用性，不需要复杂的平台、环境依赖。第一版是使用 <!-- /react-text --><code data-reactid="357">wget</code><!-- react-text: 358 --> 指令进行下载，但是该指令在 <!-- /react-text --><code data-reactid="359">windows/osx</code><!-- react-text: 360 --> 需要额外安装，所以最后改成了 <!-- /react-text --><code data-reactid="361">curl</code><!-- react-text: 362 -->。<!-- /react-text --></p><div data-reactid="363"><style data-reactid="364">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:770px;max-height:770pxpx;" data-reactid="365"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.62337662337662%;" data-reactid="366"></div><div class="medium-image-progressive" data-reactid="367"><canvas data-reactid="368"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="369"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884923dd9155.jpg" data-reactid="370"/><noscript data-reactid="371"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884923dd9155.jpg" data-reactid="372"/></noscript></div></div></div><!-- react-text: 373 --> <!-- /react-text --><div data-reactid="374"><style data-reactid="375">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:770px;max-height:770pxpx;" data-reactid="376"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.62337662337662%;" data-reactid="377"></div><div class="medium-image-progressive" data-reactid="378"><canvas data-reactid="379"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="380"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884926960c79.jpg" data-reactid="381"/><noscript data-reactid="382"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884926960c79.jpg" data-reactid="383"/></noscript></div></div></div><h3 id="人脸识别理论学习" data-reactid="384"><a href="#%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0" aria-hidden="true" data-reactid="385"><span class="icon icon-link" data-reactid="386"></span></a><!-- react-text: 387 -->人脸识别理论学习<!-- /react-text --></h3><p data-reactid="388"><!-- react-text: 389 -->人脸识别实际包括构建人脸识别系统的一系列相关技术，包括人脸图像采集、人脸定位、人脸识别预处理、身份确认以及身份查找等。上一步已经完成了人脸的采集； 人脸定位也就是人脸的检测，在一张图片中，找出人脸的位置。通过一些特征提取的方法，如<!-- /react-text --><a href="http://www.voidcn.com/blog/jscese/article/p-6250381.html" data-reactid="390">HOG特征，LBP特征，Haar特征</a><!-- react-text: 391 -->，<!-- /react-text --><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html" data-reactid="392">训练</a><!-- react-text: 393 -->得到级联分类器，分类器对图像的任意位置和任意尺寸的部分(通常是正方形或长方形)进行分类，判定是或不是人脸。opencv源码中提供了一些<!-- /react-text --><a href="https://github.com/opencv/opencv/tree/master/data" data-reactid="394">常用的分类器</a><!-- react-text: 395 -->（XML）。人脸识别预处理也就是对图像进行灰化，人脸检测，得到统一大小的人脸图片；然后便是识别了，对样本训练<!-- /react-text --><a href="https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%81%E8%84%B8#.E7.94.9F.E6.88.90.E7.89.B9.E5.BE.81.E8.84.B8" data-reactid="396">生成特征脸</a><!-- react-text: 397 -->后，对于输入的人脸进行预处理后，得到其<!-- /react-text --><a href="http://blog.csdn.net/smartempire/article/details/21406005" data-reactid="398">特征脸权重向量</a><!-- react-text: 399 -->，计算向量距离，找到最小距离的样本人脸。<!-- /react-text --></p><p data-reactid="400">可以看到特征脸的生成是需要整个样本数据的，所以如果用户修改了样本数据，需要对全部样本重新训练，得到一组全新的特征脸。</p><h3 id="opencv-环境安装" data-reactid="401"><a href="#opencv-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85" aria-hidden="true" data-reactid="402"><span class="icon icon-link" data-reactid="403"></span></a><!-- react-text: 404 -->opencv 环境安装<!-- /react-text --></h3><p data-reactid="405">由于开发平台是 OSX ，而 OSX 有 Homebrew 神器</p><pre data-reactid="406"><code class="hljs language-bash" data-query="{}" data-lang="bash" data-reactid="407"><span class="hljs-comment" data-reactid="408"># 安装 Homebrew</span><!-- react-text: 409 -->
+/usr/bin/ruby -e <!-- /react-text --><span class="hljs-string" data-reactid="410"><!-- react-text: 411 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="412">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><!-- react-text: 413 -->&quot;<!-- /react-text --></span><!-- react-text: 414 -->
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="415"># 设置 Homebrew镜像代理，国内下载加速</span><!-- react-text: 416 -->
+<!-- /react-text --><span class="hljs-built_in" data-reactid="417">cd</span><!-- react-text: 418 --> <!-- /react-text --><span class="hljs-string" data-reactid="419"><!-- react-text: 420 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="421">$(brew --repo)</span><!-- react-text: 422 -->&quot;<!-- /react-text --></span><!-- react-text: 423 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="424">set</span><!-- react-text: 425 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+<!-- /react-text --><span class="hljs-built_in" data-reactid="426">cd</span><!-- react-text: 427 --> <!-- /react-text --><span class="hljs-string" data-reactid="428"><!-- react-text: 429 -->&quot;<!-- /react-text --><span class="hljs-variable" data-reactid="430">$(brew --repo)</span><!-- react-text: 431 -->/Library/Taps/homebrew/homebrew-core&quot;<!-- /react-text --></span><!-- react-text: 432 -->
+git remote <!-- /react-text --><span class="hljs-built_in" data-reactid="433">set</span><!-- react-text: 434 -->-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+brew update
+<!-- /react-text --><span class="hljs-built_in" data-reactid="435">echo</span><!-- react-text: 436 --> <!-- /react-text --><span class="hljs-string" data-reactid="437">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&#x27;</span><!-- react-text: 438 --> &gt;&gt; ~/.bash_profile
+<!-- /react-text --><span class="hljs-built_in" data-reactid="439">source</span><!-- react-text: 440 --> ~/.bash_profile
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="441"># 安装 opencv</span><!-- react-text: 442 -->
+brew tap homebrew/science
+brew install opencv<!-- /react-text --></code></pre><h3 id="node-cc扩展" data-reactid="443"><a href="#node-cc%E6%89%A9%E5%B1%95" aria-hidden="true" data-reactid="444"><span class="icon icon-link" data-reactid="445"></span></a><!-- react-text: 446 -->node C/C++扩展<!-- /react-text --></h3><p data-reactid="447"><!-- react-text: 448 -->node C/C++扩展是在 node 环境调用 C 系列接口的方法。 <!-- /react-text --><div data-reactid="449"><style data-reactid="450">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:566px;max-height:566pxpx;" data-reactid="451"><div class="medium-image-progressive-placeholder" style="padding-bottom:131.27208480565372%;" data-reactid="452"></div><div class="medium-image-progressive" data-reactid="453"><canvas data-reactid="454"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="455"/><img class="medium-image-origin" src="http://xb.hubwiz.com/api/book/57bbdc1a109ee9d927c25ab0/images/00010.gif" data-reactid="456"/><noscript data-reactid="457"><img class="medium-image-origin" src="http://xb.hubwiz.com/api/book/57bbdc1a109ee9d927c25ab0/images/00010.gif" data-reactid="458"/></noscript></div></div></div><!-- react-text: 459 --> 已经有人用该方法写过 <!-- /react-text --><a href="https://github.com/peterbraden/node-opencv" data-reactid="460"><code data-reactid="461">node-opencv</code></a><!-- react-text: 462 -->，并在此基础上我还加上了 <!-- /react-text --><code data-reactid="463">CircleLBP</code><!-- react-text: 464 --> <!-- /react-text --><code data-reactid="465">RectLBP</code><!-- react-text: 466 --> <!-- /react-text --><code data-reactid="467">ToThreeChannels</code><!-- react-text: 468 --> <!-- /react-text --><code data-reactid="469">PCA</code><!-- react-text: 470 --> 算法，<!-- /react-text --><code data-reactid="471">ToThreeChannels</code><!-- react-text: 472 --> 是将 单通道（灰）或者 RGBA 通道变成 RGB 通道。下图给出的是通用的 <!-- /react-text --><code data-reactid="473">ConvertChannels</code><!-- react-text: 474 --> 的算法流程图，主要可以转化图像的通道数，输入参数 <!-- /react-text --><code data-reactid="475">n: int 通道数</code><!-- react-text: 476 --> <!-- /react-text --><div data-reactid="477"><style data-reactid="478">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:505px;max-height:505pxpx;" data-reactid="479"><div class="medium-image-progressive-placeholder" style="padding-bottom:112.67326732673266%;" data-reactid="480"></div><div class="medium-image-progressive" data-reactid="481"><canvas data-reactid="482"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="483"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/590711b78ace8.jpg" data-reactid="484"/><noscript data-reactid="485"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/590711b78ace8.jpg" data-reactid="486"/></noscript></div></div></div></p><center data-reactid="487">`ConvertChannels` 算法流程图</center><h3 id="图片预处理（人脸检测）" data-reactid="488"><a href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%EF%BC%89" aria-hidden="true" data-reactid="489"><span class="icon icon-link" data-reactid="490"></span></a><!-- react-text: 491 -->图片预处理（人脸检测...）<!-- /react-text --></h3><div data-reactid="492"><style data-reactid="493">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:416px;max-height:416pxpx;" data-reactid="494"><div class="medium-image-progressive-placeholder" style="padding-bottom:136.77884615384613%;" data-reactid="495"></div><div class="medium-image-progressive" data-reactid="496"><canvas data-reactid="497"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="498"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/590714291ca07.jpg" data-reactid="499"/><noscript data-reactid="500"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/590714291ca07.jpg" data-reactid="501"/></noscript></div></div></div><center data-reactid="502">图片预处理</center><p data-reactid="503"><!-- react-text: 504 -->经过多次尝试后，对于学生证件照，最终比较得出，采用 LBP 级联分类器，窗口放大 1.95 倍左右效果较好。（测试数据在 <!-- /react-text --><code data-reactid="505">backend/data/summary.json</code><!-- react-text: 506 -->）<!-- /react-text --></p><div data-reactid="507"><style data-reactid="508">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:770px;max-height:770pxpx;" data-reactid="509"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.62337662337662%;" data-reactid="510"></div><div class="medium-image-progressive" data-reactid="511"><canvas data-reactid="512"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="513"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884929797559.jpg" data-reactid="514"/><noscript data-reactid="515"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884929797559.jpg" data-reactid="516"/></noscript></div></div></div><!-- react-text: 517 --> <!-- /react-text --><div data-reactid="518"><style data-reactid="519">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:770px;max-height:770pxpx;" data-reactid="520"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.62337662337662%;" data-reactid="521"></div><div class="medium-image-progressive" data-reactid="522"><canvas data-reactid="523"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="524"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588492ae5471e.jpg" data-reactid="525"/><noscript data-reactid="526"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588492ae5471e.jpg" data-reactid="527"/></noscript></div></div></div><h3 id="识别算法测试与确定" data-reactid="528"><a href="#%E8%AF%86%E5%88%AB%E7%AE%97%E6%B3%95%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%A1%AE%E5%AE%9A" aria-hidden="true" data-reactid="529"><span class="icon icon-link" data-reactid="530"></span></a><!-- react-text: 531 -->识别算法测试与确定<!-- /react-text --></h3><p data-reactid="532"><!-- react-text: 533 -->比较 opencv 中三种人脸识别算法，Eigen、Fisher、LBPH。数据在<!-- /react-text --><code data-reactid="534">backend/cpptest/</code><!-- react-text: 535 --> 中<!-- /react-text --></p><table data-reactid="536"><caption data-reactid="537"><em data-reactid="538">opencv 人脸识别算法比较</em></caption><tbody data-reactid="539"><tr data-reactid="540"><th rowspan="2" style="text-align:center;" data-reactid="541">算法/时间(ms)</th><th colspan="2" data-reactid="542">实验1</th><th colspan="2" data-reactid="543">实验2</th><th colspan="2" data-reactid="544">实验3</th></tr><tr data-reactid="545"><td data-reactid="546">训练</td><td data-reactid="547">预测</td><td data-reactid="548">训练</td><td data-reactid="549">预测</td><td data-reactid="550">训练</td><td data-reactid="551">预测</td></tr><tr data-reactid="552"><th data-reactid="553">Eigen</th><td data-reactid="554">0.030648</td><td data-reactid="555">0.010711</td><td data-reactid="556">0.025524</td><td data-reactid="557">0.011132</td><td data-reactid="558">0.029332</td><td data-reactid="559">0.007791</td></tr><tr data-reactid="560"><th data-reactid="561">Fisher</th><td data-reactid="562">0.040043</td><td data-reactid="563">0.0089</td><td data-reactid="564">0.039244</td><td data-reactid="565">0.007145</td><td data-reactid="566">0.033777</td><td data-reactid="567">0.008276</td></tr><tr data-reactid="568"><th data-reactid="569">LBPH</th><td data-reactid="570">0.035812</td><td data-reactid="571">0.071586</td><td data-reactid="572">0.034822</td><td data-reactid="573">0.075267</td><td data-reactid="574">0.03204</td><td data-reactid="575">0.067166</td></tr></tbody></table><p data-reactid="576"><!-- react-text: 577 -->综合比较可以得出，效率 Eigen &gt; Fisher &gt; LBPH<!-- /react-text --><br data-reactid="578"/><!-- react-text: 579 -->所以采用Eigen（特征脸）算法<!-- /react-text --></p><h3 id="学生信息接口（爬虫）" data-reactid="580"><a href="#%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%EF%BC%88%E7%88%AC%E8%99%AB%EF%BC%89" aria-hidden="true" data-reactid="581"><span class="icon icon-link" data-reactid="582"></span></a><!-- react-text: 583 -->学生信息接口（爬虫）<!-- /react-text --></h3><p data-reactid="584"><!-- react-text: 585 -->该系统还需要获取到学生的个人信息，比如通过学号和密码验证是否正确等等。在同一届的同学中，已经有一位同学研究教务系统比较透彻了，而且做了一个<!-- /react-text --><a href="http://njnu.chaiziyi.com.cn/" data-reactid="586">查南师</a><!-- react-text: 587 -->网站，并且该网站不需要输入验证码进行身份验证，所以我只需要爬取该网站的接口即可。<!-- /react-text --></p><h3 id="前端" data-reactid="588"><a href="#%E5%89%8D%E7%AB%AF" aria-hidden="true" data-reactid="589"><span class="icon icon-link" data-reactid="590"></span></a><!-- react-text: 591 -->前端<!-- /react-text --></h3><p data-reactid="592"><!-- react-text: 593 -->该系统使用的是前后端分离的架构，页面的渲染交给客户端 <!-- /react-text --><code data-reactid="594">JavaScript</code><!-- react-text: 595 --> 来实现，后端只需要提供纯数据接口即可，让后端的工作更加纯粹。<!-- /react-text --></p><p data-reactid="596"><!-- react-text: 597 -->对于页面路由的控制，使用的是 HTML5 的 <!-- /react-text --><a href="https://developer.mozilla.org/en-US/docs/Web/API/History" data-reactid="598">History API</a><!-- react-text: 599 --> ，交给 JavaScript 来控制，所以只要不进行页面的强制刷新（Ctrl/cmd + R），所有路径的跳转都是不会从服务器获取 HTML CSS 进行渲染，这就是单页 Web 应用的核心，这样一来，用户体验就更佳，服务器负载也更小，但对于浏览器要求更高了。<!-- /react-text --></p><p data-reactid="600"><!-- react-text: 601 -->结合 React Web Component 和 <!-- /react-text --><a href="https://github.com/css-modules/css-modules" data-reactid="602">CSS Module</a><!-- react-text: 603 --> 思想，将前端页面细分为若干个组件，在上层 Page 中进行数据的传输，组件的组合，在 Page 上层还有一层 App，把一些全局通用的组件放这。 <!-- /react-text --><div data-reactid="604"><style data-reactid="605">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:986px;max-height:986pxpx;" data-reactid="606"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.5922920892495%;" data-reactid="607"></div><div class="medium-image-progressive" data-reactid="608"><canvas data-reactid="609"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="610"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58845e6781176.jpg" data-reactid="611"/><noscript data-reactid="612"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58845e6781176.jpg" data-reactid="613"/></noscript></div></div></div></p><p data-reactid="614"><!-- react-text: 615 -->而且所有的数据控制都在 <!-- /react-text --><code data-reactid="616">reducer</code><!-- react-text: 617 --> 中，层次清晰，代码复用性高。<!-- /react-text --></p><div data-reactid="618"><style data-reactid="619">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:800px;max-height:800pxpx;" data-reactid="620"><div class="medium-image-progressive-placeholder" style="padding-bottom:75%;" data-reactid="621"></div><div class="medium-image-progressive" data-reactid="622"><canvas data-reactid="623"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="624"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58845a7e4a302.jpg" data-reactid="625"/><noscript data-reactid="626"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58845a7e4a302.jpg" data-reactid="627"/></noscript></div></div></div><!-- react-text: 628 --> ``` app/ ├── common/ │ ├── css/ │ │ └── ... │ ├── storage.js │ └── utils.js ├── components/ │ ├── Button/ │ │ ├── index.js │ │ └── style.less │ ├── FaceRec/ │ │ ├── index.js │ │ └── style.less │ ├── Header/ │ │ ├── index.js │ │ └── style.less │ ├── .../ │ └── Toast/ │ ├── index.js │ └── style.less ├── pages/ │ ├── AboutPage.js │ ├── AdminLoginPage.js │ ├── AdminPage.js │ ├── AudioImportPage.js │ ├── FaceImportPage.js │ └── StuSignPage.js ├── reducers/ │ ├── about.js │ ├── actions.js │ ├── active.js │ ├── admin.js │ ├── appReducers.js │ ├── audioImport.js │ ├── base.js │ ├── faceImport.js │ └── upFace.js ├── workers/ │ └── face.worker.js ├── App.js ├── index.tpl.html ├── main.js └── router.js ```<!-- /react-text --><p data-reactid="629"><!-- react-text: 630 -->其中 <!-- /react-text --><code data-reactid="631">workers/face.worker.js</code><!-- react-text: 632 --> 文件是利用 Web Worker 起的另一个进程代码，主要做的是输入图片数据，输出人脸的位置大小，就是 JavaScript 版的人脸检测，之所以起另一个线程，是因为对于视频的人脸检测，对于实时性要求也比较高，检测也比较耗时，为了效率考虑使用了 Web Worker。<!-- /react-text --></p><div data-reactid="633"><style data-reactid="634">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1395px;max-height:1395pxpx;" data-reactid="635"><div class="medium-image-progressive-placeholder" style="padding-bottom:33.691756272401435%;" data-reactid="636"></div><div class="medium-image-progressive" data-reactid="637"><canvas data-reactid="638"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="639"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884dfc84c74c.jpg" data-reactid="640"/><noscript data-reactid="641"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/23/5884dfc84c74c.jpg" data-reactid="642"/></noscript></div></div></div><h3 id="后端" data-reactid="643"><a href="#%E5%90%8E%E7%AB%AF" aria-hidden="true" data-reactid="644"><span class="icon icon-link" data-reactid="645"></span></a><!-- react-text: 646 -->后端<!-- /react-text --></h3><p data-reactid="647">由于视图的渲染都交给浏览器了，所以后端主要就是对于数据的逻辑处理了，比如样本录入，学生信息查询（爬虫），人脸识别（调用 opencv ），同时使用 mysql 数据库，存储样本录入的信息，表结构如下：</p><pre data-reactid="648"><code data-query="{}" data-lang="data-lang" data-reactid="649">Table gp.`face_import`
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| stuid    | varchar(20)  | NO   |     | NULL    |       |
+| time     | datetime     | NO   |     | NULL    |       |
+| hash     | varchar(20)  | NO   | PRI | NULL    |       |
+| face_url | varchar(100) | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+</code></pre><p data-reactid="650"><code data-reactid="651">hash</code><!-- react-text: 652 --> 是每次上传样本的唯一 key 值，同时为了方便系统的部署迁移，没有将上传的样本数据存储在服务器中，而是存在 <!-- /react-text --><a href="https://sm.ms" data-reactid="653">sm.ms</a><!-- react-text: 654 --> 免费图床中，得到一个 <!-- /react-text --><code data-reactid="655">face_url</code><!-- react-text: 656 --> 字段，每次启动服务器之前都得进行样本的训练或者训练数据的读取；而且每次上传样本或者删除样本后，服务器都需要重新训练保存样本，重新生成一套特征脸。<!-- /react-text --></p><p data-reactid="657"><!-- react-text: 658 -->并且在开启服务器的环境和纯粹的数据处理的环境对于数据库的处理是不一样的，在服务器环境，需要开启数据库连接池，每次都从中去取出连接进行数据操作；而纯粹的读取数据库，得到<!-- /react-text --><code data-reactid="659">face_url</code><!-- react-text: 660 -->进行人脸的预处理或训练，则只需要每次单独的 开启连接 =&gt; 读取数据 =&gt; 关闭连接 即可，否则程序会一直运行下去，因为数据库连接池没关闭。<!-- /react-text --></p><p data-reactid="661"><!-- react-text: 662 -->同时，所有的前端数据接口都是 <!-- /react-text --><code data-reactid="663">/api/*</code><!-- react-text: 664 --> 规则，同时对于管理员的用户名和密码会进行 md5 不可逆编码然后再传输，防止被他人捕捉到。<!-- /react-text --></p><h3 id="同构渲染" data-reactid="665"><a href="#%E5%90%8C%E6%9E%84%E6%B8%B2%E6%9F%93" aria-hidden="true" data-reactid="666"><span class="icon icon-link" data-reactid="667"></span></a><!-- react-text: 668 -->同构渲染<!-- /react-text --></h3><p data-reactid="669">上文说到所有的页面渲染都是交给 JavaScript 控制，服务器返回的 HTML 结构如下所示：</p><pre data-reactid="670"><code class="hljs language-html" data-query="{}" data-lang="html" data-reactid="671"><span class="hljs-meta" data-reactid="672">&lt;!DOCTYPE html&gt;</span><!-- react-text: 673 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="674"><!-- react-text: 675 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="676">html</span><!-- react-text: 677 -->&gt;<!-- /react-text --></span><!-- react-text: 678 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="679"><!-- react-text: 680 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="681">head</span><!-- react-text: 682 -->&gt;<!-- /react-text --></span><!-- react-text: 683 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="684"><!-- react-text: 685 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="686">meta</span><!-- react-text: 687 --> <!-- /react-text --><span class="hljs-attr" data-reactid="688">charset</span><!-- react-text: 689 -->=<!-- /react-text --><span class="hljs-string" data-reactid="690">&quot;utf-8&quot;</span><!-- react-text: 691 -->&gt;<!-- /react-text --></span><!-- react-text: 692 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="693"><!-- react-text: 694 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="695">meta</span><!-- react-text: 696 --> <!-- /react-text --><span class="hljs-attr" data-reactid="697">http-equiv</span><!-- react-text: 698 -->=<!-- /react-text --><span class="hljs-string" data-reactid="699">&quot;X-UA-Compatible&quot;</span><!-- react-text: 700 --> <!-- /react-text --><span class="hljs-attr" data-reactid="701">content</span><!-- react-text: 702 -->=<!-- /react-text --><span class="hljs-string" data-reactid="703">&quot;IE=edge,chrome=1&quot;</span><!-- react-text: 704 -->&gt;<!-- /react-text --></span><!-- react-text: 705 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="706"><!-- react-text: 707 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="708">meta</span><!-- react-text: 709 --> <!-- /react-text --><span class="hljs-attr" data-reactid="710">name</span><!-- react-text: 711 -->=<!-- /react-text --><span class="hljs-string" data-reactid="712">&quot;viewport&quot;</span><!-- react-text: 713 --> <!-- /react-text --><span class="hljs-attr" data-reactid="714">content</span><!-- react-text: 715 -->=<!-- /react-text --><span class="hljs-string" data-reactid="716">&quot;width=device-width, initial-scale=1&quot;</span><!-- react-text: 717 -->&gt;<!-- /react-text --></span><!-- react-text: 718 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="719"><!-- react-text: 720 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="721">title</span><!-- react-text: 722 -->&gt;<!-- /react-text --></span><!-- react-text: 723 -->南师大学生签到系统<!-- /react-text --><span class="hljs-tag" data-reactid="724"><!-- react-text: 725 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="726">title</span><!-- react-text: 727 -->&gt;<!-- /react-text --></span><!-- react-text: 728 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="729"><!-- react-text: 730 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="731">link</span><!-- react-text: 732 --> <!-- /react-text --><span class="hljs-attr" data-reactid="733">rel</span><!-- react-text: 734 -->=<!-- /react-text --><span class="hljs-string" data-reactid="735">&quot;stylesheet&quot;</span><!-- react-text: 736 --> <!-- /react-text --><span class="hljs-attr" data-reactid="737">type</span><!-- react-text: 738 -->=<!-- /react-text --><span class="hljs-string" data-reactid="739">&quot;text/css&quot;</span><!-- react-text: 740 --> <!-- /react-text --><span class="hljs-attr" data-reactid="741">href</span><!-- react-text: 742 -->=<!-- /react-text --><span class="hljs-string" data-reactid="743">&quot;/pace.min.css&quot;</span><!-- react-text: 744 -->&gt;<!-- /react-text --></span><!-- react-text: 745 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="746"><!-- react-text: 747 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="748">script</span><!-- react-text: 749 --> <!-- /react-text --><span class="hljs-attr" data-reactid="750">type</span><!-- react-text: 751 -->=<!-- /react-text --><span class="hljs-string" data-reactid="752">&quot;text/javascript&quot;</span><!-- react-text: 753 --> <!-- /react-text --><span class="hljs-attr" data-reactid="754">src</span><!-- react-text: 755 -->=<!-- /react-text --><span class="hljs-string" data-reactid="756">&quot;/pace.min.js&quot;</span><!-- react-text: 757 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="758"></span><span class="hljs-tag" data-reactid="759"><!-- react-text: 760 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="761">script</span><!-- react-text: 762 -->&gt;<!-- /react-text --></span><!-- react-text: 763 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="764"><!-- react-text: 765 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="766">link</span><!-- react-text: 767 --> <!-- /react-text --><span class="hljs-attr" data-reactid="768">href</span><!-- react-text: 769 -->=<!-- /react-text --><span class="hljs-string" data-reactid="770">&quot;/style.min.css?v=b5afb06f45be775a70081c1e320e6c40&quot;</span><!-- react-text: 771 --> <!-- /react-text --><span class="hljs-attr" data-reactid="772">rel</span><!-- react-text: 773 -->=<!-- /react-text --><span class="hljs-string" data-reactid="774">&quot;stylesheet&quot;</span><!-- react-text: 775 -->&gt;<!-- /react-text --></span><!-- react-text: 776 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="777"><!-- react-text: 778 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="779">head</span><!-- react-text: 780 -->&gt;<!-- /react-text --></span><!-- react-text: 781 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="782"><!-- react-text: 783 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="784">body</span><!-- react-text: 785 -->&gt;<!-- /react-text --></span><!-- react-text: 786 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="787"><!-- react-text: 788 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="789">div</span><!-- react-text: 790 --> <!-- /react-text --><span class="hljs-attr" data-reactid="791">id</span><!-- react-text: 792 -->=<!-- /react-text --><span class="hljs-string" data-reactid="793">&quot;app&quot;</span><!-- react-text: 794 -->&gt;<!-- /react-text --></span><span class="hljs-comment" data-reactid="795">&lt;!--HTML--&gt;</span><span class="hljs-tag" data-reactid="796"><!-- react-text: 797 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="798">div</span><!-- react-text: 799 -->&gt;<!-- /react-text --></span><!-- react-text: 800 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="801"><!-- react-text: 802 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="803">script</span><!-- react-text: 804 --> <!-- /react-text --><span class="hljs-attr" data-reactid="805">type</span><!-- react-text: 806 -->=<!-- /react-text --><span class="hljs-string" data-reactid="807">&quot;text/javascript&quot;</span><!-- react-text: 808 --> <!-- /react-text --><span class="hljs-attr" data-reactid="809">src</span><!-- react-text: 810 -->=<!-- /react-text --><span class="hljs-string" data-reactid="811">&quot;/libs.min.js?v=8d589c56bcac1e2c17a7&quot;</span><!-- react-text: 812 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="813"></span><span class="hljs-tag" data-reactid="814"><!-- react-text: 815 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="816">script</span><!-- react-text: 817 -->&gt;<!-- /react-text --></span><!-- react-text: 818 -->
+    <!-- /react-text --><span class="hljs-tag" data-reactid="819"><!-- react-text: 820 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="821">script</span><!-- react-text: 822 --> <!-- /react-text --><span class="hljs-attr" data-reactid="823">type</span><!-- react-text: 824 -->=<!-- /react-text --><span class="hljs-string" data-reactid="825">&quot;text/javascript&quot;</span><!-- react-text: 826 --> <!-- /react-text --><span class="hljs-attr" data-reactid="827">src</span><!-- react-text: 828 -->=<!-- /react-text --><span class="hljs-string" data-reactid="829">&quot;/app.main.min.js?v=448dfe9c907942d09623&quot;</span><!-- react-text: 830 -->&gt;<!-- /react-text --></span><span class="null" data-reactid="831"></span><span class="hljs-tag" data-reactid="832"><!-- react-text: 833 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="834">script</span><!-- react-text: 835 -->&gt;<!-- /react-text --></span><!-- react-text: 836 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="837"><!-- react-text: 838 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="839">body</span><!-- react-text: 840 -->&gt;<!-- /react-text --></span><!-- react-text: 841 -->
+<!-- /react-text --><span class="hljs-tag" data-reactid="842"><!-- react-text: 843 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="844">html</span><!-- react-text: 845 -->&gt;<!-- /react-text --></span></code></pre><p data-reactid="846"><!-- react-text: 847 -->其中任何数据都是没有的，只有 “第二时间” 通过 <!-- /react-text --><code data-reactid="848">app.min.js</code><!-- react-text: 849 --> 执行 JavaScript 进行渲染，所以对于用户短暂的 “第一时间” 感觉是不好的，什么都没有，也就是没有 “首屏渲染”，优化首屏渲染，就需要通过服务器返回带内容的 HTML。<!-- /react-text --></p><p data-reactid="850"><!-- react-text: 851 -->由于前端使用的是 <!-- /react-text --><code data-reactid="852">react</code><!-- react-text: 853 -->，将 HTML 抽象成为 <!-- /react-text --><code data-reactid="854">JSX</code><!-- react-text: 855 -->，将 DOM 操作 转化成状态的变化，重新渲染的思想，所以使得<!-- /react-text --><strong data-reactid="856"><!-- react-text: 857 -->服务器端也能够解析<!-- /react-text --><code data-reactid="858">react</code></strong><!-- react-text: 859 -->，<!-- /react-text --><code data-reactid="860">redux</code><!-- react-text: 861 --> 又将状态的更新操作抽离出来，使得服务器端可以更方便的控制状态从而进行渲染（当然，只有 nodejs 作为后端渲染层才可以做到），同时由于前端使用 Babel 编译前端代码，所以可以用新型语法糖，为了服务器端也能够识别，所以也需要 babel-register<!-- /react-text --></p><div data-reactid="862"><style data-reactid="863">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:493px;max-height:493pxpx;" data-reactid="864"><div class="medium-image-progressive-placeholder" style="padding-bottom:147.66734279918865%;" data-reactid="865"></div><div class="medium-image-progressive" data-reactid="866"><canvas data-reactid="867"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="868"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59071b3713600.jpg" data-reactid="869"/><noscript data-reactid="870"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59071b3713600.jpg" data-reactid="871"/></noscript></div></div></div><p data-reactid="872"><!-- react-text: 873 -->同时让浏览器得到初始状态，<!-- /react-text --><code data-reactid="874">window.__INITIAL_STATE__=${JSON.stringify(initialState)}</code><!-- react-text: 875 -->，把初始状态<!-- /react-text --><code data-reactid="876">window.__INITIAL_STATE__</code><!-- react-text: 877 --> 传给客户端 <!-- /react-text --><div data-reactid="878"><style data-reactid="879">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:335px;max-height:335pxpx;" data-reactid="880"><div class="medium-image-progressive-placeholder" style="padding-bottom:168.65671641791045%;" data-reactid="881"></div><div class="medium-image-progressive" data-reactid="882"><canvas data-reactid="883"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="884"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59071db0073c0.jpg" data-reactid="885"/><noscript data-reactid="886"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59071db0073c0.jpg" data-reactid="887"/></noscript></div></div></div></p><p data-reactid="888">以上，便可以实现同构渲染，既保证了 SPA 的用户体验，首屏渲染，而且解决了SEO（搜索引擎优化）的问题。</p><h3 id="部署" data-reactid="889"><a href="#%E9%83%A8%E7%BD%B2" aria-hidden="true" data-reactid="890"><span class="icon icon-link" data-reactid="891"></span></a><!-- react-text: 892 -->部署<!-- /react-text --></h3><p data-reactid="893"><!-- react-text: 894 -->开发的差不多后，找朋友要了个 ubuntu 的服务器，首先麻烦的就是环境的迁移了，由于源码都部署在 GitHub 上，所以直接 <!-- /react-text --><code data-reactid="895">git clone</code><!-- react-text: 896 --> 就可以得到了（原始证照和预处理后的证照、训练的 yaml 数据都没提交至 GitHub，所以代码库还是挺小的）。<!-- /react-text --></p><p data-reactid="897">然后 Ubuntu 上安装 opencv，Ubuntu 上可没有 Homebrew 神奇，所以只能下载源码包，自己进行编译连接，生成动态链接库</p><p data-reactid="898">安装好 node + npm + nvm，node 版本 ≥7.0，以及 mysql，导入 gp.sql</p><p data-reactid="899"><!-- react-text: 900 -->再在服务器执行 <!-- /react-text --><code data-reactid="901">npm install</code><!-- react-text: 902 -->（安装项目依赖包，各个目录下都有自己独立的依赖包，前端目录则不必安装，因为只需要其产生的代码） =&gt; 下载脚本 =&gt; 预处理脚本 =&gt; 训练样本脚本 =&gt; 启动服务器<!-- /react-text --></p><h3 id="nginx--https" data-reactid="903"><a href="#nginx--https" aria-hidden="true" data-reactid="904"><span class="icon icon-link" data-reactid="905"></span></a><!-- react-text: 906 -->nginx + https<!-- /react-text --></h3><p data-reactid="907">但是服务器启动后，外网还是不能直接访问，需要通过 nginx 反向代理，同时解析域名至服务器 IP，为了浏览器安全可以打开摄像头，还需要开启 HTTPs 协议，我使用的是腾讯云免费的一年证书，然后 nginx 配置后即可。</p><h3 id="seo" data-reactid="908"><a href="#seo" aria-hidden="true" data-reactid="909"><span class="icon icon-link" data-reactid="910"></span></a><!-- react-text: 911 -->SEO<!-- /react-text --></h3><p data-reactid="912"><!-- react-text: 913 -->前文已经介绍到，虽然该 Web 站点是 SPA，但是由于同构渲染的技术，单独通过 URL 也是可以直接获取到带内容的数据的，所以网络爬虫可以很方便的爬取该站点，为 SEO 做下基础。 为了增强站点的曝光率，就需要做 SEO 了，添加 <!-- /react-text --><code data-reactid="914">robots.txt</code><!-- react-text: 915 -->，站点地图，同时在前端页面加入不可见的 <!-- /react-text --><code data-reactid="916">a</code><!-- react-text: 917 --> 标签，利于网页爬虫爬取其他链接<!-- /react-text --></p><div data-reactid="918"><style data-reactid="919">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:909px;max-height:909pxpx;" data-reactid="920"><div class="medium-image-progressive-placeholder" style="padding-bottom:72.82728272827282%;" data-reactid="921"></div><div class="medium-image-progressive" data-reactid="922"><canvas data-reactid="923"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="924"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" data-reactid="925"/><noscript data-reactid="926"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" data-reactid="927"/></noscript></div></div></div><h3 id="pc-desktop" data-reactid="928"><a href="#pc-desktop" aria-hidden="true" data-reactid="929"><span class="icon icon-link" data-reactid="930"></span></a><!-- react-text: 931 -->PC Desktop<!-- /react-text --></h3><p data-reactid="932"><!-- react-text: 933 -->为了方便师生使用，还使用 <!-- /react-text --><code data-reactid="934">nativefier</code><!-- react-text: 935 --> 将站点打包成 PC Desktop，其实就是将站点 URL 和 Chrome 内核组合成一个 Application。<!-- /react-text --><br data-reactid="936"/><code data-reactid="937">nativefier</code><!-- react-text: 938 --> 是基于 <!-- /react-text --><a href="https://electron.atom.io/" data-reactid="939">Electron</a><!-- react-text: 940 --> 的， Electron 将 Chrome 内核和 nodejs 融合在一起，所以你可以使用前端技术（HTML/CSS/JavaScript）和 nodejs api 及其第三方 node 包，利用 chrome 和 nodejs 的跨平台性，基于 Electron 的 App 也是可以跨平台的（Mac, Windows, Linux）。<!-- /react-text --></p><p data-reactid="941">当你启动了一个 Electron 应用，就有一个主进程（main process ）被创建了。这条进程将负责创建出应用的 GUI（也就是应用的窗口），并处理用户与这个 GUI 之间的交互。</p><p data-reactid="942"><!-- react-text: 943 -->但直接启动 main.js 是无法显示应用窗口的，在 main.js 中通过调用BrowserWindow模块才能将使用应用窗口。然后每个浏览器窗口将执行它们各自的渲染器进程（ renderer process ）。渲染器进程将会处理一个真正的 web 页面（HTML + CSS + JavaScript），将页面渲染到窗口中。 <!-- /react-text --><div data-reactid="944"><style data-reactid="945">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1000px;max-height:1000pxpx;" data-reactid="946"><div class="medium-image-progressive-placeholder" style="padding-bottom:114.5%;" data-reactid="947"></div><div class="medium-image-progressive" data-reactid="948"><canvas data-reactid="949"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="950"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5907f2708dfaa.jpg" data-reactid="951"/><noscript data-reactid="952"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5907f2708dfaa.jpg" data-reactid="953"/></noscript></div></div></div></p><h2 id="主要代码流程示意" data-reactid="954"><a href="#%E4%B8%BB%E8%A6%81%E4%BB%A3%E7%A0%81%E6%B5%81%E7%A8%8B%E7%A4%BA%E6%84%8F" aria-hidden="true" data-reactid="955"><span class="icon icon-link" data-reactid="956"></span></a><!-- react-text: 957 -->主要代码流程示意<!-- /react-text --></h2><p data-reactid="958">下面对某些代码进行剖析</p><h3 id="获取id集合" data-reactid="959"><a href="#%E8%8E%B7%E5%8F%96id%E9%9B%86%E5%90%88" aria-hidden="true" data-reactid="960"><span class="icon icon-link" data-reactid="961"></span></a><!-- react-text: 962 -->获取ID集合<!-- /react-text --></h3><p data-reactid="963"><!-- react-text: 964 -->文件：<!-- /react-text --><code data-reactid="965">gp-image-download/lib/get-all-id.js</code><br data-reactid="966"/><!-- react-text: 967 -->语言：JavaScript<!-- /react-text --><br data-reactid="968"/><!-- react-text: 969 -->环境：Nodejs<!-- /react-text --><br data-reactid="970"/><!-- react-text: 971 -->使用：<!-- /react-text --><code data-reactid="972">(cd gp-image-download &amp;&amp; node get-all-id.js)</code></p><p data-reactid="973"><!-- react-text: 974 -->主要通过手动登录，获取到未过期的已登录 Cookie，然后携带 Cookie，访问 <!-- /react-text --><code data-reactid="975">http://urp.njnu.edu.cn/authorizeUsers.portal</code><!-- react-text: 976 --> ...<!-- /react-text --></p><div data-reactid="977"><style data-reactid="978">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:388px;max-height:388pxpx;" data-reactid="979"><div class="medium-image-progressive-placeholder" style="padding-bottom:169.0721649484536%;" data-reactid="980"></div><div class="medium-image-progressive" data-reactid="981"><canvas data-reactid="982"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="983"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/59081c90eff02.jpg" data-reactid="984"/><noscript data-reactid="985"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/59081c90eff02.jpg" data-reactid="986"/></noscript></div></div></div><center data-reactid="987">获取ID集合</center><h3 id="下载图片脚本" data-reactid="988"><a href="#%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="989"><span class="icon icon-link" data-reactid="990"></span></a><!-- react-text: 991 -->下载图片脚本<!-- /react-text --></h3><p data-reactid="992"><!-- react-text: 993 -->文件：<!-- /react-text --><code data-reactid="994">gp-image-download/download.sh</code><br data-reactid="995"/><!-- react-text: 996 -->语言：bash script<!-- /react-text --><br data-reactid="997"/><!-- react-text: 998 -->环境：bash<!-- /react-text --><br data-reactid="999"/><!-- react-text: 1000 -->使用：<!-- /react-text --><code data-reactid="1001">(cd gp-image-download &amp;&amp; ./download.sh 2013)</code></p><div data-reactid="1002"><style data-reactid="1003">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:359px;max-height:359pxpx;" data-reactid="1004"><div class="medium-image-progressive-placeholder" style="padding-bottom:260.7242339832869%;" data-reactid="1005"></div><div class="medium-image-progressive" data-reactid="1006"><canvas data-reactid="1007"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1008"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5908217a7e6f3.jpg" data-reactid="1009"/><noscript data-reactid="1010"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5908217a7e6f3.jpg" data-reactid="1011"/></noscript></div></div></div><center data-reactid="1012">下载图片脚本</center><h3 id="npm-命令" data-reactid="1013"><a href="#npm-%E5%91%BD%E4%BB%A4" aria-hidden="true" data-reactid="1014"><span class="icon icon-link" data-reactid="1015"></span></a><!-- react-text: 1016 -->npm 命令<!-- /react-text --></h3><p data-reactid="1017"><!-- react-text: 1018 -->文件：<!-- /react-text --><code data-reactid="1019">gp-njnu-photos-backend/package.json</code><br data-reactid="1020"/><!-- react-text: 1021 -->使用：<!-- /react-text --><code data-reactid="1022">(cd gp-njnu-photos-backend &amp;&amp; npm run $scriptName)</code></p><pre data-reactid="1023"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="1024"><span class="hljs-meta" data-reactid="1025"># 图片预处理</span><!-- react-text: 1026 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1027"># detect face, then gray, save</span><!-- react-text: 1028 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1029"># eg.  $ npm run grayface 2013 191301</span><!-- react-text: 1030 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1031">#      $ npm run grayface 2013</span><!-- react-text: 1032 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1033">#      $ npm run grayface</span><!-- react-text: 1034 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1035"># npm run grayface year classno</span><!-- react-text: 1036 -->
+
+
+<!-- /react-text --><span class="hljs-meta" data-reactid="1037"># 样本训练并写入文件。</span><!-- react-text: 1038 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1039"># after read grayface images, then train and save it</span><!-- react-text: 1040 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1041"># eg.  $ node pretreat/train_save.js -f --args 2013</span><!-- react-text: 1042 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1043">#      $ node pretreat/train_save.js -f --args 2013 191301</span><!-- react-text: 1044 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1045"># -f：重新训练，不论是否已存在训练数据</span><!-- react-text: 1046 -->
+<!-- /react-text --><span class="hljs-meta" data-reactid="1047"># --args year classno 训练哪一年哪一班级的图片</span><!-- react-text: 1048 -->
+
+<!-- /react-text --><span class="hljs-string" data-reactid="1049">&quot;grayface&quot;</span><!-- react-text: 1050 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1051">&quot;node pretreat/gray_face.js&quot;</span><!-- react-text: 1052 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1053">&quot;train:force&quot;</span><!-- react-text: 1054 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1055">&quot;node pretreat/train_save.js -f&quot;</span><!-- react-text: 1056 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1057">&quot;train:smart&quot;</span><!-- react-text: 1058 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1059">&quot;node pretreat/train_save.js&quot;</span><!-- react-text: 1060 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1061">&quot;dev:w&quot;</span><!-- react-text: 1062 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1063">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node .&quot;</span><!-- react-text: 1064 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1065">&quot;dev&quot;</span><!-- react-text: 1066 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1067">&quot;cross-env NODE_STATUS=run, NODE_ENV=dev node index.js&quot;</span><!-- react-text: 1068 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1069">&quot;start&quot;</span><!-- react-text: 1070 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1071">&quot;cross-env NODE_STATUS=run, NODE_ENV=prod node index.js&quot;</span><!-- react-text: 1072 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1073">&quot;retrain&quot;</span><!-- react-text: 1074 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1075">&quot;npm run grayface &amp;&amp; npm run train:force&quot;</span><!-- react-text: 1076 -->,
+<!-- /react-text --><span class="hljs-string" data-reactid="1077">&quot;retrain:dev&quot;</span><!-- react-text: 1078 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1079">&quot;npm run grayface 2013 191301 &amp;&amp; node pretreat/train_save.js -f --args 2013 191301&quot;</span><!-- react-text: 1080 -->,<!-- /react-text --></code></pre><h3 id="开发环境（热部署）脚本" data-reactid="1081"><a href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88%E7%83%AD%E9%83%A8%E7%BD%B2%EF%BC%89%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1082"><span class="icon icon-link" data-reactid="1083"></span></a><!-- react-text: 1084 -->开发环境（热部署）脚本<!-- /react-text --></h3><p data-reactid="1085"><!-- react-text: 1086 -->文件：<!-- /react-text --><code data-reactid="1087">gp-njnu-photos-backend/provider.js</code><br data-reactid="1088"/><!-- react-text: 1089 -->语言：JavaScript<!-- /react-text --><br data-reactid="1090"/><!-- react-text: 1091 -->环境：Nodejs<!-- /react-text --><br data-reactid="1092"/><!-- react-text: 1093 -->使用：<!-- /react-text --><code data-reactid="1094">(cd gp-njnu-photos-backend &amp;&amp; npm run dev:w)</code></p><div data-reactid="1095"><style data-reactid="1096">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:283px;max-height:283pxpx;" data-reactid="1097"><div class="medium-image-progressive-placeholder" style="padding-bottom:249.46996466431096%;" data-reactid="1098"></div><div class="medium-image-progressive" data-reactid="1099"><canvas data-reactid="1100"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1101"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5908260f608da.jpg" data-reactid="1102"/><noscript data-reactid="1103"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/02/5908260f608da.jpg" data-reactid="1104"/></noscript></div></div></div><center data-reactid="1105">开发环境（热部署）脚本</center><h3 id="服务器自动更新代码" data-reactid="1106"><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81" aria-hidden="true" data-reactid="1107"><span class="icon icon-link" data-reactid="1108"></span></a><!-- react-text: 1109 -->服务器自动更新代码<!-- /react-text --></h3><ul data-reactid="1110"><li data-reactid="1111">服务器端</li></ul><p data-reactid="1112"><!-- react-text: 1113 -->文件：<!-- /react-text --><code data-reactid="1114">gp-njnu-photos-backend/routes/control.js</code><br data-reactid="1115"/><!-- react-text: 1116 -->语言：JavaScript<!-- /react-text --><br data-reactid="1117"/><!-- react-text: 1118 -->环境：Nodejs<!-- /react-text --></p><div data-reactid="1119"><style data-reactid="1120">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:243px;max-height:243pxpx;" data-reactid="1121"><div class="medium-image-progressive-placeholder" style="padding-bottom:193.4156378600823%;" data-reactid="1122"></div><div class="medium-image-progressive" data-reactid="1123"><canvas data-reactid="1124"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1125"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/06/590db98b40739.png" data-reactid="1126"/><noscript data-reactid="1127"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/06/590db98b40739.png" data-reactid="1128"/></noscript></div></div></div><center data-reactid="1129">服务器自动更新代码 - 服务器端</center><ul data-reactid="1130"><li data-reactid="1131">本机（开发机）</li></ul><p data-reactid="1132"><!-- react-text: 1133 -->文件：<!-- /react-text --><code data-reactid="1134">push.sh</code><br data-reactid="1135"/><!-- react-text: 1136 -->语言：Bash Script<!-- /react-text --><br data-reactid="1137"/><!-- react-text: 1138 -->环境：Bash<!-- /react-text --></p><div data-reactid="1139"><style data-reactid="1140">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:287px;max-height:287pxpx;" data-reactid="1141"><div class="medium-image-progressive-placeholder" style="padding-bottom:297.21254355400697%;" data-reactid="1142"></div><div class="medium-image-progressive" data-reactid="1143"><canvas data-reactid="1144"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1145"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/06/590db9d3cf913.png" data-reactid="1146"/><noscript data-reactid="1147"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/06/590db9d3cf913.png" data-reactid="1148"/></noscript></div></div></div><center data-reactid="1149">服务器自动更新代码 - 本机（开发机）</center><h3 id="desktop打包脚本" data-reactid="1150"><a href="#desktop%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1151"><span class="icon icon-link" data-reactid="1152"></span></a><!-- react-text: 1153 -->Desktop打包脚本<!-- /react-text --></h3><p data-reactid="1154"><!-- react-text: 1155 -->文件：<!-- /react-text --><code data-reactid="1156">package.json</code><br data-reactid="1157"/><!-- react-text: 1158 -->语言：Bash Script<!-- /react-text --><br data-reactid="1159"/><!-- react-text: 1160 -->环境：Bash<!-- /react-text --><br data-reactid="1161"/><!-- react-text: 1162 -->使用：<!-- /react-text --><code data-reactid="1163">npm run script-name</code></p><pre data-reactid="1164"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="1165"><span class="hljs-comment" data-reactid="1166">&quot;app:mac64&quot;</span><!-- react-text: 1167 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1168">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a x64 -p mac --insecure -n 古南师大刷脸签到 https://face.moyuyc.xyz/ -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1169 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1170">&quot;app:mac32&quot;</span><!-- react-text: 1171 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1172">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a ia32 -p mac --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1173 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1174">&quot; -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1175 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1176">&quot;app:mac&quot;</span><!-- react-text: 1177 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1178">&quot;npm run app:mac32 &amp; npm run app:mac64&quot;</span><!-- react-text: 1179 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1180">&quot;app:win&quot;</span><!-- react-text: 1181 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1182">&quot;npm run app:win32 &amp; npm run app:win64&quot;</span><!-- react-text: 1183 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1184">&quot;app:win32&quot;</span><!-- react-text: 1185 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1186">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a x64 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1187 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1188">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1189 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="1190">&quot;app:win64&quot;</span><!-- react-text: 1191 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="1192">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a ia32 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 1193 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="1194">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 1195 -->,<!-- /react-text --></code></pre><h3 id="一键搭建环境脚本" data-reactid="1196"><a href="#%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="1197"><span class="icon icon-link" data-reactid="1198"></span></a><!-- react-text: 1199 -->一键搭建环境脚本<!-- /react-text --></h3><p data-reactid="1200"><!-- react-text: 1201 -->文件：<!-- /react-text --><code data-reactid="1202">start.sh</code><br data-reactid="1203"/><!-- react-text: 1204 -->语言：Bash Script<!-- /react-text --><br data-reactid="1205"/><!-- react-text: 1206 -->环境：Bash<!-- /react-text --><br data-reactid="1207"/><!-- react-text: 1208 -->使用：<!-- /react-text --><code data-reactid="1209">./start.sh</code></p><div data-reactid="1210"><style data-reactid="1211">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:391px;max-height:391pxpx;" data-reactid="1212"><div class="medium-image-progressive-placeholder" style="padding-bottom:162.14833759590792%;" data-reactid="1213"></div><div class="medium-image-progressive" data-reactid="1214"><canvas data-reactid="1215"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1216"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59072a26af35d.jpg" data-reactid="1217"/><noscript data-reactid="1218"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59072a26af35d.jpg" data-reactid="1219"/></noscript></div></div></div><center data-reactid="1220">一键搭建环境脚本</center><h3 id="特征脸人脸识别" data-reactid="1221"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB" aria-hidden="true" data-reactid="1222"><span class="icon icon-link" data-reactid="1223"></span></a><!-- react-text: 1224 -->特征脸人脸识别<!-- /react-text --></h3><p data-reactid="1225">人脸识别的任务本质就是：区别开一些输入信号（图像数据），将其划分进一些分类（人脸）中。 输入信号高度噪声（例如噪声是由不同引起的： 照明条件，姿势等），但输入图像不是完全随机的 尽管它们有差异，但是在任何输入信号中都存在模式。这样 在所有信号中可以观察到的模式可能是在面部识别领域。 任何面孔以及亲属中存在某些物体（眼睛，鼻子，嘴巴） 这些物体之间的距离。这些特征被称为特征脸 面部识别领域（或主要组成部分）。它们可以通过名为PCA（主成分分析法）的数学方法从原始图像数据中提取出来。 通过 PCA 可以能够将训练集的每个原图转化为相关的特征脸。PCA 一个重要的特征是能够组合特征脸来重构训练集中的原图。 记住特征脸不仅仅是面部的特征。所以说如果将每个特征脸按照正确的比例相加，原始脸部图像可以从特征脸重构出来。每个特征脸代表脸部都某些特征，其可能存在或不存在于原图中。如果特征以较高程度表现在原图中，则该特征对应的特征脸应该在特征脸集合相加的总和中，占用更大的比例。相反，特定的特征在原始图像中不存在（或几乎不存在），然后相应的特征脸应该贡献一个较小的（或根本不是）部分的总和。 因此，为了从特征脸重构原始图像，需要得到一系列特征脸的权重，也就是说，重构的原图图像等于所有特征面的总和，每个特征脸都有明确的权重。这个权重表示了指定特征（特征脸）在原图中所占的程度。</p><p data-reactid="1226">如果使用从原始图像提取的所有特征脸，可以重构来自特征脸的原始图像。但也可以只使用一部分特征脸，重建的图像是原始图像的近似值。然而，这样可以确保由于省略某些特征脸而造成的损失最小化，选择最重要的特征（特征脸）。</p><p data-reactid="1227">由于计算资源的匮乏，特征脸的部分选择（降维）是必要的。那这与人脸识别有什么关系呢？不仅可能从给定的一组权重的特征脸得到面部，但也可以用相反的方式，从特征脸和原人脸面部得到一组权重。使用这个权重可以确定两件重要的事情：</p><p data-reactid="1228">确定所讨论的图像是否是一张脸。 输入图像的权重与人脸图像（我们知道是人脸）的权重相差太大，则该输入不是人脸。 相似的脸（图像）具有相似的特征（特征脸）权重。 可以从所有可用的图像中提取权重，通过权重可以进行分组到集群。也就是说，具有相似权重的所有图像可能是类似的面孔。</p><h4 id="算法概述" data-reactid="1229"><a href="#%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0" aria-hidden="true" data-reactid="1230"><span class="icon icon-link" data-reactid="1231"></span></a><!-- react-text: 1232 -->算法概述<!-- /react-text --></h4><ol data-reactid="1233"><li data-reactid="1234">首先，将训练集的原始图像转换为一组特征脸 E。</li><li data-reactid="1235">然后，计算每个图像在 E 上的一组权重，保存在 W。</li></ol><p data-reactid="1236">观察未知图像 X，计算取特征权重，存储在向量 Wx 中。之后，将Wx与知道他们是面孔（训练的权重W）的其他权重进行比较。一种方法是将每个权重向量视为空间中的一个点计算来自WX的权重向量与权重之间的平均距离D.未知图像的矢量WX（附录A中描述的欧几里德距离）。如果该平均距离超过某个阈值θ，那么未知图像WX的权重向量也与权重“分开”的脸。在这种情况下，未知X被认为不是脸。否则（如果X实际上是一个脸），它的权重向量WX被存储以备以后分类。最优经验性地确定阈值θ。</p><h4 id="特征向量和特征值" data-reactid="1237"><a href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E5%92%8C%E7%89%B9%E5%BE%81%E5%80%BC" aria-hidden="true" data-reactid="1238"><span class="icon icon-link" data-reactid="1239"></span></a><!-- react-text: 1240 -->特征向量和特征值<!-- /react-text --></h4><p data-reactid="1241">矩阵的特征向量是一个向量，其与矩阵相乘，则结果总为该向量的整数倍。这个整数值是相应的特征向量的特征值。这种关系可以用公式 M × u = λ × u 来描述，其中u是矩阵M的特征向量，λ是相应的特征值。 特征向量具有以下属性：</p><ul data-reactid="1242"><li data-reactid="1243">它们只能用于方阵</li><li data-reactid="1244">n×n矩阵中有n个特征向量（和相应的特征值）</li><li data-reactid="1245">所有特征向量都是垂直的，即彼此成直角</li></ul><h4 id="特征脸的计算（pca-方法）" data-reactid="1246"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E7%9A%84%E8%AE%A1%E7%AE%97%EF%BC%88pca-%E6%96%B9%E6%B3%95%EF%BC%89" aria-hidden="true" data-reactid="1247"><span class="icon icon-link" data-reactid="1248"></span></a><!-- react-text: 1249 -->特征脸的计算（PCA 方法）<!-- /react-text --></h4><p data-reactid="1250">在本节中，使用PCA确定特征脸的原始方案将会 被呈现。 在本文范围内描述的算法是一个变体。在PCA中可以找到一个详细的（以及更理论的）PCA的描述（Pissarenko，2002，第70-72页）。</p><ol data-reactid="1251"><li data-reactid="1252"><p data-reactid="1253">准备数据 在这个步骤中，应准备有人脸组成的训练集（Γi）</p></li><li data-reactid="1254"><p data-reactid="1255"><!-- react-text: 1256 -->减去平均值 应当计算出来平均矩阵Ψ，然后从Γi中减去， 并将结果存储在变量Φi中 <!-- /react-text --><div data-reactid="1257"><style data-reactid="1258">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:287px;max-height:287pxpx;" data-reactid="1259"><div class="medium-image-progressive-placeholder" style="padding-bottom:49.47735191637631%;" data-reactid="1260"></div><div class="medium-image-progressive" data-reactid="1261"><canvas data-reactid="1262"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1263"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590575d5edf57.jpg" data-reactid="1264"/><noscript data-reactid="1265"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590575d5edf57.jpg" data-reactid="1266"/></noscript></div></div></div></p></li><li data-reactid="1267"><p data-reactid="1268"><!-- react-text: 1269 -->计算协方差矩阵 计算协方差矩阵 C，依据如下 <!-- /react-text --><div data-reactid="1270"><style data-reactid="1271">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:279px;max-height:279pxpx;" data-reactid="1272"><div class="medium-image-progressive-placeholder" style="padding-bottom:34.76702508960574%;" data-reactid="1273"></div><div class="medium-image-progressive" data-reactid="1274"><canvas data-reactid="1275"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1276"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/5905763b70744.jpg" data-reactid="1277"/><noscript data-reactid="1278"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/5905763b70744.jpg" data-reactid="1279"/></noscript></div></div></div></p></li><li data-reactid="1280"><p data-reactid="1281">计算协方差的特征向量和特征值矩阵 在这个步骤中，特征向量（特征脸）ui和对应的特征值λi应该计算。特征向量（特征面）必须被归一化才能使它们成为单位向量，即长度为1。描述确定的特征向量和特征值求法在此省略，因为它属于标准的数学程式。</p></li><li data-reactid="1282"><p data-reactid="1283">选择主要组件 从M个特征向量（特征脸）ui中，只应选择具有最高特征值的M0。特征值越高，特定特征向量描述的面的特征越多。可以省略具有低特征值的特征面，因为它们只解释了面部特征的一小部分。在确定M0特征脸ui之后，算法“训练”阶段结束。</p></li></ol><h4 id="改进原始算法" data-reactid="1284"><a href="#%E6%94%B9%E8%BF%9B%E5%8E%9F%E5%A7%8B%E7%AE%97%E6%B3%95" aria-hidden="true" data-reactid="1285"><span class="icon icon-link" data-reactid="1286"></span></a><!-- react-text: 1287 -->改进原始算法<!-- /react-text --></h4><p data-reactid="1288"><!-- react-text: 1289 -->第5节描述的算法存在问题。协方差矩阵 在步骤3中（参见等式3）具有N 2×N 2的维数，因此将具有N 2 特征面和特征值。 对于256×256图像，这意味着必须计算65,536×65,536个矩阵，并计算65,536个特征面。在计算上，这并不是非常有效，因为大多数这些特征面对我们的任务没有用。所以，第三和第四步被Turk和Pentland（1991a）提出的方案所取代： <!-- /react-text --><div data-reactid="1290"><style data-reactid="1291">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:387px;max-height:387pxpx;" data-reactid="1292"><div class="medium-image-progressive-placeholder" style="padding-bottom:54.00516795865633%;" data-reactid="1293"></div><div class="medium-image-progressive" data-reactid="1294"><canvas data-reactid="1295"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1296"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590579e61c7b3.jpg" data-reactid="1297"/><noscript data-reactid="1298"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590579e61c7b3.jpg" data-reactid="1299"/></noscript></div></div></div><!-- react-text: 1300 --> 其中L是M×M矩阵，v是L的M个特征向量，u是特征面。 注意 使用公式C = AAT计算协方差矩阵C。只有为了解释A，才给出原始（低效）公式。这种方法的优点是必须只评估M数而不是N2。通常，仅作为主要成分（特征面）的M N2将是相关的。要执行的计算量从训练集（N）的数量减少到训练集（M）中的图像数量。<!-- /react-text --><br data-reactid="1301"/><!-- react-text: 1302 -->在步骤5中，相关联的特征值允许根据它们的有用性对特征面进行排序。 通常，我们将仅使用M个特征面的一个子集，具有最大特征值的M0特征面。<!-- /react-text --></p><h4 id="人脸分类" data-reactid="1303"><a href="#%E4%BA%BA%E8%84%B8%E5%88%86%E7%B1%BB" aria-hidden="true" data-reactid="1304"><span class="icon icon-link" data-reactid="1305"></span></a><!-- react-text: 1306 -->人脸分类<!-- /react-text --></h4><p data-reactid="1307"><!-- react-text: 1308 -->新的人脸（未知）分类至已知人脸中需要2个步骤。 首先，得到新人脸的特征脸，得到权重向量 ΩT(new) <!-- /react-text --><div data-reactid="1309"><style data-reactid="1310">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:405px;max-height:405pxpx;" data-reactid="1311"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.666666666666668%;" data-reactid="1312"></div><div class="medium-image-progressive" data-reactid="1313"><canvas data-reactid="1314"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1315"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057d1dbbfeb.jpg" data-reactid="1316"/><noscript data-reactid="1317"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057d1dbbfeb.jpg" data-reactid="1318"/></noscript></div></div></div><!-- react-text: 1319 --> 两个权重向量的欧几里得距离 d(Ωi, Ωj) 提供了一种衡量图像 i、j 的相似度的方法。如果ΩT(new)与其他人脸平均超过阈值θ，则认为其非人脸，或者构造一个新的脸的“簇”，使得类似的面部被分配给一个群集。<!-- /react-text --></p><h5 id="欧几里得距离" data-reactid="1320"><a href="#%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E8%B7%9D%E7%A6%BB" aria-hidden="true" data-reactid="1321"><span class="icon icon-link" data-reactid="1322"></span></a><!-- react-text: 1323 -->欧几里得距离<!-- /react-text --></h5><p data-reactid="1324"><!-- react-text: 1325 -->x 为被特征向量描述的任意实例。 <!-- /react-text --><div data-reactid="1326"><style data-reactid="1327">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:342px;max-height:342pxpx;" data-reactid="1328"><div class="medium-image-progressive-placeholder" style="padding-bottom:15.497076023391813%;" data-reactid="1329"></div><div class="medium-image-progressive" data-reactid="1330"><canvas data-reactid="1331"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1332"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057f7c67c5a.jpg" data-reactid="1333"/><noscript data-reactid="1334"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057f7c67c5a.jpg" data-reactid="1335"/></noscript></div></div></div><!-- react-text: 1336 --> 其中ar(x) 表示实例 x 中的第 r 个属性值，那么两个实例xi,xj的欧几里得距离定义为： <!-- /react-text --><div data-reactid="1337"><style data-reactid="1338">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:455px;max-height:455pxpx;" data-reactid="1339"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.593406593406595%;" data-reactid="1340"></div><div class="medium-image-progressive" data-reactid="1341"><canvas data-reactid="1342"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1343"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057ff879e7e.jpg" data-reactid="1344"/><noscript data-reactid="1345"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057ff879e7e.jpg" data-reactid="1346"/></noscript></div></div></div></p><h2 id="系统预览" data-reactid="1347"><a href="#%E7%B3%BB%E7%BB%9F%E9%A2%84%E8%A7%88" aria-hidden="true" data-reactid="1348"><span class="icon icon-link" data-reactid="1349"></span></a><!-- react-text: 1350 -->系统预览<!-- /react-text --></h2><p data-reactid="1351"><!-- react-text: 1352 -->线上地址：<!-- /react-text --><a href="https://face.moyuyc.xyz/" data-reactid="1353">https://face.moyuyc.xyz/</a></p><ul data-reactid="1354"><li data-reactid="1355"><!-- react-text: 1356 -->学生签到 <!-- /react-text --><div data-reactid="1357"><style data-reactid="1358">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1359"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1360"></div><div class="medium-image-progressive" data-reactid="1361"><canvas data-reactid="1362"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1363"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" data-reactid="1364"/><noscript data-reactid="1365"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" data-reactid="1366"/></noscript></div></div></div><!-- react-text: 1367 --> <!-- /react-text --><div data-reactid="1368"><style data-reactid="1369">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1370"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1371"></div><div class="medium-image-progressive" data-reactid="1372"><canvas data-reactid="1373"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1374"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" data-reactid="1375"/><noscript data-reactid="1376"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" data-reactid="1377"/></noscript></div></div></div></li><li data-reactid="1378"><!-- react-text: 1379 -->人脸录入 <!-- /react-text --><div data-reactid="1380"><style data-reactid="1381">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1382"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1383"></div><div class="medium-image-progressive" data-reactid="1384"><canvas data-reactid="1385"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1386"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884867e8c4f1.jpg" data-reactid="1387"/><noscript data-reactid="1388"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884867e8c4f1.jpg" data-reactid="1389"/></noscript></div></div></div></li><li data-reactid="1390"><!-- react-text: 1391 -->关于 <!-- /react-text --><div data-reactid="1392"><style data-reactid="1393">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1394"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1395"></div><div class="medium-image-progressive" data-reactid="1396"><canvas data-reactid="1397"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1398"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588486cf622d8.jpg" data-reactid="1399"/><noscript data-reactid="1400"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588486cf622d8.jpg" data-reactid="1401"/></noscript></div></div></div></li><li data-reactid="1402"><!-- react-text: 1403 -->管理员登录 <!-- /react-text --><div data-reactid="1404"><style data-reactid="1405">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1406"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1407"></div><div class="medium-image-progressive" data-reactid="1408"><canvas data-reactid="1409"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1410"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588486ef8446d.jpg" data-reactid="1411"/><noscript data-reactid="1412"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588486ef8446d.jpg" data-reactid="1413"/></noscript></div></div></div></li><li data-reactid="1414"><!-- react-text: 1415 -->管理员界面 <!-- /react-text --><div data-reactid="1416"><style data-reactid="1417">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="1418"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="1419"></div><div class="medium-image-progressive" data-reactid="1420"><canvas data-reactid="1421"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1422"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884873f1e625.jpg" data-reactid="1423"/><noscript data-reactid="1424"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884873f1e625.jpg" data-reactid="1425"/></noscript></div></div></div></li></ul><h1 id="总结与感谢" data-reactid="1426"><a href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E8%B0%A2" aria-hidden="true" data-reactid="1427"><span class="icon icon-link" data-reactid="1428"></span></a><!-- react-text: 1429 -->总结与感谢<!-- /react-text --></h1><h2 id="总结" data-reactid="1430"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="1431"><span class="icon icon-link" data-reactid="1432"></span></a><!-- react-text: 1433 -->总结<!-- /react-text --></h2><p data-reactid="1434">经过几个月的毕业设计，对我各方面的影响都很大，对此我体会颇多。虽然这次设计成品还存在着很多问题，但我从中学到了不少知识。在开发过程中遇到的问题不计其数，其中最令人感到头痛的是一些不容易注意到的小错误，例如在编写 Node 与 C 系列addon 代码片段时，需要对 C 系列语言有比较功底才能从容实现，但自己本人 c 系列语言功底并不扎实，所以编写程序得到的效果一直不能达到预想的效果，后来通过参考 node-opencv 代码才渐渐进行开发；开发一个大的系统的时候，不管是个人还是团队，必须作好需求分析，建立好数据库，如果需求分析不成功，那到后面是很难做下去的，本系统的开发就遇到这样的情况，以至做了很多无用功，经常全部从新部署。一个好的需求分析报告将给系统带来很大的惊喜，它会很大程度上减少程序员的负担。 系统完成在后，发现做事情不但要独立自主的完成任务，也要通过周围的朋友或是网络资料库等获取信息，只有大量的使用周围方便的活资源，而不只依赖与书本上的例子，才能得到更大的进步，做起事情来才有事半功倍的效果。 本次毕业设计是针对我们大学四年来所学知识而进行的一次全面性的检验，它涵盖的知识面广，涉及到多个领域，需要我们具有较高的综合知识水平及较强的解决问题的能力。同时也是对我们工作能力，团队合作精神的一次考验。通过这次设计，一方面让我更进一步的熟悉和掌握了JavaScript、C++语言以及更深入的了解了opencv 的使用和一整套建站部署过程。另一方面在动手能力上有了很大的提高，以前学的知识只是“知识”，而现在是将“知识”转化成自身的本领，全面提高了自身解决具体问题的能力。</p><h2 id="感谢" data-reactid="1435"><a href="#%E6%84%9F%E8%B0%A2" aria-hidden="true" data-reactid="1436"><span class="icon icon-link" data-reactid="1437"></span></a><!-- react-text: 1438 -->感谢<!-- /react-text --></h2><p data-reactid="1439">本论文是在杨老师悉心指导下完成的。从论文的选题，文献的查找到程序的设计，杨老师都给予了亲切的指导。在此深深感谢杨老师给予学生学业上的教导和生活上的关怀，老师严谨的治学态度和一丝不苟的工作作风给我极大的影响，不仅使我在静心完成论文的研究工作，而且也将勉励我今后刻苦学习和积极工作。同时本人对未知新理论的兴趣和积极探索，也很多来自于和导师交谈受到的启发。感谢我的父母和同学，他们的鼓励和支持是我踏实求学勤奋钻研的动力。大学四年时间是我人生的一个重要的阶段，在此期间，我所取得的每一滴进步无不得益于师长的教诲、朋友的帮助。为此，我要诚挚地向他们表达深深的谢意。</p><h1 id="参考文献" data-reactid="1440"><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" aria-hidden="true" data-reactid="1441"><span class="icon icon-link" data-reactid="1442"></span></a><!-- react-text: 1443 -->参考文献<!-- /react-text --></h1><p data-reactid="1444"><!-- react-text: 1445 -->[ 1 ] Chellappa R , Wilson C , Sirohey S. Human and machine rec2 ognition of faces: A survey. Proceedings of t he IEEE , 1995 , 83 (5) : 705-740<!-- /react-text --><br data-reactid="1446"/><!-- react-text: 1447 -->[ 2 ] Zhao W , Chellappa R , Rosenfeld A , Phillips P J. Face rec2 ognition : A literature survey. ACM Computation Survey , 2003 , 35 (4) : 399-458<!-- /react-text --><br data-reactid="1448"/><!-- react-text: 1449 -->[ 3 ] Li S Z , J ain A K. Handbook of Face Recognition. New York : Springer , 2005<!-- /react-text --><br data-reactid="1450"/><!-- react-text: 1451 -->[ 4 ] Zhou S , Chellappa R. Beyond a single still image : Face rec2 ognition from multiple still images and videos/ / Zhao W et al eds. Face Processing : Advanced Modeling and Met hods. New York : Academic Press , 2005: 1768-1828<!-- /react-text --><br data-reactid="1452"/><!-- react-text: 1453 -->[ 5 ] Shakhnarovich G , Fisher J W , Darrell T. Face recognition from long2term observations/ / Proceedings of t he European Conference on Computer Vision. Bari , 2002 : 851-868<!-- /react-text --><br data-reactid="1454"/><!-- react-text: 1455 -->[ 6 ] Liu X M , Chen T , Thornton S M. Eigenspace updating for non2stationary process and its application to face recognition. Pattern Recognition , 2003 , 36 (9) : 1945-1959<!-- /react-text --><br data-reactid="1456"/><!-- react-text: 1457 -->[ 7 ] Liu X M , Chen T. Video2based face recognition using adap2 tive hidden Markov models/ / Proceedings of t he IEEE Inter2 national Conference on Computer Vision and Pattern Recog2 nition. Madison , 2003 : 340-345<!-- /react-text --><br data-reactid="1458"/><!-- react-text: 1459 -->[ 8 ] Lee K C , Ho J , Yang M H , Kriegman D. Video2based face recognition using probabilistic appearance manifolds/ / Pro2 ceedings of t he International IEEE Conference on Computer Vision and Pattern Recognition. Madison , 2003 : 313-320<!-- /react-text --><br data-reactid="1460"/><!-- react-text: 1461 -->[ 9 ] Lee K C , Ho J , Yang M H , Kriegman D. Visual tracking and recognition using probabilistic appearance manifolds. Computer Vision and Image Understanding , 2005 , 99 ( 3) : 80-123<!-- /react-text --><br data-reactid="1462"/><!-- react-text: 1463 -->[ 10 ] Zhou S , Krueger V , Chellappa R. Probabilistic recognition of human faces from video. Computer Vision and Image Un2 derstanding , 2003 , 91 (1) : 2142245 [ 11 ] Zhou S , Chellappa R , Moghaddam B. Visual tracking and recognition using appearance2adaptive models in particle fil2 ters. IEEE Transactions on Image Processing , 2004 , 13：348-356<!-- /react-text --><br data-reactid="1464"/><!-- react-text: 1465 -->[ 11 ] Aggarwal G , Chowdhury A K R , Chellappa R. A system identification approach for video2based face recognition/ / Pro2 ceedings of t he IEEE International Conference on Pattern Recognition. Cambridge , 2004 : 232-249<!-- /react-text --><br data-reactid="1466"/><!-- react-text: 1467 -->[ 12 ] Arandjelovi’c O , Cipolla R. Face recognition from face motion manifolds using robust kernel resistor2average distance/ / Pro2 ceedings of t he IEEE Conference on Compute Vision and Pat2 ter Recognition workshop. Washington D. C , 2004 : 88-93<!-- /react-text --><br data-reactid="1468"/><!-- react-text: 1469 -->[ 13 ] Arandjelovi’c O , Shakhnarovich G , Fisher G , Cipolla R , Darrell T. Face recognition wit h image sets using manifold density divergence/ / Proceedings of t he IEEE Conference on Computer Vision and Pattern Recognition. San Diego , 2005 : 581-588<!-- /react-text --><br data-reactid="1470"/><!-- react-text: 1471 -->[ 14 ] Arandjelovi’c O , Cipolla R. A pose2wise linear illumination manifold model for face recognition using video. Computer Vision and Image Understanding , 2009 , 113 (1) : 113-125<!-- /react-text --><br data-reactid="1472"/><!-- react-text: 1473 -->[ 15 ] Yamaguchi O , Fukui K , Maeda K. Face recognition using temporal image sequence/ / Proceedings of t he IEEE Interna2 tional Conference on Automatic Face and Gesture Recogni2 tion. Nara , 1998 : 318-323 [ 16 ] Fukui K , Yamaguchi O. Face recognition using multi2view2 point patterns for robot vision/ / Proceedings of t he Interna2 tional Symposium of Robotics Research. Siena , Italy , 2003 : 192-220<!-- /react-text --><br data-reactid="1474"/><!-- react-text: 1475 -->[ 17 ] Nishiyama M , Yamaguchi O , Fukui K. Face Recognition wit h t he multiple constrained mutual subspace met hod/ / Pro2 ceedings of t he 5t h International Conference on Audio2 and Video2Based Biometric Person Aut hentication. New York , 2005 : 71-80<!-- /react-text --><br data-reactid="1476"/><!-- react-text: 1477 -->[ 18 ] Li J W , Wang Y H , Tan T N. Video2based face recognition using a metric of average Euclidean distance/ / Proceedings of t he 5t h Chinese Conference on Biometric Recognition. Guan2 gzhou , China , 2004 : 224-232<!-- /react-text --><br data-reactid="1478"/><!-- react-text: 1479 -->[ 19 ] Li J W , Wang Y H , Tan T N. Video2based face recognition using eart h mover’s distance/ / Proceedings of t he Interna2 tional Conference on Audio2 and Video2based person Aut hen2 tication. New York , 2005 : 229-239<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="1480"></div><div class="paginator" data-reactid="1481"><a title="毕设周记4" class="prev" href="/毕设周记4" data-reactid="1482">Prev</a><a title="基于特征脸的人脸识别" class="next" href="/gp-tranaltion" data-reactid="1483">Next</a></div></div></main><footer data-reactid="1484"><div class="copyright" data-reactid="1485"><p data-reactid="1486"><!-- react-text: 1487 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="1488">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

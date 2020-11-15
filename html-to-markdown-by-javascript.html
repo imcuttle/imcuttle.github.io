@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> HTML -&gt; Markdown - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1405298480"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">HTML -&gt; Markdown</h1><div class="post-info" data-reactid="12"><time datetime="2017-02-07T10:42:55+00:00" data-reactid="13">Feb 7, 2017 10:42 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="情景重现" data-reactid="17"><a href="#%E6%83%85%E6%99%AF%E9%87%8D%E7%8E%B0" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->情景重现<!-- /react-text --></h2><p data-reactid="21">有时候，我们看到网上比较好的文章，我们油然会想去转载，但是呈现在浏览器上文章的格式为 HTML，我们书写文章的格式又为 Markdown，所以我便想实现 HTML 到 Markdown 的转换。</p><p data-reactid="22"><strong data-reactid="23">注：对于一些文章排版较为复杂的 HTML 标签（如 table），暂时直接输出 HTML</strong></p><h2 id="使用" data-reactid="24"><a href="#%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="25"><span class="icon icon-link" data-reactid="26"></span></a><!-- react-text: 27 -->使用<!-- /react-text --></h2><p data-reactid="28">还是从 npm 开始，支持三种方式（URL/file/命令参数）的调用。</p><pre data-reactid="29"><code data-query="{}" data-lang="data-lang" data-reactid="30">npm i -g html-markdown
+html2md -h
+html2md https://www.npmjs.com/package/html-markdown -s &quot;#readme&quot; &gt; html-markdown-readme.md
+html2md path/to/html/file -s &quot;#markdown&quot;
+html2md path/to/html/file
+html2md --eval &quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot;
+html2md - # get string from stdin
+html2md   # get string from stdin, better REPL
+{
+    echo &quot;&lt;h1&gt;HEAD1&lt;/h1&gt;&quot;;
+    echo &quot;&lt;h2&gt;HEAD2&lt;/h2&gt;&quot;;
+} | html2md -
+</code></pre><p data-reactid="31"><!-- react-text: 32 -->URL 只支持 HTTP/HTTPs 协议，<!-- /react-text --><code data-reactid="33">-s --selector</code><!-- react-text: 34 --> 选项表示 HTML 文档中的 DOM 选择器，如 jQuery 选择器。<!-- /react-text --></p><p data-reactid="35">以上为命令行的方式，同时还提供第三方包的形式</p><pre data-reactid="36"><code data-query="{}" data-lang="data-lang" data-reactid="37">npm i --save html-markdown
+</code></pre><pre data-reactid="38"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="39"><span class="hljs-keyword" data-reactid="40">var</span><!-- react-text: 41 --> html2md = <!-- /react-text --><span class="hljs-built_in" data-reactid="42">require</span><!-- react-text: 43 -->(<!-- /react-text --><span class="hljs-string" data-reactid="44">&#x27;html-markdown&#x27;</span><!-- react-text: 45 -->);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="46">// can use in browser and node.</span><!-- react-text: 47 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="48">var</span><!-- react-text: 49 --> md1 = html2md.html2mdFromString(<!-- /react-text --><span class="hljs-string" data-reactid="50">&quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot;</span><!-- react-text: 51 -->);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="52">// https or http, not isomorphic</span><!-- react-text: 53 -->
+html2md.html2mdFromURL(<!-- /react-text --><span class="hljs-string" data-reactid="54">&quot;https://www.npmjs.com/package/song-robot&quot;</span><!-- react-text: 55 -->, <!-- /react-text --><span class="hljs-string" data-reactid="56">&quot;#readme&quot;</span><!-- react-text: 57 -->).then(<!-- /react-text --><span class="hljs-built_in" data-reactid="58">console</span><!-- react-text: 59 -->.log).catch(<!-- /react-text --><span class="hljs-built_in" data-reactid="60">console</span><!-- react-text: 61 -->.error);
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="62">// not isomorphic</span><!-- react-text: 63 -->
+html2md.html2mdFromPath(<!-- /react-text --><span class="hljs-string" data-reactid="64">&quot;path/to/html/file&quot;</span><!-- react-text: 65 -->, <!-- /react-text --><span class="hljs-string" data-reactid="66">&quot;#markdown&quot;</span><!-- react-text: 67 -->).then(<!-- /react-text --><span class="hljs-built_in" data-reactid="68">console</span><!-- react-text: 69 -->.log).catch(<!-- /react-text --><span class="hljs-built_in" data-reactid="70">console</span><!-- react-text: 71 -->.error);<!-- /react-text --></code></pre><h2 id="实现" data-reactid="72"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="73"><span class="icon icon-link" data-reactid="74"></span></a><!-- react-text: 75 -->实现<!-- /react-text --></h2><p data-reactid="76">一共实现了 2 个版本，分别用 Cheerio、jsDom 实现。</p><p data-reactid="77"><!-- react-text: 78 -->Cheerio 更侧重于 node 端，jsDom 则将 HTML 标准在 node 上实现了，所以在浏览器端不需要导入 jsDom，因为浏览器已经实现了 HTML 标准。故 <!-- /react-text --><strong data-reactid="79">jsDom 版本加上环境的判断，可以在浏览器和服务器端使用同一套代码</strong></p><div data-reactid="80"><style data-reactid="81">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:415px;max-height:415pxpx;" data-reactid="82"><div class="medium-image-progressive-placeholder" style="padding-bottom:22.89156626506024%;" data-reactid="83"></div><div class="medium-image-progressive" data-reactid="84"><canvas data-reactid="85"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="86"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589954c09cc12.jpg" data-reactid="87"/><noscript data-reactid="88"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589954c09cc12.jpg" data-reactid="89"/></noscript></div></div></div><p data-reactid="90">具体的转化思路大致是，递归遍历 dom 树。对于单个 node ，判断其 tagName 进行映射。</p><pre data-reactid="91"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="92"><span class="hljs-keyword" data-reactid="93">if</span><!-- react-text: 94 --> (<!-- /react-text --><span class="hljs-regexp" data-reactid="95">/^h([\d]+)$/i</span><!-- react-text: 96 -->.test(tagName)) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="97"><!-- react-text: 98 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="99"><!-- react-text: 100 -->${<!-- /react-text --><span class="hljs-string" data-reactid="101">&#x27;#&#x27;</span><!-- react-text: 102 -->.repeat(+<!-- /react-text --><span class="hljs-built_in" data-reactid="103">RegExp</span><!-- react-text: 104 -->.$<!-- /react-text --><span class="hljs-number" data-reactid="105">1</span><!-- react-text: 106 -->)}<!-- /react-text --></span><!-- react-text: 107 --> <!-- /react-text --><span class="hljs-subst" data-reactid="108">${childrenRender()}</span><!-- react-text: 109 -->`<!-- /react-text --></span><!-- react-text: 110 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="111">else</span><!-- react-text: 112 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="113">if</span><!-- react-text: 114 --> (<!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;ul&#x27;</span><!-- react-text: 116 --> === tagName || <!-- /react-text --><span class="hljs-string" data-reactid="117">&#x27;ol&#x27;</span><!-- react-text: 118 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="119"><!-- react-text: 120 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="121"><!-- react-text: 122 -->${childrenRender(level+(parentTagName === <!-- /react-text --><span class="hljs-string" data-reactid="123">&#x27;li&#x27;</span><!-- react-text: 124 -->? <!-- /react-text --><span class="hljs-number" data-reactid="125">1</span><!-- react-text: 126 --> : <!-- /react-text --><span class="hljs-number" data-reactid="127">0</span><!-- react-text: 128 -->))}<!-- /react-text --></span><!-- react-text: 129 -->`<!-- /react-text --></span><!-- react-text: 130 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="131">else</span><!-- react-text: 132 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="133">if</span><!-- react-text: 134 --> (<!-- /react-text --><span class="hljs-string" data-reactid="135">&#x27;li&#x27;</span><!-- react-text: 136 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="137"><!-- react-text: 138 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="139"><!-- react-text: 140 -->${<!-- /react-text --><span class="hljs-string" data-reactid="141">&#x27;   &#x27;</span><!-- react-text: 142 -->.repeat(level)}<!-- /react-text --></span><span class="hljs-subst" data-reactid="143"><!-- react-text: 144 -->${parentTagName === <!-- /react-text --><span class="hljs-string" data-reactid="145">&#x27;ul&#x27;</span><!-- react-text: 146 --> ? <!-- /react-text --><span class="hljs-string" data-reactid="147">&#x27;-&#x27;</span><!-- react-text: 148 --> : <!-- /react-text --><span class="hljs-number" data-reactid="149">1</span><!-- react-text: 150 -->+index+<!-- /react-text --><span class="hljs-string" data-reactid="151">&#x27;.&#x27;</span><!-- react-text: 152 -->}<!-- /react-text --></span><!-- react-text: 153 --> <!-- /react-text --><span class="hljs-subst" data-reactid="154">${childrenRender()}</span><!-- react-text: 155 -->`<!-- /react-text --></span><!-- react-text: 156 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="157">else</span><!-- react-text: 158 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="159">if</span><!-- react-text: 160 --> (<!-- /react-text --><span class="hljs-string" data-reactid="161">&#x27;img&#x27;</span><!-- react-text: 162 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="163"><!-- react-text: 164 -->`![<!-- /react-text --><span class="hljs-subst" data-reactid="165"><!-- react-text: 166 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="167">&#x27;alt&#x27;</span><!-- react-text: 168 -->) || <!-- /react-text --><span class="hljs-string" data-reactid="169">&#x27;&#x27;</span><!-- react-text: 170 -->}<!-- /react-text --></span><!-- react-text: 171 -->](<!-- /react-text --><span class="hljs-subst" data-reactid="172"><!-- react-text: 173 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="174">&#x27;src&#x27;</span><!-- react-text: 175 -->)}<!-- /react-text --></span><!-- react-text: 176 -->)`<!-- /react-text --></span><!-- react-text: 177 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="178">else</span><!-- react-text: 179 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="180">if</span><!-- react-text: 181 --> (<!-- /react-text --><span class="hljs-string" data-reactid="182">&#x27;p&#x27;</span><!-- react-text: 183 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="184"><!-- react-text: 185 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="186">${childrenRender()}</span><!-- react-text: 187 -->  `<!-- /react-text --></span><!-- react-text: 188 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="189">else</span><!-- react-text: 190 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="191">if</span><!-- react-text: 192 --> (<!-- /react-text --><span class="hljs-string" data-reactid="193">&#x27;code&#x27;</span><!-- react-text: 194 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="195">&quot;`&quot;</span><!-- react-text: 196 --> + childrenRender() + <!-- /react-text --><span class="hljs-string" data-reactid="197">&quot;`&quot;</span><!-- react-text: 198 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="199">else</span><!-- react-text: 200 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="201">if</span><!-- react-text: 202 --> (<!-- /react-text --><span class="hljs-string" data-reactid="203">&#x27;pre&#x27;</span><!-- react-text: 204 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="205">&quot;\n```\n&quot;</span><!-- react-text: 206 -->+ <!-- /react-text --><span class="hljs-string" data-reactid="207"><!-- react-text: 208 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="209"><!-- react-text: 210 -->${jsdomText(dom).replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="211">/^\r?\n/</span><!-- react-text: 212 -->, <!-- /react-text --><span class="hljs-string" data-reactid="213">&#x27;&#x27;</span><!-- react-text: 214 -->).replace(<!-- /react-text --><span class="hljs-regexp" data-reactid="215">/\r?\n$/</span><!-- react-text: 216 -->, <!-- /react-text --><span class="hljs-string" data-reactid="217">&#x27;&#x27;</span><!-- react-text: 218 -->)}<!-- /react-text --></span><!-- react-text: 219 -->\n`<!-- /react-text --></span><!-- react-text: 220 --> +<!-- /react-text --><span class="hljs-string" data-reactid="221">&quot;```\n&quot;</span><!-- react-text: 222 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="223">else</span><!-- react-text: 224 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="225">if</span><!-- react-text: 226 --> (<!-- /react-text --><span class="hljs-string" data-reactid="227">&#x27;a&#x27;</span><!-- react-text: 228 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="229"><!-- react-text: 230 -->`[<!-- /react-text --><span class="hljs-subst" data-reactid="231">${childrenRender()}</span><!-- react-text: 232 -->](<!-- /react-text --><span class="hljs-subst" data-reactid="233"><!-- react-text: 234 -->${dom.getAttribute(<!-- /react-text --><span class="hljs-string" data-reactid="235">&#x27;href&#x27;</span><!-- react-text: 236 -->)}<!-- /react-text --></span><!-- react-text: 237 -->)`<!-- /react-text --></span><!-- react-text: 238 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="239">else</span><!-- react-text: 240 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="241">if</span><!-- react-text: 242 --> (<!-- /react-text --><span class="hljs-string" data-reactid="243">&#x27;div&#x27;</span><!-- react-text: 244 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="245"><!-- react-text: 246 -->`<!-- /react-text --><span class="hljs-subst" data-reactid="247">${childrenRender()}</span><!-- react-text: 248 -->`<!-- /react-text --></span><!-- react-text: 249 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="250">else</span><!-- react-text: 251 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="252">if</span><!-- react-text: 253 --> (<!-- /react-text --><span class="hljs-string" data-reactid="254">&#x27;strong&#x27;</span><!-- react-text: 255 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="256"><!-- react-text: 257 -->`**<!-- /react-text --><span class="hljs-subst" data-reactid="258">${childrenRender()}</span><!-- react-text: 259 -->**`<!-- /react-text --></span><!-- react-text: 260 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="261">else</span><!-- react-text: 262 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="263">if</span><!-- react-text: 264 --> (<!-- /react-text --><span class="hljs-string" data-reactid="265">&#x27;em&#x27;</span><!-- react-text: 266 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="267"><!-- react-text: 268 -->`*<!-- /react-text --><span class="hljs-subst" data-reactid="269">${childrenRender()}</span><!-- react-text: 270 -->*`<!-- /react-text --></span><!-- react-text: 271 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="272">else</span><!-- react-text: 273 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="274">if</span><!-- react-text: 275 --> (<!-- /react-text --><span class="hljs-string" data-reactid="276">&#x27;hr&#x27;</span><!-- react-text: 277 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="278">`------`</span><!-- react-text: 279 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="280">else</span><!-- react-text: 281 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="282">if</span><!-- react-text: 283 --> (<!-- /react-text --><span class="hljs-string" data-reactid="284">&#x27;del&#x27;</span><!-- react-text: 285 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="286"><!-- react-text: 287 -->`~~<!-- /react-text --><span class="hljs-subst" data-reactid="288">${childrenRender()}</span><!-- react-text: 289 -->~~`<!-- /react-text --></span><!-- react-text: 290 -->
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="291">else</span><!-- react-text: 292 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="293">if</span><!-- react-text: 294 --> (<!-- /react-text --><span class="hljs-string" data-reactid="295">&#x27;html&#x27;</span><!-- react-text: 296 --> === tagName || <!-- /react-text --><span class="hljs-string" data-reactid="297">&#x27;body&#x27;</span><!-- react-text: 298 --> === tagName) {
+    mapStr = childrenRender()
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="299">else</span><!-- react-text: 300 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="301">if</span><!-- react-text: 302 --> (<!-- /react-text --><span class="hljs-string" data-reactid="303">&#x27;head&#x27;</span><!-- react-text: 304 --> === tagName) {
+    mapStr = <!-- /react-text --><span class="hljs-string" data-reactid="305">&#x27;&#x27;</span><!-- react-text: 306 -->;
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="307">else</span><!-- react-text: 308 --> {
+    mapStr = dom.outerHTML;
+}<!-- /react-text --></code></pre><p data-reactid="309">同时还需要注意！对于代码块</p><div data-reactid="310"><style data-reactid="311">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:472px;max-height:472pxpx;" data-reactid="312"><div class="medium-image-progressive-placeholder" style="padding-bottom:108.68644067796612%;" data-reactid="313"></div><div class="medium-image-progressive" data-reactid="314"><canvas data-reactid="315"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="316"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/58995661014f5.jpg" data-reactid="317"/><noscript data-reactid="318"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/58995661014f5.jpg" data-reactid="319"/></noscript></div></div></div><p data-reactid="320"><!-- react-text: 321 -->其换行是被样式控制的，如下图 <!-- /react-text --><code data-reactid="322">&lt;div&gt;</code></p><div data-reactid="323"><style data-reactid="324">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:381px;max-height:381pxpx;" data-reactid="325"><div class="medium-image-progressive-placeholder" style="padding-bottom:83.72703412073491%;" data-reactid="326"></div><div class="medium-image-progressive" data-reactid="327"><canvas data-reactid="328"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="329"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589956804fb84.jpg" data-reactid="330"/><noscript data-reactid="331"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589956804fb84.jpg" data-reactid="332"/></noscript></div></div></div><p data-reactid="333"><!-- react-text: 334 -->而且 Dom 中的属性 <!-- /react-text --><code data-reactid="335">innerText</code><!-- react-text: 336 --> 不属于 HTML 标准，是浏览器各自实现的。如下图，<!-- /react-text --><code data-reactid="337">innerText</code><!-- react-text: 338 --> 是带换行的，而 <!-- /react-text --><code data-reactid="339">textContent</code><!-- react-text: 340 --> 则不带（jQuery 中 text() 也是不带的）<!-- /react-text --></p><div data-reactid="341"><style data-reactid="342">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:427px;max-height:427pxpx;" data-reactid="343"><div class="medium-image-progressive-placeholder" style="padding-bottom:124.35597189695551%;" data-reactid="344"></div><div class="medium-image-progressive" data-reactid="345"><canvas data-reactid="346"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="347"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589956d5916fe.jpg" data-reactid="348"/><noscript data-reactid="349"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/02/07/589956d5916fe.jpg" data-reactid="350"/></noscript></div></div></div><p data-reactid="351">所以就需要我们自己判断是否需要换行，即自己实现 innerText</p><pre data-reactid="352"><code data-query="{}" data-lang="data-lang" data-reactid="353">var jsdomText = function (dom) {
+    var html = dom.innerHTML;
+    if(!html) {
+        return dom.textContent;
+    }
+    var myhtml = html.replace(/&lt;p.*?&gt;(.*?)&lt;\/p&gt;/gmi, &#x27;$1\n&#x27;)
+        .replace(/&lt;div.*?&gt;(.*?)&lt;\/div&gt;/gmi, &#x27;$1\n&#x27;)
+        .replace(/&lt;br.*?&gt;/gmi, &#x27;\n&#x27;)
+        .replace(/&lt;(?:.)*?&gt;/gm, &#x27;&#x27;) // remove all html tags
+        
+    var he = require(&#x27;he&#x27;); // he for decoding html entities
+    var mytext = he.decode(myhtml);
+    return mytext;
+}
+</code></pre><p data-reactid="354"><!-- react-text: 355 -->欢迎使用，并给我提 <!-- /react-text --><a href="https://github.com/moyuyc/html-markdown/issues" data-reactid="356">Issue</a><!-- react-text: 357 -->，我将会不断进行优化改善。<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="358"></div><div class="paginator" data-reactid="359"><a title="Progressive Web App" class="prev" href="/repost-progressive-web-app" data-reactid="360">Prev</a><a title="（译）进阶Bash Script指南（一）" class="next" href="/advanced-bash-scripting-guide-1" data-reactid="361">Next</a></div></div></main><footer data-reactid="362"><div class="copyright" data-reactid="363"><p data-reactid="364"><!-- react-text: 365 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="366">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

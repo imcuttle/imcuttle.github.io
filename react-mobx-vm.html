@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> view model 开发模式 （基于react + mobx） - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1317842390"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">view model 开发模式 （基于react + mobx）</h1><div class="post-info" data-reactid="12"><time datetime="2018-03-02T20:20:49+00:00" data-reactid="13">Mar 2, 2018 8:20 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="react-mobx-vm" data-reactid="17"><a href="#react-mobx-vm" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><a href="https://github.com/be-fe/react-mobx-vm" data-reactid="20">React-Mobx-VM</a></h2><p data-reactid="21"><!-- react-text: 22 -->纵观主流的react状态管理库，Redux、mobx-state-tree 大致的开发app的流程是：先创建一个全局的唯一的store，全局store的数据包括一些子页面的page store 和一些全局的context（如user information），其中page store内的数据又包括页面内的数据，ui方面（isLoading/isFetching）和逻辑方面（list 列表数据）。在页面中又将一些统一的视图独立成一个个component，数据通过react props按需传递下去。所以我们需要在构建一个 st（state tree），如下图 <!-- /react-text --><div data-reactid="23"><style data-reactid="24">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:406px;max-height:406pxpx;" data-reactid="25"><div class="medium-image-progressive-placeholder" style="padding-bottom:132.51231527093597%;" data-reactid="26"></div><div class="medium-image-progressive" data-reactid="27"><canvas data-reactid="28"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="29"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/02/5a9967bc17b90.jpg" data-reactid="30"/><noscript data-reactid="31"><img class="medium-image-origin" src="https://i.loli.net/2018/03/02/5a9967bc17b90.jpg" data-reactid="32"/></noscript></div></div></div></p><p data-reactid="33">但是这仅仅是数据层面的事情儿，需要将数据和视图关联起来，还需要维护一个vt（view tree）结构与st基本一致，通过react props传递机制去关联 st 与 vt。</p><p data-reactid="34">上面介绍的仅仅为从上至下的传递，如果一个component想要去修改全局store或page store的数据呢？ 我们需要去传递callback(redux) 或者是父亲的reference（通过props或是react context接收，mobx）进而去改变数据。</p><div data-reactid="35"><style data-reactid="36">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:536px;max-height:536pxpx;" data-reactid="37"><div class="medium-image-progressive-placeholder" style="padding-bottom:77.42537313432835%;" data-reactid="38"></div><div class="medium-image-progressive" data-reactid="39"><canvas data-reactid="40"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="41"/><img class="medium-image-origin" src="https://i.loli.net/2018/03/02/5a9967d5e324d.jpg" data-reactid="42"/><noscript data-reactid="43"><img class="medium-image-origin" src="https://i.loli.net/2018/03/02/5a9967d5e324d.jpg" data-reactid="44"/></noscript></div></div></div><p data-reactid="45">以上便是以前我们的开发模式的概况。 我们需要维护两份tree（st和vt）</p><hr data-reactid="46"/><p data-reactid="47">下面介绍的view model模式，则只需要维护一份tree（view和state捆绑在一起成为一个节点），不需要我们额外考虑在view中的数据分发。</p><ol data-reactid="48"><li data-reactid="49"><!-- react-text: 50 -->view model 提供 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#bindview" data-reactid="51">bindView</a><!-- react-text: 52 --> 修饰器，传入参数 React Component Class ，修饰model class，那么被修饰的model 就会与view绑定起来成为 view model。同时传入的view会被mobx observe修饰，除外还同步了view层的componentDidMount/componentWillReceiveProps/componentWillUnmount 几个生命周期至model中<!-- /react-text --></li></ol><pre data-reactid="53"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="54"><span class="hljs-keyword" data-reactid="55">import</span><!-- react-text: 56 --> { Root, bindView, observable } <!-- /react-text --><span class="hljs-keyword" data-reactid="57">from</span><!-- react-text: 58 -->  <!-- /react-text --><span class="hljs-string" data-reactid="59">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 60 -->
+<!-- /react-text --><span class="hljs-class" data-reactid="61"><span class="hljs-keyword" data-reactid="62">class</span><!-- react-text: 63 --> <!-- /react-text --><span class="hljs-title" data-reactid="64">View</span><!-- react-text: 65 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="66">extends</span><!-- react-text: 67 --> <!-- /react-text --><span class="hljs-title" data-reactid="68">React</span><!-- react-text: 69 -->.<!-- /react-text --><span class="hljs-title" data-reactid="70">Component</span><!-- react-text: 71 --> <!-- /react-text --></span><!-- react-text: 72 -->{
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="73">return</span><!-- react-text: 74 --> <!-- /react-text --><span class="xml" data-reactid="75"><span class="hljs-tag" data-reactid="76"><!-- react-text: 77 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="78">div</span><!-- react-text: 79 -->&gt;<!-- /react-text --></span><!-- react-text: 80 -->{this.local.val}<!-- /react-text --><span class="hljs-tag" data-reactid="81"><!-- react-text: 82 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="83">div</span><!-- react-text: 84 -->&gt;<!-- /react-text --></span></span><!-- react-text: 85 -->
+    }
+}
+@bindView
+<!-- /react-text --><span class="hljs-class" data-reactid="86"><span class="hljs-keyword" data-reactid="87">class</span><!-- react-text: 88 --> <!-- /react-text --><span class="hljs-title" data-reactid="89">Model</span><!-- react-text: 90 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="91">extends</span><!-- react-text: 92 --> <!-- /react-text --><span class="hljs-title" data-reactid="93">Root</span><!-- react-text: 94 --> <!-- /react-text --></span><!-- react-text: 95 -->{
+    @observable val = <!-- /react-text --><span class="hljs-string" data-reactid="96">&#x27;123&#x27;</span><!-- react-text: 97 -->
+}<!-- /react-text --></code></pre><ol start="2" data-reactid="98"><li data-reactid="99"><!-- react-text: 100 -->React.createElement 是不能够用来渲染vm实例的，因此我们还提供了<!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/others#h" data-reactid="101">h</a><!-- react-text: 102 -->方法 用于渲染vm实例。<!-- /react-text --></li><li data-reactid="103"><!-- react-text: 104 -->应用中难免会出现一些子页面、组件需要修改父页面或全局的状态。vm针对这类情景提供了类mobx inject的修饰器，直接调用 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#inject" data-reactid="105">inject</a><!-- react-text: 106 --> 即可注入 this.app 在view中，也就是全局store的引用。<!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/examples/inject-collect" data-reactid="107">栗子</a></li></ol><pre data-reactid="108"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="109"><!-- react-text: 110 -->@inject
+<!-- /react-text --><span class="hljs-class" data-reactid="111"><span class="hljs-keyword" data-reactid="112">class</span><!-- react-text: 113 --> <!-- /react-text --><span class="hljs-title" data-reactid="114">View</span><!-- react-text: 115 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="116">extends</span><!-- react-text: 117 --> <!-- /react-text --><span class="hljs-title" data-reactid="118">React</span><!-- react-text: 119 -->.<!-- /react-text --><span class="hljs-title" data-reactid="120">Component</span><!-- react-text: 121 --> <!-- /react-text --></span><!-- react-text: 122 -->{
+    render() {
+     <!-- /react-text --><span class="hljs-comment" data-reactid="123">// this.app</span><!-- react-text: 124 -->
+    }
+}<!-- /react-text --></code></pre><ol start="4" data-reactid="125"><li data-reactid="126"><!-- react-text: 127 -->除外还提供了 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#binding" data-reactid="128">binding</a><!-- react-text: 129 --> 修饰器，用于修饰view，可以使用简洁的方式来实现双向绑定。于此相关的还有 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#bindable" data-reactid="130">bindable</a><!-- react-text: 131 -->，用来实现自定义的双向绑定规则（降低组件调用代码书写的开销）；与之对应的是unBindable方法。<!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/examples/binding" data-reactid="132">binding 栗子</a></li></ol><pre data-reactid="133"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="134"><!-- react-text: 135 -->@bindView(View)
+<!-- /react-text --><span class="hljs-class" data-reactid="136"><span class="hljs-keyword" data-reactid="137">class</span><!-- react-text: 138 --> <!-- /react-text --><span class="hljs-title" data-reactid="139">Model</span><!-- react-text: 140 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="141">extends</span><!-- react-text: 142 --> <!-- /react-text --><span class="hljs-title" data-reactid="143">Root</span><!-- react-text: 144 --> <!-- /react-text --></span><!-- react-text: 145 -->{
+   @observable abc = <!-- /react-text --><span class="hljs-string" data-reactid="146">&#x27;123&#x27;</span><!-- react-text: 147 -->
+}
+<!-- /react-text --><span class="hljs-comment" data-reactid="148">// 一劳永逸的用法</span><!-- react-text: 149 -->
+@binding
+<!-- /react-text --><span class="hljs-class" data-reactid="150"><span class="hljs-keyword" data-reactid="151">class</span><!-- react-text: 152 --> <!-- /react-text --><span class="hljs-title" data-reactid="153">View</span><!-- react-text: 154 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="155">extends</span><!-- react-text: 156 --> <!-- /react-text --><span class="hljs-title" data-reactid="157">React</span><!-- react-text: 158 -->.<!-- /react-text --><span class="hljs-title" data-reactid="159">Component</span><!-- react-text: 160 --> <!-- /react-text --></span><!-- react-text: 161 -->{
+   render() {
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="162">return</span><!-- react-text: 163 --> (
+       <!-- /react-text --><span class="xml" data-reactid="164"><span class="hljs-tag" data-reactid="165"><!-- react-text: 166 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="167">div</span><!-- react-text: 168 -->&gt;<!-- /react-text --></span><!-- react-text: 169 -->
+         <!-- /react-text --></span><!-- react-text: 170 -->&lt;input data-bind=&quot;abc&quot; /&gt;
+       &lt;/div&gt;<!-- /react-text --><span class="xml" data-reactid="171">
+     )
+   }
+}
+
+class View extends React.Component {
+   // 在成员方法里面修饰
+   @binding
+   renderSomething() {
+     // return ...
+   }
+   // 在getter方法里面修饰
+   @binding
+   get Something() {
+     // return ...
+   }
+   render() {
+     // 或者绑定指定的 react-element
+     return (
+       </span><!-- react-text: 172 -->&lt;div&gt;
+         {binding(this.local)(
+           &lt;input data-bind=&quot;abc&quot; /&gt;
+         )}
+         // 或者直接传入 element
+         // 注意：需要绑定 `data-scope` 作用域
+         {binding(&lt;input data-bind=&quot;abc&quot; data-scope={this.local} /&gt;)}
+       &lt;/div&gt;
+     )
+   }
+}<!-- /react-text --></code></pre><ol start="5" data-reactid="173"><li data-reactid="174"><!-- react-text: 175 -->提供 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#stateless" data-reactid="176">stateless</a><!-- react-text: 177 --> 来书写简单的组件（Function Component）<!-- /react-text --></li></ol><pre data-reactid="178"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="179"><span class="hljs-keyword" data-reactid="180">export</span><!-- react-text: 181 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="182">default</span><!-- react-text: 183 --> stateless(<!-- /react-text --><span class="hljs-function" data-reactid="184"><!-- react-text: 185 -->(<!-- /react-text --><span class="hljs-params" data-reactid="186">local, props</span><!-- react-text: 187 -->) =&gt;<!-- /react-text --></span><!-- react-text: 188 -->
+  &lt;div&gt;<!-- /react-text --><span class="xml" data-reactid="189"><span class="hljs-tag" data-reactid="190"><!-- react-text: 191 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="192">div</span><!-- react-text: 193 -->&gt;<!-- /react-text --></span></span><!-- react-text: 194 -->
+)<!-- /react-text --></code></pre><ol start="6" data-reactid="195"><li data-reactid="196"><strong data-reactid="197"><!-- react-text: 198 -->提供非常优雅的深链同步（数据同步至url）修饰器，不需要书写多余的代码。<!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/examples/url-sync#/?abc=hi" data-reactid="199">在线栗子</a></strong></li><li data-reactid="200">reaction 基于mobx reaction和model生命周期实现的reaction，监控到数据改变就会触发该方法</li><li data-reactid="201">autorun 类似于reaction，不同的是初始化时会惩罚该方法，更多介绍请查阅mobx文档</li></ol><p data-reactid="202">在react router 3中，接收的route中的component 为 react component class，所以我们提供了一个针对react router 3的router 用法与官方的一致，但它支持vm节点的渲染。</p><p data-reactid="203"><!-- react-text: 204 -->view model的开发模式给我们带来更多便捷，但同时也产生了一个<!-- /react-text --><strong data-reactid="205">新问题 代码分割</strong></p><p data-reactid="206"><!-- react-text: 207 -->我们可以在全局app store中挂载异步加载每个页面的vm实例，然后在 routes 中对应 getComponent（需要使用提供的 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/others#/router" data-reactid="208">Router 组件</a><!-- react-text: 209 -->），这样便可以实现vm的代码分割。 但是这样实现后，如何才能进行子操控父或跨页面数据操控呢？于是提供 <!-- /react-text --><a href="https://be-fe.github.io/react-mobx-vm/api/decorator#/collect" data-reactid="210">collect</a><!-- react-text: 211 --> API来收集那些异步的 vm 实例。<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="212"></div><div class="paginator" data-reactid="213"><a title="基于Mobx实现React双向绑定" class="prev" href="/react-data-binding-based-on-mobx" data-reactid="214">Prev</a><a title="Telescope: 文件在线预览服务" class="next" href="/telescopejs" data-reactid="215">Next</a></div></div></main><footer data-reactid="216"><div class="copyright" data-reactid="217"><p data-reactid="218"><!-- react-text: 219 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="220">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

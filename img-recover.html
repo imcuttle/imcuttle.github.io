@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「图像处理」图像的复原 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1680619914"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「图像处理」图像的复原</h1><div class="post-info" data-reactid="12"><time datetime="2016-06-03T15:58:25+00:00" data-reactid="13">Jun 3, 2016 3:58 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="介绍" data-reactid="17"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->介绍<!-- /react-text --></h1><p data-reactid="21"><!-- react-text: 22 -->图像在形成、记录、处理和传输过程中，由于成像系统、记录设备、传输介质和处理方法的问题，导致图像质量下降，这种现象叫图像退化。 而图像复原就是对退化的图像进行处理，尽可能的复原图像的<!-- /react-text --><strong data-reactid="23">本来面目</strong><!-- react-text: 24 -->。<!-- /react-text --></p><p data-reactid="25"><!-- react-text: 26 -->如图，先对图片进行模糊处理 <!-- /react-text --><div data-reactid="27"><style data-reactid="28">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:530px;max-height:530pxpx;" data-reactid="29"><div class="medium-image-progressive-placeholder" style="padding-bottom:62.264150943396224%;" data-reactid="30"></div><div class="medium-image-progressive" data-reactid="31"><canvas data-reactid="32"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="33"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkLD1OdGi0WKdv26sK4ubCj3ov6B?imageslim" data-reactid="34"/><noscript data-reactid="35"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FkLD1OdGi0WKdv26sK4ubCj3ov6B?imageslim" data-reactid="36"/></noscript></div></div></div><!-- react-text: 37 --> 然后对图片进行还原 <!-- /react-text --><div data-reactid="38"><style data-reactid="39">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:530px;max-height:530pxpx;" data-reactid="40"><div class="medium-image-progressive-placeholder" style="padding-bottom:62.264150943396224%;" data-reactid="41"></div><div class="medium-image-progressive" data-reactid="42"><canvas data-reactid="43"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="44"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqQpRZv_Tzx54uHAREg7O9UPY8r3?imageslim" data-reactid="45"/><noscript data-reactid="46"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqQpRZv_Tzx54uHAREg7O9UPY8r3?imageslim" data-reactid="47"/></noscript></div></div></div></p><h1 id="代码解释" data-reactid="48"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="49"><span class="icon icon-link" data-reactid="50"></span></a><!-- react-text: 51 -->代码解释<!-- /react-text --></h1><pre data-reactid="52"><code class="hljs language-java" data-query="{}" data-lang="java" data-reactid="53"><!-- react-text: 54 -->    <!-- /react-text --><span class="hljs-comment" data-reactid="55">//图像恢复</span><!-- react-text: 56 -->
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="57">public</span><!-- react-text: 58 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="59">int</span><!-- react-text: 60 -->[] imRestore(<!-- /react-text --><span class="hljs-keyword" data-reactid="61">int</span><!-- react-text: 62 -->[] pixels, <!-- /react-text --><span class="hljs-keyword" data-reactid="63">int</span><!-- react-text: 64 --> iw, <!-- /react-text --><span class="hljs-keyword" data-reactid="65">int</span><!-- react-text: 66 --> ih)
+	{
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="67">double</span><!-- react-text: 68 -->[] newPixels = <!-- /react-text --><span class="hljs-keyword" data-reactid="69">new</span><!-- react-text: 70 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="71">double</span><!-- react-text: 72 --> [iw*ih];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="73">double</span><!-- react-text: 74 -->[] newKernel = <!-- /react-text --><span class="hljs-keyword" data-reactid="75">new</span><!-- react-text: 76 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="77">double</span><!-- react-text: 78 --> [iw*ih];
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="79">//初始化</span><!-- react-text: 80 -->
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="81">for</span><!-- react-text: 82 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="83">int</span><!-- react-text: 84 --> j = <!-- /react-text --><span class="hljs-number" data-reactid="85">0</span><!-- react-text: 86 -->; j &lt; ih; j++)
+		{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="87">for</span><!-- react-text: 88 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="89">int</span><!-- react-text: 90 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="91">0</span><!-- react-text: 92 -->; i &lt; iw; i++)
+			{
+				newPixels[i+j*iw] = pixels[i+j*iw]&amp;<!-- /react-text --><span class="hljs-number" data-reactid="93">0xff</span><!-- react-text: 94 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="95">if</span><!-- react-text: 96 -->((i&lt;<!-- /react-text --><span class="hljs-number" data-reactid="97">5</span><!-- react-text: 98 -->) &amp;&amp; (j&lt;<!-- /react-text --><span class="hljs-number" data-reactid="99">5</span><!-- react-text: 100 -->))
+					newKernel[i+j*iw] = <!-- /react-text --><span class="hljs-number" data-reactid="101">1.0</span><!-- react-text: 102 -->/<!-- /react-text --><span class="hljs-number" data-reactid="103">25</span><!-- react-text: 104 -->;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="105">else</span><!-- react-text: 106 -->
+					newKernel[i+j*iw] = <!-- /react-text --><span class="hljs-number" data-reactid="107">0</span><!-- react-text: 108 -->;
+			}
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="109">//初始化</span><!-- react-text: 110 -->
+		Complex[] complex   = <!-- /react-text --><span class="hljs-keyword" data-reactid="111">new</span><!-- react-text: 112 --> Complex[iw*ih];
+		Complex[] comKernel = <!-- /react-text --><span class="hljs-keyword" data-reactid="113">new</span><!-- react-text: 114 --> Complex[iw*ih];
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="115">for</span><!-- react-text: 116 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="117">int</span><!-- react-text: 118 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="119">0</span><!-- react-text: 120 -->;i &lt; iw*ih; i++)
+		{
+			complex[i]   = <!-- /react-text --><span class="hljs-keyword" data-reactid="121">new</span><!-- react-text: 122 --> Complex(<!-- /react-text --><span class="hljs-number" data-reactid="123">0</span><!-- react-text: 124 -->,<!-- /react-text --><span class="hljs-number" data-reactid="125">0</span><!-- react-text: 126 -->);
+			comKernel[i] = <!-- /react-text --><span class="hljs-keyword" data-reactid="127">new</span><!-- react-text: 128 --> Complex(<!-- /react-text --><span class="hljs-number" data-reactid="129">0</span><!-- react-text: 130 -->,<!-- /react-text --><span class="hljs-number" data-reactid="131">0</span><!-- react-text: 132 -->);
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="133">//对原图像进行FFT (快速傅氏变换)</span><!-- react-text: 134 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="135">new</span><!-- react-text: 136 --> FFT2();
+		fft2.setData2(iw, ih, newPixels);
+		complex = fft2.getFFT2();
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="137">//对卷积核进行FFT</span><!-- react-text: 138 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="139">new</span><!-- react-text: 140 --> FFT2();
+		fft2.setData2(iw, ih, newKernel);
+		comKernel = fft2.getFFT2();
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="141">//逆滤波复原</span><!-- react-text: 142 -->
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="143">for</span><!-- react-text: 144 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="145">int</span><!-- react-text: 146 --> j = <!-- /react-text --><span class="hljs-number" data-reactid="147">0</span><!-- react-text: 148 -->;j &lt; ih; j++)
+		{
+			<!-- /react-text --><span class="hljs-keyword" data-reactid="149">for</span><!-- react-text: 150 -->(<!-- /react-text --><span class="hljs-keyword" data-reactid="151">int</span><!-- react-text: 152 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="153">0</span><!-- react-text: 154 -->; i &lt; iw; i++)
+			{
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="155">double</span><!-- react-text: 156 --> re = complex[i+j*iw].re;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="157">double</span><!-- react-text: 158 --> im = complex[i+j*iw].im;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="159">double</span><!-- react-text: 160 --> reKernel = comKernel[i+j*iw].re;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="161">double</span><!-- react-text: 162 --> imKernel = comKernel[i+j*iw].im;
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="163">double</span><!-- react-text: 164 --> x = reKernel*reKernel+imKernel*imKernel;
+
+				<!-- /react-text --><span class="hljs-keyword" data-reactid="165">if</span><!-- react-text: 166 -->(x &gt; <!-- /react-text --><span class="hljs-number" data-reactid="167">1e-3</span><!-- react-text: 168 -->)
+				{
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="169">double</span><!-- react-text: 170 --> r = (re*reKernel+im*imKernel)/x;
+					<!-- /react-text --><span class="hljs-keyword" data-reactid="171">double</span><!-- react-text: 172 --> m = (im*reKernel-re*imKernel)/x;
+					complex[i+j*iw].re = r;
+					complex[i+j*iw].im = m;
+				}
+			}
+		}
+
+		<!-- /react-text --><span class="hljs-comment" data-reactid="173">//进行FFT反变换</span><!-- react-text: 174 -->
+		fft2 = <!-- /react-text --><span class="hljs-keyword" data-reactid="175">new</span><!-- react-text: 176 --> FFT2();
+		fft2.setData2i(iw, ih, complex);
+		pixels = fft2.getPixels2i();
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="177">return</span><!-- react-text: 178 --> pixels;
+	}<!-- /react-text --></code></pre></article></div><div class="gitment-container" data-reactid="179"></div><div class="paginator" data-reactid="180"><a title="「项目拾遗」简单图形处理及图形绘制" class="prev" href="/simple-imgprocessing" data-reactid="181">Prev</a><a title="「图像处理」图像的直方图均衡化" class="next" href="/img-normalize" data-reactid="182">Next</a></div></div></main><footer data-reactid="183"><div class="copyright" data-reactid="184"><p data-reactid="185"><!-- react-text: 186 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="187">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 捣鼓出一个简陋的图片轮播效果 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-56827095"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">捣鼓出一个简陋的图片轮播效果</h1><div class="post-info" data-reactid="12"><time datetime="2016-04-23T16:44:13+00:00" data-reactid="13">Apr 23, 2016 4:44 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="废话不多说，直接看效果" data-reactid="17"><a href="#%E5%BA%9F%E8%AF%9D%E4%B8%8D%E5%A4%9A%E8%AF%B4%EF%BC%8C%E7%9B%B4%E6%8E%A5%E7%9C%8B%E6%95%88%E6%9E%9C" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->废话不多说，直接看效果<!-- /react-text --></h1><iframe style="width:100%;height:400px;" src="/htm/图片轮播1.html" data-reactid="21"></iframe><!-- react-text: 22 --># “科学”道理？ 父元素设置`overflow:hidden;`,`width`,`height`, 子div设置`position:relative;`(还在文档流中)， 根据js动态控制其宽度等于所有图片的`width`总和<!-- /react-text --><pre data-reactid="23"><code data-query="{}" data-lang="data-lang" data-reactid="24">container.style.width = document.querySelectorAll(&#x27;.pic-run&gt;div&gt;img&#x27;).length*width;
+</code></pre><p data-reactid="25"><!-- react-text: 26 -->然后，设置图片属性为<!-- /react-text --><code data-reactid="27">float:left;</code><!-- react-text: 28 -->，将图片“紧紧”地“挤压”在<!-- /react-text --><strong data-reactid="29">一排</strong><!-- react-text: 30 -->。 <!-- /react-text --><strong data-reactid="31"><!-- react-text: 32 -->关于浮动<!-- /react-text --><code data-reactid="33">float</code><!-- react-text: 34 -->，我有话要说<!-- /react-text --></strong><!-- react-text: 35 --> 如下，红色为<!-- /react-text --><code data-reactid="36">float:left;</code><!-- react-text: 37 -->，其他均未设置浮动。可以看到其他的div将无视红色。<!-- /react-text --><br data-reactid="38"/><!-- react-text: 39 -->但是，<!-- /react-text --><strong data-reactid="40">其他div中的文字却被红色挡住了！</strong><!-- react-text: 41 -->， 所以说<!-- /react-text --></p><blockquote data-reactid="42"><p data-reactid="43"><code data-reactid="44">float</code><!-- react-text: 45 -->是用来解决文字环绕图片的问题的！<!-- /react-text --></p></blockquote><div style="width:200px;height:400px;border:2px solid red;float:left;" data-reactid="46"></div><div style="width:300px;height:200px;border:2px solid green;" data-reactid="47"></div><div style="width:600px;height:200px;border:2px solid #00f;" data-reactid="48">文字文字</div><p data-reactid="49"><!-- react-text: 50 -->最后根据js修改装载所有图片容器的<!-- /react-text --><code data-reactid="51">left</code><!-- react-text: 52 -->值即可。 至于动态效果可以参考我的文章 <!-- /react-text --><a href="/2016/04/23/requestAnimationFrame_Vs_setInterval/" data-reactid="53">requestAnimationFrame Vs setInterval</a></p><h1 id="附上源码" data-reactid="54"><a href="#%E9%99%84%E4%B8%8A%E6%BA%90%E7%A0%81" aria-hidden="true" data-reactid="55"><span class="icon icon-link" data-reactid="56"></span></a><!-- react-text: 57 -->附上源码<!-- /react-text --></h1><pre data-reactid="58"><code data-query="{}" data-lang="data-lang" data-reactid="59">---
+ layout: false
+---
+&lt;style&gt;
+.pic-run{
+    margin: 0 auto;
+    overflow:hidden;
+    width:400px;
+    height:300px;
+}
+.pic-run&gt;div{
+    padding : 0;
+    position:relative;
+    left:-0px;
+}
+.pic-run&gt;div&gt;img{
+    float:left;
+    width:400px;
+    height:300px;
+}
+.pic-btn{
+    clear:both;
+    text-align: center;
+}
+
+&lt;/style&gt;
+&lt;script&gt;
+    
+    function slide(d){
+        if(slide.time) return;
+        var img = document.querySelector(&#x27;.pic-run img&#x27;);
+        var width = img.width,height = img.height;
+        var show = document.querySelector(&#x27;.pic-run&#x27;);
+        show.style.width = width;show.style.height = height;
+        var container = document.querySelector(&#x27;.pic-run&gt;div&#x27;);
+        var bgleft = parseInt(container.style.left);
+        container.style.width = document.querySelectorAll(&#x27;.pic-run&gt;div&gt;img&#x27;).length*width;
+        var delta = -d*width,aimleft = bgleft+delta;
+        if(aimleft&lt;-(parseInt(container.style.width)-width) || aimleft&gt;0) return;
+        if(delta==0) return;
+        function run(){
+            if(bgleft==aimleft){ 
+                cancelAnimationFrame(slide.time);
+                delete slide.time;
+                return;
+            }
+            if(bgleft&lt;aimleft){
+                bgleft+=50;
+            }else{
+                bgleft-=50;
+            }
+            container.style.left = bgleft;
+            requestAnimationFrame(run)
+        }
+        slide.time = requestAnimationFrame(run)
+    }
+&lt;/script&gt;
+&lt;div class=&quot;pic-run&quot;&gt;
+&lt;div style=&quot;left:0;&quot;&gt;
+&lt;img src=&#x27;images/pic-1.jpg&#x27; /&gt;
+&lt;img src=&#x27;images/pic-2.jpg&#x27; /&gt;
+&lt;img src=&#x27;images/pic-3.jpg&#x27; /&gt;
+&lt;img src=&#x27;images/pic-4.jpg&#x27; /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#x27;pic-btn&#x27;&gt;
+&lt;button onclick=&#x27;slide(-1)&#x27;&gt;Prev&lt;/button&gt;
+&lt;button onclick=&#x27;slide(1)&#x27;&gt;Next&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    window.onload = function(){slide(0);};
+&lt;/script&gt;
+</code></pre></article></div><div class="gitment-container" data-reactid="60"></div><div class="paginator" data-reactid="61"><a title="b vs strong &amp; i vs em (html标签语义化)" class="prev" href="/b_vs_strong_&amp;_i_vs_em" data-reactid="62">Prev</a><a title="requestAnimationFrame Vs setInterval" class="next" href="/requestanimationframe-vs-setinterval" data-reactid="63">Next</a></div></div></main><footer data-reactid="64"><div class="copyright" data-reactid="65"><p data-reactid="66"><!-- react-text: 67 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="68">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

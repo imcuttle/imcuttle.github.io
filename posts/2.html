@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="495464254"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><section class="container" data-reactid="9"><div class="search-bar" data-reactid="10"><input value="" placeholder="Search..." data-reactid="11"/></div><ul class="home post-list" data-reactid="12"><li class="post-list-item" data-reactid="13"><article class="post-block" data-reactid="14"><h2 class="post-title" data-reactid="15"><a title="如何实现 “灭霸” 响指动效" class="post-title-link" href="/about-snap-fade-away" data-reactid="16">如何实现 “灭霸” 响指动效</a></h2><time class="post-info" datetime="2019-05-08T14:29:02+00:00" data-reactid="17">May 8, 2019</time><div class="post-content" data-reactid="18">
+
+&lt;style&gt;
+    .transformer-react-render {
+        border: 1px dashed #959da5;
+        border-radius: 5px;
+        display: block;
+    }
+&lt;/style&gt;
+
+## 效果一瞥
+
+使用 [snap-fade-away](https://github.com/imcutt</div><a class="read-more" href="/about-snap-fade-away" data-reactid="19">...more</a></article></li><li class="post-list-item" data-reactid="20"><article class="post-block" data-reactid="21"><h2 class="post-title" data-reactid="22"><a title="多叉树的差异对比算法与应用" class="post-title-link" href="/detect-tree-changed" data-reactid="23">多叉树的差异对比算法与应用</a></h2><time class="post-info" datetime="2019-02-03T23:43:25+00:00" data-reactid="24">Feb 3, 2019</time><div class="post-content" data-reactid="25">
+
+## 问题
+
+在书写 markdown 文本的时候，为了追求好的体验，需要在 markdown 预览页面中，高亮且定位在正在编辑的节点上，如图
+
+&lt;img src=&quot;https://i.loli.net/2018/10/28/5bd58a95c6b7d.gif&quot; alt=&quot;&quot; width=&quot;700&quot; height=&quot;415&quot; /&gt;
+
+很显然，这个问题需要转换成两颗树（抽象语法树）的差异对比，
+</div><a class="read-more" href="/detect-tree-changed" data-reactid="26">...more</a></article></li><li class="post-list-item" data-reactid="27"><article class="post-block" data-reactid="28"><h2 class="post-title" data-reactid="29"><a title="本地实时书写 markdown + 同步定位修改节点" class="post-title-link" href="/talk-about-live-markd" data-reactid="30">本地实时书写 markdown + 同步定位修改节点</a></h2><time class="post-info" datetime="2018-11-05T11:06:45+00:00" data-reactid="31">Nov 5, 2018</time><div class="post-content" data-reactid="32">
+
+## 前言
+16 年在 SF 中发布了文章 [&quot;探究SegumentFault Markdown编辑器&quot;](https://segmentfault.com/a/1190000006260582)，目的是仿 SF 线上书写 Markdown 文档的体验：**高亮定位修改节点**
+
+在上述文章中的工具已经不再维护（😢代码写太乱），而且是在浏览器中书写 markdown 文本。
+
+于是现在使用全</div><a class="read-more" href="/talk-about-live-markd" data-reactid="33">...more</a></article></li><li class="post-list-item" data-reactid="34"><article class="post-block" data-reactid="35"><h2 class="post-title" data-reactid="36"><a title="告别庞大 PSD，轻松测量尺寸" class="post-title-link" href="/make-psd-measurable" data-reactid="37">告别庞大 PSD，轻松测量尺寸</a></h2><time class="post-info" datetime="2018-09-18T22:37:29+00:00" data-reactid="38">Sep 18, 2018</time><div class="post-content" data-reactid="39">
+
+## 起因
+作为前端工程师，日常开发离不开 psd 文件。
+
+但是日常开发的一个小弹窗页面，它的 psd 居然需要 **30+Mb**，所以经常得定期清理 psd...
+
+对于我一个 PS 小菜鸡来说，用 PSD 无非只是需要用来度量元素大小（元素间距），查看属性等简单的功能。
+
+## 思考，对比
+相对比于 sketch，sketch 具有 [sketch-measure](https://g</div><a class="read-more" href="/make-psd-measurable" data-reactid="40">...more</a></article></li><li class="post-list-item" data-reactid="41"><article class="post-block" data-reactid="42"><h2 class="post-title" data-reactid="43"><a title="书写组件 DEMO 的一些方案" class="post-title-link" href="/how-to-write-component-demo" data-reactid="44">书写组件 DEMO 的一些方案</a></h2><time class="post-info" datetime="2018-06-30T15:55:46+00:00" data-reactid="45">Jun 30, 2018</time><div class="post-content" data-reactid="46">
+
+目前前端开发都推崇一致组件化的开发思想，即看到业务页面之后，先不着急写页面；而是先观察，把一些具有共性的UI控件包装成组件（如 React/Vue/Web Component）。这样做的好处不言而喻，提供组件复用率，团队开发效率提升明显。
+
+既然组件化的思想这么重要，那么对于某个组件单元，它本身是不依赖外部环境（如外部静态资源）的；同时它内部也需要有它自己的单元测试、文档，甚至包含 DEMO </div><a class="read-more" href="/how-to-write-component-demo" data-reactid="47">...more</a></article></li><li class="post-list-item" data-reactid="48"><article class="post-block" data-reactid="49"><h2 class="post-title" data-reactid="50"><a title="React在线编辑国际化文本" class="post-title-link" href="/在线编辑国际化文本" data-reactid="51">React在线编辑国际化文本</a></h2><time class="post-info" datetime="2018-06-22T14:33:11+00:00" data-reactid="52">Jun 22, 2018</time><div class="post-content" data-reactid="53">
+
+今天给大家介绍一个轻量但神奇的国际化库[tiny-i18n](https://github.com/imcuttle/tiny-i18n)
+
+在我们的项目日益庞大的情况下，国际化的字典愈变愈大，国际化文本的维护是一个问题；  
+有时候修改一个字段，查找就花费了很大的时间功夫。
+这个时候 tiny-i18n 中的 [@tiny-i18n/react-live](https://github.co</div><a class="read-more" href="/在线编辑国际化文本" data-reactid="54">...more</a></article></li><li class="post-list-item" data-reactid="55"><article class="post-block" data-reactid="56"><h2 class="post-title" data-reactid="57"><a title="如何录制命令行交互？" class="post-title-link" href="/how-to-record-command-line" data-reactid="58">如何录制命令行交互？</a></h2><time class="post-info" datetime="2018-06-03T20:23:47+00:00" data-reactid="59">Jun 3, 2018</time><div class="post-content" data-reactid="60">
+
+使用 Mac 的同学需要先安装 [brew](https://brew.sh/)，
+然后使用 brew 安装 [asciinema](https://github.com/asciinema/asciinema) 即可
+
+    brew install asciinema
+    
+    # 开始录制屏幕，数据放在 local.json 中
+    asciinema rec local.</div><a class="read-more" href="/how-to-record-command-line" data-reactid="61">...more</a></article></li><li class="post-list-item" data-reactid="62"><article class="post-block" data-reactid="63"><h2 class="post-title" data-reactid="64"><a title="时光里的宝藏（个人项目合集）" class="post-title-link" href="/my-projects" data-reactid="65">时光里的宝藏（个人项目合集）</a></h2><time class="post-info" datetime="2018-05-16T06:07:18+00:00" data-reactid="66">May 16, 2018</time><div class="post-content" data-reactid="67">
+
+突发奇想地想把自己的一些比较有意思的个人项目做个较为详尽的归纳。
+
+接触编程是在大一(2013年)学习C语言
+
+## 开源中国 https://www.oschina.net/code/list_by_user?id=2347565
+
+### 学生成绩管理软件（链表）
+
+### huffman
+
+### *网型结构的可视化及其可视化插入边
+
+### 大创 + 订票系统
+
+### 八数码(ai)</div><a class="read-more" href="/my-projects" data-reactid="68">...more</a></article></li><li class="post-list-item" data-reactid="69"><article class="post-block" data-reactid="70"><h2 class="post-title" data-reactid="71"><a title="页面标注助手 - Markme" class="post-title-link" href="/page-mark" data-reactid="72">页面标注助手 - Markme</a></h2><time class="post-info" datetime="2018-05-06T22:11:15+00:00" data-reactid="73">May 6, 2018</time><div class="post-content" data-reactid="74">
+
+## 抛出问题
+
+- 情景A
+小明在网上查找资料时（如百度百科、wiki），觉得网页上的一些话（错误或是重点）需要记录下来，于是使用截图的方式记录下来。
+
+截图虽然比较方便，但是不方便还原及随后的查阅。
+
+- 情景B
+小红和小蓝想对网上的一篇文章一起讨论学习。于是他们事先各自完成自己的任务，最后把总结文章互相分享出来。
+
+上面的情景有统一问题是：需要共享自己在同一个网页上的数据。 其实类似的问</div><a class="read-more" href="/page-mark" data-reactid="75">...more</a></article></li><li class="post-list-item" data-reactid="76"><article class="post-block" data-reactid="77"><h2 class="post-title" data-reactid="78"><a title="walli" class="post-title-link" href="/walli-born" data-reactid="79">walli</a></h2><time class="post-info" datetime="2018-04-11T13:13:19+00:00" data-reactid="80">Apr 11, 2018</time><div class="post-content" data-reactid="81">
+
+[walli](https://github.com/imcuttle/walli)一个可管理不可变的数据校验库
+
+### 什么时候需要用到 walli
+  书写工具包的时候，需要校对用户输入参数的（复杂数据结构）配置,
+  类似于webpack中的配置校对 和 react中的 prop types
+
+### 简单栗子
+如定义一个person的数据结构
+
+- typescript 定义
+```</div><a class="read-more" href="/walli-born" data-reactid="82">...more</a></article></li></ul><div class="paginator" data-reactid="83"><a class="prev" href="/posts/1" data-reactid="84">Prev</a><a class="next" href="/posts/3" data-reactid="85">Next</a></div></section></main><footer data-reactid="86"><div class="copyright" data-reactid="87"><p data-reactid="88"><!-- react-text: 89 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="90">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

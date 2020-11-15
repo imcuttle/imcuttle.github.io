@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 「项目拾遗」几个计算机图形学的前端程序 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1908308434"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">「项目拾遗」几个计算机图形学的前端程序</h1><div class="post-info" data-reactid="12"><time datetime="2016-05-10T18:39:47+00:00" data-reactid="13">May 10, 2016 6:39 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h1 id="前言" data-reactid="17"><a href="#%E5%89%8D%E8%A8%80" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->前言<!-- /react-text --></h1><p data-reactid="21">这是一篇不太正规的「计算机图形学论文」，其实论文谈不上，因为根本上不到研究的层次，就是自己瞎捣鼓。 主要介绍了几个与图形学相关的程序，皆采用前端技术实现，点击即可查看。</p><ul data-reactid="22"><li data-reactid="23"><a href="http://moyuyc.github.io/htm/painter/" data-reactid="24">简单的绘图程序</a></li><li data-reactid="25"><a href="http://moyuyc.github.io/2016/04/26/canvas%E7%BB%98%E5%88%B6%E5%B9%B3%E9%9D%A2%E8%8A%B1%E7%93%A3/" data-reactid="26">三次贝赛尔曲线应用-绘制平面动态花瓣</a></li><li data-reactid="27"><a href="/htm/bezier.html" data-reactid="28">动态绘制三次贝赛尔曲线</a></li><li data-reactid="29"><a href="http://moyuyc.xyz/play_3d/play_3d_demo1.html" data-reactid="30">三维几何体的基本变换与组合变换应用</a></li></ul><h1 id="主要内容" data-reactid="31"><a href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->主要内容<!-- /react-text --></h1><h2 id="简单的绘图程序" data-reactid="35"><a href="#%E7%AE%80%E5%8D%95%E7%9A%84%E7%BB%98%E5%9B%BE%E7%A8%8B%E5%BA%8F" aria-hidden="true" data-reactid="36"><span class="icon icon-link" data-reactid="37"></span></a><!-- react-text: 38 -->简单的绘图程序<!-- /react-text --></h2><h3 id="介绍" data-reactid="39"><a href="#%E4%BB%8B%E7%BB%8D" aria-hidden="true" data-reactid="40"><span class="icon icon-link" data-reactid="41"></span></a><!-- react-text: 42 -->介绍<!-- /react-text --></h3><p data-reactid="43">主要运用HTML5 canvas API与相关图形学知识实现的绘图程序（还包括部分图像处理功能，不介绍）。 能够选择图形类型（Pen/Line/Circle）,画笔颜色（随机生成）,画笔宽度, 图形对象拖拽移动，图形种子填充算法。</p><h3 id="演示图片" data-reactid="44"><a href="#%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87" aria-hidden="true" data-reactid="45"><span class="icon icon-link" data-reactid="46"></span></a><!-- react-text: 47 -->演示图片<!-- /react-text --></h3><img src="/images/gif1.gif" alt="img" width="1142" height="747" data-reactid="48"/><h3 id="代码解释" data-reactid="49"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A" aria-hidden="true" data-reactid="50"><span class="icon icon-link" data-reactid="51"></span></a><!-- react-text: 52 -->代码解释<!-- /react-text --></h3><p data-reactid="53"><code data-reactid="54">Shape.js ： 主要包含一些图形类</code></p><p data-reactid="55">点类代码</p><pre data-reactid="56"><code data-query="{}" data-lang="data-lang" data-reactid="57">Point: function (x, y) {
+    this.x = x;
+    this.y = y;
+    this.distance = function (p) {
+        p = p?p:new Shape.Point(0,0);
+        return Math.sqrt(Math.pow(p.x-this.x,2)+Math.pow(p.y-this.y,2));
+    };
+    this.move = function(offsetX,offsetY){
+        this.x+=offsetX;this.y+=offsetY;
+    };
+    this.draw = function (paint, color, linewidth) {
+        this.color = color?color:this.color;
+        this.linewidth = linewidth?linewidth:this.linewidth;
+        paint.strokeStyle = this.color ? this.color : &#x27;black&#x27;;
+        paint.lineWidth = this.linewidth!=null ? this.linewidth : 1;
+        paint.beginPath();
+        paint.moveTo(this.x, this.y);
+        paint.lineTo(this.x + 1, this.y + 1);
+        paint.stroke();
+        paint.save();
+        return this;
+    }
+}
+</code></pre><p data-reactid="58">线段类代码</p><pre data-reactid="59"><code data-query="{}" data-lang="data-lang" data-reactid="60">Line: function (p1, p2) {
+    this.sp = p1;
+    this.ep = p2;
+    //this.color;this.linewidth;
+    this.move = function(offsetX,offsetY){
+        this.sp.x+=offsetX;this.sp.y+=offsetY;
+        this.ep.x+=offsetX;this.ep.y+=offsetY;
+    };
+    // 不足：未考虑线宽，用户较难选中
+    this.isIn = function (point) {
+        var x = point.x, y = point.y;
+        if((y-this.sp.y)*(x-this.ep.x)==(y-this.ep.y)*(x-this.sp.x))
+            return true;
+        return false;
+    };
+    // 中点划线法
+    this.draw = function (paint, color, linewidth) {
+        this.color = color?color:this.color;
+        this.linewidth = linewidth!=null?linewidth:this.linewidth;
+        color = this.color; linewidth = this.linewidth;
+        var ep = this.ep, sp = this.sp,
+            dX = ep.x - sp.x,
+            dY = ep.y - sp.y,
+            a = sp.y - ep.y,
+            b = ep.x - sp.x;
+        if (Math.abs(dX) &gt;= Math.abs(dY)) {
+            if (dX &gt;= 0 &amp;&amp; dY &gt;= 0) {
+                var d = b + 2 * a, d1 = 2 * a, d2 = 2 * (a + b);
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x + 1, y = sp.y; x &lt; ep.x; x++) {
+                    if (d &gt;= 0) d = d + d1;
+                    else {
+                        y++;
+                        d = d + d2;
+                    }
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+            else if (dX &gt;= 0 &amp;&amp; dY &lt;= 0) {
+                var d = -b + a &lt;&lt; 1, d1 = (a - b) &lt;&lt; 1, d2 = a &lt;&lt; 1;
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x + 1, y = sp.y; x &lt; ep.x; x++) {
+                    if (d &gt;= 0) {
+                        y--;
+                        d = d + d1;
+                    }
+                    else d = d + d2;
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+            else if (dX &lt;= 0 &amp;&amp; dY &lt;= 0) {
+                var d = -b - 2 * a, d1 = -2 * a, d2 = -2 * (a + b);
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x - 1, y = sp.y; x &gt; ep.x; x--) {
+                    if (d &gt;= 0) d = d + d1;
+                    else {
+                        y--;
+                        d = d + d2;
+                    }
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+            else {
+                var d = b - 2 * a, d1 = 2 * (b - a), d2 = -2 * a;
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x - 1, y = sp.y; x &gt; ep.x; x--) {
+                    if (d &gt;= 0) {
+                        y++;
+                        d = d + d1;
+                    }
+                    else d = d + d2;
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+        }
+        else {
+            if (dX &gt;= 0 &amp;&amp; dY &gt;= 0) {
+                var d = a + 2 * b, d1 = 2 * (a + b), d2 = 2 * b;
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x, y = sp.y + 1; y &lt; ep.y; y++) {
+                    if (d &gt;= 0) {
+                        x++;
+                        d = d + d1;
+                    }
+                    else {
+                        d = d + d2;
+                    }
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+            else if (dX &gt;= 0 &amp;&amp; dY &lt;= 0) {
+                var d = a - 2 * b, d1 = -2 * b, d2 = 2 * (a - b);
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x, y = sp.y - 1; y &gt; ep.y; y--) {
+                    if (d &gt;= 0)      d = d + d1;
+                    else {
+                        x++;
+                        d = d + d2;
+                    }
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+
+            }
+            else if (dX &lt;= 0 &amp;&amp; dY &lt;= 0) {
+                var d = -a - 2 * b, d1 = -2 * (a + b), d2 = -2 * b;
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x, y = sp.y - 1; y &gt; ep.y; y--) {
+                    if (d &gt;= 0) {
+                        x--;
+                        d = d + d1;
+                    }
+                    else               d = d + d2;
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+
+            }
+            else {
+                var d = -a + 2 * b, d1 = 2 * b, d2 = 2 * (b - a);
+                new Shape.Point(sp.x, sp.y).draw(paint, color, linewidth);
+                for (var x = sp.x, y = sp.y + 1; y &lt; ep.y; y++) {
+                    if (d &gt;= 0)           d = d + d1;
+                    else {
+                        x--;
+                        d = d + d2;
+                    }
+                    new Shape.Point(x, y).draw(paint, color, linewidth);
+                }
+            }
+        }
+        return this;
+    }
+}
+</code></pre><p data-reactid="61">圆类代码</p><pre data-reactid="62"><code data-query="{}" data-lang="data-lang" data-reactid="63">Circle: function (cp, r) {
+    this.cp = cp;
+    this.r = r;
+    this.move = function(offsetX,offsetY){
+        this.cp.x+=offsetX;this.cp.y+=offsetY;
+    };
+    //this.color;this.linewidth;
+    this.isIn = function (point) {
+        var x = point.x, y = point.y;
+        return (x-this.cp.x)*(x-this.cp.x)+(y-this.cp.y)*(y-this.cp.y)&lt;=this.r*this.r;
+    };
+    // 八分法画圆
+    this.draw = function (paint, color, linewidth) {
+        this.color = color?color:this.color;
+        this.linewidth = linewidth?linewidth:this.linewidth;
+        color = this.color; linewidth = this.linewidth;
+        //console.log(color);
+        var r = this.r, cp = this.cp,
+            d = 1 - r, p = new Shape.Point(0, r);
+        while (p.x &lt;= p.y) {
+            new Shape.Point(cp.x + p.x, cp.y + p.y).draw(paint, color, linewidth);
+            new Shape.Point(cp.x + p.x, cp.y - p.y).draw(paint, color, linewidth);
+            new Shape.Point(cp.x - p.x, cp.y + p.y).draw(paint, color, linewidth);
+            new Shape.Point(cp.x - p.x, cp.y - p.y).draw(paint, color, linewidth);
+            new Shape.Point(cp.x + p.y, cp.y + p.x).draw(paint, color, linewidth);
+            new Shape.Point(cp.x + p.y, cp.y - p.x).draw(paint, color, linewidth);
+            new Shape.Point(cp.x - p.y, cp.y + p.x).draw(paint, color, linewidth);
+            new Shape.Point(cp.x - p.y, cp.y - p.x).draw(paint, color, linewidth);
+            p.x++;
+            if (d &lt; 0) d = d + 2 * p.x + 1;
+            else {
+                p.y--;
+                d = d + 2 * p.x - 2 * p.y + 1;
+            }
+        }
+        return this;
+    };
+    //种子填充算法 深度优先搜索，基于栈，isam表示是否含动画填充效果
+    this.dfsFill = function (paint,p,color,isam) {
+        isam = isam || false;
+        var stack = [p],hashmap = {},container=[];
+        while (stack.length !== 0){
+            p = stack.pop();
+            if(isam)
+                container.push(p);
+            else
+                p.draw(paint,color);
+            [new Shape.Point(p.x,p.y-1), new Shape.Point(p.x-1,p.y), new Shape.Point(p.x,p.y+1), new Shape.Point(p.x+1,p.y)]
+                .forEach(ele=&gt;{
+                    if(this.isIn(ele) &amp;&amp; !hashmap[ele]) {
+                        stack.push(ele);
+                        hashmap[ele] = hashmap[ele]+1 || 0;
+                    }
+                });
+        }
+        console.log(hashmap);
+        if(isam) {
+            var animate = requestAnimationFrame;
+            animate(function () {
+                if (!container.length) return;
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                animate(arguments.callee);
+            })
+        }
+    };
+    //种子填充算法 广度优先搜索，基于队列。
+    this.bfsFill = function (paint,p,color,isam) {
+        isam = isam || false;
+        var queue = [p],hashmap = {},container=[];
+        while (queue.length !== 0){
+            p = queue.shift();
+            if(isam)
+                container.push(p);
+            else
+                p.draw(paint,color);
+            [new Shape.Point(p.x,p.y-1), new Shape.Point(p.x-1,p.y), new Shape.Point(p.x,p.y+1), new Shape.Point(p.x+1,p.y)]
+                .forEach(ele=&gt;{
+                    if(this.isIn(ele) &amp;&amp; !hashmap[ele]) {
+                        queue.push(ele);
+                        hashmap[ele] = hashmap[ele]+1 || 0;
+                    }
+                });
+        }
+        console.log(hashmap);
+        if(isam) {
+            var animate = requestAnimationFrame;
+            animate(function () {
+                if (!container.length) return;
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                container.shift().draw(paint, color);container.shift().draw(paint, color);
+                animate(arguments.callee);
+            })
+        }
+    }
+}
+</code></pre><p data-reactid="64">路径类代码</p><pre data-reactid="65"><code data-query="{}" data-lang="data-lang" data-reactid="66">Path: function (points) {
+    this.ps = points;
+    this.move = function(offsetX,offsetY){
+        for(var i = 0;i&lt;this.ps.length;i++){
+            this.ps[i].x+=offsetX;
+            this.ps[i].y+=offsetY;
+        }
+    };
+    this.isIn = function (point) {
+        var p = this.ps[0];
+        for(var i=1;i&lt;this.ps.length;i++){
+            if(new Shape.Line(p,this.ps[i]).isIn(point))
+                return true;
+            p = this.ps[i];
+        }
+        return false;
+    };
+    // 调用canvas提供的api
+    this.draw = function (paint,color,linewidth) {
+        this.color = color?color:this.color;
+        this.linewidth = linewidth?linewidth:this.linewidth;
+        color = this.color; linewidth = this.linewidth;
+        //console.log(color);
+        var arr = this.ps;
+        if(arr.length==0)  return;
+        paint.beginPath();
+        paint.strokeStyle = color ? color : &#x27;black&#x27;;
+        paint.lineWidth = linewidth ? linewidth : 1;
+        paint.moveTo(arr[0].x,arr[0].y);
+        for(var i =1;i&lt;arr.length;i++){
+            paint.lineTo(arr[i].x,arr[i].y);
+        }
+        paint.stroke();
+        return this;
+    }
+}
+</code></pre><p data-reactid="67"><code data-reactid="68">canvas.js: 包含其他一些对事件的绑定或者对控件的控制等代码</code></p><p data-reactid="69">选中图形进行拖动函数</p><pre data-reactid="70"><code data-query="{}" data-lang="data-lang" data-reactid="71">dragMoveHandle = function () {
+    var f1 = function(e){
+    var x = e.offsetX, y = e.offsetY;
+    var v = Tool.getInFirstShape(new Shape.Point(x,y));
+    if(v){
+    var f2 = function (e2) {
+        if(e2.buttons==1){
+        var offsetx = e2.offsetX-x, offsety = e2.offsetY-y;
+        x=e2.offsetX; y = e2.offsetY;
+        v.move(offsetx,offsety);
+        Tool.refresh();
+        }
+    },f3 = function (e3) {
+        var offsetx = e3.offsetX-x, offsety = e3.offsetY-y;
+        v.move(offsetx,offsety);
+        Tool.refresh();
+        // e3.stopPropagation();
+        $(this).off(&#x27;mousemove&#x27;,f2).off(&#x27;mouseup&#x27;,f3);
+    };
+    $(paint.canvas).on(&#x27;mousemove&#x27;,f2).on(&#x27;mouseup&#x27;,f3).off(&#x27;mousedown&#x27;,f1);
+    }else
+    $(&#x27;[role=opType-item]&#x27;).removeClass(&#x27;active&#x27;);
+}
+$(paint.canvas).on(&#x27;mousedown&#x27;,f1)
+}
+</code></pre><p data-reactid="72">关于Tool对象</p><pre data-reactid="73"><code data-query="{}" data-lang="data-lang" data-reactid="74">Tool = {
+    getInFirstShape : function(p){
+        var f = function(d){
+            for(var i =0;i&lt; d.length;i++){
+                if(d[i].isIn(p))//点p是否在d[i]图形对象中？
+                    return d[i];
+            }
+            return false;
+        };
+        var r;
+        for(var d in paint.data)
+            //paint.data 表示存在于画布中的所有图形对象
+            if((r=f(paint.data[d]))!=false)
+                return r;
+    },
+    // 重新绘制
+    refresh : function () {
+        paint.clearRect(0,0,paint.canvas.width,paint.canvas.height);
+        for(var i =0;i&lt;paint.data.Paths.length;i++)
+            paint.data.Paths[i].draw(paint);
+        for(var i =0;i&lt;paint.data.Lines.length;i++)
+            paint.data.Lines[i].draw(paint);
+        for(var i =0;i&lt;paint.data.Circles.length;i++)
+            paint.data.Circles[i].draw(paint);
+    }
+}
+</code></pre><h3 id="不足之处" data-reactid="75"><a href="#%E4%B8%8D%E8%B6%B3%E4%B9%8B%E5%A4%84" aria-hidden="true" data-reactid="76"><span class="icon icon-link" data-reactid="77"></span></a><!-- react-text: 78 -->不足之处<!-- /react-text --></h3><ol data-reactid="79"><li data-reactid="80"><!-- react-text: 81 -->对于<!-- /react-text --><code data-reactid="82">Line</code><!-- react-text: 83 -->的<!-- /react-text --><code data-reactid="84">isIn</code><!-- react-text: 85 -->方法，未考虑到线宽的因素，用户很难准确选中线段<!-- /react-text --></li><li data-reactid="86">对于拖动图形的事件处理逻辑较复杂。</li><li data-reactid="87"><!-- react-text: 88 -->对于图形类中未使用到<!-- /react-text --><code data-reactid="89">js</code><!-- react-text: 90 -->中的原型与原型继承，降低了代码复用度。<!-- /react-text --></li></ol><h2 id="三次贝赛尔曲线应用-绘制平面动态花瓣" data-reactid="91"><a href="#%E4%B8%89%E6%AC%A1%E8%B4%9D%E8%B5%9B%E5%B0%94%E6%9B%B2%E7%BA%BF%E5%BA%94%E7%94%A8-%E7%BB%98%E5%88%B6%E5%B9%B3%E9%9D%A2%E5%8A%A8%E6%80%81%E8%8A%B1%E7%93%A3" aria-hidden="true" data-reactid="92"><span class="icon icon-link" data-reactid="93"></span></a><!-- react-text: 94 -->三次贝赛尔曲线应用-绘制平面动态花瓣<!-- /react-text --></h2><h3 id="介绍-1" data-reactid="95"><a href="#%E4%BB%8B%E7%BB%8D-1" aria-hidden="true" data-reactid="96"><span class="icon icon-link" data-reactid="97"></span></a><!-- react-text: 98 -->介绍<!-- /react-text --></h3><p data-reactid="99">主要运用HTML5 canvas API与相关图形学知识实现的平面动态花瓣绘制。</p><h3 id="演示图片-1" data-reactid="100"><a href="#%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87-1" aria-hidden="true" data-reactid="101"><span class="icon icon-link" data-reactid="102"></span></a><!-- react-text: 103 -->演示图片<!-- /react-text --></h3><img src="/images/gif2.gif" alt="img" width="992" height="604" data-reactid="104"/><h3 id="代码解释-1" data-reactid="105"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A-1" aria-hidden="true" data-reactid="106"><span class="icon icon-link" data-reactid="107"></span></a><!-- react-text: 108 -->代码解释<!-- /react-text --></h3><ul data-reactid="109"><li data-reactid="110">核心代码</li></ul><pre data-reactid="111"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="112"><span class="hljs-function" data-reactid="113"><span class="hljs-keyword" data-reactid="114">function</span><!-- react-text: 115 --> <!-- /react-text --><span class="hljs-title" data-reactid="116">Flower</span><!-- react-text: 117 -->(<!-- /react-text --><span class="hljs-params" data-reactid="118">c,petals,size,x,y,rotate</span><!-- react-text: 119 -->)<!-- /react-text --></span><!-- react-text: 120 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="121">this</span><!-- react-text: 122 -->.c = c || [<!-- /react-text --><span class="hljs-number" data-reactid="123">255</span><!-- react-text: 124 -->,<!-- /react-text --><span class="hljs-number" data-reactid="125">255</span><!-- react-text: 126 -->,<!-- /react-text --><span class="hljs-number" data-reactid="127">255</span><!-- react-text: 128 -->];
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="129">this</span><!-- react-text: 130 -->.petals = petals || <!-- /react-text --><span class="hljs-number" data-reactid="131">4</span><!-- react-text: 132 -->;
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="133">this</span><!-- react-text: 134 -->.size = size || <!-- /react-text --><span class="hljs-number" data-reactid="135">5</span><!-- react-text: 136 -->;
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="137">this</span><!-- react-text: 138 -->.x = x || <!-- /react-text --><span class="hljs-number" data-reactid="139">0</span><!-- react-text: 140 -->;
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="141">this</span><!-- react-text: 142 -->.y = y || <!-- /react-text --><span class="hljs-number" data-reactid="143">0</span><!-- react-text: 144 -->;
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="145">this</span><!-- react-text: 146 -->.rotate = rotate || <!-- /react-text --><span class="hljs-number" data-reactid="147">0</span><!-- react-text: 148 -->;
+}
+Flower.prototype.draw = <!-- /react-text --><span class="hljs-function" data-reactid="149"><span class="hljs-keyword" data-reactid="150">function</span><!-- react-text: 151 -->(<!-- /react-text --><span class="hljs-params" data-reactid="152"></span><!-- react-text: 153 -->)<!-- /react-text --></span><!-- react-text: 154 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="155">var</span><!-- react-text: 156 --> _rad = <!-- /react-text --><span class="hljs-keyword" data-reactid="157">this</span><!-- react-text: 158 -->.size,_num_pts=<!-- /react-text --><span class="hljs-keyword" data-reactid="159">this</span><!-- react-text: 160 -->.petals,_x=<!-- /react-text --><span class="hljs-keyword" data-reactid="161">this</span><!-- react-text: 162 -->.x,_y=<!-- /react-text --><span class="hljs-keyword" data-reactid="163">this</span><!-- react-text: 164 -->.y,c=<!-- /react-text --><span class="hljs-keyword" data-reactid="165">this</span><!-- react-text: 166 -->.c;
+	ctx.save();
+	ctx.shadowBlur = <!-- /react-text --><span class="hljs-number" data-reactid="167">30</span><!-- react-text: 168 -->; <!-- /react-text --><span class="hljs-comment" data-reactid="169">//阴影程度</span><!-- react-text: 170 -->
+	ctx.lineWidth = <!-- /react-text --><span class="hljs-number" data-reactid="171">1</span><!-- react-text: 172 -->;
+	ctx.shadowColor = utils.rgba(c[<!-- /react-text --><span class="hljs-number" data-reactid="173">0</span><!-- react-text: 174 -->],c[<!-- /react-text --><span class="hljs-number" data-reactid="175">1</span><!-- react-text: 176 -->],c[<!-- /react-text --><span class="hljs-number" data-reactid="177">2</span><!-- react-text: 178 -->],<!-- /react-text --><span class="hljs-number" data-reactid="179">1</span><!-- react-text: 180 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="181">//阴影颜色</span><!-- react-text: 182 -->
+	ctx.fillStyle = utils.rgba(c[<!-- /react-text --><span class="hljs-number" data-reactid="183">0</span><!-- react-text: 184 -->],c[<!-- /react-text --><span class="hljs-number" data-reactid="185">1</span><!-- react-text: 186 -->],c[<!-- /react-text --><span class="hljs-number" data-reactid="187">2</span><!-- react-text: 188 -->],<!-- /react-text --><span class="hljs-number" data-reactid="189">.6</span><!-- react-text: 190 -->); <!-- /react-text --><span class="hljs-comment" data-reactid="191">//填充颜色</span><!-- react-text: 192 -->
+	c2 = c.map(<!-- /react-text --><span class="hljs-function" data-reactid="193"><!-- react-text: 194 -->(<!-- /react-text --><span class="hljs-params" data-reactid="195">x</span><!-- react-text: 196 -->)=&gt;<!-- /react-text --></span><span class="hljs-built_in" data-reactid="197">Math</span><!-- react-text: 198 -->.floor(x/<!-- /react-text --><span class="hljs-number" data-reactid="199">1.6</span><!-- react-text: 200 -->));           <!-- /react-text --><span class="hljs-comment" data-reactid="201">//lambda表达式写法</span><!-- react-text: 202 -->
+	ctx.strokeStyle = utils.rgba(c2[<!-- /react-text --><span class="hljs-number" data-reactid="203">0</span><!-- react-text: 204 -->],c2[<!-- /react-text --><span class="hljs-number" data-reactid="205">1</span><!-- react-text: 206 -->],c2[<!-- /react-text --><span class="hljs-number" data-reactid="207">2</span><!-- react-text: 208 -->],<!-- /react-text --><span class="hljs-number" data-reactid="209">1</span><!-- react-text: 210 -->);  <!-- /react-text --><span class="hljs-comment" data-reactid="211">//边框颜色</span><!-- react-text: 212 -->
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="213">var</span><!-- react-text: 214 --> pts = [];
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="215">var</span><!-- react-text: 216 --> _a = <!-- /react-text --><span class="hljs-keyword" data-reactid="217">this</span><!-- react-text: 218 -->.rotate+(tick*<!-- /react-text --><span class="hljs-number" data-reactid="219">1</span><!-- react-text: 220 -->);
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="221">for</span><!-- react-text: 222 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="223">var</span><!-- react-text: 224 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="225">0</span><!-- react-text: 226 --> ; i &lt;= _num_pts ; i++){<!-- /react-text --><span class="hljs-comment" data-reactid="227">//增量法提高效率</span><!-- react-text: 228 -->
+		pts.push({<!-- /react-text --><span class="hljs-attr" data-reactid="229">x</span><!-- react-text: 230 -->:utils.P2L(_rad, _a).x,<!-- /react-text --><span class="hljs-attr" data-reactid="231">y</span><!-- react-text: 232 -->:utils.P2L(_rad, _a).y}); <!-- /react-text --><span class="hljs-comment" data-reactid="233">//P2L将极坐标转换为平面坐标</span><!-- react-text: 234 -->
+		_a += (<!-- /react-text --><span class="hljs-number" data-reactid="235">360</span><!-- react-text: 236 -->/_num_pts);
+	}
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="237">for</span><!-- react-text: 238 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="239">var</span><!-- react-text: 240 --> i = <!-- /react-text --><span class="hljs-number" data-reactid="241">1</span><!-- react-text: 242 --> ; i&lt;= _num_pts; i+=<!-- /react-text --><span class="hljs-number" data-reactid="243">2</span><!-- react-text: 244 -->){
+		idx= i%_num_pts;
+		ctx.beginPath();<!-- /react-text --><span class="hljs-comment" data-reactid="245">//开始绘制</span><!-- react-text: 246 -->
+		ctx.moveTo(_x,_y);<!-- /react-text --><span class="hljs-comment" data-reactid="247">//起点为(_x,_y)</span><!-- react-text: 248 -->
+		ctx.bezierCurveTo(_x+pts[i<!-- /react-text --><span class="hljs-number" data-reactid="249">-1</span><!-- react-text: 250 -->].x,_y+pts[i<!-- /react-text --><span class="hljs-number" data-reactid="251">-1</span><!-- react-text: 252 -->].y,_x+pts[idx+<!-- /react-text --><span class="hljs-number" data-reactid="253">1</span><!-- react-text: 254 -->].x,_y+pts[idx+<!-- /react-text --><span class="hljs-number" data-reactid="255">1</span><!-- react-text: 256 -->].y,_x,_y);<!-- /react-text --><span class="hljs-comment" data-reactid="257">//绘制贝塞尔曲线</span><!-- react-text: 258 -->
+		ctx.stroke();<!-- /react-text --><span class="hljs-comment" data-reactid="259">//闭合图形边框</span><!-- react-text: 260 -->
+		ctx.fill();<!-- /react-text --><span class="hljs-comment" data-reactid="261">//填充图形</span><!-- react-text: 262 -->
+	}
+	ctx.restore();
+}
+HTMLCanvasElement.prototype.magicBg = <!-- /react-text --><span class="hljs-function" data-reactid="263"><span class="hljs-keyword" data-reactid="264">function</span><!-- react-text: 265 -->(<!-- /react-text --><span class="hljs-params" data-reactid="266"></span><!-- react-text: 267 -->)<!-- /react-text --></span><!-- react-text: 268 -->{
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="269">var</span><!-- react-text: 270 --> ctx = <!-- /react-text --><span class="hljs-keyword" data-reactid="271">this</span><!-- react-text: 272 -->.getContext(<!-- /react-text --><span class="hljs-string" data-reactid="273">&#x27;2d&#x27;</span><!-- react-text: 274 -->);
+	<!-- /react-text --><span class="hljs-keyword" data-reactid="275">if</span><!-- react-text: 276 -->(!<!-- /react-text --><span class="hljs-keyword" data-reactid="277">this</span><!-- react-text: 278 -->.grd){
+		<!-- /react-text --><span class="hljs-comment" data-reactid="279">//实现从画布中心往外呈圆形扩散，渐变。</span><!-- react-text: 280 -->
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="281">this</span><!-- react-text: 282 -->.grd=ctx.createRadialGradient(<!-- /react-text --><span class="hljs-keyword" data-reactid="283">this</span><!-- react-text: 284 -->.width/<!-- /react-text --><span class="hljs-number" data-reactid="285">2</span><!-- react-text: 286 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="287">this</span><!-- react-text: 288 -->.height/<!-- /react-text --><span class="hljs-number" data-reactid="289">2</span><!-- react-text: 290 -->,<!-- /react-text --><span class="hljs-number" data-reactid="291">0</span><!-- react-text: 292 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="293">this</span><!-- react-text: 294 -->.width/<!-- /react-text --><span class="hljs-number" data-reactid="295">2</span><!-- react-text: 296 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="297">this</span><!-- react-text: 298 -->.height/<!-- /react-text --><span class="hljs-number" data-reactid="299">2</span><!-- react-text: 300 -->,<!-- /react-text --><span class="hljs-built_in" data-reactid="301">Math</span><!-- react-text: 302 -->.min(<!-- /react-text --><span class="hljs-keyword" data-reactid="303">this</span><!-- react-text: 304 -->.width,<!-- /react-text --><span class="hljs-keyword" data-reactid="305">this</span><!-- react-text: 306 -->.height)/<!-- /react-text --><span class="hljs-number" data-reactid="307">1.2</span><!-- react-text: 308 -->);
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="309">this</span><!-- react-text: 310 -->.grd.addColorStop(<!-- /react-text --><span class="hljs-number" data-reactid="311">0</span><!-- react-text: 312 -->,<!-- /react-text --><span class="hljs-string" data-reactid="313">&quot;rgba(255,255,255,.25)&quot;</span><!-- react-text: 314 -->);
+		<!-- /react-text --><span class="hljs-keyword" data-reactid="315">this</span><!-- react-text: 316 -->.grd.addColorStop(<!-- /react-text --><span class="hljs-number" data-reactid="317">1</span><!-- react-text: 318 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="319">this</span><!-- react-text: 320 -->.utils.rgba(<!-- /react-text --><span class="hljs-number" data-reactid="321">200</span><!-- react-text: 322 -->+<!-- /react-text --><span class="hljs-keyword" data-reactid="323">this</span><!-- react-text: 324 -->.utils.randomInt(<!-- /react-text --><span class="hljs-number" data-reactid="325">56</span><!-- react-text: 326 -->),<!-- /react-text --><span class="hljs-number" data-reactid="327">200</span><!-- react-text: 328 -->+<!-- /react-text --><span class="hljs-keyword" data-reactid="329">this</span><!-- react-text: 330 -->.utils.randomInt(<!-- /react-text --><span class="hljs-number" data-reactid="331">56</span><!-- react-text: 332 -->),<!-- /react-text --><span class="hljs-number" data-reactid="333">200</span><!-- react-text: 334 -->+<!-- /react-text --><span class="hljs-keyword" data-reactid="335">this</span><!-- react-text: 336 -->.utils.randomInt(<!-- /react-text --><span class="hljs-number" data-reactid="337">56</span><!-- react-text: 338 -->),<!-- /react-text --><span class="hljs-number" data-reactid="339">.65</span><!-- react-text: 340 -->));
+	}
+	ctx.save();
+	ctx.clearRect(<!-- /react-text --><span class="hljs-number" data-reactid="341">0</span><!-- react-text: 342 -->,<!-- /react-text --><span class="hljs-number" data-reactid="343">0</span><!-- react-text: 344 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="345">this</span><!-- react-text: 346 -->.width,<!-- /react-text --><span class="hljs-keyword" data-reactid="347">this</span><!-- react-text: 348 -->.height);
+	ctx.fillStyle = <!-- /react-text --><span class="hljs-keyword" data-reactid="349">this</span><!-- react-text: 350 -->.grd;
+	ctx.fillRect(<!-- /react-text --><span class="hljs-number" data-reactid="351">0</span><!-- react-text: 352 -->,<!-- /react-text --><span class="hljs-number" data-reactid="353">0</span><!-- react-text: 354 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="355">this</span><!-- react-text: 356 -->.width,<!-- /react-text --><span class="hljs-keyword" data-reactid="357">this</span><!-- react-text: 358 -->.height);
+	ctx.restore();
+}<!-- /react-text --></code></pre><ul data-reactid="359"><li data-reactid="360">Flower对象解释</li></ul><table data-reactid="361"><thead data-reactid="362"><tr data-reactid="363"><th data-reactid="364">参数</th><th data-reactid="365">说明</th><th data-reactid="366">默认</th><th data-reactid="367">类型</th></tr></thead><tbody data-reactid="368"><tr data-reactid="369"><td data-reactid="370"><code data-reactid="371">c</code></td><td data-reactid="372">花瓣的颜色</td><td data-reactid="373">[255,255,255]</td><td data-reactid="374">Array</td></tr><tr data-reactid="375"><td data-reactid="376"><code data-reactid="377">petals</code></td><td data-reactid="378">花瓣个数</td><td data-reactid="379">4</td><td data-reactid="380">Number</td></tr><tr data-reactid="381"><td data-reactid="382"><code data-reactid="383">size</code></td><td data-reactid="384">半径大小</td><td data-reactid="385">5</td><td data-reactid="386">Number</td></tr><tr data-reactid="387"><td data-reactid="388"><code data-reactid="389">x</code></td><td data-reactid="390">中心 x 坐标</td><td data-reactid="391">0</td><td data-reactid="392">Number</td></tr><tr data-reactid="393"><td data-reactid="394"><code data-reactid="395">y</code></td><td data-reactid="396">中心 y 坐标</td><td data-reactid="397">0</td><td data-reactid="398">Number</td></tr><tr data-reactid="399"><td data-reactid="400"><code data-reactid="401">rotate</code></td><td data-reactid="402">绕中心旋转角度</td><td data-reactid="403">0</td><td data-reactid="404">Number(单位：度)</td></tr></tbody></table><ul data-reactid="405"><li data-reactid="406"><code data-reactid="407">Flower.draw</code><!-- react-text: 408 --> 方法解释<!-- /react-text --></li></ul><table data-reactid="409"><thead data-reactid="410"><tr data-reactid="411"><th data-reactid="412">变量</th><th data-reactid="413">说明</th></tr></thead><tbody data-reactid="414"><tr data-reactid="415"><td data-reactid="416"><code data-reactid="417">_rad</code></td><td data-reactid="418"><!-- react-text: 419 -->radix，对应<!-- /react-text --><code data-reactid="420">size</code></td></tr><tr data-reactid="421"><td data-reactid="422"><code data-reactid="423">_num_pts</code></td><td data-reactid="424"><!-- react-text: 425 -->对应<!-- /react-text --><code data-reactid="426">petals</code></td></tr><tr data-reactid="427"><td data-reactid="428"><code data-reactid="429">_x</code></td><td data-reactid="430"><!-- react-text: 431 -->对应<!-- /react-text --><code data-reactid="432">x</code></td></tr><tr data-reactid="433"><td data-reactid="434"><code data-reactid="435">_y</code></td><td data-reactid="436"><!-- react-text: 437 -->对应<!-- /react-text --><code data-reactid="438">y</code></td></tr><tr data-reactid="439"><td data-reactid="440"><code data-reactid="441">c</code></td><td data-reactid="442"><!-- react-text: 443 -->对应<!-- /react-text --><code data-reactid="444">c</code></td></tr></tbody></table><ul data-reactid="445"><li data-reactid="446"><!-- react-text: 447 -->关于贝塞尔曲线，<!-- /react-text --><a href="http://bbs.csdn.net/topics/390358020" data-reactid="448">参考资料</a></li></ul><img src="/images/bezier3.gif" alt="IMG" width="240" height="100" data-reactid="449"/><center data-reactid="450">图：三次贝塞尔曲线动态绘制效果</center><div data-reactid="451"><style data-reactid="452">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:746px;max-height:746pxpx;" data-reactid="453"><div class="medium-image-progressive-placeholder" style="padding-bottom:97.18498659517427%;" data-reactid="454"></div><div class="medium-image-progressive" data-reactid="455"><canvas data-reactid="456"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="457"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqrMRZZXMInLzy27Mc6CCWwHrC_v?imageslim" data-reactid="458"/><noscript data-reactid="459"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FqrMRZZXMInLzy27Mc6CCWwHrC_v?imageslim" data-reactid="460"/></noscript></div></div></div><center data-reactid="461">图：花瓣与其贝塞尔曲线控制点</center><!-- react-text: 462 -->- 怎么使用？ 1. `<!-- /react-text --><script src="drawflower.js" data-reactid="463"></script><!-- react-text: 464 -->` 2. `canvas.drawFlower(option);`<!-- /react-text --><pre data-reactid="465"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="466"><span class="hljs-comment" data-reactid="467">//default option</span><!-- react-text: 468 -->
+{
+	<!-- /react-text --><span class="hljs-attr" data-reactid="469">animate</span><!-- react-text: 470 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="471">false</span><!-- react-text: 472 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="473">rotate</span><!-- react-text: 474 -->:<!-- /react-text --><span class="hljs-number" data-reactid="475">90</span><!-- react-text: 476 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="477">randomSize</span><!-- react-text: 478 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="479">true</span><!-- react-text: 480 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="481">randomColor</span><!-- react-text: 482 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="483">true</span><!-- react-text: 484 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="485">randomPetals</span><!-- react-text: 486 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="487">true</span><!-- react-text: 488 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="489">pos</span><!-- react-text: 490 -->:{
+		<!-- /react-text --><span class="hljs-attr" data-reactid="491">x</span><!-- react-text: 492 -->:<!-- /react-text --><span class="hljs-keyword" data-reactid="493">this</span><!-- react-text: 494 -->.width/<!-- /react-text --><span class="hljs-number" data-reactid="495">2</span><!-- react-text: 496 -->,
+		<!-- /react-text --><span class="hljs-attr" data-reactid="497">y</span><!-- react-text: 498 -->:<!-- /react-text --><span class="hljs-keyword" data-reactid="499">this</span><!-- react-text: 500 -->.height/<!-- /react-text --><span class="hljs-number" data-reactid="501">2</span><!-- react-text: 502 -->
+	}
+}<!-- /react-text --></code></pre><p data-reactid="503">or</p><pre data-reactid="504"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="505"><!-- react-text: 506 -->{
+	<!-- /react-text --><span class="hljs-attr" data-reactid="507">animate</span><!-- react-text: 508 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="509">true</span><!-- react-text: 510 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="511">rotate</span><!-- react-text: 512 -->:<!-- /react-text --><span class="hljs-number" data-reactid="513">-20</span><!-- react-text: 514 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="515">randomSize</span><!-- react-text: 516 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="517">false</span><!-- react-text: 518 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="519">size</span><!-- react-text: 520 -->:<!-- /react-text --><span class="hljs-number" data-reactid="521">10</span><!-- react-text: 522 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="523">randomColor</span><!-- react-text: 524 -->:<!-- /react-text --><span class="hljs-literal" data-reactid="525">false</span><!-- react-text: 526 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="527">color</span><!-- react-text: 528 -->:[<!-- /react-text --><span class="hljs-number" data-reactid="529">100</span><!-- react-text: 530 -->,<!-- /react-text --><span class="hljs-number" data-reactid="531">100</span><!-- react-text: 532 -->,<!-- /react-text --><span class="hljs-number" data-reactid="533">100</span><!-- react-text: 534 -->],
+	<!-- /react-text --><span class="hljs-attr" data-reactid="535">randomPetals</span><!-- react-text: 536 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="537">false</span><!-- react-text: 538 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="539">petals</span><!-- react-text: 540 -->:<!-- /react-text --><span class="hljs-number" data-reactid="541">6</span><!-- react-text: 542 -->,
+	<!-- /react-text --><span class="hljs-attr" data-reactid="543">pos</span><!-- react-text: 544 -->:{
+		<!-- /react-text --><span class="hljs-attr" data-reactid="545">x</span><!-- react-text: 546 -->:<!-- /react-text --><span class="hljs-number" data-reactid="547">0</span><!-- react-text: 548 -->,
+		<!-- /react-text --><span class="hljs-attr" data-reactid="549">y</span><!-- react-text: 550 -->:<!-- /react-text --><span class="hljs-number" data-reactid="551">0</span><!-- react-text: 552 -->
+	}
+}<!-- /react-text --></code></pre><h2 id="动态绘制三次贝赛尔曲线" data-reactid="553"><a href="#%E5%8A%A8%E6%80%81%E7%BB%98%E5%88%B6%E4%B8%89%E6%AC%A1%E8%B4%9D%E8%B5%9B%E5%B0%94%E6%9B%B2%E7%BA%BF" aria-hidden="true" data-reactid="554"><span class="icon icon-link" data-reactid="555"></span></a><!-- react-text: 556 -->动态绘制三次贝赛尔曲线<!-- /react-text --></h2><h3 id="介绍-2" data-reactid="557"><a href="#%E4%BB%8B%E7%BB%8D-2" aria-hidden="true" data-reactid="558"><span class="icon icon-link" data-reactid="559"></span></a><!-- react-text: 560 -->介绍<!-- /react-text --></h3><p data-reactid="561">应用canvas API, 事件绑定, 达到动态绘制三次贝赛尔曲线效果。</p><h3 id="演示图片-2" data-reactid="562"><a href="#%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87-2" aria-hidden="true" data-reactid="563"><span class="icon icon-link" data-reactid="564"></span></a><!-- react-text: 565 -->演示图片<!-- /react-text --></h3><img src="/images/gif3.gif" alt="img" width="792" height="649" data-reactid="566"/><h3 id="代码解释-2" data-reactid="567"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A-2" aria-hidden="true" data-reactid="568"><span class="icon icon-link" data-reactid="569"></span></a><!-- react-text: 570 -->代码解释<!-- /react-text --></h3><p data-reactid="571"><!-- react-text: 572 -->自己定义的<!-- /react-text --><code data-reactid="573">Pos</code><!-- react-text: 574 --> <!-- /react-text --><code data-reactid="575">Rect</code><!-- react-text: 576 --> <!-- /react-text --><code data-reactid="577">Circle</code><!-- react-text: 578 --> 类<!-- /react-text --></p><pre data-reactid="579"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="580"><span class="hljs-function" data-reactid="581"><span class="hljs-keyword" data-reactid="582">function</span><!-- react-text: 583 --> <!-- /react-text --><span class="hljs-title" data-reactid="584">Pos</span><!-- react-text: 585 -->(<!-- /react-text --><span class="hljs-params" data-reactid="586">x,y</span><!-- react-text: 587 -->)<!-- /react-text --></span><!-- react-text: 588 -->{<!-- /react-text --><span class="hljs-keyword" data-reactid="589">this</span><!-- react-text: 590 -->.x=x;<!-- /react-text --><span class="hljs-keyword" data-reactid="591">this</span><!-- react-text: 592 -->.y=y;}
+<!-- /react-text --><span class="hljs-function" data-reactid="593"><span class="hljs-keyword" data-reactid="594">function</span><!-- react-text: 595 --> <!-- /react-text --><span class="hljs-title" data-reactid="596">Circle</span><!-- react-text: 597 -->(<!-- /react-text --><span class="hljs-params" data-reactid="598">p,r</span><!-- react-text: 599 -->)<!-- /react-text --></span><!-- react-text: 600 -->{<!-- /react-text --><span class="hljs-keyword" data-reactid="601">this</span><!-- react-text: 602 -->.p=p;<!-- /react-text --><span class="hljs-keyword" data-reactid="603">this</span><!-- react-text: 604 -->.r=r;}
+Circle.prototype.draw = <!-- /react-text --><span class="hljs-function" data-reactid="605"><span class="hljs-keyword" data-reactid="606">function</span><!-- react-text: 607 -->(<!-- /react-text --><span class="hljs-params" data-reactid="608">sty</span><!-- react-text: 609 -->)<!-- /react-text --></span><!-- react-text: 610 -->{
+    ctx.save();
+    ctx.strokeStyle=sty||<!-- /react-text --><span class="hljs-string" data-reactid="611">&#x27;blue&#x27;</span><!-- react-text: 612 -->;
+    ctx.beginPath();
+    ctx.arc(<!-- /react-text --><span class="hljs-keyword" data-reactid="613">this</span><!-- react-text: 614 -->.p.x, <!-- /react-text --><span class="hljs-keyword" data-reactid="615">this</span><!-- react-text: 616 -->.p.y, <!-- /react-text --><span class="hljs-keyword" data-reactid="617">this</span><!-- react-text: 618 -->.r, <!-- /react-text --><span class="hljs-number" data-reactid="619">0</span><!-- react-text: 620 -->, <!-- /react-text --><span class="hljs-built_in" data-reactid="621">Math</span><!-- react-text: 622 -->.PI * <!-- /react-text --><span class="hljs-number" data-reactid="623">2</span><!-- react-text: 624 -->, <!-- /react-text --><span class="hljs-literal" data-reactid="625">true</span><!-- react-text: 626 -->);
+    ctx.stroke();
+    ctx.restore();
+}
+<!-- /react-text --><span class="hljs-comment" data-reactid="627">// p is in Circle?</span><!-- react-text: 628 -->
+Circle.prototype.around=<!-- /react-text --><span class="hljs-function" data-reactid="629"><span class="hljs-keyword" data-reactid="630">function</span><!-- react-text: 631 -->(<!-- /react-text --><span class="hljs-params" data-reactid="632">p</span><!-- react-text: 633 -->)<!-- /react-text --></span><!-- react-text: 634 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="635">return</span><!-- react-text: 636 --> (p.x-<!-- /react-text --><span class="hljs-keyword" data-reactid="637">this</span><!-- react-text: 638 -->.p.x)*(p.x-<!-- /react-text --><span class="hljs-keyword" data-reactid="639">this</span><!-- react-text: 640 -->.p.x)+ (p.y-<!-- /react-text --><span class="hljs-keyword" data-reactid="641">this</span><!-- react-text: 642 -->.p.y)*(p.y-<!-- /react-text --><span class="hljs-keyword" data-reactid="643">this</span><!-- react-text: 644 -->.p.y)&lt;=<!-- /react-text --><span class="hljs-keyword" data-reactid="645">this</span><!-- react-text: 646 -->.r*<!-- /react-text --><span class="hljs-keyword" data-reactid="647">this</span><!-- react-text: 648 -->.r;
+}
+<!-- /react-text --><span class="hljs-function" data-reactid="649"><span class="hljs-keyword" data-reactid="650">function</span><!-- react-text: 651 --> <!-- /react-text --><span class="hljs-title" data-reactid="652">Rect</span><!-- react-text: 653 -->(<!-- /react-text --><span class="hljs-params" data-reactid="654">p,w,h</span><!-- react-text: 655 -->)<!-- /react-text --></span><!-- react-text: 656 -->{<!-- /react-text --><span class="hljs-keyword" data-reactid="657">this</span><!-- react-text: 658 -->.p=p;<!-- /react-text --><span class="hljs-keyword" data-reactid="659">this</span><!-- react-text: 660 -->.w=w;<!-- /react-text --><span class="hljs-keyword" data-reactid="661">this</span><!-- react-text: 662 -->.h=h;};
+Rect.prototype.draw = <!-- /react-text --><span class="hljs-function" data-reactid="663"><span class="hljs-keyword" data-reactid="664">function</span><!-- react-text: 665 --> (<!-- /react-text --><span class="hljs-params" data-reactid="666">style</span><!-- react-text: 667 -->) <!-- /react-text --></span><!-- react-text: 668 -->{
+    ctx.save();
+    ctx.strokeStyle=style||<!-- /react-text --><span class="hljs-string" data-reactid="669">&#x27;blue&#x27;</span><!-- react-text: 670 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="671">var</span><!-- react-text: 672 --> v = <!-- /react-text --><span class="hljs-keyword" data-reactid="673">this</span><!-- react-text: 674 -->.w&gt;&gt;&gt; <!-- /react-text --><span class="hljs-number" data-reactid="675">1</span><!-- react-text: 676 -->,t = <!-- /react-text --><span class="hljs-keyword" data-reactid="677">this</span><!-- react-text: 678 -->.h&gt;&gt;&gt;<!-- /react-text --><span class="hljs-number" data-reactid="679">1</span><!-- react-text: 680 -->;
+    ctx.strokeRect(<!-- /react-text --><span class="hljs-keyword" data-reactid="681">this</span><!-- react-text: 682 -->.p.x-v, <!-- /react-text --><span class="hljs-keyword" data-reactid="683">this</span><!-- react-text: 684 -->.p.y-t,<!-- /react-text --><span class="hljs-keyword" data-reactid="685">this</span><!-- react-text: 686 -->.w,<!-- /react-text --><span class="hljs-keyword" data-reactid="687">this</span><!-- react-text: 688 -->.h);
+    ctx.restore();
+}
+<!-- /react-text --><span class="hljs-comment" data-reactid="689">// p is in Rect?</span><!-- react-text: 690 -->
+Rect.prototype.around = <!-- /react-text --><span class="hljs-function" data-reactid="691"><span class="hljs-keyword" data-reactid="692">function</span><!-- react-text: 693 --> (<!-- /react-text --><span class="hljs-params" data-reactid="694">p</span><!-- react-text: 695 -->) <!-- /react-text --></span><!-- react-text: 696 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="697">var</span><!-- react-text: 698 --> v = <!-- /react-text --><span class="hljs-keyword" data-reactid="699">this</span><!-- react-text: 700 -->.w&gt;&gt;&gt; <!-- /react-text --><span class="hljs-number" data-reactid="701">1</span><!-- react-text: 702 -->,t = <!-- /react-text --><span class="hljs-keyword" data-reactid="703">this</span><!-- react-text: 704 -->.h&gt;&gt;&gt;<!-- /react-text --><span class="hljs-number" data-reactid="705">1</span><!-- react-text: 706 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="707">return</span><!-- react-text: 708 --> p.x&gt;=<!-- /react-text --><span class="hljs-keyword" data-reactid="709">this</span><!-- react-text: 710 -->.p.x-v &amp;&amp; p.x&lt;=<!-- /react-text --><span class="hljs-keyword" data-reactid="711">this</span><!-- react-text: 712 -->.p.x+v &amp;&amp; p.y&gt;=<!-- /react-text --><span class="hljs-keyword" data-reactid="713">this</span><!-- react-text: 714 -->.p.y-t &amp;&amp; p.y&lt;=<!-- /react-text --><span class="hljs-keyword" data-reactid="715">this</span><!-- react-text: 716 -->.p.y+t;
+}<!-- /react-text --></code></pre><p data-reactid="717">初始化</p><pre data-reactid="718"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="719"><span class="hljs-keyword" data-reactid="720">var</span><!-- react-text: 721 --> midP = <!-- /react-text --><span class="hljs-keyword" data-reactid="722">new</span><!-- react-text: 723 --> Pos(<!-- /react-text --><span class="hljs-built_in" data-reactid="724">window</span><!-- react-text: 725 -->.innerWidth&gt;&gt;&gt;<!-- /react-text --><span class="hljs-number" data-reactid="726">1</span><!-- react-text: 727 -->,<!-- /react-text --><span class="hljs-built_in" data-reactid="728">window</span><!-- react-text: 729 -->.innerHeight&gt;&gt;&gt;<!-- /react-text --><span class="hljs-number" data-reactid="730">1</span><!-- react-text: 731 -->),
+    sP = <!-- /react-text --><span class="hljs-keyword" data-reactid="732">new</span><!-- react-text: 733 --> Circle(<!-- /react-text --><span class="hljs-keyword" data-reactid="734">new</span><!-- react-text: 735 --> Pos(midP.x<!-- /react-text --><span class="hljs-number" data-reactid="736">-100</span><!-- react-text: 737 -->,midP.y<!-- /react-text --><span class="hljs-number" data-reactid="738">-100</span><!-- react-text: 739 -->),<!-- /react-text --><span class="hljs-number" data-reactid="740">4</span><!-- react-text: 741 -->),
+    cP1= <!-- /react-text --><span class="hljs-keyword" data-reactid="742">new</span><!-- react-text: 743 --> Rect(<!-- /react-text --><span class="hljs-keyword" data-reactid="744">new</span><!-- react-text: 745 --> Pos(midP.x<!-- /react-text --><span class="hljs-number" data-reactid="746">-80</span><!-- react-text: 747 -->,midP.y+<!-- /react-text --><span class="hljs-number" data-reactid="748">10</span><!-- react-text: 749 -->),<!-- /react-text --><span class="hljs-number" data-reactid="750">8</span><!-- react-text: 751 -->,<!-- /react-text --><span class="hljs-number" data-reactid="752">8</span><!-- react-text: 753 -->),
+    cP2= <!-- /react-text --><span class="hljs-keyword" data-reactid="754">new</span><!-- react-text: 755 --> Rect(<!-- /react-text --><span class="hljs-keyword" data-reactid="756">new</span><!-- react-text: 757 --> Pos(midP.x+<!-- /react-text --><span class="hljs-number" data-reactid="758">80</span><!-- react-text: 759 -->,midP.y+<!-- /react-text --><span class="hljs-number" data-reactid="760">20</span><!-- react-text: 761 -->),<!-- /react-text --><span class="hljs-number" data-reactid="762">8</span><!-- react-text: 763 -->,<!-- /react-text --><span class="hljs-number" data-reactid="764">8</span><!-- react-text: 765 -->),
+    eP = <!-- /react-text --><span class="hljs-keyword" data-reactid="766">new</span><!-- react-text: 767 --> Circle(<!-- /react-text --><span class="hljs-keyword" data-reactid="768">new</span><!-- react-text: 769 --> Pos(midP.x+<!-- /react-text --><span class="hljs-number" data-reactid="770">100</span><!-- react-text: 771 -->,midP.y+<!-- /react-text --><span class="hljs-number" data-reactid="772">100</span><!-- react-text: 773 -->),<!-- /react-text --><span class="hljs-number" data-reactid="774">4</span><!-- react-text: 775 -->);<!-- /react-text --></code></pre><p data-reactid="776">绘制三次贝塞尔曲线</p><pre data-reactid="777"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="778"><span class="hljs-function" data-reactid="779"><span class="hljs-keyword" data-reactid="780">function</span><!-- react-text: 781 --> <!-- /react-text --><span class="hljs-title" data-reactid="782">drawBezier</span><!-- react-text: 783 -->(<!-- /react-text --><span class="hljs-params" data-reactid="784">ps</span><!-- react-text: 785 -->)<!-- /react-text --></span><!-- react-text: 786 -->{
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(ps[<!-- /react-text --><span class="hljs-number" data-reactid="787">0</span><!-- react-text: 788 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="789">0</span><!-- react-text: 790 -->].y);
+    ctx.bezierCurveTo(ps[<!-- /react-text --><span class="hljs-number" data-reactid="791">1</span><!-- react-text: 792 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="793">1</span><!-- react-text: 794 -->].y,ps[<!-- /react-text --><span class="hljs-number" data-reactid="795">2</span><!-- react-text: 796 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="797">2</span><!-- react-text: 798 -->].y,ps[<!-- /react-text --><span class="hljs-number" data-reactid="799">3</span><!-- react-text: 800 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="801">3</span><!-- react-text: 802 -->].y);
+    ctx.stroke();
+    <!-- /react-text --><span class="hljs-comment" data-reactid="803">// 自己实现的绘制虚线方法</span><!-- react-text: 804 -->
+    ctx.dashedLineTo(ps[<!-- /react-text --><span class="hljs-number" data-reactid="805">0</span><!-- react-text: 806 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="807">0</span><!-- react-text: 808 -->].y,ps[<!-- /react-text --><span class="hljs-number" data-reactid="809">1</span><!-- react-text: 810 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="811">1</span><!-- react-text: 812 -->].y);
+    ctx.dashedLineTo(ps[<!-- /react-text --><span class="hljs-number" data-reactid="813">3</span><!-- react-text: 814 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="815">3</span><!-- react-text: 816 -->].y,ps[<!-- /react-text --><span class="hljs-number" data-reactid="817">2</span><!-- react-text: 818 -->].x,ps[<!-- /react-text --><span class="hljs-number" data-reactid="819">2</span><!-- react-text: 820 -->].y);
+    ctx.restore();
+}<!-- /react-text --></code></pre><p data-reactid="821"><code data-reactid="822">ctx.dashedLineTo</code><!-- react-text: 823 -->方法<!-- /react-text --></p><pre data-reactid="824"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="825"><!-- react-text: 826 -->CanvasRenderingContext2D.prototype.dashedLineTo = <!-- /react-text --><span class="hljs-function" data-reactid="827"><span class="hljs-keyword" data-reactid="828">function</span><!-- react-text: 829 --> (<!-- /react-text --><span class="hljs-params" data-reactid="830">fromX, fromY, toX, toY, pattern</span><!-- react-text: 831 -->) <!-- /react-text --></span><!-- react-text: 832 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="833">// default interval distance -&gt; 5px</span><!-- react-text: 834 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="835">if</span><!-- react-text: 836 --> (<!-- /react-text --><span class="hljs-keyword" data-reactid="837">typeof</span><!-- react-text: 838 --> pattern === <!-- /react-text --><span class="hljs-string" data-reactid="839">&quot;undefined&quot;</span><!-- react-text: 840 -->) {
+        pattern = <!-- /react-text --><span class="hljs-number" data-reactid="841">5</span><!-- react-text: 842 -->;
+    }
+    <!-- /react-text --><span class="hljs-comment" data-reactid="843">// calculate the delta x and delta y</span><!-- react-text: 844 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="845">var</span><!-- react-text: 846 --> dx = (toX - fromX);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="847">var</span><!-- react-text: 848 --> dy = (toY - fromY);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="849">var</span><!-- react-text: 850 --> distance = <!-- /react-text --><span class="hljs-built_in" data-reactid="851">Math</span><!-- react-text: 852 -->.floor(<!-- /react-text --><span class="hljs-built_in" data-reactid="853">Math</span><!-- react-text: 854 -->.sqrt(dx*dx + dy*dy));
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="855">var</span><!-- react-text: 856 --> dashlineInteveral = (pattern &lt;= <!-- /react-text --><span class="hljs-number" data-reactid="857">0</span><!-- react-text: 858 -->) ? distance : (distance/pattern);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="859">var</span><!-- react-text: 860 --> deltay = (dy/distance) * pattern;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="861">var</span><!-- react-text: 862 --> deltax = (dx/distance) * pattern;
+
+    <!-- /react-text --><span class="hljs-comment" data-reactid="863">// draw dash line</span><!-- react-text: 864 -->
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="865">this</span><!-- react-text: 866 -->.beginPath();
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="867">var</span><!-- react-text: 868 --> f = <!-- /react-text --><span class="hljs-number" data-reactid="869">1</span><!-- react-text: 870 -->;
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="871">while</span><!-- react-text: 872 --> (dashlineInteveral--&gt;<!-- /react-text --><span class="hljs-number" data-reactid="873">0</span><!-- react-text: 874 -->){
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="875">if</span><!-- react-text: 876 -->(f) {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="877">this</span><!-- react-text: 878 -->.lineTo(fromX, fromY);
+        } <!-- /react-text --><span class="hljs-keyword" data-reactid="879">else</span><!-- react-text: 880 --> {
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="881">this</span><!-- react-text: 882 -->.moveTo(fromX, fromY);
+        }
+        fromX += deltax; fromY += deltay; <!-- /react-text --><span class="hljs-comment" data-reactid="883">// 增量法</span><!-- react-text: 884 -->
+        f = <!-- /react-text --><span class="hljs-number" data-reactid="885">1</span><!-- react-text: 886 -->-f;
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="887">this</span><!-- react-text: 888 -->.stroke();
+};<!-- /react-text --></code></pre><p data-reactid="889">鼠标事件绑定处理</p><pre data-reactid="890"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="891"><!-- react-text: 892 -->canvas.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="893">&#x27;mousedown&#x27;</span><!-- react-text: 894 -->, <!-- /react-text --><span class="hljs-function" data-reactid="895"><span class="hljs-keyword" data-reactid="896">function</span><!-- react-text: 897 --> (<!-- /react-text --><span class="hljs-params" data-reactid="898">e1</span><!-- react-text: 899 -->) <!-- /react-text --></span><!-- react-text: 900 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="901">var</span><!-- react-text: 902 --> p1 = <!-- /react-text --><span class="hljs-keyword" data-reactid="903">new</span><!-- react-text: 904 --> Pos(e1.offsetX,e1.offsetY),c;
+    [sP,cP1,cP2,eP].every(<!-- /react-text --><span class="hljs-function" data-reactid="905"><span class="hljs-params" data-reactid="906">ele</span><!-- react-text: 907 -->=&gt;<!-- /react-text --></span><!-- react-text: 908 -->{
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="909">if</span><!-- react-text: 910 -->(ele.around(p1)){
+            c = ele;
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="911">return</span><!-- react-text: 912 --> <!-- /react-text --><span class="hljs-literal" data-reactid="913">false</span><!-- react-text: 914 -->;
+        }
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="915">return</span><!-- react-text: 916 --> <!-- /react-text --><span class="hljs-literal" data-reactid="917">true</span><!-- react-text: 918 -->;
+    });
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="919">if</span><!-- react-text: 920 -->(c){
+        c.draw(<!-- /react-text --><span class="hljs-string" data-reactid="921">&#x27;red&#x27;</span><!-- react-text: 922 -->);
+        canvas.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="923">&#x27;mousemove&#x27;</span><!-- react-text: 924 -->,<!-- /react-text --><span class="hljs-function" data-reactid="925"><span class="hljs-keyword" data-reactid="926">function</span><!-- react-text: 927 --> (<!-- /react-text --><span class="hljs-params" data-reactid="928">e</span><!-- react-text: 929 -->) <!-- /react-text --></span><!-- react-text: 930 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="931">this</span><!-- react-text: 932 -->.mousemove = <!-- /react-text --><span class="hljs-built_in" data-reactid="933">arguments</span><!-- react-text: 934 -->.callee;
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="935">if</span><!-- react-text: 936 -->(e.buttons===<!-- /react-text --><span class="hljs-number" data-reactid="937">1</span><!-- react-text: 938 -->){<!-- /react-text --><span class="hljs-comment" data-reactid="939">// left mouse pressed down</span><!-- react-text: 940 -->
+                <!-- /react-text --><span class="hljs-keyword" data-reactid="941">var</span><!-- react-text: 942 --> pos = <!-- /react-text --><span class="hljs-keyword" data-reactid="943">new</span><!-- react-text: 944 --> Pos(e.offsetX,e.offsetY);
+                c.p = pos;
+                rePaint([c]);
+                c.draw(<!-- /react-text --><span class="hljs-string" data-reactid="945">&#x27;red&#x27;</span><!-- react-text: 946 -->);
+            }
+        });
+    }
+})
+canvas.addEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="947">&#x27;mouseup&#x27;</span><!-- react-text: 948 -->, <!-- /react-text --><span class="hljs-function" data-reactid="949"><span class="hljs-keyword" data-reactid="950">function</span><!-- react-text: 951 --> (<!-- /react-text --><span class="hljs-params" data-reactid="952">e</span><!-- react-text: 953 -->) <!-- /react-text --></span><!-- react-text: 954 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="955">this</span><!-- react-text: 956 -->.removeEventListener(<!-- /react-text --><span class="hljs-string" data-reactid="957">&#x27;mousemove&#x27;</span><!-- react-text: 958 -->,<!-- /react-text --><span class="hljs-keyword" data-reactid="959">this</span><!-- react-text: 960 -->.mousemove);
+    rePaint();
+});<!-- /react-text --></code></pre><p data-reactid="961"><code data-reactid="962">rePaint(ignores)</code><!-- react-text: 963 --> 重新绘制函数<!-- /react-text --></p><pre data-reactid="964"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="965"><span class="hljs-comment" data-reactid="966">// ignores 为跳过不重绘的点(Circle/Rect)</span><!-- react-text: 967 -->
+<!-- /react-text --><span class="hljs-function" data-reactid="968"><span class="hljs-keyword" data-reactid="969">function</span><!-- react-text: 970 --> <!-- /react-text --><span class="hljs-title" data-reactid="971">rePaint</span><!-- react-text: 972 -->(<!-- /react-text --><span class="hljs-params" data-reactid="973">ignores</span><!-- react-text: 974 -->)<!-- /react-text --></span><!-- react-text: 975 -->{
+    ctx.save();
+    ctx.clearRect(<!-- /react-text --><span class="hljs-number" data-reactid="976">0</span><!-- react-text: 977 -->,<!-- /react-text --><span class="hljs-number" data-reactid="978">0</span><!-- react-text: 979 -->,canvas.width,canvas.height);
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="980">if</span><!-- react-text: 981 -->(ignores==<!-- /react-text --><span class="hljs-literal" data-reactid="982">null</span><!-- react-text: 983 -->){
+        cP1.draw();
+        cP2.draw();
+        sP.draw();
+        eP.draw();
+    }
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="984">else</span><!-- react-text: 985 --> {
+        [sP,cP1,cP2,eP].forEach(<!-- /react-text --><span class="hljs-function" data-reactid="986"><span class="hljs-params" data-reactid="987">el</span><!-- react-text: 988 -->=&gt;<!-- /react-text --></span><!-- react-text: 989 -->{
+            <!-- /react-text --><span class="hljs-keyword" data-reactid="990">if</span><!-- react-text: 991 -->(ignores.indexOf(el)==<!-- /react-text --><span class="hljs-number" data-reactid="992">-1</span><!-- react-text: 993 -->)
+                el.draw();
+        });
+    }
+    drawBezier([sP.p,cP1.p,cP2.p,eP.p]);
+    ctx.restore();
+}<!-- /react-text --></code></pre><h2 id="三维几何体的基本变换与组合变换应用" data-reactid="994"><a href="#%E4%B8%89%E7%BB%B4%E5%87%A0%E4%BD%95%E4%BD%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%BB%84%E5%90%88%E5%8F%98%E6%8D%A2%E5%BA%94%E7%94%A8" aria-hidden="true" data-reactid="995"><span class="icon icon-link" data-reactid="996"></span></a><!-- react-text: 997 -->三维几何体的基本变换与组合变换应用<!-- /react-text --></h2><h3 id="介绍-3" data-reactid="998"><a href="#%E4%BB%8B%E7%BB%8D-3" aria-hidden="true" data-reactid="999"><span class="icon icon-link" data-reactid="1000"></span></a><!-- react-text: 1001 -->介绍<!-- /react-text --></h3><p data-reactid="1002"><!-- react-text: 1003 -->运用前端WebGL框架<!-- /react-text --><a href="http://three.org" data-reactid="1004">threejs</a><!-- react-text: 1005 -->，结合相关矩阵变换知识完成。<!-- /react-text --></p><h3 id="演示图片-3" data-reactid="1006"><a href="#%E6%BC%94%E7%A4%BA%E5%9B%BE%E7%89%87-3" aria-hidden="true" data-reactid="1007"><span class="icon icon-link" data-reactid="1008"></span></a><!-- react-text: 1009 -->演示图片<!-- /react-text --></h3><img src="/images/gif4.gif" alt="img" width="1920" height="995" data-reactid="1010"/><h3 id="代码解释-3" data-reactid="1011"><a href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A-3" aria-hidden="true" data-reactid="1012"><span class="icon icon-link" data-reactid="1013"></span></a><!-- react-text: 1014 -->代码解释<!-- /react-text --></h3><p data-reactid="1015"><a href="/htm/4%E4%B8%89%E7%BB%B4%E5%9F%BA%E6%9C%AC%E5%8F%98%E6%8D%A25%E7%BB%84%E5%90%88%E5%8F%98%E6%8D%A2.doc" data-reactid="1016">三维基本变换组合变换文档参考下载</a></p><ol data-reactid="1017"><li data-reactid="1018"><p data-reactid="1019"><!-- react-text: 1020 -->基本变换之平移变换 <!-- /react-text --><div data-reactid="1021"><style data-reactid="1022">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:586px;max-height:586pxpx;" data-reactid="1023"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.621160409556317%;" data-reactid="1024"></div><div class="medium-image-progressive" data-reactid="1025"><canvas data-reactid="1026"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1027"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlInRAsxX_jMvJHaZQvaKK0vF2O8?imageslim" data-reactid="1028"/><noscript data-reactid="1029"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FlInRAsxX_jMvJHaZQvaKK0vF2O8?imageslim" data-reactid="1030"/></noscript></div></div></div></p><pre data-reactid="1031"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1032"><span class="hljs-keyword" data-reactid="1033">var</span><!-- react-text: 1034 --> matD = <!-- /react-text --><span class="hljs-keyword" data-reactid="1035">new</span><!-- react-text: 1036 --> THREE.Matrix4();
+<!-- /react-text --><span class="hljs-comment" data-reactid="1037">//thressjs 封装的API，产生平移变换矩阵</span><!-- react-text: 1038 -->
+matD.makeTranslation(myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1039">0</span><!-- react-text: 1040 -->].x,myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1041">0</span><!-- react-text: 1042 -->].y,myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1043">0</span><!-- react-text: 1044 -->].z);
+<!-- /react-text --><span class="hljs-comment" data-reactid="1045">// mesh为几何体，将其矩阵与平移变换矩阵相乘</span><!-- react-text: 1046 -->
+mesh.matrix.multiply(matD);<!-- /react-text --></code></pre></li><li data-reactid="1047"><p data-reactid="1048"><!-- react-text: 1049 -->基本变换之比例变换 <!-- /react-text --><div data-reactid="1050"><style data-reactid="1051">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:531px;max-height:531pxpx;" data-reactid="1052"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.55367231638418%;" data-reactid="1053"></div><div class="medium-image-progressive" data-reactid="1054"><canvas data-reactid="1055"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="1056"/><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpnmgsA3Km1IRwmog3nOD45TsJRb?imageslim" data-reactid="1057"/><noscript data-reactid="1058"><img class="medium-image-origin" src="http://obu9je6ng.bkt.clouddn.com/FpnmgsA3Km1IRwmog3nOD45TsJRb?imageslim" data-reactid="1059"/></noscript></div></div></div></p><pre data-reactid="1060"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1061"><!-- react-text: 1062 -->matD.makeScale(myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1063">1</span><!-- react-text: 1064 -->].x,myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1065">1</span><!-- react-text: 1066 -->].y,myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1067">1</span><!-- react-text: 1068 -->].z);
+mesh.matrix.multiply(matD);<!-- /react-text --></code></pre></li><li data-reactid="1069"><p data-reactid="1070">组合变换之关于任意向量旋转</p><pre data-reactid="1071"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1072"><span class="hljs-keyword" data-reactid="1073">var</span><!-- react-text: 1074 --> v3 = myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1075">2</span><!-- react-text: 1076 -->].vector.toVector3();
+matD.makeRotationAxis(v3.normalize(),myctls[<!-- /react-text --><span class="hljs-number" data-reactid="1077">2</span><!-- react-text: 1078 -->].degree/<!-- /react-text --><span class="hljs-number" data-reactid="1079">360</span><!-- react-text: 1080 -->*<!-- /react-text --><span class="hljs-built_in" data-reactid="1081">Math</span><!-- react-text: 1082 -->.PI)
+mesh.matrix.multiply(matD);<!-- /react-text --></code></pre></li><li data-reactid="1083"><p data-reactid="1084">...</p></li></ol><h1 id="总结" data-reactid="1085"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="1086"><span class="icon icon-link" data-reactid="1087"></span></a><!-- react-text: 1088 -->总结<!-- /react-text --></h1><ol data-reactid="1089"><li data-reactid="1090">学习巩固了相关图形学的知识。</li><li data-reactid="1091">学习了相关前端技术对图形的处理方法。</li><li data-reactid="1092">对于WebGL简单入门了，以后可以往更酷炫的3D效果靠近。</li></ol></article></div><div class="gitment-container" data-reactid="1093"></div><div class="paginator" data-reactid="1094"><a title="基于socket.io实现的简易你画我猜" class="prev" href="/you-paint-i-guess-by-socketio" data-reactid="1095">Prev</a><a title="百度前端二面总结（已过）" class="next" href="/baidu-fe-interview-2" data-reactid="1096">Next</a></div></div></main><footer data-reactid="1097"><div class="copyright" data-reactid="1098"><p data-reactid="1099"><!-- react-text: 1100 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="1101">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 毕设周记4 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1656280859"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">毕设周记4</h1><div class="post-info" data-reactid="12"><time datetime="2017-05-04T16:51:05+00:00" data-reactid="13">May 4, 2017 4:51 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><!-- react-text: 18 -->题目：刷脸签到系统<!-- /react-text --><br data-reactid="19"/><!-- react-text: 20 -->姓名：余聪<!-- /react-text --><br data-reactid="21"/><!-- react-text: 22 -->学号：19130126<!-- /react-text --></p><p data-reactid="23">最近两周，主要完成了 1. 项目的外网部署。 2. 将站点封装成跨平台app。 3. SEO 优化与站点提交。</p><p data-reactid="24"><!-- react-text: 25 -->使该项目能够方便得被访问，调高该web应用的可用性。 现在只需要使用谷歌浏览器访问 <!-- /react-text --><code data-reactid="26">https://face.moyuyc.xyz</code><!-- react-text: 27 --> 即可查看。<!-- /react-text --></p><h2 id="项目的外网部署" data-reactid="28"><a href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A4%96%E7%BD%91%E9%83%A8%E7%BD%B2" aria-hidden="true" data-reactid="29"><span class="icon icon-link" data-reactid="30"></span></a><!-- react-text: 31 -->项目的外网部署<!-- /react-text --></h2><h3 id="数据迁移" data-reactid="32"><a href="#%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB" aria-hidden="true" data-reactid="33"><span class="icon icon-link" data-reactid="34"></span></a><!-- react-text: 35 -->数据迁移<!-- /react-text --></h3><p data-reactid="36"><!-- react-text: 37 -->部署首先需要考虑的，便是数据库的迁移了。为了方便数据的迁移，对于人脸录入表 (<!-- /react-text --><code data-reactid="38">face-import</code><!-- react-text: 39 -->) 中的人脸图片，没有将上传的样本数据存储在服务器中，而是存在 <!-- /react-text --><a href="https://sm.ms" data-reactid="40">sm.ms</a><!-- react-text: 41 --> 免费图床中，得到一个 <!-- /react-text --><code data-reactid="42">face_url</code><!-- react-text: 43 --> 字段，每次启动服务器之前都得进行样本的训练或者训练数据的读取；而且每次上传样本或者删除样本后，服务器都需要重新训练保存样本，重新生成一套特征脸。并且在开启服务器的环境和纯粹的数据处理的环境对于数据库的处理是不一样的，在服务器环境，需要开启数据库连接池，每次都从中去取出连接进行数据操作；而纯粹的读取数据库，得到<!-- /react-text --><code data-reactid="44">face_url</code><!-- react-text: 45 -->进行人脸的预处理或训练，则只需要每次单独的 开启连接 -&gt; 读取数据 -&gt; 关闭连接 即可，否则程序会一直运行下去，因为数据库连接池没关闭。<!-- /react-text --></p><h3 id="代码迁移" data-reactid="46"><a href="#%E4%BB%A3%E7%A0%81%E8%BF%81%E7%A7%BB" aria-hidden="true" data-reactid="47"><span class="icon icon-link" data-reactid="48"></span></a><!-- react-text: 49 -->代码迁移<!-- /react-text --></h3><p data-reactid="50"><!-- react-text: 51 -->源码都部署在 GitHub 上，所以在联网的服务器上，直接 <!-- /react-text --><code data-reactid="52">git clone</code><!-- react-text: 53 --> 就可以得到源码了（原始证照和预处理后的证照、训练的 yaml 数据都没提交至 GitHub，所以代码库还是挺小的）。<!-- /react-text --></p><h3 id="环境配置" data-reactid="54"><a href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE" aria-hidden="true" data-reactid="55"><span class="icon icon-link" data-reactid="56"></span></a><!-- react-text: 57 -->环境配置<!-- /react-text --></h3><p data-reactid="58">服务器系统环境为 Ubuntu，在 Ubuntu 上安装 opencv，Ubuntu 上可没有 Homebrew “神器”，所以只能下载源码包，自己进行编译连接，生成动态链接库。</p><p data-reactid="59">安装好 node + npm + nvm，node 版本 ≥7.0，以及 mysql，导入 gp.sql。</p><p data-reactid="60"><!-- react-text: 61 -->再在服务器执行 <!-- /react-text --><code data-reactid="62">npm install</code><!-- react-text: 63 -->（安装项目依赖包，各个目录下都有自己独立的依赖包，前端目录则不必安装，因为只需要其产生的代码） =&gt; 下载脚本 =&gt; 预处理脚本 =&gt; 训练样本脚本 =&gt; 启动服务器<!-- /react-text --></p><div data-reactid="64"><style data-reactid="65">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:391px;max-height:391pxpx;" data-reactid="66"><div class="medium-image-progressive-placeholder" style="padding-bottom:162.14833759590792%;" data-reactid="67"></div><div class="medium-image-progressive" data-reactid="68"><canvas data-reactid="69"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="70"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59072a26af35d.jpg" data-reactid="71"/><noscript data-reactid="72"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/05/01/59072a26af35d.jpg" data-reactid="73"/></noscript></div></div></div><h3 id="nginx--https" data-reactid="74"><a href="#nginx--https" aria-hidden="true" data-reactid="75"><span class="icon icon-link" data-reactid="76"></span></a><!-- react-text: 77 -->nginx + https<!-- /react-text --></h3><p data-reactid="78">但是服务器启动后，外网还是不能直接访问，需要通过 nginx 反向代理，同时解析域名至服务器 IP，为了 Chrome 浏览器安全可以打开摄像头，还需要开启 HTTPs 协议，我使用的是腾讯云免费的一年证书，然后 nginx 配置后即可。</p><p data-reactid="79">配置如下：</p><pre data-reactid="80"><code data-query="{}" data-lang="data-lang" data-reactid="81">upstream p8778 {
+    server localhost:8778;
+}
+
+server {
+    listen 443 ssl;
+
+    server_name  face.moyuyc.xyz;
+    ssl_certificate /etc/nginx/.ssl/face.moyuyc.xyz.crt;
+    ssl_certificate_key /etc/nginx/.ssl/face.moyuyc.xyz.key;
+
+    add_header Strict-Transport-Security &quot;max-age=31536000&quot;;
+    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers    HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://p8778;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &quot;upgrade&quot;;
+    }
+
+}
+</code></pre><h2 id="将站点封装成跨平台app" data-reactid="82"><a href="#%E5%B0%86%E7%AB%99%E7%82%B9%E5%B0%81%E8%A3%85%E6%88%90%E8%B7%A8%E5%B9%B3%E5%8F%B0app" aria-hidden="true" data-reactid="83"><span class="icon icon-link" data-reactid="84"></span></a><!-- react-text: 85 -->将站点封装成跨平台app<!-- /react-text --></h2><p data-reactid="86"><!-- react-text: 87 -->为了方便师生使用，还使用 <!-- /react-text --><code data-reactid="88">nativefier</code><!-- react-text: 89 --> 将站点打包成 PC Desktop，其实就是将站点 URL 和 Chrome 内核组合成一个 Application<!-- /react-text --></p><div data-reactid="90"><style data-reactid="91">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="92"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="93"></div><div class="medium-image-progressive" data-reactid="94"><canvas data-reactid="95"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="96"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" data-reactid="97"/><noscript data-reactid="98"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/588485d5c5134.jpg" data-reactid="99"/></noscript></div></div></div><!-- react-text: 100 --> <!-- /react-text --><div data-reactid="101"><style data-reactid="102">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:1440px;max-height:1440pxpx;" data-reactid="103"><div class="medium-image-progressive-placeholder" style="padding-bottom:56.25%;" data-reactid="104"></div><div class="medium-image-progressive" data-reactid="105"><canvas data-reactid="106"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="107"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" data-reactid="108"/><noscript data-reactid="109"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/58848618b06ff.jpg" data-reactid="110"/></noscript></div></div></div><h3 id="desktop打包脚本" data-reactid="111"><a href="#desktop%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC" aria-hidden="true" data-reactid="112"><span class="icon icon-link" data-reactid="113"></span></a><!-- react-text: 114 -->Desktop打包脚本<!-- /react-text --></h3><pre data-reactid="115"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="116"><!-- react-text: 117 -->// package.json
+// usage: npm run script-name
+
+<!-- /react-text --><span class="hljs-comment" data-reactid="118">&quot;app:mac64&quot;</span><!-- react-text: 119 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="120">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a x64 -p mac --insecure -n 古南师大刷脸签到 https://face.moyuyc.xyz/ -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 121 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="122">&quot;app:mac32&quot;</span><!-- react-text: 123 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="124">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -a ia32 -p mac --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 125 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="126">&quot; -i desktop/logos/logo.icns --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 127 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="128">&quot;app:mac&quot;</span><!-- react-text: 129 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="130">&quot;npm run app:mac32 &amp; npm run app:mac64&quot;</span><!-- react-text: 131 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="132">&quot;app:win&quot;</span><!-- react-text: 133 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="134">&quot;npm run app:win32 &amp; npm run app:win64&quot;</span><!-- react-text: 135 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="136">&quot;app:win32&quot;</span><!-- react-text: 137 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="138">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a x64 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 139 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="140">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 141 -->,
+<!-- /react-text --><span class="hljs-comment" data-reactid="142">&quot;app:win64&quot;</span><!-- react-text: 143 -->: <!-- /react-text --><span class="hljs-comment" data-reactid="144">&quot;set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ &amp;&amp; nativefier -c -p win32 -a ia32 --insecure -n 古南师大刷脸签到 \&quot;</span><!-- react-text: 145 -->https://face.moyuyc.xyz/\<!-- /react-text --><span class="hljs-comment" data-reactid="146">&quot; -i desktop/logos/logo.png --disable-dev-tools --disable-context-menu desktop&quot;</span><!-- react-text: 147 -->,<!-- /react-text --></code></pre><h2 id="seo-优化与站点提交" data-reactid="148"><a href="#seo-%E4%BC%98%E5%8C%96%E4%B8%8E%E7%AB%99%E7%82%B9%E6%8F%90%E4%BA%A4" aria-hidden="true" data-reactid="149"><span class="icon icon-link" data-reactid="150"></span></a><!-- react-text: 151 -->SEO 优化与站点提交<!-- /react-text --></h2><p data-reactid="152">搜索引擎优化（search engine optimization，SEO），是一种通过了解搜索引擎的运作规则来调整网站，以及提高目的网站在有关搜索引擎内排名的方式。所谓“针对搜索引擎作最优化的处理”，是指为了要让网站更容易被搜索引擎接受。</p><ol data-reactid="153"><li data-reactid="154">站点提交</li><li data-reactid="155"><p data-reactid="156"><!-- react-text: 157 -->添加 <!-- /react-text --><code data-reactid="158">robots.txt</code></p><pre data-reactid="159"><code data-query="{}" data-lang="data-lang" data-reactid="160">User-agent: *
+Sitemap: https://face.moyuyc.xyz/sitemap.txt
+</code></pre></li><li data-reactid="161"><p data-reactid="162">站点地图</p><pre data-reactid="163"><code data-query="{}" data-lang="data-lang" data-reactid="164">https://face.moyuyc.xyz/about
+https://face.moyuyc.xyz/face-import
+https://face.moyuyc.xyz/admin
+</code></pre></li></ol><div data-reactid="165"><style data-reactid="166">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:909px;max-height:909pxpx;" data-reactid="167"><div class="medium-image-progressive-placeholder" style="padding-bottom:72.82728272827282%;" data-reactid="168"></div><div class="medium-image-progressive" data-reactid="169"><canvas data-reactid="170"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="171"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" data-reactid="172"/><noscript data-reactid="173"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/01/22/5884a45f49cae.jpg" data-reactid="174"/></noscript></div></div></div></article></div><div class="gitment-container" data-reactid="175"></div><div class="paginator" data-reactid="176"><a title="毕业设计论文" class="prev" href="/paper-of-graduatio-project" data-reactid="177">Prev</a><a title="毕业论文初稿" class="next" href="/毕业论文初稿" data-reactid="178">Next</a></div></div></main><footer data-reactid="179"><div class="copyright" data-reactid="180"><p data-reactid="181"><!-- react-text: 182 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="183">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

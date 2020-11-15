@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 基于特征脸的人脸识别 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-1749055139"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">基于特征脸的人脸识别</h1><div class="post-info" data-reactid="12"><time datetime="2017-04-19T17:10:28+00:00" data-reactid="13">Apr 19, 2017 5:10 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><p data-reactid="17"><!-- react-text: 18 -->原文: <!-- /react-text --><a href="http://openbio.sourceforge.net/resources/eigenfaces/eigenfaces.pdf" data-reactid="19">http://openbio.sourceforge.net/resources/eigenfaces/eigenfaces.pdf</a><br data-reactid="20"/><!-- react-text: 21 -->作者：Dimitri PISSARENKO 时间：2002年12月1日<!-- /react-text --></p><h2 id="总目" data-reactid="22"><a href="#%E6%80%BB%E7%9B%AE" aria-hidden="true" data-reactid="23"><span class="icon icon-link" data-reactid="24"></span></a><!-- react-text: 25 -->总目<!-- /react-text --></h2><p data-reactid="26">该记录是基于 M. Turk and A. Pentland（1991b）、 M. Turk and A. Pentland（1991a）和 Smith（2002）文献所作。</p><h2 id="特征脸是怎么工作的？" data-reactid="27"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F" aria-hidden="true" data-reactid="28"><span class="icon icon-link" data-reactid="29"></span></a><!-- react-text: 30 -->特征脸是怎么工作的？<!-- /react-text --></h2><p data-reactid="31"><!-- react-text: 32 -->人脸识别的任务本质就是：区别开一些输入信号（图像数据），将其划分进一些分类（人脸）中。<!-- /react-text --><br data-reactid="33"/><!-- react-text: 34 -->输入信号高度噪声（例如噪声是由不同引起的： 照明条件，姿势等），但输入图像不是完全随机的 尽管它们有差异，但是在任何输入信号中都存在模式。这样 在所有信号中可以观察到的模式可能是在面部识别领域。 任何面孔以及亲属中存在某些物体（眼睛，鼻子，嘴巴） 这些物体之间的距离。这些特征被称为特征脸 面部识别领域（或主要组成部分）。它们可以通过名为PCA（主成分分析法）的数学方法从原始图像数据中提取出来。 通过 PCA 可以能够将训练集的每个原图转化为相关的特征脸。PCA 一个重要的特征是能够组合特征脸来重构训练集中的原图。<!-- /react-text --><br data-reactid="35"/><!-- react-text: 36 -->记住特征脸不仅仅是面部的特征。所以说如果将每个特征脸按照正确的比例相加，原始脸部图像可以从特征脸重构出来。每个特征脸代表脸部都某些特征，其可能存在或不存在于原图中。如果特征以较高程度表现在原图中，则该特征对应的特征脸应该在特征脸集合相加的总和中，占用更大的比例。相反，特定的特征在原始图像中不存在（或几乎不存在），然后相应的特征脸应该贡献一个较小的（或根本不是）部分的总和。<!-- /react-text --><br data-reactid="37"/><!-- react-text: 38 -->因此，为了从特征脸重构原始图像，需要得到一系列特征脸的权重，也就是说，重构的原图图像等于所有特征面的总和，每个特征脸都有明确的权重。这个权重表示了指定特征（特征脸）在原图中所占的程度。<!-- /react-text --></p><p data-reactid="39">如果使用从原始图像提取的所有特征脸，可以重构来自特征脸的原始图像。但也可以只使用一部分特征脸，重建的图像是原始图像的近似值。然而，这样可以确保由于省略某些特征脸而造成的损失最小化，选择最重要的特征（特征脸）。</p><p data-reactid="40"><!-- react-text: 41 -->由于计算资源的匮乏，特征脸的部分选择（降维）是必要的。那这与人脸识别有什么关系呢？不仅可能从给定的一组权重的特征脸得到面部，但也可以用相反的方式，从特征脸和原人脸面部得到一组权重。使用这个权重可以确定两件重要的事情： 1. 确定所讨论的图像是否是一张脸。<!-- /react-text --><br data-reactid="42"/><!-- react-text: 43 -->输入图像的权重与人脸图像（我们知道是人脸）的权重相差太大，则该输入不是人脸。 2. 相似的脸（图像）具有相似的特征（特征脸）权重。 可以从所有可用的图像中提取权重，通过权重可以进行分组到集群。也就是说，具有相似权重的所有图像可能是类似的面孔。<!-- /react-text --></p><h2 id="算法概述" data-reactid="44"><a href="#%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0" aria-hidden="true" data-reactid="45"><span class="icon icon-link" data-reactid="46"></span></a><!-- react-text: 47 -->算法概述<!-- /react-text --></h2><ol data-reactid="48"><li data-reactid="49">首先，将训练集的原始图像转换为一组特征脸 E。</li><li data-reactid="50">然后，计算每个图像在 E 上的一组权重，保存在 W。</li></ol><p data-reactid="51">观察未知图像 X，计算取特征权重，存储在向量 Wx 中。之后，将Wx与知道他们是面孔（训练的权重W）的其他权重进行比较。一种方法是将每个权重向量视为空间中的一个点计算来自WX的权重向量与权重之间的平均距离D.未知图像的矢量WX（附录A中描述的欧几里德距离）。如果该平均距离超过某个阈值θ，那么未知图像WX的权重向量也与权重“分开”的脸。在这种情况下，未知X被认为不是脸。否则（如果X实际上是一个脸），它的权重向量WX被存储以备以后分类。最优经验性地确定阈值θ。</p><h2 id="特征向量和特征值" data-reactid="52"><a href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E5%92%8C%E7%89%B9%E5%BE%81%E5%80%BC" aria-hidden="true" data-reactid="53"><span class="icon icon-link" data-reactid="54"></span></a><!-- react-text: 55 -->特征向量和特征值<!-- /react-text --></h2><p data-reactid="56">矩阵的特征向量是一个向量，其与矩阵相乘，则结果总为该向量的整数倍。这个整数值是相应的特征向量的特征值。这种关系可以用公式 M × u = λ × u 来描述，其中u是矩阵M的特征向量，λ是相应的特征值。 特征向量具有以下属性：</p><ul data-reactid="57"><li data-reactid="58">它们只能用于方阵</li><li data-reactid="59">n×n矩阵中有n个特征向量（和相应的特征值）</li><li data-reactid="60">所有特征向量都是垂直的，即彼此成直角</li></ul><h2 id="特征脸的计算（pca-方法）" data-reactid="61"><a href="#%E7%89%B9%E5%BE%81%E8%84%B8%E7%9A%84%E8%AE%A1%E7%AE%97%EF%BC%88pca-%E6%96%B9%E6%B3%95%EF%BC%89" aria-hidden="true" data-reactid="62"><span class="icon icon-link" data-reactid="63"></span></a><!-- react-text: 64 -->特征脸的计算（PCA 方法）<!-- /react-text --></h2><p data-reactid="65"><!-- react-text: 66 -->在本节中，使用PCA确定特征脸的原始方案将会 被呈现。 在本文范围内描述的算法是一个变体。在PCA中可以找到一个详细的（以及更理论的）PCA的描述（Pissarenko，2002，第70-72页）。 1. 准备数据<!-- /react-text --><br data-reactid="67"/><!-- react-text: 68 -->在这个步骤中，应准备有人脸组成的训练集（Γi）<!-- /react-text --></p><ol start="2" data-reactid="69"><li data-reactid="70"><p data-reactid="71"><!-- react-text: 72 -->减去平均值<!-- /react-text --><br data-reactid="73"/><!-- react-text: 74 -->应当计算出来平均矩阵Ψ，然后从Γi中减去， 并将结果存储在变量Φi中 <!-- /react-text --><div data-reactid="75"><style data-reactid="76">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:287px;max-height:287pxpx;" data-reactid="77"><div class="medium-image-progressive-placeholder" style="padding-bottom:49.47735191637631%;" data-reactid="78"></div><div class="medium-image-progressive" data-reactid="79"><canvas data-reactid="80"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="81"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590575d5edf57.jpg" data-reactid="82"/><noscript data-reactid="83"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590575d5edf57.jpg" data-reactid="84"/></noscript></div></div></div></p></li><li data-reactid="85"><p data-reactid="86"><!-- react-text: 87 -->计算协方差矩阵<!-- /react-text --><br data-reactid="88"/><!-- react-text: 89 -->计算协方差矩阵 C，依据如下 <!-- /react-text --><div data-reactid="90"><style data-reactid="91">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:279px;max-height:279pxpx;" data-reactid="92"><div class="medium-image-progressive-placeholder" style="padding-bottom:34.76702508960574%;" data-reactid="93"></div><div class="medium-image-progressive" data-reactid="94"><canvas data-reactid="95"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="96"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/5905763b70744.jpg" data-reactid="97"/><noscript data-reactid="98"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/5905763b70744.jpg" data-reactid="99"/></noscript></div></div></div></p></li><li data-reactid="100"><p data-reactid="101"><!-- react-text: 102 -->计算协方差的特征向量和特征值矩阵<!-- /react-text --><br data-reactid="103"/><!-- react-text: 104 -->在这个步骤中，特征向量（特征脸）ui和对应的特征值λi应该计算。特征向量（特征面）必须被归一化才能使它们成为单位向量，即长度为1。描述确定的特征向量和特征值求法在此省略，因为它属于标准的数学程式。<!-- /react-text --></p></li><li data-reactid="105"><p data-reactid="106"><!-- react-text: 107 -->选择主要组件<!-- /react-text --><br data-reactid="108"/><!-- react-text: 109 -->从M个特征向量（特征脸）ui中，只应选择具有最高特征值的M0。特征值越高，特定特征向量描述的面的特征越多。可以省略具有低特征值的特征面，因为它们只解释了面部特征的一小部分。在确定M0特征脸ui之后，算法“训练”阶段结束。<!-- /react-text --></p></li></ol><h2 id="改进原始算法" data-reactid="110"><a href="#%E6%94%B9%E8%BF%9B%E5%8E%9F%E5%A7%8B%E7%AE%97%E6%B3%95" aria-hidden="true" data-reactid="111"><span class="icon icon-link" data-reactid="112"></span></a><!-- react-text: 113 -->改进原始算法<!-- /react-text --></h2><p data-reactid="114"><!-- react-text: 115 -->第5节描述的算法存在问题。协方差矩阵 在步骤3中（参见等式3）具有N 2×N 2的维数，因此将具有N 2 特征面和特征值。 对于256×256图像，这意味着必须计算65,536×65,536个矩阵，并计算65,536个特征面。在计算上，这并不是非常有效，因为大多数这些特征面对我们的任务没有用。所以，第三和第四步被Turk和Pentland（1991a）提出的方案所取代： <!-- /react-text --><div data-reactid="116"><style data-reactid="117">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:387px;max-height:387pxpx;" data-reactid="118"><div class="medium-image-progressive-placeholder" style="padding-bottom:54.00516795865633%;" data-reactid="119"></div><div class="medium-image-progressive" data-reactid="120"><canvas data-reactid="121"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="122"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590579e61c7b3.jpg" data-reactid="123"/><noscript data-reactid="124"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/590579e61c7b3.jpg" data-reactid="125"/></noscript></div></div></div></p><p data-reactid="126"><!-- react-text: 127 -->其中L是M×M矩阵，v是L的M个特征向量，u是特征面。 注意 使用公式C = AAT计算协方差矩阵C。只有为了解释A，才给出原始（低效）公式。这种方法的优点是必须只评估M数而不是N2。通常，仅作为主要成分（特征面）的M N2将是相关的。要执行的计算量从训练集（N）的数量减少到训练集（M）中的图像数量。<!-- /react-text --><br data-reactid="128"/><!-- react-text: 129 -->在步骤5中，相关联的特征值允许根据它们的有用性对特征面进行排序。 通常，我们将仅使用M个特征面的一个子集，具有最大特征值的M0特征面。<!-- /react-text --></p><h2 id="人脸分类" data-reactid="130"><a href="#%E4%BA%BA%E8%84%B8%E5%88%86%E7%B1%BB" aria-hidden="true" data-reactid="131"><span class="icon icon-link" data-reactid="132"></span></a><!-- react-text: 133 -->人脸分类<!-- /react-text --></h2><p data-reactid="134"><!-- react-text: 135 -->新的人脸（未知）分类至已知人脸中需要2个步骤。<!-- /react-text --><br data-reactid="136"/><!-- react-text: 137 -->首先，得到新人脸的特征脸，得到权重向量 ΩT(new) <!-- /react-text --><div data-reactid="138"><style data-reactid="139">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:405px;max-height:405pxpx;" data-reactid="140"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.666666666666668%;" data-reactid="141"></div><div class="medium-image-progressive" data-reactid="142"><canvas data-reactid="143"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="144"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057d1dbbfeb.jpg" data-reactid="145"/><noscript data-reactid="146"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057d1dbbfeb.jpg" data-reactid="147"/></noscript></div></div></div></p><p data-reactid="148">两个权重向量的欧几里得距离 d(Ωi, Ωj) 提供了一种衡量图像 i、j 的相似度的方法。如果ΩT(new)与其他人脸平均超过阈值θ，则认为其非人脸，或者构造一个新的脸的“簇”，使得类似的面部被分配给一个群集。</p><h3 id="欧几里得距离" data-reactid="149"><a href="#%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E8%B7%9D%E7%A6%BB" aria-hidden="true" data-reactid="150"><span class="icon icon-link" data-reactid="151"></span></a><!-- react-text: 152 -->欧几里得距离<!-- /react-text --></h3><p data-reactid="153"><!-- react-text: 154 -->x 为被特征向量描述的任意实例。 <!-- /react-text --><div data-reactid="155"><style data-reactid="156">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:342px;max-height:342pxpx;" data-reactid="157"><div class="medium-image-progressive-placeholder" style="padding-bottom:15.497076023391813%;" data-reactid="158"></div><div class="medium-image-progressive" data-reactid="159"><canvas data-reactid="160"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="161"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057f7c67c5a.jpg" data-reactid="162"/><noscript data-reactid="163"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057f7c67c5a.jpg" data-reactid="164"/></noscript></div></div></div><!-- react-text: 165 --> 其中ar(x) 表示实例 x 中的第 r 个属性值，那么两个实例xi,xj的欧几里得距离定义为： <!-- /react-text --><div data-reactid="166"><style data-reactid="167">
+.medium-image-progressive-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 43px;
+  display: block;
+}
+.image-loaded.medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s linear .5s,opacity .1s .4s;
+  transition: visibility 0s linear .5s,opacity .1s .4s;
+}
+.image-loaded.medium-image-progressive .medium-image-origin {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-progressive:not(.image-loaded):not(.canvas-loaded) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.medium-image-progressive-container .medium-image-progressive {
+  position: absolute;
+  top:0;left:0;width:100%;height:100%;
+  max-width: 100%;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.medium-image-progressive-container img, .medium-image-progressive-container canvas {
+  margin: 0 auto;
+}
+.medium-image-progressive-container .canvas-loaded.medium-image-progressive:not(.image-loaded) canvas {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0s linear 0s,opacity .4s 0s;
+  transition: visibility 0s linear 0s,opacity .4s 0s;
+}
+.medium-image-progressive-container .medium-image-origin,
+.medium-image-progressive-container .medium-image-progressive canvas {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+</style><div class="medium-image-progressive-container" style="max-width:455px;max-height:455pxpx;" data-reactid="168"><div class="medium-image-progressive-placeholder" style="padding-bottom:26.593406593406595%;" data-reactid="169"></div><div class="medium-image-progressive" data-reactid="170"><canvas data-reactid="171"></canvas><img class="medium-image-progress" src="false" style="display:none;" data-reactid="172"/><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057ff879e7e.jpg" data-reactid="173"/><noscript data-reactid="174"><img class="medium-image-origin" src="https://ooo.0o0.ooo/2017/04/30/59057ff879e7e.jpg" data-reactid="175"/></noscript></div></div></div></p><h2 id="参考文献" data-reactid="176"><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" aria-hidden="true" data-reactid="177"><span class="icon icon-link" data-reactid="178"></span></a><!-- react-text: 179 -->参考文献<!-- /react-text --></h2><ul data-reactid="180"><li data-reactid="181">T. M. Mitchell. Machine Learning. McGraw-Hill International Editions, 1997.</li><li data-reactid="182">D. Pissarenko. Neural networks for financial time series prediction: Overview over recent research. BSc thesis, 2002.</li><li data-reactid="183"><!-- react-text: 184 -->L. I. Smith. A tutorial on principal components analysis, February 2002. URL <!-- /react-text --><a href="http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf" data-reactid="185">http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf</a><!-- react-text: 186 -->. (URL accessed on November 27, 2002).<!-- /react-text --></li><li data-reactid="187"><!-- react-text: 188 -->M. Turk and A. Pentland. Eigenfaces for recognition. Journal of Cognitive Neuroscience, 3(1), 1991a. URL <!-- /react-text --><a href="http://www.cs.ucsb.edu/~mturk/Papers/jcn" data-reactid="189">http://www.cs.ucsb.edu/~mturk/Papers/jcn</a><!-- react-text: 190 -->. pdf. (URL accessed on November 27, 2002).<!-- /react-text --></li><li data-reactid="191">M. A. Turk and A. P. Pentland. Face recognition using eigenfaces. In Proc. of Computer Vision and Pattern Recognition, pages 586–591. IEEE, June 1991b. URL http: //www.cs.wisc.edu/~dyer/cs540/handouts/mturk-CVPR91.pdf. (URL accessed on November 27, 2002).</li></ul></article></div><div class="gitment-container" data-reactid="192"></div><div class="paginator" data-reactid="193"><a title="毕业论文初稿" class="prev" href="/毕业论文初稿" data-reactid="194">Prev</a><a title="毕设周记三" class="next" href="/graduation-weekly-record-3" data-reactid="195">Next</a></div></div></main><footer data-reactid="196"><div class="copyright" data-reactid="197"><p data-reactid="198"><!-- react-text: 199 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="200">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

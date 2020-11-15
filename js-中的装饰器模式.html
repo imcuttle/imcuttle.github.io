@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> JS 中的装饰器模式 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="-695511718"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">JS 中的装饰器模式</h1><div class="post-info" data-reactid="12"><time datetime="2020-01-10T12:31:23+00:00" data-reactid="13">Jan 10, 2020 12:31 PM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="背景" data-reactid="17"><a href="#%E8%83%8C%E6%99%AF" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->背景<!-- /react-text --></h2><p data-reactid="21"><!-- react-text: 22 -->使用过 mobx + mobx-react 的同学对于 ES 的新特性<!-- /react-text --><strong data-reactid="23">装饰器</strong><!-- react-text: 24 -->肯定不陌生。我在第一次使用装饰器的时候，我就对它爱不释手，书写起来简单优雅，太适合我这种爱装 X 且懒的同学了。今天我就带着大家深入浅出这个优雅的语法特性：装饰器。<!-- /react-text --></p><h2 id="预备知识" data-reactid="25"><a href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->预备知识<!-- /react-text --></h2><ul data-reactid="29"><li data-reactid="30">全球统一为 ECMAScript 新特性、语法制定统一标准的组织委员会是 TC39；</li><li data-reactid="31"><!-- react-text: 32 -->对于单个的新特性，TC39 有专门的<!-- /react-text --><a href="https://tc39.es/process-document/" data-reactid="33">标准和阶段</a><!-- react-text: 34 -->去跟进该特性，也就是我们常说的 stage-0 到 stage-4，其中的新特性的成熟完备性从低到高；<!-- /react-text --></li></ul><p data-reactid="35">普及完一些必要的知识点后，我们继续进入到我们的主题：装饰器。</p><h2 id="演变过程" data-reactid="36"><a href="#%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->演变过程<!-- /react-text --></h2><p data-reactid="40"><!-- react-text: 41 -->装饰器的制定过程也不是一帆风顺的，而且就算是2020年初的现在，这个备受争议的语法特性官方标准还在讨论制定当中，目前仍处于 <!-- /react-text --><a href="https://github.com/tc39/proposal-decorators" data-reactid="42">stage-2: 草稿状态</a><!-- react-text: 43 -->。<!-- /react-text --></p><p data-reactid="44"><!-- react-text: 45 -->但目前市面上 Babel、TypeScript 编译支持的装饰器语法主要包括两种方式，一个是 传统方式(legacy) 和目前<!-- /react-text --><a href="https://tc39.es/proposal-decorators/" data-reactid="46">标准方式</a><!-- react-text: 47 -->。<!-- /react-text --></p><p data-reactid="48">由于目前标准还不是很成熟，编译器的支持并不全面，所以市面上大部分的装饰器库，大都只是兼容 legacy 方式，如 Mobx，如下为 Mobx 官网中的一段话：</p><blockquote data-reactid="49"><p data-reactid="50"><!-- react-text: 51 -->Note that the legacy mode is important (as is putting the decorators proposal first). Non-legacy mode is <!-- /react-text --><a href="https://github.com/mobxjs/mobx/pull/1732" data-reactid="52">WIP</a><!-- react-text: 53 -->.<!-- /react-text --></p></blockquote><p data-reactid="54">下面我就从实际场景出发，来使用装饰器模式来实现我们常见的一些业务场景。</p><p data-reactid="55"><strong data-reactid="56">注意：由于新版标准可以说是在 legacy 的方式下改造出来的，legacy 更加灵活，标准方式则主张静态配置去扩展实现装饰器功能</strong></p><h2 id="实际场景" data-reactid="57"><a href="#%E5%AE%9E%E9%99%85%E5%9C%BA%E6%99%AF" aria-hidden="true" data-reactid="58"><span class="icon icon-link" data-reactid="59"></span></a><!-- react-text: 60 -->实际场景<!-- /react-text --></h2><h3 id="需求" data-reactid="61"><a href="#%E9%9C%80%E6%B1%82" aria-hidden="true" data-reactid="62"><span class="icon icon-link" data-reactid="63"></span></a><!-- react-text: 64 -->需求<!-- /react-text --></h3><p data-reactid="65">我希望实现一个 validate 修饰器，用于定义成员变量的校验规则，使用如下</p><pre data-reactid="66"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="67"><span class="hljs-keyword" data-reactid="68">import</span><!-- react-text: 69 --> {validate, check} <!-- /react-text --><span class="hljs-keyword" data-reactid="70">from</span><!-- react-text: 71 --> <!-- /react-text --><span class="hljs-string" data-reactid="72">&#x27;validate&#x27;</span><!-- react-text: 73 -->
+
+<!-- /react-text --><span class="hljs-class" data-reactid="74"><span class="hljs-keyword" data-reactid="75">class</span><!-- react-text: 76 --> <!-- /react-text --><span class="hljs-title" data-reactid="77">Person</span><!-- react-text: 78 --> <!-- /react-text --></span><!-- react-text: 79 -->{
+   @validate(<!-- /react-text --><span class="hljs-function" data-reactid="80"><span class="hljs-params" data-reactid="81">val</span><!-- react-text: 82 --> =&gt;<!-- /react-text --></span><!-- react-text: 83 --> ![<!-- /react-text --><span class="hljs-string" data-reactid="84">&#x27;M&#x27;</span><!-- react-text: 85 -->, <!-- /react-text --><span class="hljs-string" data-reactid="86">&#x27;W&#x27;</span><!-- react-text: 87 -->].includes(val) &amp;&amp; <!-- /react-text --><span class="hljs-string" data-reactid="88">&#x27;需要为 M 或者 W&#x27;</span><!-- react-text: 89 -->)
+   gender = <!-- /react-text --><span class="hljs-string" data-reactid="90">&#x27;M&#x27;</span><!-- react-text: 91 -->
+}
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="92">const</span><!-- react-text: 93 --> person = <!-- /react-text --><span class="hljs-keyword" data-reactid="94">new</span><!-- react-text: 95 --> Person();
+person.gender = <!-- /react-text --><span class="hljs-literal" data-reactid="96">null</span><!-- react-text: 97 -->;
+check(person); <!-- /react-text --><span class="hljs-comment" data-reactid="98">// =&gt; [{ name: &#x27;gender&#x27;, error: &#x27;需要为 M 或者 W&#x27; }]</span></code></pre><p data-reactid="99">以上这种方式，相比于运行时 validate，如下</p><pre data-reactid="100"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="101"><span class="hljs-keyword" data-reactid="102">const</span><!-- react-text: 103 --> check = <!-- /react-text --><span class="hljs-function" data-reactid="104"><!-- react-text: 105 -->(<!-- /react-text --><span class="hljs-params" data-reactid="106">person</span><!-- react-text: 107 -->) =&gt;<!-- /react-text --></span><!-- react-text: 108 --> {
+   <!-- /react-text --><span class="hljs-keyword" data-reactid="109">const</span><!-- react-text: 110 --> errors = [];
+   <!-- /react-text --><span class="hljs-keyword" data-reactid="111">if</span><!-- react-text: 112 --> (![<!-- /react-text --><span class="hljs-string" data-reactid="113">&#x27;M&#x27;</span><!-- react-text: 114 -->, <!-- /react-text --><span class="hljs-string" data-reactid="115">&#x27;W&#x27;</span><!-- react-text: 116 -->].includes(person.gender)) {
+      errors.push({<!-- /react-text --><span class="hljs-attr" data-reactid="117">name</span><!-- react-text: 118 -->: <!-- /react-text --><span class="hljs-string" data-reactid="119">&#x27;gender&#x27;</span><!-- react-text: 120 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="121">error</span><!-- react-text: 122 -->: <!-- /react-text --><span class="hljs-string" data-reactid="123">&#x27;需要为 M 或者 W&#x27;</span><!-- react-text: 124 -->});
+   }
+   <!-- /react-text --><span class="hljs-keyword" data-reactid="125">return</span><!-- react-text: 126 --> errors;
+}<!-- /react-text --></code></pre><p data-reactid="127">装饰器的方式能够更快捷的维护校验逻辑，更加具有表驱动程序的优势，只需要改配置即可。但是对于没有接触过装饰器模式模式的同学，深入改造装饰器内部的逻辑就有一定门坎了（但是不怕，这篇文章帮助大家降低门坎）。</p><h3 id="实现" data-reactid="128"><a href="#%E5%AE%9E%E7%8E%B0" aria-hidden="true" data-reactid="129"><span class="icon icon-link" data-reactid="130"></span></a><!-- react-text: 131 -->实现<!-- /react-text --></h3><p data-reactid="132"><strong data-reactid="133">由于目前 Babel 编译对于新版标准支持不是很完全，对于标准的装饰器模式实现有一定程度的影响，所以本文主要介绍 legacy 方式的实现</strong><!-- react-text: 134 -->，相信对于大家后续实现标准的装饰器也是有帮助的！<!-- /react-text --></p><h4 id="思路整理" data-reactid="135"><a href="#%E6%80%9D%E8%B7%AF%E6%95%B4%E7%90%86" aria-hidden="true" data-reactid="136"><span class="icon icon-link" data-reactid="137"></span></a><!-- react-text: 138 -->思路整理<!-- /react-text --></h4><p data-reactid="139"><!-- react-text: 140 -->按照 api 的使用用例，我们可以知道，对于 person 实例是已经注入了 validate 校验逻辑的，然后在 <!-- /react-text --><code data-reactid="141">check</code><!-- react-text: 142 --> 方法中提取校验逻辑并执行即可。<!-- /react-text --></p><pre data-reactid="143"><code data-query="{}" data-lang="data-lang" data-reactid="144">@validate // 注入校验逻辑
+    |
+  check   // 提取校验逻辑并执行
+    |
+返回校验结果
+</code></pre><p data-reactid="145">首先我们在 babel 配置中需要如下配置：</p><pre data-reactid="146"><code data-query="{}" data-lang="data-lang" data-reactid="147">&quot;plugins&quot;: [
+  [
+    &quot;@babel/proposal-decorators&quot;,
+    {
+      &quot;legacy&quot;: true
+    }
+  ],
+  [&quot;@babel/proposal-class-properties&quot;, { &quot;loose&quot;: true }]
+]
+</code></pre><p data-reactid="148"><!-- react-text: 149 -->对于我们需要实现的 <!-- /react-text --><code data-reactid="150">@validate</code><!-- react-text: 151 --> 装饰器结构如下：<!-- /react-text --></p><pre data-reactid="152"><code data-query="{}" data-lang="data-lang" data-reactid="153">// rule 为外界自定义校验逻辑
+function validate(rule) {
+  // target 为原型，也就是 Person.prototype
+  // keyName 为修饰的成员名，如 `gender`
+  // descriptor 为该成员的是修饰实体
+  return (target, keyName, descriptor) =&gt; {
+     // 注入 rule
+     target[&#x27;check&#x27;] = target[&#x27;check&#x27;] || {};
+     target[&#x27;check&#x27;][keyName] = rule;
+     return descriptor;
+  }
+}
+</code></pre><p data-reactid="154"><!-- react-text: 155 -->根据上述逻辑，执行完 <!-- /react-text --><code data-reactid="156">@validate</code><!-- react-text: 157 --> 之后，在 <!-- /react-text --><code data-reactid="158">Person.prototype</code><!-- react-text: 159 --> 中会注入 <!-- /react-text --><code data-reactid="160">&#x27;check&#x27;</code><!-- react-text: 161 --> 属性，同时我们在 <!-- /react-text --><code data-reactid="162">check</code><!-- react-text: 163 --> 方法中拿到该属性即可进行校验。<!-- /react-text --></p><p data-reactid="164">那么我们是不是完成了该方法呢？其实还远远不够：</p><ol data-reactid="165"><li data-reactid="166"><!-- react-text: 167 -->首先，对于隐式注入的 <!-- /react-text --><code data-reactid="168">check</code><!-- react-text: 169 --> 属性需要足够隐藏，同时属性名 <!-- /react-text --><code data-reactid="170">check</code><!-- react-text: 171 --> 未免太容易被实例属性覆盖，从而不能通过原型链找到该属性<!-- /react-text --></li><li data-reactid="172"><!-- react-text: 173 -->在类继承模式下，<!-- /react-text --><code data-reactid="174">check</code><!-- react-text: 175 --> 属性可能会丢失，甚至会污染校验规则<!-- /react-text --></li></ol><p data-reactid="176">首先我们来看第一个问题：改造我们的代码</p><pre data-reactid="177"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="178"><span class="hljs-keyword" data-reactid="179">const</span><!-- react-text: 180 --> getInjectPropName =
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="181">typeof</span><!-- react-text: 182 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="183">Symbol</span><!-- react-text: 184 --> === <!-- /react-text --><span class="hljs-string" data-reactid="185">&#x27;function&#x27;</span><!-- react-text: 186 --> ? <!-- /react-text --><span class="hljs-function" data-reactid="187"><span class="hljs-params" data-reactid="188">name</span><!-- react-text: 189 --> =&gt;<!-- /react-text --></span><!-- react-text: 190 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="191">Symbol</span><!-- react-text: 192 -->.for(<!-- /react-text --><span class="hljs-string" data-reactid="193"><!-- react-text: 194 -->`[[<!-- /react-text --><span class="hljs-subst" data-reactid="195">${name}</span><!-- react-text: 196 -->]]`<!-- /react-text --></span><!-- react-text: 197 -->) : <!-- /react-text --><span class="hljs-function" data-reactid="198"><span class="hljs-params" data-reactid="199">name</span><!-- react-text: 200 --> =&gt;<!-- /react-text --></span><!-- react-text: 201 --> <!-- /react-text --><span class="hljs-string" data-reactid="202"><!-- react-text: 203 -->`[[<!-- /react-text --><span class="hljs-subst" data-reactid="204">${name}</span><!-- react-text: 205 -->]]`<!-- /react-text --></span><!-- react-text: 206 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="207">const</span><!-- react-text: 208 --> addHideProps = <!-- /react-text --><span class="hljs-function" data-reactid="209"><!-- react-text: 210 -->(<!-- /react-text --><span class="hljs-params" data-reactid="211">target, name, value</span><!-- react-text: 212 -->) =&gt;<!-- /react-text --></span><!-- react-text: 213 --> {
+  <!-- /react-text --><span class="hljs-built_in" data-reactid="214">Object</span><!-- react-text: 215 -->.defineProperty(target, name, {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="216">enumerable</span><!-- react-text: 217 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="218">false</span><!-- react-text: 219 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="220">configurable</span><!-- react-text: 221 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="222">true</span><!-- react-text: 223 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="224">writable</span><!-- react-text: 225 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="226">true</span><!-- react-text: 227 -->,
+    value
+  })
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="228"><span class="hljs-keyword" data-reactid="229">function</span><!-- react-text: 230 --> <!-- /react-text --><span class="hljs-title" data-reactid="231">validate</span><!-- react-text: 232 -->(<!-- /react-text --><span class="hljs-params" data-reactid="233">rule</span><!-- react-text: 234 -->) <!-- /react-text --></span><!-- react-text: 235 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="236">return</span><!-- react-text: 237 --> <!-- /react-text --><span class="hljs-function" data-reactid="238"><!-- react-text: 239 -->(<!-- /react-text --><span class="hljs-params" data-reactid="240">target, keyName, descriptor</span><!-- react-text: 241 -->) =&gt;<!-- /react-text --></span><!-- react-text: 242 --> {
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="243">const</span><!-- react-text: 244 --> name = getInjectPropName(<!-- /react-text --><span class="hljs-string" data-reactid="245">&#x27;check&#x27;</span><!-- react-text: 246 -->);
+     addHideProps(target, name, target[name] || {});
+     target[name][keyName] = rule;
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="247">return</span><!-- react-text: 248 --> descriptor;
+  }
+}<!-- /react-text --></code></pre><p data-reactid="249"><!-- react-text: 250 -->相比于之前的代码实现，这样 <!-- /react-text --><code data-reactid="251">Object.keys(Person.prototype)</code><!-- react-text: 252 --> 不会包含 <!-- /react-text --><code data-reactid="253">check</code><!-- react-text: 254 --> 属性，同时也大大降低了属性命名冲突的问题。<!-- /react-text --></p><p data-reactid="255">对于第二个问题，类继承模式下的装饰器书写。如下例子：</p><pre data-reactid="256"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="257"><span class="hljs-class" data-reactid="258"><span class="hljs-keyword" data-reactid="259">class</span><!-- react-text: 260 --> <!-- /react-text --><span class="hljs-title" data-reactid="261">Person</span><!-- react-text: 262 --> <!-- /react-text --></span><!-- react-text: 263 -->{
+   @validate(<!-- /react-text --><span class="hljs-function" data-reactid="264"><span class="hljs-params" data-reactid="265">val</span><!-- react-text: 266 --> =&gt;<!-- /react-text --></span><!-- react-text: 267 --> ![<!-- /react-text --><span class="hljs-string" data-reactid="268">&#x27;M&#x27;</span><!-- react-text: 269 -->, <!-- /react-text --><span class="hljs-string" data-reactid="270">&#x27;W&#x27;</span><!-- react-text: 271 -->].includes(val) &amp;&amp; <!-- /react-text --><span class="hljs-string" data-reactid="272">&#x27;需要为 M 或者 W&#x27;</span><!-- react-text: 273 -->)
+   gender = <!-- /react-text --><span class="hljs-string" data-reactid="274">&#x27;M&#x27;</span><!-- react-text: 275 -->
+
+   @validate(<!-- /react-text --><span class="hljs-function" data-reactid="276"><span class="hljs-params" data-reactid="277">a</span><!-- react-text: 278 --> =&gt;<!-- /react-text --></span><!-- react-text: 279 --> !(a &gt; <!-- /react-text --><span class="hljs-number" data-reactid="280">10</span><!-- react-text: 281 -->) &amp;&amp; <!-- /react-text --><span class="hljs-string" data-reactid="282">&#x27;需要大于10&#x27;</span><!-- react-text: 283 -->)
+   age = <!-- /react-text --><span class="hljs-number" data-reactid="284">12</span><!-- react-text: 285 -->
+} 
+
+<!-- /react-text --><span class="hljs-class" data-reactid="286"><span class="hljs-keyword" data-reactid="287">class</span><!-- react-text: 288 --> <!-- /react-text --><span class="hljs-title" data-reactid="289">Man</span><!-- react-text: 290 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="291">extends</span><!-- react-text: 292 --> <!-- /react-text --><span class="hljs-title" data-reactid="293">Person</span><!-- react-text: 294 --> <!-- /react-text --></span><!-- react-text: 295 -->{
+   @validate(<!-- /react-text --><span class="hljs-function" data-reactid="296"><span class="hljs-params" data-reactid="297">val</span><!-- react-text: 298 --> =&gt;<!-- /react-text --></span><!-- react-text: 299 --> ![<!-- /react-text --><span class="hljs-string" data-reactid="300">&#x27;M&#x27;</span><!-- react-text: 301 -->].includes(val) &amp;&amp; <!-- /react-text --><span class="hljs-string" data-reactid="302">&#x27;需要为 M&#x27;</span><!-- react-text: 303 -->)
+   gender = <!-- /react-text --><span class="hljs-string" data-reactid="304">&#x27;M&#x27;</span><!-- react-text: 305 -->
+}<!-- /react-text --></code></pre><p data-reactid="306">其中的原型链模型图如下</p><pre data-reactid="307"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="308"><!-- react-text: 309 -->       person instance     +-------------------+
+          +----------+     |<!-- /react-text --><span class="hljs-string" data-reactid="310">  Person.prototype </span><!-- react-text: 311 -->|
+          |<!-- /react-text --><span class="hljs-string" data-reactid="312">__proto___+------&gt;------------------+
+          </span><!-- react-text: 313 -->|<!-- /react-text --><span class="hljs-string" data-reactid="314">         </span><!-- react-text: 315 -->|<!-- /react-text --><span class="hljs-string" data-reactid="316">+     </span><!-- react-text: 317 -->|<!-- /react-text --><span class="hljs-string" data-reactid="318">   rules           </span><!-- react-text: 319 -->|
+          +----------+     +-------+--+-+------+
+          |<!-- /react-text --><span class="hljs-string" data-reactid="320">          </span><!-- react-text: 321 -->|<!-- /react-text --><span class="hljs-string" data-reactid="322">             ^  ^ ^
+          </span><!-- react-text: 323 -->|<!-- /react-text --><span class="hljs-string" data-reactid="324">          </span><!-- react-text: 325 -->|<!-- /react-text --><span class="hljs-string" data-reactid="326">             </span><!-- react-text: 327 -->|<!-- /react-text --><span class="hljs-string" data-reactid="328">  </span><!-- react-text: 329 -->|<!-- /react-text --><span class="hljs-string" data-reactid="330"> </span><!-- react-text: 331 -->|
+          |<!-- /react-text --><span class="hljs-string" data-reactid="332">          </span><!-- react-text: 333 -->|<!-- /react-text --><span class="hljs-string" data-reactid="334">                </span><!-- react-text: 335 -->|<!-- /react-text --><span class="hljs-string" data-reactid="336"> </span><!-- react-text: 337 -->|
+          +----------+             |<!-- /react-text --><span class="hljs-string" data-reactid="338">  </span><!-- react-text: 339 -->|
+          |<!-- /react-text --><span class="hljs-string" data-reactid="340"> rules    +- -- -- -- --   </span><!-- react-text: 341 -->|<!-- /react-text --><span class="hljs-string" data-reactid="342"> </span><!-- react-text: 343 -->|
+          +----------+                |<!-- /react-text --><span class="hljs-string" data-reactid="344">
+                                      </span><!-- react-text: 345 -->|<!-- /react-text --><span class="hljs-string" data-reactid="346"> </span><!-- react-text: 347 -->|
+                                      |<!-- /react-text --><span class="hljs-string" data-reactid="348"> </span><!-- react-text: 349 -->|
+                       person instance+
+                          +----------+  |<!-- /react-text --><span class="hljs-string" data-reactid="350">
+                          </span><!-- react-text: 351 -->|<!-- /react-text --><span class="hljs-string" data-reactid="352">__proto___</span><!-- react-text: 353 -->|<!-- /react-text --><span class="hljs-string" data-reactid="354">  </span><!-- react-text: 355 -->|
+man instance              |<!-- /react-text --><span class="hljs-string" data-reactid="356">         </span><!-- react-text: 357 -->|<!-- /react-text --><span class="hljs-string" data-reactid="358">+
+        +-----------+     +----------+  </span><!-- react-text: 359 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="360">__proto__  </span><!-- react-text: 361 -->|<!-- /react-text --><span class="hljs-string" data-reactid="362">     </span><!-- react-text: 363 -->|<!-- /react-text --><span class="hljs-string" data-reactid="364">          </span><!-- react-text: 365 -->|<!-- /react-text --><span class="hljs-string" data-reactid="366">  </span><!-- react-text: 367 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="368">           +----&gt;+          </span><!-- react-text: 369 -->|
+        +-----------+     |<!-- /react-text --><span class="hljs-string" data-reactid="370">          </span><!-- react-text: 371 -->|<!-- /react-text --><span class="hljs-string" data-reactid="372">  </span><!-- react-text: 373 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="374">           </span><!-- react-text: 375 -->|<!-- /react-text --><span class="hljs-string" data-reactid="376">     +----------+
+        </span><!-- react-text: 377 -->|<!-- /react-text --><span class="hljs-string" data-reactid="378">           </span><!-- react-text: 379 -->|<!-- /react-text --><span class="hljs-string" data-reactid="380">     </span><!-- react-text: 381 -->|<!-- /react-text --><span class="hljs-string" data-reactid="382"> rules    </span><!-- react-text: 383 -->|<!-- /react-text --><span class="hljs-string" data-reactid="384">  </span><!-- react-text: 385 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="386">           </span><!-- react-text: 387 -->|<!-- /react-text --><span class="hljs-string" data-reactid="388">     +---^------+
+        </span><!-- react-text: 389 -->|<!-- /react-text --><span class="hljs-string" data-reactid="390">           </span><!-- react-text: 391 -->|<!-- /react-text --><span class="hljs-string" data-reactid="392">                   </span><!-- react-text: 393 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="394">           </span><!-- react-text: 395 -->|<!-- /react-text --><span class="hljs-string" data-reactid="396">                   </span><!-- react-text: 397 -->|
+        +-----------+
+        |<!-- /react-text --><span class="hljs-string" data-reactid="398"> rules     </span><!-- react-text: 399 -->|<!-- /react-text --><span class="hljs-string" data-reactid="400"> - - - - - -- - - -+
+        +-----------+</span></code></pre><p data-reactid="401"><!-- react-text: 402 -->可以看到 man instance 和 person instance 共享同一份 rules，同时 <!-- /react-text --><code data-reactid="403">Man</code><!-- react-text: 404 --> 中的 <!-- /react-text --><code data-reactid="405">validate</code><!-- react-text: 406 --> 已经污染了共享的这份 rules，导致 <!-- /react-text --><code data-reactid="407">person instance</code><!-- react-text: 408 --> 校验逻辑<!-- /react-text --></p><p data-reactid="409">所以我们需要把原型模型修改为如下模式：</p><pre data-reactid="410"><code class="hljs language-text" data-query="{}" data-lang="text" data-reactid="411"><!-- react-text: 412 -->       person instance     +-------------------+
+          +----------+     |<!-- /react-text --><span class="hljs-string" data-reactid="413">  Person.prototype </span><!-- react-text: 414 -->|
+          |<!-- /react-text --><span class="hljs-string" data-reactid="415">__proto___+------&gt;------------------+
+          </span><!-- react-text: 416 -->|<!-- /react-text --><span class="hljs-string" data-reactid="417">         </span><!-- react-text: 418 -->|<!-- /react-text --><span class="hljs-string" data-reactid="419">+     </span><!-- react-text: 420 -->|<!-- /react-text --><span class="hljs-string" data-reactid="421">   rules           </span><!-- react-text: 422 -->|
+          +----------+     +-------+-----------+
+          |<!-- /react-text --><span class="hljs-string" data-reactid="423">          </span><!-- react-text: 424 -->|<!-- /react-text --><span class="hljs-string" data-reactid="425">             ^
+          </span><!-- react-text: 426 -->|<!-- /react-text --><span class="hljs-string" data-reactid="427">          </span><!-- react-text: 428 -->|<!-- /react-text --><span class="hljs-string" data-reactid="429">             </span><!-- react-text: 430 -->|
+          |<!-- /react-text --><span class="hljs-string" data-reactid="431">          </span><!-- react-text: 432 -->|
+          +----------+             |<!-- /react-text --><span class="hljs-string" data-reactid="433">
+          </span><!-- react-text: 434 -->|<!-- /react-text --><span class="hljs-string" data-reactid="435"> rules    +- -- -- -- --
+          +----------+
+
+
+                       person instance2
+                         Man.prototype
+                          +----------+
+                          </span><!-- react-text: 436 -->|<!-- /react-text --><span class="hljs-string" data-reactid="437">__proto___</span><!-- react-text: 438 -->|
+man instance              |<!-- /react-text --><span class="hljs-string" data-reactid="439">          </span><!-- react-text: 440 -->|
+        +-----------+     +----------+
+        |<!-- /react-text --><span class="hljs-string" data-reactid="441">__proto__  </span><!-- react-text: 442 -->|<!-- /react-text --><span class="hljs-string" data-reactid="443">     </span><!-- react-text: 444 -->|<!-- /react-text --><span class="hljs-string" data-reactid="445">          </span><!-- react-text: 446 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="447">           +----&gt;+          </span><!-- react-text: 448 -->|
+        +-----------+     |<!-- /react-text --><span class="hljs-string" data-reactid="449">          </span><!-- react-text: 450 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="451">           </span><!-- react-text: 452 -->|<!-- /react-text --><span class="hljs-string" data-reactid="453">     +----------+
+        </span><!-- react-text: 454 -->|<!-- /react-text --><span class="hljs-string" data-reactid="455">           </span><!-- react-text: 456 -->|<!-- /react-text --><span class="hljs-string" data-reactid="457">     </span><!-- react-text: 458 -->|<!-- /react-text --><span class="hljs-string" data-reactid="459"> rules    </span><!-- react-text: 460 -->|
+        |<!-- /react-text --><span class="hljs-string" data-reactid="461">           </span><!-- react-text: 462 -->|<!-- /react-text --><span class="hljs-string" data-reactid="463">     +---+------+
+        </span><!-- react-text: 464 -->|<!-- /react-text --><span class="hljs-string" data-reactid="465">           </span><!-- react-text: 466 -->|<!-- /react-text --><span class="hljs-string" data-reactid="467">         ^
+        </span><!-- react-text: 468 -->|<!-- /react-text --><span class="hljs-string" data-reactid="469">           </span><!-- react-text: 470 -->|<!-- /react-text --><span class="hljs-string" data-reactid="471">         </span><!-- react-text: 472 -->|
+        +-----------+         |<!-- /react-text --><span class="hljs-string" data-reactid="473">
+        </span><!-- react-text: 474 -->|<!-- /react-text --><span class="hljs-string" data-reactid="475"> rules     </span><!-- react-text: 476 -->|<!-- /react-text --><span class="hljs-string" data-reactid="477"> - - - - +
+        +-----------+</span></code></pre><p data-reactid="478"><!-- react-text: 479 -->可以看到 <!-- /react-text --><code data-reactid="480">man instance</code><!-- react-text: 481 --> 和 <!-- /react-text --><code data-reactid="482">person instance</code><!-- react-text: 483 --> 都有一份 <!-- /react-text --><code data-reactid="484">rules</code><!-- react-text: 485 --> 在其原型链上，这样就不会有污染的问题，同时也不会丢失校验规则<!-- /react-text --></p><p data-reactid="486">修改我们的代码：</p><pre data-reactid="487"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="488"><span class="hljs-keyword" data-reactid="489">const</span><!-- react-text: 490 --> getInjectPropName =
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="491">typeof</span><!-- react-text: 492 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="493">Symbol</span><!-- react-text: 494 --> === <!-- /react-text --><span class="hljs-string" data-reactid="495">&#x27;function&#x27;</span><!-- react-text: 496 --> ? <!-- /react-text --><span class="hljs-function" data-reactid="497"><span class="hljs-params" data-reactid="498">name</span><!-- react-text: 499 --> =&gt;<!-- /react-text --></span><!-- react-text: 500 --> <!-- /react-text --><span class="hljs-built_in" data-reactid="501">Symbol</span><!-- react-text: 502 -->.for(<!-- /react-text --><span class="hljs-string" data-reactid="503"><!-- react-text: 504 -->`[[<!-- /react-text --><span class="hljs-subst" data-reactid="505">${name}</span><!-- react-text: 506 -->]]`<!-- /react-text --></span><!-- react-text: 507 -->) : <!-- /react-text --><span class="hljs-function" data-reactid="508"><span class="hljs-params" data-reactid="509">name</span><!-- react-text: 510 --> =&gt;<!-- /react-text --></span><!-- react-text: 511 --> <!-- /react-text --><span class="hljs-string" data-reactid="512"><!-- react-text: 513 -->`[[<!-- /react-text --><span class="hljs-subst" data-reactid="514">${name}</span><!-- react-text: 515 -->]]`<!-- /react-text --></span><!-- react-text: 516 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="517">const</span><!-- react-text: 518 --> addHideProps = <!-- /react-text --><span class="hljs-function" data-reactid="519"><!-- react-text: 520 -->(<!-- /react-text --><span class="hljs-params" data-reactid="521">target, name, value</span><!-- react-text: 522 -->) =&gt;<!-- /react-text --></span><!-- react-text: 523 --> {
+  <!-- /react-text --><span class="hljs-built_in" data-reactid="524">Object</span><!-- react-text: 525 -->.defineProperty(target, name, {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="526">enumerable</span><!-- react-text: 527 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="528">false</span><!-- react-text: 529 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="530">configurable</span><!-- react-text: 531 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="532">true</span><!-- react-text: 533 -->,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="534">writable</span><!-- react-text: 535 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="536">true</span><!-- react-text: 537 -->,
+    value
+  })
+}
+
+<!-- /react-text --><span class="hljs-function" data-reactid="538"><span class="hljs-keyword" data-reactid="539">function</span><!-- react-text: 540 --> <!-- /react-text --><span class="hljs-title" data-reactid="541">validate</span><!-- react-text: 542 -->(<!-- /react-text --><span class="hljs-params" data-reactid="543">rule</span><!-- react-text: 544 -->) <!-- /react-text --></span><!-- react-text: 545 -->{
+  <!-- /react-text --><span class="hljs-keyword" data-reactid="546">return</span><!-- react-text: 547 --> <!-- /react-text --><span class="hljs-function" data-reactid="548"><!-- react-text: 549 -->(<!-- /react-text --><span class="hljs-params" data-reactid="550">target, keyName, descriptor</span><!-- react-text: 551 -->) =&gt;<!-- /react-text --></span><!-- react-text: 552 --> {
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="553">const</span><!-- react-text: 554 --> name = getInjectPropName(<!-- /react-text --><span class="hljs-string" data-reactid="555">&#x27;check&#x27;</span><!-- react-text: 556 -->);
+     <!-- /react-text --><span class="hljs-comment" data-reactid="557">// 没有注入过 rules</span><!-- react-text: 558 -->
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="559">if</span><!-- react-text: 560 --> (!target[name]) {
+        addHideProps(target, name, {});
+     } <!-- /react-text --><span class="hljs-keyword" data-reactid="561">else</span><!-- react-text: 562 --> {
+        <!-- /react-text --><span class="hljs-comment" data-reactid="563">// 已经注入，但是是注入在 target.__proto__ 中</span><!-- react-text: 564 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="565">// 也就是继承模式</span><!-- react-text: 566 -->
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="567">if</span><!-- react-text: 568 --> (!target.hasOwnProperty(name)) {
+           <!-- /react-text --><span class="hljs-comment" data-reactid="569">// 浅拷贝一份至 own</span><!-- react-text: 570 -->
+           addHideProps(target, name, {...target[name]})
+        }
+     }
+
+     target[name][keyName] = rule;
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="571">return</span><!-- react-text: 572 --> descriptor;
+  }
+}<!-- /react-text --></code></pre><p data-reactid="573">如上，才算是我们完备的代码！而且 mobx 也是有相同场景的考虑的。</p><h2 id="总结" data-reactid="574"><a href="#%E6%80%BB%E7%BB%93" aria-hidden="true" data-reactid="575"><span class="icon icon-link" data-reactid="576"></span></a><!-- react-text: 577 -->总结<!-- /react-text --></h2><p data-reactid="578"><!-- react-text: 579 -->总结是把以上模式沉淀为 <!-- /react-text --><a href="https://github.com/imcuttle/decorate-utils" data-reactid="580">decorate-utils</a><!-- react-text: 581 --> 方便我们自定义自己的修饰器<!-- /react-text --></p></article></div><div class="gitment-container" data-reactid="582"></div><div class="paginator" data-reactid="583"><a title="孤云独去闲" class="prev" href="/孤云独去闲" data-reactid="584">Prev</a><a title="统计有效词数算法的几点思考" class="next" href="/统计有效词数算法的几点思考" data-reactid="585">Next</a></div></div></main><footer data-reactid="586"><div class="copyright" data-reactid="587"><p data-reactid="588"><!-- react-text: 589 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="590">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

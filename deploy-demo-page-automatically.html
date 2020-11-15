@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title> 组件库Demo页发布自动化 - Grass </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="wrap" data-reactroot="" data-reactid="1" data-react-checksum="1905792183"><header data-reactid="2"><a class="logo-link" href="/" data-reactid="3"><img src="/favicon.png" data-reactid="4"/></a><ul class="nav nav-list" data-reactid="5"><li class="nav-list-item" data-reactid="6"><a class="nav-list-link" href="/posts/1" data-reactid="7">Posts</a></li></ul></header><main data-reactid="8"><div class="post" data-reactid="9"><article class="post-block" data-reactid="10"><h1 class="post-title" data-reactid="11">组件库Demo页发布自动化</h1><div class="post-info" data-reactid="12"><time datetime="2017-08-19T10:25:57+00:00" data-reactid="13">Aug 19, 2017 10:25 AM</time></div></article><div class="post-content" data-reactid="14"><article data-reactid="15"><style data-reactid="16">.transformer-react-render{border:1px dashed #959da5;border-radius:5px;display:block}.transformer-react-render-container&gt;pre{max-height:400px;transition:all .2s ease}.transformer-react-render-container&gt;pre.focused{max-height:none;box-shadow:0 0 6px rgba(0,0,0,.2)}</style><h2 id="必要性" data-reactid="17"><a href="#%E5%BF%85%E8%A6%81%E6%80%A7" aria-hidden="true" data-reactid="18"><span class="icon icon-link" data-reactid="19"></span></a><!-- react-text: 20 -->必要性<!-- /react-text --></h2><h3 id="自动化是个好东西" data-reactid="21"><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B8%9C%E8%A5%BF" aria-hidden="true" data-reactid="22"><span class="icon icon-link" data-reactid="23"></span></a><!-- react-text: 24 -->自动化是个好东西<!-- /react-text --></h3><p data-reactid="25">自动化可以帮我们简化一些枯燥（重复）的工作，提高工作效率。</p><h3 id="demo是个好东西" data-reactid="26"><a href="#demo%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B8%9C%E8%A5%BF" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->Demo是个好东西<!-- /react-text --></h3><p data-reactid="30">Demo可以帮助我们更快捷地了解某组件的用法。</p><h2 id="自动化流程" data-reactid="31"><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E7%A8%8B" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->自动化流程<!-- /react-text --></h2><ol data-reactid="35"><li data-reactid="36">Dev Local: git push origin release/demo</li><li data-reactid="37">Git Remote: origin(remote git server) received the commit</li><li data-reactid="38"><!-- react-text: 39 -->Git Remote: trigger <!-- /react-text --><em data-reactid="40">push</em><!-- react-text: 41 --> web hook<!-- /react-text --></li></ol><h3 id="what-should-push-web-hook-to-do" data-reactid="42"><a href="#what-should-push-web-hook-to-do" aria-hidden="true" data-reactid="43"><span class="icon icon-link" data-reactid="44"></span></a><!-- react-text: 45 -->What should <!-- /react-text --><em data-reactid="46">push</em><!-- react-text: 47 --> web hook to do?<!-- /react-text --></h3><p data-reactid="48">Release Server:</p><ol data-reactid="49"><li data-reactid="50"><!-- react-text: 51 -->check whether the push event is from branch named <!-- /react-text --><code data-reactid="52">release/demo</code></li><li data-reactid="53">(sudo) git pull -f origin theme/react-mobx-v2</li><li data-reactid="54">some initial works</li><li data-reactid="55">webpack build</li><li data-reactid="56">response &#x27;ok&#x27; or &#x27;fail&#x27;</li></ol><p data-reactid="57"><strong data-reactid="58">Need to be considered</strong></p><ul data-reactid="59"><li data-reactid="60">concurrent (Lock Symbol)</li><li data-reactid="61">Content-Type: &#x27;text/event-stream&#x27;</li></ul><h2 id="使用说明书" data-reactid="62"><a href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6" aria-hidden="true" data-reactid="63"><span class="icon icon-link" data-reactid="64"></span></a><!-- react-text: 65 -->使用说明书<!-- /react-text --></h2><ol data-reactid="66"><li data-reactid="67"><!-- react-text: 68 -->已经在 react-mobx-v2 种子工程中加入 <!-- /react-text --><code data-reactid="69">deploy</code><!-- react-text: 70 --> 指令<!-- /react-text --></li><li data-reactid="71"><!-- react-text: 72 -->当需要发布demo page时，执行 <!-- /react-text --><code data-reactid="73">matriks2 deploy</code><!-- react-text: 74 --> 即可<!-- /react-text --></li></ol><ul data-reactid="75"><li data-reactid="76"><p data-reactid="77">相关repo</p><ol data-reactid="78"><li data-reactid="79"><a href="http://gitlab.baidu.com/yucong02/release-scripts/" data-reactid="80">WebHooks Server</a></li><li data-reactid="81"><a href="http://gitlab.baidu.com/be-fe/matriks2-seed/" data-reactid="82">种子工程</a></li></ol></li></ul></article></div><div class="gitment-container" data-reactid="83"></div><div class="paginator" data-reactid="84"><a title="导入markdown至树状文档" class="prev" href="/doc-import-from-markdown" data-reactid="85">Prev</a><a title="go-js 介绍" class="next" href="/guide-of-gojs" data-reactid="86">Next</a></div></div></main><footer data-reactid="87"><div class="copyright" data-reactid="88"><p data-reactid="89"><!-- react-text: 90 -->© 2017. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="91">Picidae</a></p></div></footer></div>
+</div>
+<audio id="music" controls autoplay src="http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n3/25/67/3891786006.mp3"></audio>
+<script>
+  !function () {
+    var a = document.getElementById("music")
+    a && (a.volume = 1)
+  }()
+</script>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>
